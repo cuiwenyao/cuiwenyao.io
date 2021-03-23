@@ -121,4 +121,84 @@
         <tag>markdown</tag>
       </tags>
   </entry>
+  <entry>
+    <title>git的使用</title>
+    <url>/2021/03/23/git%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="git的使用"><a href="#git的使用" class="headerlink" title="git的使用"></a>git的使用</h1><h2 id="创建git库"><a href="#创建git库" class="headerlink" title="创建git库"></a>创建git库</h2><h4 id="初始化git"><a href="#初始化git" class="headerlink" title="初始化git"></a>初始化git</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir gittest</span><br><span class="line">cd gittest</span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
+<h4 id="将要添加的文件加入git管理"><a href="#将要添加的文件加入git管理" class="headerlink" title="将要添加的文件加入git管理"></a>将要添加的文件加入git管理</h4><p>  <strong>add 从工作区到暂存区</strong> </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add [filename]</span><br></pre></td></tr></table></figure>
+<p>或者将目录下所有文件都加入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+<h4 id="自定义所要添加的文件"><a href="#自定义所要添加的文件" class="headerlink" title="自定义所要添加的文件"></a>自定义所要添加的文件</h4><p>总是手动add每一个太麻烦了，但总有些不希望添加进去的，可以这样。</p>
+<ul>
+<li>创建一个文件名为的文件<blockquote>
+<p>.gitignore</p>
+</blockquote>
+</li>
+<li>文件内容为<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file</span><br><span class="line">.*</span><br><span class="line">!.gitignore</span><br><span class="line">!file1</span><br></pre></td></tr></table></figure></li>
+<li>这表示名为file的文件要加进去</li>
+<li>所有文件都要加进去</li>
+<li>忽略 .gitignore</li>
+<li>忽略 file1</li>
+</ul>
+<h4 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h4><p><strong>commit 将暂存区提交到仓库</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git commit -m [提交描述]</span><br></pre></td></tr></table></figure>
+<p> <strong>每次commit之前都要add所要进行管理的文件</strong> </p>
+<h4 id="查看仓库状态"><a href="#查看仓库状态" class="headerlink" title="查看仓库状态"></a>查看仓库状态</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git status</span><br><span class="line">简略版</span><br><span class="line">git status -s</span><br></pre></td></tr></table></figure>
+<h4 id="查看文件更改情况"><a href="#查看文件更改情况" class="headerlink" title="查看文件更改情况"></a>查看文件更改情况</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git diff [filename]</span><br></pre></td></tr></table></figure>
+
+<h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><p><strong>在commit之后后悔了</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log </span><br><span class="line">git log --oneline &#x2F;&#x2F;简略版</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用git log 查看之前提交的记录，记下回退的版本号commit id 输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset --hard [commit id]</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>注意只有在head指向的版本之前的,</strong> 切换版本到当前版本之后的 输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+<h4 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h4></li>
+<li><p>丢弃对工作区的修改 add之前</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout -- [filename]</span><br></pre></td></tr></table></figure></li>
+<li><p><em>checkout就是用版本库里的版本替换工作区的版本</em>*</p>
+</li>
+<li><p>丢弃对暂存区的修改 add之后 commit之前</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset HEAD [filename]</span><br></pre></td></tr></table></figure>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h4 id="创建ssh-key"><a href="#创建ssh-key" class="headerlink" title="创建ssh key"></a>创建ssh key</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;myemail@163.com&quot;</span><br></pre></td></tr></table></figure>
+<p>在用户目录里找到id_rsa.pub,将里面的数据复制到GitHub中,这样就可以从本地电脑推送到GitHub中了.</p>
+<h4 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add repo1 git@github.com:yishuilingbo&#x2F;gittest.git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="查看本地所有仓库"><a href="#查看本地所有仓库" class="headerlink" title="查看本地所有仓库"></a>查看本地所有仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<h4 id="推送到远程库"><a href="#推送到远程库" class="headerlink" title="推送到远程库"></a>推送到远程库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push -u [库名] [分支名]</span><br></pre></td></tr></table></figure></li>
+<li><p>加上了-u参数，Git不但会把本地的分支内容推送的远程新的分支，还会把本地的分支和远程的分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<h4 id="删除远程库"><a href="#删除远程库" class="headerlink" title="删除远程库"></a>删除远程库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote rm [库名]</span><br></pre></td></tr></table></figure>
+<h4 id="克隆库"><a href="#克隆库" class="headerlink" title="克隆库"></a>克隆库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:yishuilingbo&#x2F;gittest.git</span><br><span class="line">cd [库名]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h4 id="建立新的分支"><a href="#建立新的分支" class="headerlink" title="建立新的分支"></a>建立新的分支</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch [branchname]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+<h4 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git switch branch [branchname]</span><br></pre></td></tr></table></figure>
+<h4 id="合并分支到当前分支"><a href="#合并分支到当前分支" class="headerlink" title="合并分支到当前分支"></a>合并分支到当前分支</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git merge [目标分支名]</span><br></pre></td></tr></table></figure>
+<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch -d [branchname]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>nonetag</tag>
+      </tags>
+  </entry>
 </search>
