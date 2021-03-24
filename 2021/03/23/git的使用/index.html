@@ -65,7 +65,7 @@
   <time datetime="2021-03-23T13:04:12.000Z" itemprop="datePublished">2021-03-23</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/uncategorized/">uncategorized</a>
+    <a class="article-category-link" href="/categories/git/">git</a>
   </div>
   
 <div class="word_count">
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">656</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -147,12 +147,50 @@
 <h4 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
 <h4 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git switch branch [branchname]</span><br></pre></td></tr></table></figure>
 <h4 id="创建并切换分支"><a href="#创建并切换分支" class="headerlink" title="创建并切换分支"></a>创建并切换分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git switch -c [branchname]</span><br></pre></td></tr></table></figure>
-<h4 id="合并分支到当前分支"><a href="#合并分支到当前分支" class="headerlink" title="合并分支到当前分支"></a>合并分支到当前分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge [目标分支名]</span><br></pre></td></tr></table></figure>
+<h4 id="合并分支到当前分支"><a href="#合并分支到当前分支" class="headerlink" title="合并分支到当前分支"></a>合并分支到当前分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge [来源分支名]</span><br></pre></td></tr></table></figure>
 <h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d [branchname]</span><br></pre></td></tr></table></figure>
-<h4 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a>合并冲突</h4><ul>
+<ul>
+<li>若该分支没有被合并过，以下强制删除<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D [branchname]</span><br></pre></td></tr></table></figure>
+<h4 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a>合并冲突</h4></li>
 <li>当两个不同的分支对同一对象进行修改并提交之后会发生 merge conflict<br>此时需要查看冲突文件手动解决冲突。<h4 id="查看分支合并图"><a href="#查看分支合并图" class="headerlink" title="查看分支合并图"></a>查看分支合并图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph</span><br></pre></td></tr></table></figure>
-简洁版<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph --pretty&#x3D;oneline --abbrev-commit</span><br></pre></td></tr></table></figure></li>
+简洁版<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph --pretty&#x3D;oneline --abbrev-commit</span><br></pre></td></tr></table></figure>
+<h4 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h4>通常合并分支的时候，git会采用<strong>fast forward</strong>模式。这种模式下，git只是把分支指针向前移动，此时，删除掉分支之后将会丢失分支信息。若要强制禁止<strong>fast forward</strong>,git就会在merge的时候生成一个新的commit,这样即使删除该分支，也可以从log上查看历史信息。</li>
+<li>强制禁止<strong>fast forward</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge --no-ff -m [commit 描述] [来源分支名]</span><br></pre></td></tr></table></figure>
+<h4 id="修复main分支上的bug流程"><a href="#修复main分支上的bug流程" class="headerlink" title="修复main分支上的bug流程"></a>修复main分支上的bug流程</h4></li>
 </ul>
+<ol>
+<li>当前在dev分支，先保存工作现场<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure></li>
+<li>切换到main分支，并建立新的分支bugfix</li>
+<li>在新的分支上修改bug,然后提交后合并到main   产生一个commit id fixbug</li>
+<li>回到dev分支，回复现场<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git stash pop  &#x2F;&#x2F;这将删除这条stash</span><br><span class="line">或者</span><br><span class="line">git stash list &#x2F;&#x2F;查看stash list</span><br><span class="line">git stash apply stash@&#123;0&#125;</span><br></pre></td></tr></table></figure></li>
+<li>将修复的信息复制到当前dev分支<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick [commit id]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="多人合作冲突"><a href="#多人合作冲突" class="headerlink" title="多人合作冲突"></a>多人合作冲突</h4><ol>
+<li>pull 下来之后手动解决冲突在再合并push</li>
+</ol>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><h4 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h4><ol>
+<li>切换到要创建标签的分支上<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag [标签名]</span><br></pre></td></tr></table></figure>
+默认标签打在最新的commit上面</li>
+<li>对历史commit打标签<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git log --pretty&#x3D;oneline --abbrev-commit  &#x2F;&#x2F;列出历史commit</span><br><span class="line">git tag [tag] [commit id]</span><br></pre></td></tr></table></figure></li>
+<li>指定标签信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a [tag] -m [info] [commit id]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>标签总是和对应的commit挂钩</strong></p>
+<h4 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d [tag]</span><br></pre></td></tr></table></figure>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>标签只存储到本地，不会自动推送到远程，可以这样推送到远程</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push [库名] [tag]</span><br><span class="line">git push [库名] --tags  <span class="comment">//一次性推送所有标签</span></span><br></pre></td></tr></table></figure>
+<h4 id="删除远程标签"><a href="#删除远程标签" class="headerlink" title="删除远程标签"></a>删除远程标签</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push [库名] :ref/tags/[tag]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
  
       <!-- reward -->
       
@@ -222,7 +260,7 @@
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nonetag/" rel="tag">nonetag</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
 
     </footer>
   </div>

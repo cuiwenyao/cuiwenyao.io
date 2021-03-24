@@ -6,7 +6,7 @@
   <link href="http://cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://cuimouren.cn/"/>
-  <updated>2021-03-23T15:30:38.577Z</updated>
+  <updated>2021-03-24T01:42:22.092Z</updated>
   <id>http://cuimouren.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://cuimouren.cn/2021/03/23/git%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <id>http://cuimouren.cn/2021/03/23/git%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
     <published>2021-03-23T13:04:12.000Z</published>
-    <updated>2021-03-23T15:30:38.577Z</updated>
+    <updated>2021-03-24T01:42:22.092Z</updated>
     
     
       
@@ -34,10 +34,10 @@
     
     
     
-    <category term="uncategorized" scheme="http://cuimouren.cn/categories/uncategorized/"/>
+    <category term="git" scheme="http://cuimouren.cn/categories/git/"/>
     
     
-    <category term="nonetag" scheme="http://cuimouren.cn/tags/nonetag/"/>
+    <category term="git" scheme="http://cuimouren.cn/tags/git/"/>
     
   </entry>
   
