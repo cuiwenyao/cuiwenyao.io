@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">1.3k</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -179,18 +179,20 @@
 <h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>标签只存储到本地，不会自动推送到远程，可以这样推送到远程</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push [库名] [tag]</span><br><span class="line">git push [库名] --tags  <span class="comment">//一次性推送所有标签</span></span><br></pre></td></tr></table></figure>
 <h4 id="删除远程标签"><a href="#删除远程标签" class="headerlink" title="删除远程标签"></a>删除远程标签</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push [库名] :ref/tags/[tag]</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
+<h2 id="git报错"><a href="#git报错" class="headerlink" title="git报错"></a>git报错</h2><h4 id="refusing-to-merge-unrelated-histories"><a href="#refusing-to-merge-unrelated-histories" class="headerlink" title="refusing to merge unrelated histories"></a>refusing to merge unrelated histories</h4><h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><ul>
+<li>首先再github上创建一个仓库</li>
+<li>在本地初始化一个仓库。</li>
+<li>添加远程仓库</li>
+<li>git push -u ge main</li>
+<li>报错为<blockquote>
+<p>$ git push -u ge main<br>To github.com:yishuilingbo/XYY-Game-Engine.git<br>! [rejected]        main -&gt; main (non-fast-forward)<br>error: failed to push some refs to ‘github.com:yishuilingbo/XYY-Game-Engine.git’<br>hint: Updates were rejected because the tip of your current branch is behind<br>hint: its remote counterpart. Integrate the remote changes (e.g.<br>hint: ‘git pull …’) before pushing again.</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><ul>
+<li>本地仓库和远程仓库实际上是独立的两个仓库。假如之前是直接clone的方式在本地建立起远程github仓库的克隆本地仓库就不会有这问题了。<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$git pull [库名] [分支名] --allow-unrelated-histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="接着解决冲突然后-push即可"><a href="#接着解决冲突然后-push即可" class="headerlink" title="接着解决冲突然后 push即可"></a>接着解决冲突然后 push即可</h4></li>
+</ul>
  
       <!-- reward -->
       
