@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.3k</span>
+            <span class="post-count">1.5k</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5 分钟</span>
+            <span class="post-count">6 分钟</span>
         </span>
     </span>
 </div>
@@ -193,6 +193,18 @@
 <li>本地仓库和远程仓库实际上是独立的两个仓库。假如之前是直接clone的方式在本地建立起远程github仓库的克隆本地仓库就不会有这问题了。<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$git pull [库名] [分支名] --allow-unrelated-histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h4 id="接着解决冲突然后-push即可"><a href="#接着解决冲突然后-push即可" class="headerlink" title="接着解决冲突然后 push即可"></a>接着解决冲突然后 push即可</h4></li>
 </ul>
+<h2 id="多仓库-multiple-ssh-keys-on-one-computer"><a href="#多仓库-multiple-ssh-keys-on-one-computer" class="headerlink" title="多仓库 multiple ssh keys on one computer"></a>多仓库 multiple ssh keys on one computer</h2><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li>生成ssh key ,并给生成的文件使用绝对路径特定地命名。</li>
+<li>在 .ssh 目录下新建config文件，内容为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#gittest</span><br><span class="line">Host gittest.github.com</span><br><span class="line">	HostName github.com</span><br><span class="line">	User git</span><br><span class="line">	IdentityFile ~&#x2F;.ssh&#x2F;id_rsa_gittest</span><br><span class="line">	IdentitiesOnly yes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#coebase</span><br><span class="line">Host codebase.github.com</span><br><span class="line">	HostName github.com</span><br><span class="line">	User git</span><br><span class="line">	IdentityFile ~&#x2F;.ssh&#x2F;id_rsa_codebase</span><br><span class="line">	IdentitiesOnly yes</span><br><span class="line"></span><br><span class="line">#coebases</span><br><span class="line">Host blog.github.com</span><br><span class="line">	HostName github.com</span><br><span class="line">	User git</span><br><span class="line">	IdentityFile ~&#x2F;.ssh&#x2F;id_rsa_codebase</span><br><span class="line">	IdentitiesOnly yes</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>修改本地仓库地config中的url<br>eg:<br>gittest地config本来为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">	url &#x3D; git@github.com:yishuilingbo&#x2F;gittest.git</span><br><span class="line">	fetch &#x3D; +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*</span><br></pre></td></tr></table></figure>
+修改为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">	url &#x3D; git@gittest.github.com:yishuilingbo&#x2F;gittest.git</span><br><span class="line">	fetch &#x3D; +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*</span><br></pre></td></tr></table></figure>
+即添加上gittest.</li>
+<li>在GitHub上的仓库中添加刚刚生成的deploy key</li>
+</ol>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><ul>
+<li>即对于不同的仓库使用不同的key,并且使用别名来区分不同的仓库。<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4></li>
+<li><a target="_blank" rel="noopener" href="https://gist.github.com/jexchan/2351996">https://gist.github.com/jexchan/2351996</a></li>
+</ul>
  
       <!-- reward -->
       
@@ -269,6 +281,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2021/03/30/test/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            test
+          
+        </div>
+      </a>
     
     
       <a href="/2021/03/22/markdown%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-nav-link">
