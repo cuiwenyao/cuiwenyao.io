@@ -309,4 +309,15 @@
         <tag>vps, mail, myself</tag>
       </tags>
   </entry>
+  <entry>
+    <title>linux base</title>
+    <url>/2021/04/19/linux-base/</url>
+    <content><![CDATA[<h1 id="linux-base"><a href="#linux-base" class="headerlink" title="linux base"></a>linux base</h1><h4 id="centos6-定时重启"><a href="#centos6-定时重启" class="headerlink" title="centos6 定时重启"></a>centos6 定时重启</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;crontab</span><br><span class="line">按照提示添加 </span><br><span class="line">00 06 * * * root reboot</span><br><span class="line">载入内存</span><br><span class="line">crontab &#x2F;etc&#x2F;crontab</span><br><span class="line">启动服务并设置开机自启动</span><br><span class="line">systemctl enable crond.service</span><br><span class="line">systemctl restart crond.service</span><br><span class="line">查看定时配置</span><br><span class="line">crontab -l</span><br><span class="line">查看系统启动记录</span><br><span class="line">last reboot</span><br><span class="line">who -b</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>

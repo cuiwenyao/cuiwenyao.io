@@ -6,7 +6,7 @@
   <link href="http://cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://cuimouren.cn/"/>
-  <updated>2021-04-16T09:11:37.465Z</updated>
+  <updated>2021-04-19T15:19:39.158Z</updated>
   <id>http://cuimouren.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux base</title>
+    <link href="http://cuimouren.cn/2021/04/19/linux-base/"/>
+    <id>http://cuimouren.cn/2021/04/19/linux-base/</id>
+    <published>2021-04-19T15:14:50.000Z</published>
+    <updated>2021-04-19T15:19:39.158Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;linux-base&quot;&gt;&lt;a href=&quot;#linux-base&quot; class=&quot;headerlink&quot; title=&quot;linux base&quot;&gt;&lt;/a&gt;linux base&lt;/h1&gt;&lt;h4 id=&quot;centos6-定时重启&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="http://cuimouren.cn/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="http://cuimouren.cn/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>build a mail server for myself</title>
