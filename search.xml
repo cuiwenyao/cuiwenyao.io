@@ -312,12 +312,76 @@
   <entry>
     <title>linux base</title>
     <url>/2021/04/19/linux-base/</url>
-    <content><![CDATA[<h1 id="linux-base"><a href="#linux-base" class="headerlink" title="linux base"></a>linux base</h1><h4 id="centos6-定时重启"><a href="#centos6-定时重启" class="headerlink" title="centos6 定时重启"></a>centos6 定时重启</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;crontab</span><br><span class="line">按照提示添加 </span><br><span class="line">00 06 * * * root reboot</span><br><span class="line">载入内存</span><br><span class="line">crontab &#x2F;etc&#x2F;crontab</span><br><span class="line">启动服务并设置开机自启动</span><br><span class="line">systemctl enable crond.service</span><br><span class="line">systemctl restart crond.service</span><br><span class="line">查看定时配置</span><br><span class="line">crontab -l</span><br><span class="line">查看系统启动记录</span><br><span class="line">last reboot</span><br><span class="line">who -b</span><br></pre></td></tr></table></figure>]]></content>
+    <content><![CDATA[<h1 id="linux-base"><a href="#linux-base" class="headerlink" title="linux base"></a>linux base</h1><h4 id="centos6-定时重启"><a href="#centos6-定时重启" class="headerlink" title="centos6 定时重启"></a>centos6 定时重启</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;crontab</span><br><span class="line">按照提示添加 </span><br><span class="line">00 06 * * * root reboot</span><br><span class="line">载入内存</span><br><span class="line">crontab &#x2F;etc&#x2F;crontab</span><br><span class="line">启动服务并设置开机自启动</span><br><span class="line">systemctl enable crond.service</span><br><span class="line">systemctl restart crond.service</span><br><span class="line">查看定时配置</span><br><span class="line">crontab -l</span><br><span class="line">查看系统启动记录</span><br><span class="line">last reboot</span><br><span class="line">who -b</span><br></pre></td></tr></table></figure>
+<h4 id="ubuntu-设置root-ssh-登录"><a href="#ubuntu-设置root-ssh-登录" class="headerlink" title="ubuntu 设置root ssh 登录"></a>ubuntu 设置root ssh 登录</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">重置 root 的密码</span><br><span class="line">sudo passwd root</span><br><span class="line">su</span><br><span class="line">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config </span><br><span class="line">将 PermitRootLogin 参数修改为 yes。</span><br><span class="line">将 PasswordAuthentication 参数修改为 yes。</span><br><span class="line">若 sshd_config 配置文件中无此配置项，则添加 PasswordAuthentication yes 项即可。</span><br><span class="line">service ssh restart</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>linux</category>
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>proxy trojan</title>
+    <url>/2021/04/21/proxy-trojan/</url>
+    <content><![CDATA[<h1 id="proxy-trojan"><a href="#proxy-trojan" class="headerlink" title="proxy trojan"></a>proxy trojan</h1><h4 id="trojan-server-服务端"><a href="#trojan-server-服务端" class="headerlink" title="trojan server 服务端"></a>trojan server 服务端</h4><ul>
+<li>傻瓜式一键部署，（等我Linux学有所成了再自己一步一步地配置）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;atrandys&#x2F;trojan&#x2F;master&#x2F;trojan_mult.sh &amp;&amp; chmod +x trojan_mult.sh &amp;&amp; .&#x2F;trojan_mult.sh</span><br></pre></td></tr></table></figure></li>
+<li>按照提示进行部署。需要手动输入域名和密码。</li>
+<li>结果会输出一个如下的配置，config。保存这个配置(config.json)，待会要用。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;run_type&quot;: &quot;client&quot;,</span><br><span class="line">    &quot;local_addr&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;: 1080,</span><br><span class="line">    &quot;remote_addr&quot;: &quot;domain&quot;,</span><br><span class="line">    &quot;remote_port&quot;: 443,</span><br><span class="line">    &quot;password&quot;: [</span><br><span class="line">        &quot;password&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;log_level&quot;: 1,</span><br><span class="line">    &quot;ssl&quot;: &#123;</span><br><span class="line">        &quot;verify&quot;: true,</span><br><span class="line">        &quot;verify_hostname&quot;: true,</span><br><span class="line">        &quot;cert&quot;: &quot;&quot;,</span><br><span class="line">        &quot;cipher_tls13&quot;:&quot;TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384&quot;,</span><br><span class="line">        &quot;sni&quot;: &quot;&quot;,</span><br><span class="line">        &quot;alpn&quot;: [</span><br><span class="line">            &quot;h2&quot;,</span><br><span class="line">            &quot;http&#x2F;1.1&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;reuse_session&quot;: true,</span><br><span class="line">        &quot;session_ticket&quot;: false,</span><br><span class="line">        &quot;curves&quot;: &quot;&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;tcp&quot;: &#123;</span><br><span class="line">        &quot;no_delay&quot;: true,</span><br><span class="line">        &quot;keep_alive&quot;: true,</span><br><span class="line">        &quot;fast_open&quot;: false,</span><br><span class="line">        &quot;fast_open_qlen&quot;: 20</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="trojan-client-客户端"><a href="#trojan-client-客户端" class="headerlink" title="trojan client 客户端"></a>trojan client 客户端</h4><h6 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h6></li>
+<li>windows 下推荐使用clash。</li>
+<li>github 上下载 clash for windows,安装。</li>
+<li>clash 配置示例如下。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">port: 7890</span><br><span class="line">socks-port: 7891</span><br><span class="line">redir-port: 7892</span><br><span class="line">allow-lan: false</span><br><span class="line">mode: rule</span><br><span class="line">log-level: info</span><br><span class="line">external-controller: 127.0.0.1:9090</span><br><span class="line">proxies:</span><br><span class="line">  - type: trojan</span><br><span class="line">    name: 0.trojan</span><br><span class="line">    server: server&#39;ip</span><br><span class="line">    port: 443</span><br><span class="line">    password: 密码</span><br><span class="line">    sni: download.windowsupdate.com</span><br><span class="line">    skip-cert-verify: true</span><br><span class="line"></span><br><span class="line">    url: http:&#x2F;&#x2F;www.gstatic.com&#x2F;generate_204</span><br><span class="line">    interval: 300</span><br></pre></td></tr></table></figure>
+<h6 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h6></li>
+<li>以Ubuntu为例</li>
+<li>下载Trojan<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;src</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;trojan-gfw&#x2F;trojan&#x2F;releases&#x2F;download&#x2F;v1.16.0&#x2F;trojan-1.16.0-linux-amd64.tar.xz</span><br><span class="line">tar xvf trojan-1.16.0-linux-amd64.tar.xz</span><br><span class="line">cd &#x2F;usr&#x2F;src&#x2F;trojan</span><br><span class="line">vi config.json</span><br></pre></td></tr></table></figure></li>
+<li>将上面server生成的config复制到这里。即可。</li>
+<li>为Trojan注册服务。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &gt; &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;trojan.service &lt;&lt;-EOF</span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;trojan</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">PIDFile&#x3D;&#x2F;usr&#x2F;src&#x2F;trojan&#x2F;trojan.pid</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;src&#x2F;trojan&#x2F;trojan -c &#x2F;usr&#x2F;src&#x2F;trojan&#x2F;config.json -l &#x2F;usr&#x2F;src&#x2F;trojan&#x2F;trojan.log</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -HUP \$MAINPID</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">RestartSec&#x3D;1s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></li>
+<li>启动Trojan<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start trojan</span><br></pre></td></tr></table></figure></li>
+<li>检查是否启动成功<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps aux | grep trojan | grep -v grep</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>看到有类似 /usr/src/trojan/trojan 的内容展示，即表示trojan正在运行<br>如果未启动成功，通过这个命令查看日志： cat /usr/src/trojan/trojan.log<br>还可以执行 curl ip.sb –socks5 127.0.0.1:1080, 查看结果是否为Trojan代理的IP</p>
+</blockquote>
+</li>
+<li>设置开机启动<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable trojan</span><br></pre></td></tr></table></figure></li>
+<li>命令行使用Trojan代理，免去使用镜像却又找不到之苦。<blockquote>
+<p>安装配置proxychains，全局翻墙通过proxychains实现，即将任何程序和Trojan的proxy建立链接，原理和浏览器的代理相似。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install proxychains</span><br><span class="line">vi &#x2F;etc&#x2F;proxychains.conf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在最后的ProxyList里注释默认的socks代理： socks4 前增加#表示注释<br>在最后的ProxyList里加入Trojan的代理设置： socks5 127.0.0.1 1080<br>测试本地IP: curl -4 ip.sb，将显示自己的IP<br>测试代理IP: proxychains curl -4 ip.sb，将显示Trojan代理的IP<br>后续使用的命令行需要代理时，只需要在前面加上 proxychains 即可<br>如 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">proxychains wget https:&#x2F;&#x2F;github.com&#x2F;cdr&#x2F;code-server&#x2F;releases&#x2F;download&#x2F;v3.9.3&#x2F;code-server-3.9.3-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>hahahaha,，没错，我要开始配置code-server了。见下一讲 code-server.</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>proxy, trojan, linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于 CentOS 搭建 Discuz 论坛</title>
+    <url>/2021/04/19/%E5%9F%BA%E4%BA%8E-CentOS-%E6%90%AD%E5%BB%BA-Discuz-%E8%AE%BA%E5%9D%9B/</url>
+    <content><![CDATA[<h1 id="基于-CentOS-搭建-Discuz-论坛"><a href="#基于-CentOS-搭建-Discuz-论坛" class="headerlink" title="基于 CentOS 搭建 Discuz 论坛"></a>基于 CentOS 搭建 Discuz 论坛</h1><h4 id="准备LAMP环境"><a href="#准备LAMP环境" class="headerlink" title="准备LAMP环境"></a>准备LAMP环境</h4><ul>
+<li>LAMP 是 Linux、Apache、MySQL 和 PHP 的缩写，是 Discuz 论坛系统依赖的基础运行环境。</li>
+<li>MySQL<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install mysql-server </span><br><span class="line">service mysqld restart</span><br><span class="line">设置MySQL的账户和密码</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;mysqladmin -u root password &#39;mypassword&#39; </span><br><span class="line">设置开机自启动</span><br><span class="line">chkconfig mysqld on</span><br></pre></td></tr></table></figure></li>
+<li>apache<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install httpd</span><br><span class="line">service httpd restart</span><br><span class="line">chkconfig httpd on</span><br></pre></td></tr></table></figure></li>
+<li>php<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install php php-fpm -php-mysql -y</span><br><span class="line">service php-fpm restart</span><br><span class="line">查看php-fpm 进程监听的窗口</span><br><span class="line">netstat -nlpt |grep php-fpm</span><br><span class="line">chkconfig php-fpm on</span><br></pre></td></tr></table></figure></li>
+<li>discuz<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">下载</span><br><span class="line">wget https:&#x2F;&#x2F;labs-1253675457.cos.ap-guangzhou.myqcloud.com&#x2F;Discuz_X3.2_SC_UTF8.zip</span><br><span class="line">unzip Discuz_X3.2_SC_UTF8.zip</span><br><span class="line">由于PHP默认访问 &#x2F;var&#x2F;www&#x2F;html&#x2F; 文件夹，所以我们需要把upload文件夹里的文件都复制到 &#x2F;var&#x2F;www&#x2F;html&#x2F; 文件夹</span><br><span class="line">cp -r upload&#x2F;* &#x2F;var&#x2F;www&#x2F;html&#x2F;</span><br><span class="line">给 &#x2F;var&#x2F;www&#x2F;html 目录及其子目录赋予权限</span><br><span class="line">chmod -R 777 &#x2F;var&#x2F;www&#x2F;html</span><br><span class="line">service httpd restart</span><br></pre></td></tr></table></figure></li>
+<li>域名</li>
+</ul>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>nonetag</tag>
       </tags>
   </entry>
 </search>
