@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-04-21T07:03:06.631Z</updated>
+  <updated>2021-04-21T12:24:11.731Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title></title>
+    <link href="http://blog.cuimouren.cn/2021/04/21/Initial%20Server%20Setup%20with%20Ubuntu/"/>
+    <id>http://blog.cuimouren.cn/2021/04/21/Initial%20Server%20Setup%20with%20Ubuntu/</id>
+    <published>2021-04-21T07:19:56.457Z</published>
+    <updated>2021-04-21T12:24:11.731Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;title: Initial Server Setup with Ubuntu&lt;br&gt;tags: [技术,linux,ubuntu]&lt;br&gt;categories: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;linux&lt;/li&gt;
+&lt;li&gt;ubuntu&lt;br&gt;date:</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>code-server</title>
     <link href="http://blog.cuimouren.cn/2021/04/21/code-server/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/code-server/</id>
     <published>2021-04-21T06:47:01.000Z</published>
-    <updated>2021-04-21T07:03:06.631Z</updated>
+    <updated>2021-04-21T07:22:03.898Z</updated>
     
     
       

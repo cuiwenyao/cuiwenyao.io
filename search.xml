@@ -395,7 +395,9 @@
     <url>/2021/04/21/code-server/</url>
     <content><![CDATA[<h1 id="code-server"><a href="#code-server" class="headerlink" title="code-server"></a>code-server</h1><ul>
 <li>code-server is a cloud ide platform, which can enable us to code through browser anywhere. But how to set up the code-server on ubuntu 18.04</li>
-<li>Eeee, to practice my English, I prefer to using English in my blog, unless there is something I can’t express by using my poor English.<h4 id=""><a href="#" class="headerlink" title=""></a></h4></li>
+<li>Eeee, to practice my English, I prefer to using English in my blog, unless there is something I can’t express by using my poor English.<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><blockquote>
+</blockquote>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -419,5 +421,32 @@
       <tags>
         <tag>技术，域名</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2021/04/21/Initial%20Server%20Setup%20with%20Ubuntu/</url>
+    <content><![CDATA[<p>title: Initial Server Setup with Ubuntu<br>tags: [技术,linux,ubuntu]<br>categories: </p>
+<ul>
+<li>linux</li>
+<li>ubuntu<br>date: 2021-04-21 15:21:12</li>
+</ul>
+<h1 id="Initial-Server-Setup-with-Ubuntu"><a href="#Initial-Server-Setup-with-Ubuntu" class="headerlink" title="Initial Server Setup with Ubuntu"></a>Initial Server Setup with Ubuntu</h1><ul>
+<li>When you first create a new ubuntu 18.04 server, there are a new configuration steps that you should take early on as part of the basic setup. This will increase the security and usability of your server and will give you a solid foundation for subsequent actions.</li>
+<li>This guide below demonstrates how to manually complete the steps recommended for new ubuntu 18.04 servers. Following this procedure manually can be useful to learn some basic system administration skills and as an exercise to fully understand the actions being taking on my server. As an alternative, if you wish to get up and running more quickly, you can run my initial server setup script which automates these steps.<h4 id="step-1-logging-in-as-root"><a href="#step-1-logging-in-as-root" class="headerlink" title="step 1 logging in as root"></a>step 1 logging in as root</h4></li>
+<li>If you are not already connected to your server, go ahead and log in as root user using the following command, substitute server’s ip with your server’s public ip address.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh root@server&#39;s ip</span><br></pre></td></tr></table></figure></li>
+<li>Accept the warning about host authenticity if it appears. If you are using password authentication, provide your root password to login in. If you are using an SSH key that is passphrase protected, you may be prompted to enter the passphrase the first time you use the key each session. If this is your first time logging into the server with a password, you may also be prompted to change the root password.</li>
+<li><strong>about root</strong><blockquote>
+<p>The root user is the administrative user in a Linux environment that has very broad privileges. Because of the heightened privileges of the root account, you are discouraged form using it on a regular basis. This is because part of the power inherent with the root account is the ability to make very destructive changes, even by accident.</p>
+<p>The next step is to set up an alternative user account with a reduced scope of influence for day-to-day work. I will teach you how to gain increased privileges during the times when you need them.</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="step2-creating-a-new-user"><a href="#step2-creating-a-new-user" class="headerlink" title="step2 creating a new user"></a>step2 creating a new user</h4><ul>
+<li>Once you are logged in as root, we are prepared to add the new user account that we will use to lg in from now on.</li>
+<li>This example create a new user named wenyao<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adduser wenyao</span><br></pre></td></tr></table></figure></li>
+<li>You will be asked a few questions, starting with the account password.</li>
+<li></li>
+</ul>
+]]></content>
   </entry>
 </search>
