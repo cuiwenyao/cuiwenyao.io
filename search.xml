@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
+    <title>Initial Server Setup with Ubuntu</title>
     <url>/2021/04/21/Initial-Server-Setup-with-Ubuntu/</url>
-    <content><![CDATA[<p>title: Initial Server Setup with Ubuntu<br>tags: [技术,linux,ubuntu]<br>categories: </p>
-<ul>
-<li>linux</li>
-<li>ubuntu<br>date: 2021-04-21 15:21:12</li>
-</ul>
-<h1 id="Initial-Server-Setup-with-Ubuntu"><a href="#Initial-Server-Setup-with-Ubuntu" class="headerlink" title="Initial Server Setup with Ubuntu"></a>Initial Server Setup with Ubuntu</h1><ul>
+    <content><![CDATA[<h1 id="Initial-Server-Setup-with-Ubuntu"><a href="#Initial-Server-Setup-with-Ubuntu" class="headerlink" title="Initial Server Setup with Ubuntu"></a>Initial Server Setup with Ubuntu</h1><ul>
 <li>When you first create a new ubuntu 18.04 server, there are a new configuration steps that you should take early on as part of the basic setup. This will increase the security and usability of your server and will give you a solid foundation for subsequent actions.</li>
 <li>This guide below demonstrates how to manually complete the steps recommended for new ubuntu 18.04 servers. Following this procedure manually can be useful to learn some basic system administration skills and as an exercise to fully understand the actions being taking on my server. As an alternative, if you wish to get up and running more quickly, you can run my initial server setup script which automates these steps.<h4 id="step-1-logging-in-as-root"><a href="#step-1-logging-in-as-root" class="headerlink" title="step 1 logging in as root"></a>step 1 logging in as root</h4></li>
 <li>If you are not already connected to your server, go ahead and log in as root user using the following command, substitute server’s ip with your server’s public ip address.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh root@server&#39;s ip</span><br></pre></td></tr></table></figure></li>
@@ -51,6 +46,15 @@
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>linux</category>
+        <category>ubuntu</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>linux</tag>
+        <tag>ubuntu</tag>
+      </tags>
   </entry>
   <entry>
     <title>build a mail server for myself</title>
@@ -394,7 +398,7 @@
 
 <ul>
 <li><a href="https://www.baidu.com/">https://www.baidu.com</a></li>
-<li><a href="mailto:&#x79;&#x61;&#x6f;&#49;&#57;&#55;&#x30;&#x30;&#57;&#57;&#x35;&#x34;&#x30;&#64;&#x31;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;">&#x79;&#x61;&#x6f;&#49;&#57;&#55;&#x30;&#x30;&#57;&#57;&#x35;&#x34;&#x30;&#64;&#x31;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;</a></li>
+<li><a href="mailto:&#x79;&#97;&#111;&#49;&#57;&#55;&#x30;&#48;&#57;&#x39;&#53;&#52;&#48;&#x40;&#49;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;">&#x79;&#97;&#111;&#49;&#57;&#55;&#x30;&#48;&#57;&#x39;&#53;&#52;&#48;&#x40;&#49;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;</a></li>
 </ul>
 ]]></content>
       <categories>
