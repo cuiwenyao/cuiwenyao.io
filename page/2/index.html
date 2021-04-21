@@ -57,7 +57,7 @@
       <h1><a href="/">这里是文耀的space</a></h1>
       <div id="subtitle-box">
         
-          <span id="subtitle">不以物喜，不以己悲</span>
+        <span id="subtitle"></span>
         
       </div>
       <div>
@@ -78,9 +78,26 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
 
 <!-- Subtitle -->
 
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['不以物喜，不以己悲', '先天下之忧而忧，后天下之乐而乐', '朝菌不知晦朔，蟪蛄不知春秋'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
 <div id="main">
   <section class="outer">
   
@@ -521,10 +538,6 @@
 
 
 <!-- CanvasBackground -->
-
-
-<script src="/js/dz.js"></script>
-
 
 
     
