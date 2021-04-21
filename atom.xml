@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-04-21T06:26:15.009Z</updated>
+  <updated>2021-04-21T07:03:06.631Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -17,11 +17,64 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>code-server</title>
+    <link href="http://blog.cuimouren.cn/2021/04/21/code-server/"/>
+    <id>http://blog.cuimouren.cn/2021/04/21/code-server/</id>
+    <published>2021-04-21T06:47:01.000Z</published>
+    <updated>2021-04-21T07:03:06.631Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;code-server&quot;&gt;&lt;a href=&quot;#code-server&quot; class=&quot;headerlink&quot; title=&quot;code-server&quot;&gt;&lt;/a&gt;code-server&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;code-server is a cloud ide</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
+    
+    
+    <category term="技术，linux" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF%EF%BC%8Clinux/"/>
+    
+    <category term="code-server" scheme="http://blog.cuimouren.cn/tags/code-server/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>零碎的技术</title>
+    <link href="http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/"/>
+    <id>http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/</id>
+    <published>2021-04-21T06:37:04.000Z</published>
+    <updated>2021-04-21T06:42:31.003Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;零碎的技术&quot;&gt;&lt;a href=&quot;#零碎的技术&quot; class=&quot;headerlink&quot; title=&quot;零碎的技术&quot;&gt;&lt;/a&gt;零碎的技术&lt;/h1&gt;&lt;h4 id=&quot;域名解析&quot;&gt;&lt;a href=&quot;#域名解析&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    
+    
+    <category term="技术，域名" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF%EF%BC%8C%E5%9F%9F%E5%90%8D/"/>
+    
+  </entry>
+  
+  <entry>
     <title>proxy trojan</title>
     <link href="http://blog.cuimouren.cn/2021/04/21/proxy-trojan/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/proxy-trojan/</id>
     <published>2021-04-21T06:02:49.000Z</published>
-    <updated>2021-04-21T06:26:15.009Z</updated>
+    <updated>2021-04-21T06:40:09.634Z</updated>
     
     
       
@@ -34,10 +87,14 @@
     
     
     
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
     
     
-    <category term="proxy, trojan, linux" scheme="http://blog.cuimouren.cn/tags/proxy-trojan-linux/"/>
+    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
+    
+    <category term="proxy" scheme="http://blog.cuimouren.cn/tags/proxy/"/>
+    
+    <category term="trojan" scheme="http://blog.cuimouren.cn/tags/trojan/"/>
     
   </entry>
   
@@ -46,7 +103,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/19/%E5%9F%BA%E4%BA%8E-CentOS-%E6%90%AD%E5%BB%BA-Discuz-%E8%AE%BA%E5%9D%9B/"/>
     <id>http://blog.cuimouren.cn/2021/04/19/%E5%9F%BA%E4%BA%8E-CentOS-%E6%90%AD%E5%BB%BA-Discuz-%E8%AE%BA%E5%9D%9B/</id>
     <published>2021-04-19T15:48:03.000Z</published>
-    <updated>2021-04-19T16:00:33.878Z</updated>
+    <updated>2021-04-21T06:40:40.493Z</updated>
     
     
       
@@ -59,10 +116,14 @@
     
     
     
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
     
     
-    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
+    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
+    
+    <category term="centos" scheme="http://blog.cuimouren.cn/tags/centos/"/>
+    
+    <category term="discuz" scheme="http://blog.cuimouren.cn/tags/discuz/"/>
     
   </entry>
   
@@ -96,7 +157,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/16/build-a-mail-server-for-myself/"/>
     <id>http://blog.cuimouren.cn/2021/04/16/build-a-mail-server-for-myself/</id>
     <published>2021-04-16T08:54:27.000Z</published>
-    <updated>2021-04-16T09:11:37.465Z</updated>
+    <updated>2021-04-21T06:40:02.158Z</updated>
     
     
       
@@ -109,10 +170,14 @@
     
     
     
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    <category term="使用" scheme="http://blog.cuimouren.cn/categories/%E4%BD%BF%E7%94%A8/"/>
     
     
-    <category term="vps, mail, myself" scheme="http://blog.cuimouren.cn/tags/vps-mail-myself/"/>
+    <category term="vps" scheme="http://blog.cuimouren.cn/tags/vps/"/>
+    
+    <category term="mail" scheme="http://blog.cuimouren.cn/tags/mail/"/>
+    
+    <category term="myself" scheme="http://blog.cuimouren.cn/tags/myself/"/>
     
   </entry>
   

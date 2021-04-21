@@ -303,10 +303,12 @@
 </ul>
 ]]></content>
       <categories>
-        <category>uncategorized</category>
+        <category>使用</category>
       </categories>
       <tags>
-        <tag>vps, mail, myself</tag>
+        <tag>vps</tag>
+        <tag>mail</tag>
+        <tag>myself</tag>
       </tags>
   </entry>
   <entry>
@@ -359,10 +361,12 @@
 </ul>
 ]]></content>
       <categories>
-        <category>uncategorized</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>proxy, trojan, linux</tag>
+        <tag>linux</tag>
+        <tag>proxy</tag>
+        <tag>trojan</tag>
       </tags>
   </entry>
   <entry>
@@ -378,10 +382,42 @@
 </ul>
 ]]></content>
       <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>centos</tag>
+        <tag>discuz</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>code-server</title>
+    <url>/2021/04/21/code-server/</url>
+    <content><![CDATA[<h1 id="code-server"><a href="#code-server" class="headerlink" title="code-server"></a>code-server</h1><ul>
+<li>code-server is a cloud ide platform, which can enable us to code through browser anywhere. But how to set up the code-server on ubuntu 18.04</li>
+<li>Eeee, to practice my English, I prefer to using English in my blog, unless there is something I can’t express by using my poor English.<h4 id=""><a href="#" class="headerlink" title=""></a></h4></li>
+</ul>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>技术，linux</tag>
+        <tag>code-server</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>零碎的技术</title>
+    <url>/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[<h1 id="零碎的技术"><a href="#零碎的技术" class="headerlink" title="零碎的技术"></a>零碎的技术</h1><h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4><blockquote>
+<p>记录类型:<br>A记录：将域名指向一个IPv4地址（例如：10.10.10.10），需要增加A记录<br>CNAME记录：如果将域名指向一个域名，实现与被指向域名相同的访问效果，需要增加CNAME记录<br>主机记录：<br>www ：将域名解析为<a href="http://www.example.com,填写www;/">www.example.com，填写www；</a><br>@ ：将域名解析为example.com（不带www），填写@或者不填写；</p>
+</blockquote>
+]]></content>
+      <categories>
         <category>uncategorized</category>
       </categories>
       <tags>
-        <tag>nonetag</tag>
+        <tag>技术，域名</tag>
       </tags>
   </entry>
 </search>
