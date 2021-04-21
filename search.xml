@@ -1,124 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/03/22/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title></title>
+    <url>/2021/04/21/Initial-Server-Setup-with-Ubuntu/</url>
+    <content><![CDATA[<p>title: Initial Server Setup with Ubuntu<br>tags: [技术,linux,ubuntu]<br>categories: </p>
+<ul>
+<li>linux</li>
+<li>ubuntu<br>date: 2021-04-21 15:21:12</li>
+</ul>
+<h1 id="Initial-Server-Setup-with-Ubuntu"><a href="#Initial-Server-Setup-with-Ubuntu" class="headerlink" title="Initial Server Setup with Ubuntu"></a>Initial Server Setup with Ubuntu</h1><ul>
+<li>When you first create a new ubuntu 18.04 server, there are a new configuration steps that you should take early on as part of the basic setup. This will increase the security and usability of your server and will give you a solid foundation for subsequent actions.</li>
+<li>This guide below demonstrates how to manually complete the steps recommended for new ubuntu 18.04 servers. Following this procedure manually can be useful to learn some basic system administration skills and as an exercise to fully understand the actions being taking on my server. As an alternative, if you wish to get up and running more quickly, you can run my initial server setup script which automates these steps.<h4 id="step-1-logging-in-as-root"><a href="#step-1-logging-in-as-root" class="headerlink" title="step 1 logging in as root"></a>step 1 logging in as root</h4></li>
+<li>If you are not already connected to your server, go ahead and log in as root user using the following command, substitute server’s ip with your server’s public ip address.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh root@server&#39;s ip</span><br></pre></td></tr></table></figure></li>
+<li>Accept the warning about host authenticity if it appears. If you are using password authentication, provide your root password to login in. If you are using an SSH key that is passphrase protected, you may be prompted to enter the passphrase the first time you use the key each session. If this is your first time logging into the server with a password, you may also be prompted to change the root password.</li>
+<li><strong>about root</strong><blockquote>
+<p>The root user is the administrative user in a Linux environment that has very broad privileges. Because of the heightened privileges of the root account, you are discouraged form using it on a regular basis. This is because part of the power inherent with the root account is the ability to make very destructive changes, even by accident.</p>
+<p>The next step is to set up an alternative user account with a reduced scope of influence for day-to-day work. I will teach you how to gain increased privileges during the times when you need them.</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="step2-creating-a-new-user"><a href="#step2-creating-a-new-user" class="headerlink" title="step2 creating a new user"></a>step2 creating a new user</h4><ul>
+<li>Once you are logged in as root, we are prepared to add the new user account that we will use to log in from now on.</li>
+<li>This example create a new user named wenyao<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adduser wenyao</span><br></pre></td></tr></table></figure></li>
+<li>You will be asked a few questions, starting with the account password.</li>
+<li>Enter a strong password and, optionally, fill in any of the additional information if you would like. This is not required and you can just hit enter to skip.</li>
+</ul>
+<h4 id="step3-granting-administrative-privileges"><a href="#step3-granting-administrative-privileges" class="headerlink" title="step3 granting administrative privileges"></a>step3 granting administrative privileges</h4><ul>
+<li>Now, we have a new user account with regular account privileges. However, we may sometimes need to do administrative tasks.</li>
+<li>To avoid having to log out of our normal user and log back in as the root account, we can set up what is known as superuser or root privileges for our normal account. This allow our normal user to run commands with administrative privileges by putting the word “sudo” before each command.</li>
+<li>To add these privileges to our new user, we need add the new user to the “sudo” group. By default, on ubuntu 18.04, users who belong to the “sudo” group are allow to use the “sudo” command.</li>
+<li>As root, run this command to add new user to the sudo group.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">usermod -aG sudo wenyao</span><br></pre></td></tr></table></figure></li>
+<li>Now, when logged in as your regular user, you can type “sudo” before commands to perform actions with superuser privileges.</li>
+</ul>
+<h4 id="step4-setting-up-a-basic-firewall"><a href="#step4-setting-up-a-basic-firewall" class="headerlink" title="step4 setting up a basic firewall"></a>step4 setting up a basic firewall</h4><ul>
+<li><p>ubuntu 18.04 servers can use the UFW firewall to make sure only connections to certain services are allowed. We can set up a basic firewall very easily using this application.</p>
+</li>
+<li><p>Different applications can register their profiles with UFW upon installation. These profiles allow UFW to manager these applications by name. OpenSSH, the service allowing us to connect to our server now, has a profile registered with UFW. You can see this by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw app list</span><br></pre></td></tr></table></figure></li>
+<li><p>the output will looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Available applications:</span><br><span class="line">  OpenSSH</span><br></pre></td></tr></table></figure></li>
+<li><p>We need make sure that the firewall allows SSH connections so that we can log back in next time. We can allow these connections by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw allow OpenSSH</span><br></pre></td></tr></table></figure></li>
+<li><p>Afterwards, we can enable the firewall by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw enable</span><br></pre></td></tr></table></figure></li>
+<li><p>You can see that SSH connections are allowed by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw status</span><br></pre></td></tr></table></figure></li>
+<li><p>the output will looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Status: active</span><br><span class="line"></span><br><span class="line">To                         Action      From</span><br><span class="line">--                         ------      ----</span><br><span class="line">OpenSSH                    ALLOW       Anywhere</span><br><span class="line">OpenSSH (v6)               ALLOW       Anywhere (v6)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>As the firewall is currently blocking all connections except for SSH. If you install and configure additional services, you will need to adjust the firewall setting to allow acceptable traffic in. </p>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>build a mail server for myself</title>
+    <url>/2021/04/16/build-a-mail-server-for-myself/</url>
+    <content><![CDATA[<h1 id="build-a-mail-server-for-myself"><a href="#build-a-mail-server-for-myself" class="headerlink" title="build a mail server for myself"></a>build a mail server for myself</h1><h2 id="使用环境"><a href="#使用环境" class="headerlink" title="使用环境"></a>使用环境</h2><ul>
+<li>centos7.6<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4></li>
+<li>解析域名添加两条记录<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A 记录</span><br><span class="line">记录类型：A</span><br><span class="line">主机记录：@</span><br><span class="line">记录值：ip address</span><br><span class="line"></span><br><span class="line">MX 记录</span><br><span class="line">记录类型：MX</span><br><span class="line">主机记录：@</span><br><span class="line">记录值：我的域名</span><br></pre></td></tr></table></figure></li>
+<li>生效检查</li>
+</ul>
+<ol>
+<li>ping mydomain, 如果返回了刚刚解析的ip地址，则成功。</li>
+<li>检查MX记录, nslookup -q=mx mydomain,如果返回的信息中有域名，则成功。</li>
+</ol>
+<h4 id="postfix"><a href="#postfix" class="headerlink" title="postfix"></a>postfix</h4><ol>
+<li>安装<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install postfix</span><br></pre></td></tr></table></figure></li>
+<li>配置，参考如下<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">postconf -e &#39;myhostname &#x3D; server.cuimouren.cn&#39;</span><br><span class="line">postconf -e &#39;mydestination &#x3D; localhost, localhost.localdomain&#39;</span><br><span class="line">postconf -e &#39;myorigin &#x3D; $mydomain&#39;</span><br><span class="line">postconf -e &#39;mynetworks &#x3D; 127.0.0.0&#x2F;8&#39;</span><br><span class="line">postconf -e &#39;inet_interfaces &#x3D; all&#39;</span><br><span class="line">postconf -e &#39;inet_protocols &#x3D; all&#39;</span><br><span class="line">postconf -e &#39;mydestination &#x3D; $myhostname, localhost.$mydomain, localhost, $mydomain&#39;</span><br><span class="line">postconf -e &#39;home_mailbox &#x3D; Maildir&#x2F;&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_type &#x3D; dovecot&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_path &#x3D; private&#x2F;auth&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_auth_enable &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;broken_sasl_auth_clients &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_authenticated_header &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;smtpd_recipient_restrictions &#x3D; permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination&#39;</span><br><span class="line">postconf -e &#39;smtpd_use_tls &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;smtpd_tls_cert_file &#x3D; &#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;certs&#x2F;dovecot.pem&#39;</span><br><span class="line">postconf -e &#39;smtpd_tls_key_file &#x3D; &#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;private&#x2F;dovecot.pem&#39;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>配置中 Postfix 使用 sasl 和 tls 来完成身份认证和传输信息加密。<br>试验中使用了 Dovecot 默认的 ssl 证书和私钥，如果你需要修改为自己的，请替换最后两行配置的路径。</li>
+</ul>
+<ol start="3">
+<li>配置 smtps</li>
+</ol>
+<ul>
+<li>部分邮件客户端依赖于使用 465 端口提供加密连接，所以我们修改配置，允许 Postfix 使用 465 端口发送邮件。打开 /etc/postfix/master.cf 文件，将如下两行前的 # 去除：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">smtps inet n - n - - smtpd</span><br><span class="line">-o smtpd_tls_wrappermode&#x3D;yes</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="4">
+<li>启动</li>
+</ol>
+<ul>
+<li>使用以下命令，将 Postfix 设为自动启动并首次启动该服务：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable postfix.service</span><br><span class="line">systemctl start  postfix.service</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>log</li>
+</ol>
+<ul>
+<li>Postfix 系统的日志文件在系统的这个目录下的 /var/log/maillog 文件，此文件记录了 Postfix 服务器的运行状态信息。<h4 id="dovecot"><a href="#dovecot" class="headerlink" title="dovecot"></a>dovecot</h4></li>
+</ul>
+<ol>
+<li>安装<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install dovecot</span><br></pre></td></tr></table></figure></li>
+<li>配置</li>
+</ol>
+<ul>
+<li>打开 /etc/dovecot/dovecot.conf 文件，在最下方加入以下配置：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssl_cert &#x3D; &lt;&#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;certs&#x2F;dovecot.pem</span><br><span class="line">ssl_key &#x3D; &lt;&#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;private&#x2F;dovecot.pem</span><br><span class="line"></span><br><span class="line">protocols &#x3D; imap pop3 lmtp</span><br><span class="line">listen &#x3D; *</span><br><span class="line">mail_location &#x3D; Maildir:~&#x2F;Maildir</span><br><span class="line">disable_plaintext_auth &#x3D; no</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>如果前面你修改为了自己的 ssl 证书和私钥，请替换开始两行配置的路径。</li>
+<li>打开 /etc/dovecot/conf.d/10-master.conf 文件，找到 service auth 部分，将以下行前面的 # 去除：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">unix_listener &#x2F;var&#x2F;spool&#x2F;postfix&#x2F;private&#x2F;auth &#123;  </span><br><span class="line">       mode &#x3D; 0666  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li>启动<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable dovecot.service</span><br><span class="line">systemctl start  dovecot.service</span><br></pre></td></tr></table></figure></li>
+<li>log</li>
+</ol>
+<ul>
+<li>查看 /var/log/maillog 是否启动成功，如下所示为成功。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Jun 26 12:00:28 localhost postfix&#x2F;postfix-script[28338]: starting the Postfix mail system</span><br><span class="line">Jun 26 12:00:29 localhost postfix&#x2F;master[28340]: daemon started -- version 2.10.1, configuration &#x2F;etc&#x2F;postfix</span><br><span class="line">Jun 26 12:28:40 localhost dovecot: master: Dovecot v2.2.10 starting up for imap, pop3, lmtp (core dumps disabled)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h4></li>
+<li>添加用户<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uaeradd username</span><br></pre></td></tr></table></figure></li>
+<li>设置密码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">passwd username</span><br></pre></td></tr></table></figure>
+<h4 id="发送邮件"><a href="#发送邮件" class="headerlink" title="发送邮件"></a>发送邮件</h4></li>
+<li>su mailuser 切换用户</li>
+<li>发送邮件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &quot;邮件内容&quot; | mail -s &quot;邮件主题&quot;  目标邮箱</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
-        <category>cat2, cat3</category>
+        <category>使用</category>
       </categories>
       <tags>
-        <tag>hello_world</tag>
+        <tag>vps</tag>
+        <tag>mail</tag>
+        <tag>myself</tag>
       </tags>
   </entry>
   <entry>
-    <title>hexo的使用</title>
-    <url>/2021/03/22/hexo%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="hello-hexo"><a href="#hello-hexo" class="headerlink" title="hello hexo"></a>hello hexo</h1><h2 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h2><ul>
-<li>安装git</li>
-<li>安装Node.js<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2></li>
-<li>window cmd 下输入 npm install -g hexo-cli<h2 id="使用hexo"><a href="#使用hexo" class="headerlink" title="使用hexo"></a>使用hexo</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">hexo init &lt;foldername&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="安装server与deployer"><a href="#安装server与deployer" class="headerlink" title="安装server与deployer"></a>安装server与deployer</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-server --save</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new &#x2F;&#x2F;生成文章</span><br><span class="line">hexo c  &#x2F;&#x2F;清理</span><br><span class="line">hexo g  &#x2F;&#x2F;生成</span><br><span class="line">hexo s  &#x2F;&#x2F;启动本地服务</span><br><span class="line">hexo d  &#x2F;&#x2F;部署</span><br><span class="line">简单地使用为 hexo g -d</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h4 id="以上就是hexo的基础使用了。"><a href="#以上就是hexo的基础使用了。" class="headerlink" title="以上就是hexo的基础使用了。"></a>以上就是hexo的基础使用了。</h4><hr>
-<h2 id="配置github-page"><a href="#配置github-page" class="headerlink" title="配置github page"></a>配置github page</h2><ul>
-<li>建立一个GitHub仓库</li>
-<li>将仓库配置为GitHub page</li>
-<li>输入自己的域名 cuimouren.cn</li>
-</ul>
-<h2 id="解析自己的域名到GitHub-page"><a href="#解析自己的域名到GitHub-page" class="headerlink" title="解析自己的域名到GitHub page"></a>解析自己的域名到GitHub page</h2><h4 id="添加如下的域名解析记录"><a href="#添加如下的域名解析记录" class="headerlink" title="添加如下的域名解析记录"></a>添加如下的域名解析记录</h4><ul>
-<li>主机记录： @</li>
-<li>记录类型： CNAME</li>
-<li>线路类型： 默认</li>
-<li>记录值：     yishuilingbo.github.io  即GitHub page分配的网址</li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><hr>
-<h4 id="到此就完成了框架性的工作"><a href="#到此就完成了框架性的工作" class="headerlink" title="到此就完成了框架性的工作"></a>到此就完成了框架性的工作</h4><hr>
-<h2 id="‘菜’的坑"><a href="#‘菜’的坑" class="headerlink" title="‘菜’的坑"></a>‘<strong>菜’的坑</strong></h2><h3 id="注意得在cmd环境下进行操作，powershell不行。"><a href="#注意得在cmd环境下进行操作，powershell不行。" class="headerlink" title="注意得在cmd环境下进行操作，powershell不行。"></a>注意得在cmd环境下进行操作，powershell不行。</h3><h3 id="Hexo在部署到Github后CNAME文件会消失或改变的解决方法"><a href="#Hexo在部署到Github后CNAME文件会消失或改变的解决方法" class="headerlink" title="Hexo在部署到Github后CNAME文件会消失或改变的解决方法"></a>Hexo在部署到Github后CNAME文件会消失或改变的解决方法</h3><h4 id="问题经过"><a href="#问题经过" class="headerlink" title="问题经过:"></a>问题经过:</h4><ul>
-<li><p>在转移网站后,在 Github网页上修改CNAME文件中指向的域名后,重新部署Hexo时发现CNAME指向的域名是之前的网站,而没有编程修改后的域名.排查后发现:</p>
+    <title>code-server</title>
+    <url>/2021/04/21/code-server/</url>
+    <content><![CDATA[<h1 id="code-server"><a href="#code-server" class="headerlink" title="code-server"></a>code-server</h1><ul>
+<li>code-server is a cloud ide platform, which can enable us to code through browser anywhere. But how to set up the code-server on ubuntu 18.04</li>
+<li>Eeee, to practice my English, I prefer to using English in my blog, unless there is something I can’t express by using my poor English.<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><blockquote>
+</blockquote>
 </li>
-<li><p>Hexo在Github上部署后,如果配置了一个自定义域名时,会自动在项目仓库根目录想新建一个CNAME文件,但是重新部署后CNAME会消失或者变成修改之前的状态,导致需要再次手动修改.</p>
-</li>
-</ul>
-<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h4><ul>
-<li>直接修改 hexo目录 下 source 文件夹内的CNAME文件的内容,用编辑器打开,第一行输入需要配置的域名.这样在部署的时候CNAME 文件会自动部署到Github.不用再次手动修改.</li>
-</ul>
-<h3 id="注意配置git的username-与-email"><a href="#注意配置git的username-与-email" class="headerlink" title="注意配置git的username 与 email"></a>注意配置git的username 与 email</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;name&quot;</span><br><span class="line">git config --global user.email &quot;email@gmail.com&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="git网络问题"><a href="#git网络问题" class="headerlink" title="git网络问题"></a>git网络问题</h3><h4 id="设置git的代理"><a href="#设置git的代理" class="headerlink" title="设置git的代理"></a>设置git的代理</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:7890</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="deployer-not-found"><a href="#deployer-not-found" class="headerlink" title="deployer not found"></a>deployer not found</h3><ul>
-<li>npm install hexo-deployer-git –save</li>
-</ul>
-<h3 id="permission-denied"><a href="#permission-denied" class="headerlink" title="permission denied"></a>permission denied</h3><ul>
-<li>hexo 只支持单用户凭证，所以需要去控制面板中更改git:<a href="https://github.com/">https://github.com</a> 的用户凭证即可。使用哪一个github用户时就更新成哪一个。</li>
 </ul>
 ]]></content>
       <categories>
-        <category>cat1</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>markdown的使用方法</title>
-    <url>/2021/03/22/markdown%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="markdown-的使用方法"><a href="#markdown-的使用方法" class="headerlink" title="markdown 的使用方法"></a>markdown 的使用方法</h1><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><blockquote>
-<p>我们使用几个#就代表使用几级标题。在文本的下方添加任意数量的“====”代表一级标题，“—”代表二级标题。 </p>
-<blockquote>
-<p>sad</p>
-</blockquote>
-<ul>
-<li>我们使用几个#就代表使用几级标题。在文本的下方添加任意数量的“====”代表一级标题，“—”代表二级标题。 </li>
-</ul>
-</blockquote>
-<h4 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h4><h4 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h4><h4 id="斜体-粗体"><a href="#斜体-粗体" class="headerlink" title="斜体 粗体"></a>斜体 粗体</h4><ol>
-<li>一</li>
-<li>二<ol>
-<li>一</li>
-<li>二</li>
-<li>三</li>
-</ol>
-</li>
-<li>三</li>
-</ol>
-<ul>
-<li><p>一</p>
-</li>
-<li><p>二</p>
-</li>
-<li><p>the <code>asd</code>.</p>
-</li>
-</ul>
-<p><img src="/img/love.png" alt="poicture"></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line">[</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-
-<ul>
-<li><a href="https://www.baidu.com/">https://www.baidu.com</a></li>
-<li><a href="mailto:&#x79;&#97;&#x6f;&#x31;&#57;&#55;&#x30;&#x30;&#57;&#x39;&#x35;&#52;&#x30;&#x40;&#x31;&#x36;&#x33;&#46;&#99;&#111;&#x6d;">&#x79;&#97;&#x6f;&#x31;&#57;&#55;&#x30;&#x30;&#57;&#x39;&#x35;&#52;&#x30;&#x40;&#x31;&#x36;&#x33;&#46;&#99;&#111;&#x6d;</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>cat1</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
+        <tag>技术，linux</tag>
+        <tag>code-server</tag>
       </tags>
   </entry>
   <entry>
@@ -243,72 +261,78 @@
       </tags>
   </entry>
   <entry>
-    <title>build a mail server for myself</title>
-    <url>/2021/04/16/build-a-mail-server-for-myself/</url>
-    <content><![CDATA[<h1 id="build-a-mail-server-for-myself"><a href="#build-a-mail-server-for-myself" class="headerlink" title="build a mail server for myself"></a>build a mail server for myself</h1><h2 id="使用环境"><a href="#使用环境" class="headerlink" title="使用环境"></a>使用环境</h2><ul>
-<li>centos7.6<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4></li>
-<li>解析域名添加两条记录<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A 记录</span><br><span class="line">记录类型：A</span><br><span class="line">主机记录：@</span><br><span class="line">记录值：ip address</span><br><span class="line"></span><br><span class="line">MX 记录</span><br><span class="line">记录类型：MX</span><br><span class="line">主机记录：@</span><br><span class="line">记录值：我的域名</span><br></pre></td></tr></table></figure></li>
-<li>生效检查</li>
+    <title>Hello World</title>
+    <url>/2021/03/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>cat2, cat3</category>
+      </categories>
+      <tags>
+        <tag>hello_world</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo的使用</title>
+    <url>/2021/03/22/hexo%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="hello-hexo"><a href="#hello-hexo" class="headerlink" title="hello hexo"></a>hello hexo</h1><h2 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h2><ul>
+<li>安装git</li>
+<li>安装Node.js<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2></li>
+<li>window cmd 下输入 npm install -g hexo-cli<h2 id="使用hexo"><a href="#使用hexo" class="headerlink" title="使用hexo"></a>使用hexo</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">hexo init &lt;foldername&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="安装server与deployer"><a href="#安装server与deployer" class="headerlink" title="安装server与deployer"></a>安装server与deployer</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-server --save</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new &#x2F;&#x2F;生成文章</span><br><span class="line">hexo c  &#x2F;&#x2F;清理</span><br><span class="line">hexo g  &#x2F;&#x2F;生成</span><br><span class="line">hexo s  &#x2F;&#x2F;启动本地服务</span><br><span class="line">hexo d  &#x2F;&#x2F;部署</span><br><span class="line">简单地使用为 hexo g -d</span><br></pre></td></tr></table></figure></li>
 </ul>
-<ol>
-<li>ping mydomain, 如果返回了刚刚解析的ip地址，则成功。</li>
-<li>检查MX记录, nslookup -q=mx mydomain,如果返回的信息中有域名，则成功。</li>
-</ol>
-<h4 id="postfix"><a href="#postfix" class="headerlink" title="postfix"></a>postfix</h4><ol>
-<li>安装<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install postfix</span><br></pre></td></tr></table></figure></li>
-<li>配置，参考如下<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">postconf -e &#39;myhostname &#x3D; server.cuimouren.cn&#39;</span><br><span class="line">postconf -e &#39;mydestination &#x3D; localhost, localhost.localdomain&#39;</span><br><span class="line">postconf -e &#39;myorigin &#x3D; $mydomain&#39;</span><br><span class="line">postconf -e &#39;mynetworks &#x3D; 127.0.0.0&#x2F;8&#39;</span><br><span class="line">postconf -e &#39;inet_interfaces &#x3D; all&#39;</span><br><span class="line">postconf -e &#39;inet_protocols &#x3D; all&#39;</span><br><span class="line">postconf -e &#39;mydestination &#x3D; $myhostname, localhost.$mydomain, localhost, $mydomain&#39;</span><br><span class="line">postconf -e &#39;home_mailbox &#x3D; Maildir&#x2F;&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_type &#x3D; dovecot&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_path &#x3D; private&#x2F;auth&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_auth_enable &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;broken_sasl_auth_clients &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;smtpd_sasl_authenticated_header &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;smtpd_recipient_restrictions &#x3D; permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination&#39;</span><br><span class="line">postconf -e &#39;smtpd_use_tls &#x3D; yes&#39;</span><br><span class="line">postconf -e &#39;smtpd_tls_cert_file &#x3D; &#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;certs&#x2F;dovecot.pem&#39;</span><br><span class="line">postconf -e &#39;smtpd_tls_key_file &#x3D; &#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;private&#x2F;dovecot.pem&#39;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>配置中 Postfix 使用 sasl 和 tls 来完成身份认证和传输信息加密。<br>试验中使用了 Dovecot 默认的 ssl 证书和私钥，如果你需要修改为自己的，请替换最后两行配置的路径。</li>
+<hr>
+<h4 id="以上就是hexo的基础使用了。"><a href="#以上就是hexo的基础使用了。" class="headerlink" title="以上就是hexo的基础使用了。"></a>以上就是hexo的基础使用了。</h4><hr>
+<h2 id="配置github-page"><a href="#配置github-page" class="headerlink" title="配置github page"></a>配置github page</h2><ul>
+<li>建立一个GitHub仓库</li>
+<li>将仓库配置为GitHub page</li>
+<li>输入自己的域名 cuimouren.cn</li>
 </ul>
-<ol start="3">
-<li>配置 smtps</li>
-</ol>
-<ul>
-<li>部分邮件客户端依赖于使用 465 端口提供加密连接，所以我们修改配置，允许 Postfix 使用 465 端口发送邮件。打开 /etc/postfix/master.cf 文件，将如下两行前的 # 去除：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">smtps inet n - n - - smtpd</span><br><span class="line">-o smtpd_tls_wrappermode&#x3D;yes</span><br></pre></td></tr></table></figure></li>
+<h2 id="解析自己的域名到GitHub-page"><a href="#解析自己的域名到GitHub-page" class="headerlink" title="解析自己的域名到GitHub page"></a>解析自己的域名到GitHub page</h2><h4 id="添加如下的域名解析记录"><a href="#添加如下的域名解析记录" class="headerlink" title="添加如下的域名解析记录"></a>添加如下的域名解析记录</h4><ul>
+<li>主机记录： @</li>
+<li>记录类型： CNAME</li>
+<li>线路类型： 默认</li>
+<li>记录值：     yishuilingbo.github.io  即GitHub page分配的网址</li>
 </ul>
-<ol start="4">
-<li>启动</li>
-</ol>
-<ul>
-<li>使用以下命令，将 Postfix 设为自动启动并首次启动该服务：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable postfix.service</span><br><span class="line">systemctl start  postfix.service</span><br></pre></td></tr></table></figure></li>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><hr>
+<h4 id="到此就完成了框架性的工作"><a href="#到此就完成了框架性的工作" class="headerlink" title="到此就完成了框架性的工作"></a>到此就完成了框架性的工作</h4><hr>
+<h2 id="‘菜’的坑"><a href="#‘菜’的坑" class="headerlink" title="‘菜’的坑"></a>‘<strong>菜’的坑</strong></h2><h3 id="注意得在cmd环境下进行操作，powershell不行。"><a href="#注意得在cmd环境下进行操作，powershell不行。" class="headerlink" title="注意得在cmd环境下进行操作，powershell不行。"></a>注意得在cmd环境下进行操作，powershell不行。</h3><h3 id="Hexo在部署到Github后CNAME文件会消失或改变的解决方法"><a href="#Hexo在部署到Github后CNAME文件会消失或改变的解决方法" class="headerlink" title="Hexo在部署到Github后CNAME文件会消失或改变的解决方法"></a>Hexo在部署到Github后CNAME文件会消失或改变的解决方法</h3><h4 id="问题经过"><a href="#问题经过" class="headerlink" title="问题经过:"></a>问题经过:</h4><ul>
+<li><p>在转移网站后,在 Github网页上修改CNAME文件中指向的域名后,重新部署Hexo时发现CNAME指向的域名是之前的网站,而没有编程修改后的域名.排查后发现:</p>
+</li>
+<li><p>Hexo在Github上部署后,如果配置了一个自定义域名时,会自动在项目仓库根目录想新建一个CNAME文件,但是重新部署后CNAME会消失或者变成修改之前的状态,导致需要再次手动修改.</p>
+</li>
 </ul>
-<ol start="5">
-<li>log</li>
-</ol>
-<ul>
-<li>Postfix 系统的日志文件在系统的这个目录下的 /var/log/maillog 文件，此文件记录了 Postfix 服务器的运行状态信息。<h4 id="dovecot"><a href="#dovecot" class="headerlink" title="dovecot"></a>dovecot</h4></li>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h4><ul>
+<li>直接修改 hexo目录 下 source 文件夹内的CNAME文件的内容,用编辑器打开,第一行输入需要配置的域名.这样在部署的时候CNAME 文件会自动部署到Github.不用再次手动修改.</li>
 </ul>
-<ol>
-<li>安装<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install dovecot</span><br></pre></td></tr></table></figure></li>
-<li>配置</li>
-</ol>
-<ul>
-<li>打开 /etc/dovecot/dovecot.conf 文件，在最下方加入以下配置：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssl_cert &#x3D; &lt;&#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;certs&#x2F;dovecot.pem</span><br><span class="line">ssl_key &#x3D; &lt;&#x2F;etc&#x2F;pki&#x2F;dovecot&#x2F;private&#x2F;dovecot.pem</span><br><span class="line"></span><br><span class="line">protocols &#x3D; imap pop3 lmtp</span><br><span class="line">listen &#x3D; *</span><br><span class="line">mail_location &#x3D; Maildir:~&#x2F;Maildir</span><br><span class="line">disable_plaintext_auth &#x3D; no</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li>如果前面你修改为了自己的 ssl 证书和私钥，请替换开始两行配置的路径。</li>
-<li>打开 /etc/dovecot/conf.d/10-master.conf 文件，找到 service auth 部分，将以下行前面的 # 去除：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">unix_listener &#x2F;var&#x2F;spool&#x2F;postfix&#x2F;private&#x2F;auth &#123;  </span><br><span class="line">       mode &#x3D; 0666  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<h3 id="注意配置git的username-与-email"><a href="#注意配置git的username-与-email" class="headerlink" title="注意配置git的username 与 email"></a>注意配置git的username 与 email</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;name&quot;</span><br><span class="line">git config --global user.email &quot;email@gmail.com&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="git网络问题"><a href="#git网络问题" class="headerlink" title="git网络问题"></a>git网络问题</h3><h4 id="设置git的代理"><a href="#设置git的代理" class="headerlink" title="设置git的代理"></a>设置git的代理</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:7890</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="deployer-not-found"><a href="#deployer-not-found" class="headerlink" title="deployer not found"></a>deployer not found</h3><ul>
+<li>npm install hexo-deployer-git –save</li>
 </ul>
-<ol start="3">
-<li>启动<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable dovecot.service</span><br><span class="line">systemctl start  dovecot.service</span><br></pre></td></tr></table></figure></li>
-<li>log</li>
-</ol>
-<ul>
-<li>查看 /var/log/maillog 是否启动成功，如下所示为成功。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Jun 26 12:00:28 localhost postfix&#x2F;postfix-script[28338]: starting the Postfix mail system</span><br><span class="line">Jun 26 12:00:29 localhost postfix&#x2F;master[28340]: daemon started -- version 2.10.1, configuration &#x2F;etc&#x2F;postfix</span><br><span class="line">Jun 26 12:28:40 localhost dovecot: master: Dovecot v2.2.10 starting up for imap, pop3, lmtp (core dumps disabled)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h4></li>
-<li>添加用户<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uaeradd username</span><br></pre></td></tr></table></figure></li>
-<li>设置密码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">passwd username</span><br></pre></td></tr></table></figure>
-<h4 id="发送邮件"><a href="#发送邮件" class="headerlink" title="发送邮件"></a>发送邮件</h4></li>
-<li>su mailuser 切换用户</li>
-<li>发送邮件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &quot;邮件内容&quot; | mail -s &quot;邮件主题&quot;  目标邮箱</span><br></pre></td></tr></table></figure></li>
+<h3 id="permission-denied"><a href="#permission-denied" class="headerlink" title="permission denied"></a>permission denied</h3><ul>
+<li>hexo 只支持单用户凭证，所以需要去控制面板中更改git:<a href="https://github.com/">https://github.com</a> 的用户凭证即可。使用哪一个github用户时就更新成哪一个。</li>
 </ul>
 ]]></content>
       <categories>
-        <category>使用</category>
+        <category>cat1</category>
       </categories>
       <tags>
-        <tag>vps</tag>
-        <tag>mail</tag>
-        <tag>myself</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -321,6 +345,63 @@
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux journey</title>
+    <url>/2021/04/21/linux-journey/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>nonetag</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown的使用方法</title>
+    <url>/2021/03/22/markdown%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="markdown-的使用方法"><a href="#markdown-的使用方法" class="headerlink" title="markdown 的使用方法"></a>markdown 的使用方法</h1><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><blockquote>
+<p>我们使用几个#就代表使用几级标题。在文本的下方添加任意数量的“====”代表一级标题，“—”代表二级标题。 </p>
+<blockquote>
+<p>sad</p>
+</blockquote>
+<ul>
+<li>我们使用几个#就代表使用几级标题。在文本的下方添加任意数量的“====”代表一级标题，“—”代表二级标题。 </li>
+</ul>
+</blockquote>
+<h4 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h4><h4 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h4><h4 id="斜体-粗体"><a href="#斜体-粗体" class="headerlink" title="斜体 粗体"></a>斜体 粗体</h4><ol>
+<li>一</li>
+<li>二<ol>
+<li>一</li>
+<li>二</li>
+<li>三</li>
+</ol>
+</li>
+<li>三</li>
+</ol>
+<ul>
+<li><p>一</p>
+</li>
+<li><p>二</p>
+</li>
+<li><p>the <code>asd</code>.</p>
+</li>
+</ul>
+<p><img src="/img/love.png" alt="poicture"></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line">[</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><a href="https://www.baidu.com/">https://www.baidu.com</a></li>
+<li><a href="mailto:&#x79;&#x61;&#x6f;&#49;&#57;&#55;&#x30;&#x30;&#57;&#57;&#x35;&#x34;&#x30;&#64;&#x31;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;">&#x79;&#x61;&#x6f;&#49;&#57;&#55;&#x30;&#x30;&#57;&#57;&#x35;&#x34;&#x30;&#64;&#x31;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>cat1</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -391,24 +472,6 @@
       </tags>
   </entry>
   <entry>
-    <title>code-server</title>
-    <url>/2021/04/21/code-server/</url>
-    <content><![CDATA[<h1 id="code-server"><a href="#code-server" class="headerlink" title="code-server"></a>code-server</h1><ul>
-<li>code-server is a cloud ide platform, which can enable us to code through browser anywhere. But how to set up the code-server on ubuntu 18.04</li>
-<li>Eeee, to practice my English, I prefer to using English in my blog, unless there is something I can’t express by using my poor English.<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><blockquote>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>技术，linux</tag>
-        <tag>code-server</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>零碎的技术</title>
     <url>/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/</url>
     <content><![CDATA[<h1 id="零碎的技术"><a href="#零碎的技术" class="headerlink" title="零碎的技术"></a>零碎的技术</h1><h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4><blockquote>
@@ -421,68 +484,5 @@
       <tags>
         <tag>技术，域名</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>linux journey</title>
-    <url>/2021/04/21/linux-journey/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>uncategorized</category>
-      </categories>
-      <tags>
-        <tag>nonetag</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2021/04/21/Initial-Server-Setup-with-Ubuntu/</url>
-    <content><![CDATA[<p>title: Initial Server Setup with Ubuntu<br>tags: [技术,linux,ubuntu]<br>categories: </p>
-<ul>
-<li>linux</li>
-<li>ubuntu<br>date: 2021-04-21 15:21:12</li>
-</ul>
-<h1 id="Initial-Server-Setup-with-Ubuntu"><a href="#Initial-Server-Setup-with-Ubuntu" class="headerlink" title="Initial Server Setup with Ubuntu"></a>Initial Server Setup with Ubuntu</h1><ul>
-<li>When you first create a new ubuntu 18.04 server, there are a new configuration steps that you should take early on as part of the basic setup. This will increase the security and usability of your server and will give you a solid foundation for subsequent actions.</li>
-<li>This guide below demonstrates how to manually complete the steps recommended for new ubuntu 18.04 servers. Following this procedure manually can be useful to learn some basic system administration skills and as an exercise to fully understand the actions being taking on my server. As an alternative, if you wish to get up and running more quickly, you can run my initial server setup script which automates these steps.<h4 id="step-1-logging-in-as-root"><a href="#step-1-logging-in-as-root" class="headerlink" title="step 1 logging in as root"></a>step 1 logging in as root</h4></li>
-<li>If you are not already connected to your server, go ahead and log in as root user using the following command, substitute server’s ip with your server’s public ip address.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh root@server&#39;s ip</span><br></pre></td></tr></table></figure></li>
-<li>Accept the warning about host authenticity if it appears. If you are using password authentication, provide your root password to login in. If you are using an SSH key that is passphrase protected, you may be prompted to enter the passphrase the first time you use the key each session. If this is your first time logging into the server with a password, you may also be prompted to change the root password.</li>
-<li><strong>about root</strong><blockquote>
-<p>The root user is the administrative user in a Linux environment that has very broad privileges. Because of the heightened privileges of the root account, you are discouraged form using it on a regular basis. This is because part of the power inherent with the root account is the ability to make very destructive changes, even by accident.</p>
-<p>The next step is to set up an alternative user account with a reduced scope of influence for day-to-day work. I will teach you how to gain increased privileges during the times when you need them.</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="step2-creating-a-new-user"><a href="#step2-creating-a-new-user" class="headerlink" title="step2 creating a new user"></a>step2 creating a new user</h4><ul>
-<li>Once you are logged in as root, we are prepared to add the new user account that we will use to log in from now on.</li>
-<li>This example create a new user named wenyao<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adduser wenyao</span><br></pre></td></tr></table></figure></li>
-<li>You will be asked a few questions, starting with the account password.</li>
-<li>Enter a strong password and, optionally, fill in any of the additional information if you would like. This is not required and you can just hit enter to skip.</li>
-</ul>
-<h4 id="step3-granting-administrative-privileges"><a href="#step3-granting-administrative-privileges" class="headerlink" title="step3 granting administrative privileges"></a>step3 granting administrative privileges</h4><ul>
-<li>Now, we have a new user account with regular account privileges. However, we may sometimes need to do administrative tasks.</li>
-<li>To avoid having to log out of our normal user and log back in as the root account, we can set up what is known as superuser or root privileges for our normal account. This allow our normal user to run commands with administrative privileges by putting the word “sudo” before each command.</li>
-<li>To add these privileges to our new user, we need add the new user to the “sudo” group. By default, on ubuntu 18.04, users who belong to the “sudo” group are allow to use the “sudo” command.</li>
-<li>As root, run this command to add new user to the sudo group.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">usermod -aG sudo wenyao</span><br></pre></td></tr></table></figure></li>
-<li>Now, when logged in as your regular user, you can type “sudo” before commands to perform actions with superuser privileges.</li>
-</ul>
-<h4 id="step4-setting-up-a-basic-firewall"><a href="#step4-setting-up-a-basic-firewall" class="headerlink" title="step4 setting up a basic firewall"></a>step4 setting up a basic firewall</h4><ul>
-<li><p>ubuntu 18.04 servers can use the UFW firewall to make sure only connections to certain services are allowed. We can set up a basic firewall very easily using this application.</p>
-</li>
-<li><p>Different applications can register their profiles with UFW upon installation. These profiles allow UFW to manager these applications by name. OpenSSH, the service allowing us to connect to our server now, has a profile registered with UFW. You can see this by typing:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw app list</span><br></pre></td></tr></table></figure></li>
-<li><p>the output will looks like this:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Available applications:</span><br><span class="line">  OpenSSH</span><br></pre></td></tr></table></figure></li>
-<li><p>We need make sure that the firewall allows SSH connections so that we can log back in next time. We can allow these connections by typing:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw allow OpenSSH</span><br></pre></td></tr></table></figure></li>
-<li><p>Afterwards, we can enable the firewall by typing:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw enable</span><br></pre></td></tr></table></figure></li>
-<li><p>You can see that SSH connections are allowed by typing:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw status</span><br></pre></td></tr></table></figure></li>
-<li><p>the output will looks like this:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Status: active</span><br><span class="line"></span><br><span class="line">To                         Action      From</span><br><span class="line">--                         ------      ----</span><br><span class="line">OpenSSH                    ALLOW       Anywhere</span><br><span class="line">OpenSSH (v6)               ALLOW       Anywhere (v6)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>As the firewall is currently blocking all connections except for SSH. If you install and configure additional services, you will need to adjust the firewall setting to allow acceptable traffic in. </p>
-</li>
-</ul>
-]]></content>
   </entry>
 </search>
