@@ -442,10 +442,35 @@
 </li>
 </ul>
 <h4 id="step2-creating-a-new-user"><a href="#step2-creating-a-new-user" class="headerlink" title="step2 creating a new user"></a>step2 creating a new user</h4><ul>
-<li>Once you are logged in as root, we are prepared to add the new user account that we will use to lg in from now on.</li>
+<li>Once you are logged in as root, we are prepared to add the new user account that we will use to log in from now on.</li>
 <li>This example create a new user named wenyao<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adduser wenyao</span><br></pre></td></tr></table></figure></li>
 <li>You will be asked a few questions, starting with the account password.</li>
-<li></li>
+<li>Enter a strong password and, optionally, fill in any of the additional information if you would like. This is not required and you can just hit enter to skip.</li>
+</ul>
+<h4 id="step3-granting-administrative-privileges"><a href="#step3-granting-administrative-privileges" class="headerlink" title="step3 granting administrative privileges"></a>step3 granting administrative privileges</h4><ul>
+<li>Now, we have a new user account with regular account privileges. However, we may sometimes need to do administrative tasks.</li>
+<li>To avoid having to log out of our normal user and log back in as the root account, we can set up what is known as superuser or root privileges for our normal account. This allow our normal user to run commands with administrative privileges by putting the word “sudo” before each command.</li>
+<li>To add these privileges to our new user, we need add the new user to the “sudo” group. By default, on ubuntu 18.04, users who belong to the “sudo” group are allow to use the “sudo” command.</li>
+<li>As root, run this command to add new user to the sudo group.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">usermod -aG sudo wenyao</span><br></pre></td></tr></table></figure></li>
+<li>Now, when logged in as your regular user, you can type “sudo” before commands to perform actions with superuser privileges.</li>
+</ul>
+<h4 id="step4-setting-up-a-basic-firewall"><a href="#step4-setting-up-a-basic-firewall" class="headerlink" title="step4 setting up a basic firewall"></a>step4 setting up a basic firewall</h4><ul>
+<li><p>ubuntu 18.04 servers can use the UFW firewall to make sure only connections to certain services are allowed. We can set up a basic firewall very easily using this application.</p>
+</li>
+<li><p>Different applications can register their profiles with UFW upon installation. These profiles allow UFW to manager these applications by name. OpenSSH, the service allowing us to connect to our server now, has a profile registered with UFW. You can see this by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw app list</span><br></pre></td></tr></table></figure></li>
+<li><p>the output will looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Available applications:</span><br><span class="line">  OpenSSH</span><br></pre></td></tr></table></figure></li>
+<li><p>We need make sure that the firewall allows SSH connections so that we can log back in next time. We can allow these connections by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw allow OpenSSH</span><br></pre></td></tr></table></figure></li>
+<li><p>Afterwards, we can enable the firewall by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw enable</span><br></pre></td></tr></table></figure></li>
+<li><p>You can see that SSH connections are allowed by typing:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ufw status</span><br></pre></td></tr></table></figure></li>
+<li><p>the output will looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Status: active</span><br><span class="line"></span><br><span class="line">To                         Action      From</span><br><span class="line">--                         ------      ----</span><br><span class="line">OpenSSH                    ALLOW       Anywhere</span><br><span class="line">OpenSSH (v6)               ALLOW       Anywhere (v6)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>As the firewall is currently blocking all connections except for SSH. If you install and configure additional services, you will need to adjust the firewall setting to allow acceptable traffic in. </p>
+</li>
 </ul>
 ]]></content>
   </entry>
