@@ -423,8 +423,19 @@
       </tags>
   </entry>
   <entry>
+    <title>linux journey</title>
+    <url>/2021/04/21/linux-journey/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>nonetag</tag>
+      </tags>
+  </entry>
+  <entry>
     <title></title>
-    <url>/2021/04/21/Initial%20Server%20Setup%20with%20Ubuntu/</url>
+    <url>/2021/04/21/Initial-Server-Setup-with-Ubuntu/</url>
     <content><![CDATA[<p>title: Initial Server Setup with Ubuntu<br>tags: [技术,linux,ubuntu]<br>categories: </p>
 <ul>
 <li>linux</li>
@@ -473,16 +484,5 @@
 </li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>linux journey</title>
-    <url>/2021/04/21/linux-journey/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>uncategorized</category>
-      </categories>
-      <tags>
-        <tag>nonetag</tag>
-      </tags>
   </entry>
 </search>
