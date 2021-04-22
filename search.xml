@@ -354,7 +354,61 @@
   <entry>
     <title>linux journey</title>
     <url>/2021/04/21/linux-journey/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="linux-journey"><a href="#linux-journey" class="headerlink" title="linux journey"></a>linux journey</h1><h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><ul>
+<li>let’s start with a siple command, echo. The command just prints out the arguments to the display.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo hello,world!</span><br></pre></td></tr></table></figure>
+<h4 id="pwd-print-working-directory"><a href="#pwd-print-working-directory" class="headerlink" title="pwd (print working directory)"></a>pwd (print working directory)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+<h4 id="cd-change-directory"><a href="#cd-change-directory" class="headerlink" title="cd (change directory)"></a>cd (change directory)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;test</span><br><span class="line">cd test2</span><br></pre></td></tr></table></figure></li>
+<li>. ( current directory)</li>
+<li>.. (parent directory)</li>
+<li>~ (home directory)</li>
+<li>- (previous directory)</li>
+</ul>
+<h4 id="ls-list-directories"><a href="#ls-list-directories" class="headerlink" title="ls (list directories)"></a>ls (list directories)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls </span><br><span class="line">ls &#x2F;home</span><br><span class="line">ls -a   show all of the files include the files which are hidden.</span><br><span class="line">ls -l   l means long, this command will show the files with their detile.</span><br><span class="line">ls -la  show all the files with their detile.</span><br><span class="line">ls -R   recursively list directory contents.</span><br><span class="line">ls -r   reverse order while sorting.</span><br><span class="line">ls -t   sort by modification time, newest first.</span><br></pre></td></tr></table></figure>
+
+<h4 id="touch-create-a-filw"><a href="#touch-create-a-filw" class="headerlink" title="touch (create a filw)"></a>touch (create a filw)</h4><ul>
+<li>touch allows you to create new empty files.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">touch myfile</span><br></pre></td></tr></table></figure></li>
+<li>touch is also used to change timestamps on existing files and directories. <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">touch myfile</span><br><span class="line">touch mydirectory</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="file-show-the-type-of-the-file’s-contents"><a href="#file-show-the-type-of-the-file’s-contents" class="headerlink" title="file (show the type of the file’s contents)"></a>file (show the type of the file’s contents)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file myfile</span><br></pre></td></tr></table></figure>
+
+<h4 id="cat-show-the-content-of-files"><a href="#cat-show-the-content-of-files" class="headerlink" title="cat (show the content of files)"></a>cat (show the content of files)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat file1 file2</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-show-less-of-a-file"><a href="#less-show-less-of-a-file" class="headerlink" title="less (show less of a file)"></a>less (show less of a file)</h4><ul>
+<li>if you are viewing text files larger than a simple output.(which means it is too big to view on your screen.) you can use less to open it, that can make it easy to view the file.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget linuxqq_2.0.0-b2-1089_x86_64.sh</span><br><span class="line">mv linuxqq_2.0.0-b2-1089_x86_64.sh qq</span><br><span class="line">less qq</span><br></pre></td></tr></table></figure></li>
+<li>the text is displayed in a paged manner, so you can navigate through a text file page by page.<blockquote>
+<p>q  quit out of less and back to your shell<br>Page up, Page down, up and down Navigate.<br>g move to the beginning of the text file<br>G move to the end of the file<br>h help<br>/search search the content behind /</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">less qq</span><br><span class="line">&#x2F;qq</span><br></pre></td></tr></table></figure>
+
+<h4 id="history"><a href="#history" class="headerlink" title="history"></a>history</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">history   show commands you have typed</span><br><span class="line">ctrl-R 	  </span><br><span class="line">clear 	  clear the screen</span><br></pre></td></tr></table></figure>
+<h4 id="cp-copy"><a href="#cp-copy" class="headerlink" title="cp (copy)"></a>cp (copy)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp myfile &#x2F;home&#x2F;files</span><br><span class="line">cp *.jpg &#x2F;home&#x2F;jpgs</span><br><span class="line">cp -r directoryone&#x2F; &#x2F;home&#x2F;document   copy the directory</span><br><span class="line">cp -i my file &#x2F;home&#x2F;files   prompt you before overwriting a same-name-file.</span><br></pre></td></tr></table></figure>
+<h4 id="mv-move"><a href="#mv-move" class="headerlink" title="mv (move)"></a>mv (move)</h4><ul>
+<li>rename file or directory<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv a b</span><br><span class="line">mv directory1 directory2</span><br></pre></td></tr></table></figure></li>
+<li>move files and directories  to somewhere<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv a b directory1 directory2 &#x2F;home</span><br></pre></td></tr></table></figure></li>
+<li>wanna a prompt<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv -i directory1 directory2</span><br></pre></td></tr></table></figure></li>
+<li>make a backup of the file which is going to be overwritten.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv b a</span><br><span class="line">the previous file a will be back up and renamed as ~a</span><br></pre></td></tr></table></figure>
+<h4 id="mkdir-make-a-directory"><a href="#mkdir-make-a-directory" class="headerlink" title="mkdir (make a directory)"></a>mkdir (make a directory)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir one two</span><br></pre></td></tr></table></figure></li>
+<li>wanna to create subdirectories?<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir -p one&#x2F;one two&#x2F;tow</span><br></pre></td></tr></table></figure>
+<h4 id="rm-remove"><a href="#rm-remove" class="headerlink" title="rm (remove)"></a>rm (remove)</h4></li>
+<li>delete a file. the file being deleted will not been pushing into a trash can, so be careful about rm. <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rm filea</span><br></pre></td></tr></table></figure></li>
+<li>force to delete <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rm -f filea</span><br></pre></td></tr></table></figure></li>
+<li>wanna a prompt<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rm -i filea</span><br></pre></td></tr></table></figure></li>
+<li>delete directories<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rm -r directory </span><br><span class="line">or </span><br><span class="line">rmdir directory</span><br></pre></td></tr></table></figure>
+<h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find &#x2F;home -name qq</span><br></pre></td></tr></table></figure></li>
+<li>find a directory<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find &#x2F;home -type d -name mydirectory</span><br></pre></td></tr></table></figure>
+<h4 id="help"><a href="#help" class="headerlink" title="help"></a>help</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">help echo</span><br><span class="line">echo --help</span><br></pre></td></tr></table></figure>
+<h4 id="man"><a href="#man" class="headerlink" title="man"></a>man</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">man ls</span><br></pre></td></tr></table></figure>
+<h4 id="whatis-briefly-describe-a-file"><a href="#whatis-briefly-describe-a-file" class="headerlink" title="whatis (briefly describe a file)"></a>whatis (briefly describe a file)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">whatis cat</span><br></pre></td></tr></table></figure>
+<h4 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h4></li>
+<li>set a alias for a command. the alias are saved in ~/.bashrc<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alias foobar&#x3D;&#39;ls la&#39;</span><br></pre></td></tr></table></figure></li>
+<li>unlias<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">unalias foobar</span><br></pre></td></tr></table></figure>
+<h4 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h4></li>
+<li>exit the shell<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit</span><br><span class="line">or </span><br><span class="line">logout</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>```</p>
+]]></content>
       <categories>
         <category>uncategorized</category>
       </categories>
