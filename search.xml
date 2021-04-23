@@ -139,7 +139,8 @@
         <category>linux</category>
       </categories>
       <tags>
-        <tag>技术，linux</tag>
+        <tag>技术</tag>
+        <tag>linux</tag>
         <tag>code-server</tag>
       </tags>
   </entry>
@@ -540,7 +541,8 @@
         <category>uncategorized</category>
       </categories>
       <tags>
-        <tag>技术，域名</tag>
+        <tag>技术</tag>
+        <tag>域名</tag>
       </tags>
   </entry>
 </search>

@@ -46,7 +46,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/21/Initial-Server-Setup-with-Ubuntu/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/Initial-Server-Setup-with-Ubuntu/</id>
     <published>2021-04-21T07:21:12.000Z</published>
-    <updated>2021-04-21T14:47:01.822Z</updated>
+    <updated>2021-04-23T08:08:09.920Z</updated>
     
     
       
@@ -77,7 +77,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/21/code-server/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/code-server/</id>
     <published>2021-04-21T06:47:01.000Z</published>
-    <updated>2021-04-21T07:22:03.898Z</updated>
+    <updated>2021-04-23T08:08:27.029Z</updated>
     
     
       
@@ -94,7 +94,9 @@
     <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
     
     
-    <category term="技术，linux" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF%EF%BC%8Clinux/"/>
+    <category term="技术" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
     
     <category term="code-server" scheme="http://blog.cuimouren.cn/tags/code-server/"/>
     
@@ -105,7 +107,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/</id>
     <published>2021-04-21T06:37:04.000Z</published>
-    <updated>2021-04-21T06:42:31.003Z</updated>
+    <updated>2021-04-23T08:08:39.365Z</updated>
     
     
       
@@ -121,7 +123,9 @@
     <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
     
     
-    <category term="技术，域名" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF%EF%BC%8C%E5%9F%9F%E5%90%8D/"/>
+    <category term="技术" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="域名" scheme="http://blog.cuimouren.cn/tags/%E5%9F%9F%E5%90%8D/"/>
     
   </entry>
   
@@ -130,7 +134,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/21/proxy-trojan/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/proxy-trojan/</id>
     <published>2021-04-21T06:02:49.000Z</published>
-    <updated>2021-04-21T06:40:09.634Z</updated>
+    <updated>2021-04-23T08:07:58.693Z</updated>
     
     
       
@@ -159,7 +163,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/19/%E5%9F%BA%E4%BA%8E-CentOS-%E6%90%AD%E5%BB%BA-Discuz-%E8%AE%BA%E5%9D%9B/"/>
     <id>http://blog.cuimouren.cn/2021/04/19/%E5%9F%BA%E4%BA%8E-CentOS-%E6%90%AD%E5%BB%BA-Discuz-%E8%AE%BA%E5%9D%9B/</id>
     <published>2021-04-19T15:48:03.000Z</published>
-    <updated>2021-04-21T06:40:40.493Z</updated>
+    <updated>2021-04-23T08:08:48.580Z</updated>
     
     
       
@@ -213,7 +217,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/16/build-a-mail-server-for-myself/"/>
     <id>http://blog.cuimouren.cn/2021/04/16/build-a-mail-server-for-myself/</id>
     <published>2021-04-16T08:54:27.000Z</published>
-    <updated>2021-04-21T06:40:02.158Z</updated>
+    <updated>2021-04-23T08:08:34.755Z</updated>
     
     
       
@@ -242,7 +246,7 @@
     <link href="http://blog.cuimouren.cn/2021/03/23/git%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <id>http://blog.cuimouren.cn/2021/03/23/git%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
     <published>2021-03-23T13:04:12.000Z</published>
-    <updated>2021-04-14T09:47:24.859Z</updated>
+    <updated>2021-04-23T08:08:17.777Z</updated>
     
     
       
