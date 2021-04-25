@@ -548,7 +548,11 @@
   <entry>
     <title>use nginx on ubuntu 18.04</title>
     <url>/2021/04/25/use-nginx-on-ubuntu-18-04/</url>
-    <content><![CDATA[<h1 id="nginx-on-ubuntu-18-04"><a href="#nginx-on-ubuntu-18-04" class="headerlink" title="nginx on ubuntu 18.04"></a>nginx on ubuntu 18.04</h1><h4 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h4><ul>
+    <content><![CDATA[<h1 id="nginx-on-ubuntu-18-04"><a href="#nginx-on-ubuntu-18-04" class="headerlink" title="nginx on ubuntu 18.04"></a>nginx on ubuntu 18.04</h1><h4 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h4><ol>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04">How To Install Nginx on Ubuntu 18.04</a></li>
+<li><a href="http://nginx.org/en/docs/beginners_guide.html">nginx beginner’s guide</a><h4 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h4></li>
+</ol>
+<ul>
 <li>nginx is one of the most popular web servers in the world and is responsible for hosting some of the largest and high-traffic sites on the internet. it is more resource-friendly than apache in most cases and can be used as a web server or reverse proxy.</li>
 <li>in this guild, we will discuss how to install nginx on my ubuntu 18.04 server.<h4 id="step1-install-nginx"><a href="#step1-install-nginx" class="headerlink" title="step1 (install nginx)"></a>step1 (install nginx)</h4></li>
 <li>because nginx is available in ubuntu’s default repositories, it is possible to install it from these repositories using the apt packaging system.</li>
@@ -576,7 +580,54 @@
 <li>enable the file by creating a link form it to the “sites-enabled” directory, which nginx reads from during startup<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ln -s &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;nginx.cuimouren.cn &#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;</span><br></pre></td></tr></table></figure></li>
 <li>test to make sure that there are no syntax error in any nginx files.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure></li>
 <li>restart nginx<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure></li>
-<li>look my site on the browser.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nginx.cuimouren.cn</span><br></pre></td></tr></table></figure></li>
+<li>look my site on the browser.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nginx.cuimouren.cn</span><br></pre></td></tr></table></figure>
+<h4 id="step6-getting-familiar-with-important-nginx-files-and-directories"><a href="#step6-getting-familiar-with-important-nginx-files-and-directories" class="headerlink" title="step6 (getting familiar with important nginx files and directories)"></a>step6 (getting familiar with important nginx files and directories)</h4></li>
+<li>now that you know how to manage the nginx service itself, you should take a few minutes to familiarize yourself with a few important directories and files.</li>
+</ul>
+<h6 id="content"><a href="#content" class="headerlink" title="content"></a>content</h6><ul>
+<li><strong>/var/www/html</strong><blockquote>
+<p>the actual web content, which by default only consists of the nginx page you saw earlier, is served out of the <strong>/var/www/html</strong> directory, this can be changed by altering nginx configuration files.</p>
+</blockquote>
+</li>
+</ul>
+<h6 id="server-configuration"><a href="#server-configuration" class="headerlink" title="server configuration"></a>server configuration</h6><ul>
+<li><p><strong>/etc/nginx</strong></p>
+<blockquote>
+<p>the nginx configuration direction. all of the nginx configuration files reside here.</p>
+</blockquote>
+</li>
+<li><p>** /etc/nginx/nginx.conf**</p>
+<blockquote>
+<p>the main nginx configuration file. this can be modified to make changes to the nginx global configuration.</p>
+</blockquote>
+</li>
+<li><p><strong>/etc/nginx/sites-available</strong></p>
+<blockquote>
+<p>the directory where per-site server blocks can be stored. nginx will not use the configuration files found in this directory unless they are linked to the <strong>sites-enabled</strong> directory. typically, all server block configuration is done in the directory, and then enabled by linking to the other directory.</p>
+</blockquote>
+</li>
+<li><p><strong>/etc/nginx/sites-enabled</strong></p>
+<blockquote>
+<p>the directory where enabled per-site server blocks are stored. typically, these are created by linking to configuration files found in the <strong>sites-available</strong> directory.</p>
+</blockquote>
+</li>
+<li><p><strong>/etc/nginx/snippets</strong></p>
+<blockquote>
+<p>this directory contains configuration fragments that can be included elsewhere in the nginx configuration. potentially repeatable configuration segments are good candidates for refactoring into snippets.</p>
+</blockquote>
+</li>
+</ul>
+<h6 id="server-logs"><a href="#server-logs" class="headerlink" title="server logs"></a>server logs</h6><ul>
+<li><p><strong>/var/log/nginx/access.log</strong></p>
+<blockquote>
+<p>every request to your web server is recorded in the log file unless nginx is configured to do otherwise.</p>
+</blockquote>
+</li>
+<li><p><strong>/var/log/nginx/error/log</strong></p>
+<blockquote>
+<p>any nginx error will be recorded in this log.</p>
+</blockquote>
+</li>
 </ul>
 ]]></content>
       <categories>
