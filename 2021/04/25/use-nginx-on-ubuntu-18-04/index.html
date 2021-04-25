@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    linux journey |  这里是文耀的space
+    use nginx on ubuntu 18.04 |  这里是文耀的space
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -43,7 +43,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-linux-journey"
+  id="post-use-nginx-on-ubuntu-18-04"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -54,18 +54,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  linux journey
+  use nginx on ubuntu 18.04
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/04/21/linux-journey/" class="article-date">
-  <time datetime="2021-04-21T14:36:40.000Z" itemprop="datePublished">2021-04-21</time>
+      <a href="/2021/04/25/use-nginx-on-ubuntu-18-04/" class="article-date">
+  <time datetime="2021-04-25T09:24:12.000Z" itemprop="datePublished">2021-04-25</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/uncategorized/">uncategorized</a>
+    <a class="article-category-link" href="/categories/linux/">linux</a> / <a class="article-category-link" href="/categories/linux/nginx/">nginx</a>
   </div>
   
 <div class="word_count">
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">494</span>
+            <span class="post-count">986</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
+            <span class="post-count">6 分钟</span>
         </span>
     </span>
 </div>
@@ -97,60 +97,36 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="linux-journey"><a href="#linux-journey" class="headerlink" title="linux journey"></a>linux journey</h1><h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><ul>
-<li>let’s start with a siple command, echo. The command just prints out the arguments to the display.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo hello,world!</span><br></pre></td></tr></table></figure>
-<h4 id="pwd-print-working-directory"><a href="#pwd-print-working-directory" class="headerlink" title="pwd (print working directory)"></a>pwd (print working directory)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
-<h4 id="cd-change-directory"><a href="#cd-change-directory" class="headerlink" title="cd (change directory)"></a>cd (change directory)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;test</span><br><span class="line">cd test2</span><br></pre></td></tr></table></figure></li>
-<li>. ( current directory)</li>
-<li>.. (parent directory)</li>
-<li>~ (home directory)</li>
-<li>- (previous directory)</li>
+  <h1 id="nginx-on-ubuntu-18-04"><a href="#nginx-on-ubuntu-18-04" class="headerlink" title="nginx on ubuntu 18.04"></a>nginx on ubuntu 18.04</h1><h4 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h4><ul>
+<li>nginx is one of the most popular web servers in the world and is responsible for hosting some of the largest and high-traffic sites on the internet. it is more resource-friendly than apache in most cases and can be used as a web server or reverse proxy.</li>
+<li>in this guild, we will discuss how to install nginx on my ubuntu 18.04 server.<h4 id="step1-install-nginx"><a href="#step1-install-nginx" class="headerlink" title="step1 (install nginx)"></a>step1 (install nginx)</h4></li>
+<li>because nginx is available in ubuntu’s default repositories, it is possible to install it from these repositories using the apt packaging system.</li>
+<li>it may be the first interaction with the apt packaging system, so i’d like to update my local package index so that i have access to the most recent package listings. afterwards, i can install nginx<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install nginx</span><br></pre></td></tr></table></figure></li>
+<li>after accepting the procedure, apt will install nginx and any required dependencies to my server.<h4 id="step2-adjusting-the-firewall"><a href="#step2-adjusting-the-firewall" class="headerlink" title="step2 (adjusting the firewall)"></a>step2 (adjusting the firewall)</h4></li>
+<li>before testing nginx, the firewall software needs to be adjusted to allow access to the service. nginx registers itself as a service with ufw upon installation, making it straightforward to allow nginx access.</li>
+<li>list the application configurations that ufw know how to work with by typing:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw app list</span><br></pre></td></tr></table></figure></li>
+<li>you should get a listing of the application profiles.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Available applications:</span><br><span class="line">  Nginx Full</span><br><span class="line">  Nginx HTTP</span><br><span class="line">  Nginx HTTPS</span><br><span class="line">  OpenSSH</span><br></pre></td></tr></table></figure></li>
+<li>Nginx Full: this profile opens both port 80(normal, unencrypted web traffic) and port 443(TLS/SSL encrypted traffic)</li>
+<li>Nginx HTTP: this profile opens only the port 80.</li>
+<li>Nginx HTTPS: this profile opens only port 443.</li>
+<li>it is recommended that you enable the most restrictive profile that will still allow the traffic you have configured. however, i have not configured SSL for my server, i will only need to allow traffic on port 80.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw enable &quot;Nginx HTTP&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="checking-your-web-server"><a href="#checking-your-web-server" class="headerlink" title="checking your web server"></a>checking your web server</h4></li>
+<li>at the end of the installation process, ubuntu starts nginx, the web server should already be up and running. we can check with the systemd init system to make sure the service is running by typing:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status nginx</span><br></pre></td></tr></table></figure></li>
+<li>output:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">● nginx.service - A high performance web server and a reverse proxy server</span><br><span class="line">   Loaded: loaded (&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;nginx.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Sun 2021-04-25 17:46:15 CST; 7min ago</span><br><span class="line">     Docs: man:nginx(8)</span><br><span class="line">  Process: 1156 ExecStart&#x3D;&#x2F;usr&#x2F;sbin&#x2F;nginx -g daemon on; master_process on; (code&#x3D;exited, s</span><br><span class="line">  Process: 1039 ExecStartPre&#x3D;&#x2F;usr&#x2F;sbin&#x2F;nginx -t -q -g daemon on; master_process on; (code&#x3D;</span><br><span class="line"> Main PID: 1170 (nginx)</span><br><span class="line">    Tasks: 2 (limit: 2121)</span><br><span class="line">   CGroup: &#x2F;system.slice&#x2F;nginx.service</span><br><span class="line">           ├─1170 nginx: master process &#x2F;usr&#x2F;sbin&#x2F;nginx -g daemon on; master_process on;</span><br><span class="line">           └─1176 nginx: worker process</span><br><span class="line"></span><br><span class="line">Apr 25 17:46:15 VM-4-14-ubuntu systemd[1]: Starting A high performance web server and a re</span><br><span class="line">Apr 25 17:46:15 VM-4-14-ubuntu systemd[1]: nginx.service: Failed to parse PID from file &#x2F;r</span><br><span class="line">Apr 25 17:46:15 VM-4-14-ubuntu systemd[1]: Started A high performance web server and a rev</span><br><span class="line">lines 1-15&#x2F;15 (END)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>as you can see above, the service appears to have started successfully, however, the best way to test this is to actually request a page from nginx.</li>
+<li>you can access the default nginx landing page to confirm that the software is running properly by navigating to your server’s ip address. you can get your ipv4 address on the internet by typing:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -4 icanhazip.com</span><br></pre></td></tr></table></figure></li>
+<li>enter it to your browser’s address bar, you will see the default nginx landing page.<h4 id="step4-manager-the-nginx-process"><a href="#step4-manager-the-nginx-process" class="headerlink" title="step4 (manager the nginx process)"></a>step4 (manager the nginx process)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl start nginx</span><br><span class="line">systemctl stop nginx</span><br><span class="line">systemctl restart nginx</span><br><span class="line">systemctl reload nginx</span><br><span class="line">systemctl enable nginx</span><br><span class="line">systemctl disable nginx</span><br></pre></td></tr></table></figure>
+<h4 id="step5-setting-up-server-blocks"><a href="#step5-setting-up-server-blocks" class="headerlink" title="step5 (setting up server blocks)"></a>step5 (setting up server blocks)</h4></li>
+<li>when using the nginx web server, server blocks(similar to virtual hosts in apache)can be used to encapsulate configuration details and host more than one domain form a single server. i will set a domain called nginx.cuimouren.cn to test this.</li>
+<li>nginx on ubuntu has one server block enabled by default that is configured to serve documents out of a directory at /var/www/html. while this works well for one single site, it can become unwieldly if you are hosting multiple sites. instead of modifying /var/www/html, let’s create a directory structure within /var/www for my nginx.cuimouren.cn site, leaving /var/www/html in place as the default directory to be served if a client request does not match any other sites.</li>
+<li>create a directory for nginx.cuimouren.cn, using -p flag to create any necessary parent directories. i will using my github page as a test.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;var&#x2F;www&#x2F;nginx.cuimouren.cn</span><br><span class="line">cd &#x2F;var&#x2F;www&#x2F;nginx.cuimouren.cn</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;yishuilingbo&#x2F;yishuilingbo.github.io.git</span><br><span class="line">cd yishuilingbo.github.io</span><br><span class="line">mv * ..&#x2F;</span><br><span class="line">rm -rf yishuilingbo.github.io</span><br></pre></td></tr></table></figure></li>
+<li>in order for nginx to server this content, it’s necessary to create a server block with the correct directives, instead of modifying the default configuration file directly, let’s make a new one.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;nginx.cuimouren.cn</span><br></pre></td></tr></table></figure></li>
+<li>write like these<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        listen [::]:80;</span><br><span class="line"></span><br><span class="line">        root &#x2F;var&#x2F;www&#x2F;nginx.cuimouren.cn;</span><br><span class="line">        index index.html index.htm index.nginx-debian.html;</span><br><span class="line"></span><br><span class="line">        server_name nginx.cuimouren.cn www.nginx.cuimouren.cn;</span><br><span class="line"></span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">                try_files $uri $uri&#x2F; &#x3D;404;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>enable the file by creating a link form it to the “sites-enabled” directory, which nginx reads from during startup<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;nginx.cuimouren.cn &#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;</span><br></pre></td></tr></table></figure></li>
+<li>test to make sure that there are no syntax error in any nginx files.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure></li>
+<li>restart nginx<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure></li>
+<li>look my site on the browser.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx.cuimouren.cn</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="ls-list-directories"><a href="#ls-list-directories" class="headerlink" title="ls (list directories)"></a>ls (list directories)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ls </span><br><span class="line">ls &#x2F;home</span><br><span class="line">ls -a   show all of the files include the files which are hidden.</span><br><span class="line">ls -l   l means long, this command will show the files with their detile.</span><br><span class="line">ls -la  show all the files with their detile.</span><br><span class="line">ls -R   recursively list directory contents.</span><br><span class="line">ls -r   reverse order while sorting.</span><br><span class="line">ls -t   sort by modification time, newest first.</span><br></pre></td></tr></table></figure>
-
-<h4 id="touch-create-a-filw"><a href="#touch-create-a-filw" class="headerlink" title="touch (create a filw)"></a>touch (create a filw)</h4><ul>
-<li>touch allows you to create new empty files.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch myfile</span><br></pre></td></tr></table></figure></li>
-<li>touch is also used to change timestamps on existing files and directories. <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch myfile</span><br><span class="line">touch mydirectory</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="file-show-the-type-of-the-file’s-contents"><a href="#file-show-the-type-of-the-file’s-contents" class="headerlink" title="file (show the type of the file’s contents)"></a>file (show the type of the file’s contents)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file myfile</span><br></pre></td></tr></table></figure>
-
-<h4 id="cat-show-the-content-of-files"><a href="#cat-show-the-content-of-files" class="headerlink" title="cat (show the content of files)"></a>cat (show the content of files)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat file1 file2</span><br></pre></td></tr></table></figure>
-
-<h4 id="less-show-less-of-a-file"><a href="#less-show-less-of-a-file" class="headerlink" title="less (show less of a file)"></a>less (show less of a file)</h4><ul>
-<li>if you are viewing text files larger than a simple output.(which means it is too big to view on your screen.) you can use less to open it, that can make it easy to view the file.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget linuxqq_2.0.0-b2-1089_x86_64.sh</span><br><span class="line">mv linuxqq_2.0.0-b2-1089_x86_64.sh qq</span><br><span class="line">less qq</span><br></pre></td></tr></table></figure></li>
-<li>the text is displayed in a paged manner, so you can navigate through a text file page by page.<blockquote>
-<p>q  quit out of less and back to your shell<br>Page up, Page down, up and down Navigate.<br>g move to the beginning of the text file<br>G move to the end of the file<br>h help<br>/search search the content behind /</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">less qq</span><br><span class="line">&#x2F;qq</span><br></pre></td></tr></table></figure>
-
-<h4 id="history"><a href="#history" class="headerlink" title="history"></a>history</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history   show commands you have typed</span><br><span class="line">ctrl-R 	  </span><br><span class="line">clear 	  clear the screen</span><br></pre></td></tr></table></figure>
-<h4 id="cp-copy"><a href="#cp-copy" class="headerlink" title="cp (copy)"></a>cp (copy)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cp myfile &#x2F;home&#x2F;files</span><br><span class="line">cp *.jpg &#x2F;home&#x2F;jpgs</span><br><span class="line">cp -r directoryone&#x2F; &#x2F;home&#x2F;document   copy the directory</span><br><span class="line">cp -i my file &#x2F;home&#x2F;files   prompt you before overwriting a same-name-file.</span><br></pre></td></tr></table></figure>
-<h4 id="mv-move"><a href="#mv-move" class="headerlink" title="mv (move)"></a>mv (move)</h4><ul>
-<li>rename file or directory<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv a b</span><br><span class="line">mv directory1 directory2</span><br></pre></td></tr></table></figure></li>
-<li>move files and directories  to somewhere<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv a b directory1 directory2 &#x2F;home</span><br></pre></td></tr></table></figure></li>
-<li>wanna a prompt<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -i directory1 directory2</span><br></pre></td></tr></table></figure></li>
-<li>make a backup of the file which is going to be overwritten.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv b a</span><br><span class="line">the previous file a will be back up and renamed as ~a</span><br></pre></td></tr></table></figure>
-<h4 id="mkdir-make-a-directory"><a href="#mkdir-make-a-directory" class="headerlink" title="mkdir (make a directory)"></a>mkdir (make a directory)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir one two</span><br></pre></td></tr></table></figure></li>
-<li>wanna to create subdirectories?<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p one&#x2F;one two&#x2F;tow</span><br></pre></td></tr></table></figure>
-<h4 id="rm-remove"><a href="#rm-remove" class="headerlink" title="rm (remove)"></a>rm (remove)</h4></li>
-<li>delete a file. the file being deleted will not been pushing into a trash can, so be careful about rm. <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm filea</span><br></pre></td></tr></table></figure></li>
-<li>force to delete <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -f filea</span><br></pre></td></tr></table></figure></li>
-<li>wanna a prompt<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -i filea</span><br></pre></td></tr></table></figure></li>
-<li>delete directories<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -r directory </span><br><span class="line">or </span><br><span class="line">rmdir directory</span><br></pre></td></tr></table></figure>
-<h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F;home -name qq</span><br></pre></td></tr></table></figure></li>
-<li>find a directory<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F;home -type d -name mydirectory</span><br></pre></td></tr></table></figure>
-<h4 id="help"><a href="#help" class="headerlink" title="help"></a>help</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">help echo</span><br><span class="line">echo --help</span><br></pre></td></tr></table></figure>
-<h4 id="man"><a href="#man" class="headerlink" title="man"></a>man</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man ls</span><br></pre></td></tr></table></figure>
-<h4 id="whatis-briefly-describe-a-file"><a href="#whatis-briefly-describe-a-file" class="headerlink" title="whatis (briefly describe a file)"></a>whatis (briefly describe a file)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whatis cat</span><br></pre></td></tr></table></figure>
-<h4 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h4></li>
-<li>set a alias for a command. the alias are saved in ~/.bashrc<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias foobar&#x3D;&#39;ls la&#39;</span><br></pre></td></tr></table></figure></li>
-<li>unlias<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unalias foobar</span><br></pre></td></tr></table></figure>
-<h4 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h4></li>
-<li>exit the shell<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">or </span><br><span class="line">logout</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>```</p>
  
       <!-- reward -->
       
@@ -215,12 +191,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://blog.cuimouren.cn/2021/04/21/linux-journey/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://blog.cuimouren.cn/2021/04/25/use-nginx-on-ubuntu-18-04/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nonetag/" rel="tag">nonetag</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngiinx/" rel="tag">ngiinx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a></li></ul>
 
     </footer>
   </div>
@@ -228,19 +204,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/04/25/use-nginx-on-ubuntu-18-04/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            use nginx on ubuntu 18.04
-          
-        </div>
-      </a>
     
-    
-      <a href="/2021/04/21/Initial-Server-Setup-with-Ubuntu/" class="article-nav-link">
+      <a href="/2021/04/21/linux-journey/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Initial Server Setup with Ubuntu</div>
+        <div class="article-nav-title">linux journey</div>
       </a>
     
   </nav>

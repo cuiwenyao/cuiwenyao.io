@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-04-22T10:00:29.398Z</updated>
+  <updated>2021-04-25T10:26:54.808Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>use nginx on ubuntu 18.04</title>
+    <link href="http://blog.cuimouren.cn/2021/04/25/use-nginx-on-ubuntu-18-04/"/>
+    <id>http://blog.cuimouren.cn/2021/04/25/use-nginx-on-ubuntu-18-04/</id>
+    <published>2021-04-25T09:24:12.000Z</published>
+    <updated>2021-04-25T10:26:54.808Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;nginx-on-ubuntu-18-04&quot;&gt;&lt;a href=&quot;#nginx-on-ubuntu-18-04&quot; class=&quot;headerlink&quot; title=&quot;nginx on ubuntu 18.04&quot;&gt;&lt;/a&gt;nginx on ubuntu</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
+    
+    <category term="nginx" scheme="http://blog.cuimouren.cn/categories/linux/nginx/"/>
+    
+    
+    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
+    
+    <category term="ubuntu" scheme="http://blog.cuimouren.cn/tags/ubuntu/"/>
+    
+    <category term="ngiinx" scheme="http://blog.cuimouren.cn/tags/ngiinx/"/>
+    
+  </entry>
   
   <entry>
     <title>linux journey</title>
