@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">8 分钟</span>
         </span>
     </span>
 </div>
@@ -130,7 +130,11 @@
 <li>test to make sure that there are no syntax error in any nginx files.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure></li>
 <li>restart nginx<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure></li>
 <li>look my site on the browser.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx.cuimouren.cn</span><br></pre></td></tr></table></figure>
-<h4 id="step6-getting-familiar-with-important-nginx-files-and-directories"><a href="#step6-getting-familiar-with-important-nginx-files-and-directories" class="headerlink" title="step6 (getting familiar with important nginx files and directories)"></a>step6 (getting familiar with important nginx files and directories)</h4></li>
+<h4 id="step6-securing-my-domain"><a href="#step6-securing-my-domain" class="headerlink" title="step6 securing my domain"></a>step6 securing my domain</h4></li>
+<li>in this section, i will secure my domain using a let’s encrypt tls sertificate, which i will provision using certbot.<br>to install the lastest version of sertbot, i will need to add its package repository to my server by running the following command:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">add-apt-repository ppa:certbot&#x2F;certbot</span><br><span class="line">#install its nginx plugin</span><br><span class="line">apt install python-sertbot-nginx</span><br><span class="line">ufw allow https</span><br><span class="line">ufw reload</span><br><span class="line">certbot --nginx -d mydomain</span><br></pre></td></tr></table></figure></li>
+<li>i recommand to use the second option in order to maximize security.</li>
+</ul>
+<h4 id="step7-getting-familiar-with-important-nginx-files-and-directories"><a href="#step7-getting-familiar-with-important-nginx-files-and-directories" class="headerlink" title="step7 (getting familiar with important nginx files and directories)"></a>step7 (getting familiar with important nginx files and directories)</h4><ul>
 <li>now that you know how to manage the nginx service itself, you should take a few minutes to familiarize yourself with a few important directories and files.</li>
 </ul>
 <h6 id="content"><a href="#content" class="headerlink" title="content"></a>content</h6><ul>

@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">126</span>
+            <span class="post-count">130</span>
         </span>
     </span>
 
@@ -98,7 +98,8 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h1 id="linux-base"><a href="#linux-base" class="headerlink" title="linux base"></a>linux base</h1><h4 id="centos6-定时重启"><a href="#centos6-定时重启" class="headerlink" title="centos6 定时重启"></a>centos6 定时重启</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;crontab</span><br><span class="line">按照提示添加 </span><br><span class="line">00 06 * * * root reboot</span><br><span class="line">载入内存</span><br><span class="line">crontab &#x2F;etc&#x2F;crontab</span><br><span class="line">启动服务并设置开机自启动</span><br><span class="line">systemctl enable crond.service</span><br><span class="line">systemctl restart crond.service</span><br><span class="line">查看定时配置</span><br><span class="line">crontab -l</span><br><span class="line">查看系统启动记录</span><br><span class="line">last reboot</span><br><span class="line">who -b</span><br></pre></td></tr></table></figure>
-<h4 id="ubuntu-设置root-ssh-登录"><a href="#ubuntu-设置root-ssh-登录" class="headerlink" title="ubuntu 设置root ssh 登录"></a>ubuntu 设置root ssh 登录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">重置 root 的密码</span><br><span class="line">sudo passwd root</span><br><span class="line">su</span><br><span class="line">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config </span><br><span class="line">将 PermitRootLogin 参数修改为 yes。</span><br><span class="line">将 PasswordAuthentication 参数修改为 yes。</span><br><span class="line">若 sshd_config 配置文件中无此配置项，则添加 PasswordAuthentication yes 项即可。</span><br><span class="line">service ssh restart</span><br></pre></td></tr></table></figure> 
+<h4 id="ubuntu-设置root-ssh-登录"><a href="#ubuntu-设置root-ssh-登录" class="headerlink" title="ubuntu 设置root ssh 登录"></a>ubuntu 设置root ssh 登录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">重置 root 的密码</span><br><span class="line">sudo passwd root</span><br><span class="line">su</span><br><span class="line">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config </span><br><span class="line">将 PermitRootLogin 参数修改为 yes。</span><br><span class="line">将 PasswordAuthentication 参数修改为 yes。</span><br><span class="line">若 sshd_config 配置文件中无此配置项，则添加 PasswordAuthentication yes 项即可。</span><br><span class="line">service ssh restart</span><br></pre></td></tr></table></figure>
+<h4 id="远程复制"><a href="#远程复制" class="headerlink" title="远程复制"></a>远程复制</h4> 
       <!-- reward -->
       
     </div>
