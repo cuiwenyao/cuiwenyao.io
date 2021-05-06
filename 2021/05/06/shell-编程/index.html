@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">42</span>
+            <span class="post-count">1.2k</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -98,9 +98,281 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h1 id="shell-编程"><a href="#shell-编程" class="headerlink" title="shell 编程"></a>shell 编程</h1><ul>
-<li>最近在用Linux倒腾一些东西，发现好多东西都可以使用写成一个shell脚本来简化，所以学习一下shell.<h4 id=""><a href="#" class="headerlink" title=""></a></h4></li>
+<li>最近在用Linux倒腾一些东西，发现好多东西都可以使用写成一个shell脚本来简化，所以学习一下shell.</li>
 </ul>
- 
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#! &#x2F;bin&#x2F;bash</span><br><span class="line">echo &quot;hello,world!&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="shell-变量"><a href="#shell-变量" class="headerlink" title="shell 变量"></a>shell 变量</h4> <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意不能加空格</span></span><br><span class="line">myname=<span class="string">&quot;cuiwenyao&quot;</span></span><br><span class="line">echo $&#123;myname&#125;</span><br><span class="line">hername=<span class="string">&quot;qinmengyao&quot;</span></span><br><span class="line">echo $&#123;myname&#125; <span class="string">&quot;love&quot;</span> $&#123;hername&#125;</span><br><span class="line"><span class="comment">//字符串拼接</span></span><br><span class="line"><span class="built_in">string</span>=<span class="string">&quot;$&#123;myname&#125; &quot;</span>love<span class="string">&quot; $&#123;hername&#125;&quot;</span></span><br><span class="line">echo <span class="built_in">string</span></span><br><span class="line"><span class="comment">//获取长度</span></span><br><span class="line">echo $&#123;<span class="meta">#myname&#125;</span></span><br><span class="line"><span class="comment">//提取字串</span></span><br><span class="line"><span class="built_in">string</span>=$&#123;myname:<span class="number">1</span>:<span class="number">2</span>&#125;</span><br><span class="line">echo <span class="built_in">string</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><ul>
+<li>bash 只支持一维数组。</li>
+<li>shell用小括号表示数组，数组元素用空格分开。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">myarray=(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span><br><span class="line">echo $&#123;myarray[<span class="number">0</span>]&#125;</span><br><span class="line">myarray[<span class="number">0</span>]=<span class="number">10</span></span><br><span class="line">echo $&#123;myarray[<span class="number">0</span>]&#125;</span><br><span class="line"><span class="comment">//获取所有元素</span></span><br><span class="line">echo $&#123;myarray[@]&#125;</span><br><span class="line"><span class="comment">//获取数组长度</span></span><br><span class="line">echo $&#123;<span class="meta">#myarray[@]&#125;</span></span><br><span class="line">echo $&#123;<span class="meta">#myarray[*]&#125;</span></span><br><span class="line"><span class="comment">//获取单个元素的长度</span></span><br><span class="line">echo $&#123;<span class="meta">#myarray[0]&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加法</td>
+<td>`expr $a + $b`</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法</td>
+<td>`expr $a - $b`</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法</td>
+<td>`expr $a * $b`</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除法</td>
+<td>`expr $a / $b`</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取余</td>
+<td>`expr $a % $b`</td>
+</tr>
+<tr>
+<td>=</td>
+<td>赋值</td>
+<td>`expr $a = $b`</td>
+</tr>
+<tr>
+<td>==</td>
+<td>相等。</td>
+<td>`expr $a == $b`</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不相等。</td>
+<td>`expr $a != $b`</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/bash</span><br><span class="line">a=<span class="number">10</span></span><br><span class="line">b=<span class="number">20</span></span><br><span class="line">r=`expr $&#123;a&#125; + $&#123;b&#125;`</span><br><span class="line">echo $&#123;r&#125;</span><br><span class="line">r=`expr $&#123;a&#125; - $&#123;b&#125;`</span><br><span class="line">echo $&#123;r&#125;</span><br><span class="line">r=`expr $&#123;a&#125; \* $&#123;b&#125;`</span><br><span class="line">echo $&#123;r&#125;</span><br><span class="line">r=`expr $&#123;a&#125; / $&#123;b&#125;`</span><br><span class="line">echo $&#123;r&#125;</span><br><span class="line">r=`expr $&#123;a&#125; % $&#123;b&#125;`</span><br><span class="line">echo $&#123;r&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h6><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-eq</td>
+<td>相等</td>
+<td>[${a} -eq ${b}]</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>不相等</td>
+<td>[${a} -ne ${b}]</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>大于</td>
+<td>[${a} -gt ${b}]</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td>小于</td>
+<td>[${a} -lt ${b}]</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>大于等于</td>
+<td>[${a} -ge ${b}]</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>小于等于</td>
+<td>[${a} -le ${b}]</td>
+</tr>
+<tr>
+<td>!</td>
+<td>非</td>
+<td>[！false]</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>或</td>
+<td>[${a} -lt 20 -o ${b} -gt 100]</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>与</td>
+<td>[${a} -lt 20 -a ${b} -gt 100]</td>
+</tr>
+<tr>
+<td>||</td>
+<td>或</td>
+<td>[[${a} -lt 20</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>与</td>
+<td>[[${a} -lt 20 &amp;&amp; ${b} -gt 100]]</td>
+</tr>
+</tbody></table>
+<h6 id="字符串运算符"><a href="#字符串运算符" class="headerlink" title="字符串运算符"></a>字符串运算符</h6><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>=</td>
+<td>检测两个字符串是否相等，相等返回 true。</td>
+<td>[ $a = $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>检测两个字符串是否相等，不相等返回 true。</td>
+<td>[ $a != $b ] 返回 true。</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>检测字符串长度是否为0，为0返回 true。</td>
+<td>[ -z $a ] 返回 false。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>检测字符串长度是否为0，不为0返回 true。</td>
+<td>[ -n $a ] 返回 true。</td>
+</tr>
+<tr>
+<td>str</td>
+<td>检测字符串是否为空，不为空返回 true。</td>
+<td>[ $a ] 返回 true。</td>
+</tr>
+</tbody></table>
+<h6 id="文件测试运算符"><a href="#文件测试运算符" class="headerlink" title="文件测试运算符"></a>文件测试运算符</h6><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-b</td>
+<td>是否是块设备文件</td>
+<td>[ -b $file ]</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>是否是字符设备文件</td>
+<td>[ -c $file ]</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>是否是目录</td>
+<td>[ -d $file ]</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>是否是普通文件（既不是目录，也不是设备文件）</td>
+<td>[ -f $file ]</td>
+</tr>
+<tr>
+<td>-g</td>
+<td>是否设置了 SGID 位</td>
+<td>[ -g $file ]</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>是否设置了粘着位</td>
+<td>[ -k $file ]</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>是否是有名管道</td>
+<td>[ -p $file ]</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>是否设置了 SUID 位</td>
+<td>[ -u $file ]</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>文件是否可读</td>
+<td>[ -r $file ]</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>是否可写</td>
+<td>[ -w $file ]</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>是否可执行</td>
+<td>[ -x $file ]</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>是否为空</td>
+<td>[ -s $file ]</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>检测文件（包括目录）是否存在</td>
+<td>[ -e $file ]</td>
+</tr>
+</tbody></table>
+<h4 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h4><ul>
+<li>shell的流程不可为空。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">#! &#x2F;bin&#x2F;bash</span><br><span class="line">num1&#x3D;$[2*4]</span><br><span class="line">num2&#x3D;$[1+5]</span><br><span class="line">if test $[num1] -eq 8</span><br><span class="line">then</span><br><span class="line">    echo &#39;两个数字相等!&#39;</span><br><span class="line">elif test $[num1] -lt $[num2]</span><br><span class="line">then </span><br><span class="line">    echo &#39;两个数字不相等!&#39;</span><br><span class="line">else</span><br><span class="line">    echo &#39;this is else&#39;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">array&#x3D;(1 2 3 4)</span><br><span class="line">for var in $&#123;array[@]&#125;</span><br><span class="line">do </span><br><span class="line">    echo $&#123;var&#125;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo &quot;while 测试 1&quot;</span><br><span class="line">var&#x3D;5</span><br><span class="line">while (( $&#123;var&#125;&lt;&#x3D;10 ))</span><br><span class="line">do </span><br><span class="line">    echo $&#123;var&#125;</span><br><span class="line">    var&#x3D;&#96;expr $&#123;var&#125; + 1&#96;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo &quot;while 测试 2&quot;</span><br><span class="line">var&#x3D;5</span><br><span class="line">while test $&#123;var&#125; -ne 10</span><br><span class="line">do </span><br><span class="line">    echo $&#123;var&#125;</span><br><span class="line">    let &quot;var++&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo &quot;while 测试 3&quot;</span><br><span class="line">echo &quot;按下ctrl+d退出&quot;</span><br><span class="line">echo &quot;输入a,b的值,我会帮你输出和&quot;</span><br><span class="line">while read a b</span><br><span class="line">do </span><br><span class="line">    if test $&#123;a&#125; -eq 10 </span><br><span class="line">    then </span><br><span class="line">        echo &quot;退出&quot;</span><br><span class="line">        break</span><br><span class="line">    fi</span><br><span class="line">    echo &#96;expr $&#123;a&#125; + $&#123;b&#125;&#96;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo &quot;until 测试 1&quot;</span><br><span class="line">var&#x3D;0</span><br><span class="line">until test $&#123;var&#125; -eq 10</span><br><span class="line">do</span><br><span class="line">    echo $&#123;var&#125;</span><br><span class="line">    var&#x3D;&#96;expr $&#123;var&#125; + 1&#96;</span><br><span class="line">    echo $&#123;var&#125;</span><br><span class="line">    let &quot;var++&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo &quot;case 测试 1&quot;</span><br><span class="line">var&#x3D;1</span><br><span class="line">case $&#123;var&#125; in</span><br><span class="line">1)</span><br><span class="line">    echo &quot;1&quot;</span><br><span class="line">    ;;</span><br><span class="line">2) </span><br><span class="line">    echo &quot;2&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="shell-函数"><a href="#shell-函数" class="headerlink" title="shell 函数"></a>shell 函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">fun()&#123;</span><br><span class="line">    echo &quot;这个函数会对三个数字进行相加运算...&quot;</span><br><span class="line">    echo &quot;输入第一个数字: &quot;</span><br><span class="line">    read aNum</span><br><span class="line">    echo &quot;输入第二个数字: &quot;</span><br><span class="line">    read anotherNum</span><br><span class="line">    echo &quot;两个数字分别为 $aNum 和 $anotherNum !&quot;</span><br><span class="line">    return $(($&#123;aNum&#125;+$&#123;anotherNum&#125;+$&#123;1&#125;))</span><br><span class="line">&#125;</span><br><span class="line">fun 10</span><br><span class="line">echo &quot;三个数字之和为 $? !&quot;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数处理</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$#</td>
+<td>传递到脚本的参数个数</td>
+</tr>
+<tr>
+<td>$*</td>
+<td>以一个单字符串显示所有向脚本传递的参数</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>脚本运行的当前进程ID号</td>
+</tr>
+<tr>
+<td>$!</td>
+<td>后台运行的最后一个进程的ID号</td>
+</tr>
+<tr>
+<td>$@</td>
+<td>与$*相同，但是使用时加引号，并在引号中返回每个参数。</td>
+</tr>
+<tr>
+<td>$-</td>
+<td>显示Shell使用的当前选项，与set命令功能相同。</td>
+</tr>
+<tr>
+<td>$?</td>
+<td>显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。</td>
+</tr>
+</tbody></table>
+<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">. test.sh</span><br><span class="line">source test.sh</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
