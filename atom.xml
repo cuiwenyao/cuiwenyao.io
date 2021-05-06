@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-05-02T07:54:26.033Z</updated>
+  <updated>2021-05-06T01:48:45.968Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -17,19 +17,31 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>test</title>
-    <link href="http://blog.cuimouren.cn/2021/05/02/test/"/>
-    <id>http://blog.cuimouren.cn/2021/05/02/test/</id>
-    <published>2021-05-02T07:54:26.000Z</published>
-    <updated>2021-05-02T07:54:26.033Z</updated>
+    <title>shell 编程</title>
+    <link href="http://blog.cuimouren.cn/2021/05/06/shell-%E7%BC%96%E7%A8%8B/"/>
+    <id>http://blog.cuimouren.cn/2021/05/06/shell-%E7%BC%96%E7%A8%8B/</id>
+    <published>2021-05-06T01:44:16.000Z</published>
+    <updated>2021-05-06T01:48:45.968Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;shell-编程&quot;&gt;&lt;a href=&quot;#shell-编程&quot; class=&quot;headerlink&quot; title=&quot;shell 编程&quot;&gt;&lt;/a&gt;shell</summary>
+        
+      
     
     
     
+    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
     
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    <category term="shell" scheme="http://blog.cuimouren.cn/categories/linux/shell/"/>
     
     
-    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
+    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
+    
+    <category term="shell" scheme="http://blog.cuimouren.cn/tags/shell/"/>
     
   </entry>
   
@@ -155,7 +167,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/</id>
     <published>2021-04-21T06:37:04.000Z</published>
-    <updated>2021-04-23T08:08:39.365Z</updated>
+    <updated>2021-05-06T02:32:10.888Z</updated>
     
     
       
@@ -172,8 +184,6 @@
     
     
     <category term="技术" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="域名" scheme="http://blog.cuimouren.cn/tags/%E5%9F%9F%E5%90%8D/"/>
     
   </entry>
   
@@ -265,7 +275,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/16/build-a-mail-server-for-myself/"/>
     <id>http://blog.cuimouren.cn/2021/04/16/build-a-mail-server-for-myself/</id>
     <published>2021-04-16T08:54:27.000Z</published>
-    <updated>2021-04-23T08:08:34.755Z</updated>
+    <updated>2021-05-06T02:32:39.896Z</updated>
     
     
       
@@ -279,6 +289,8 @@
     
     
     <category term="使用" scheme="http://blog.cuimouren.cn/categories/%E4%BD%BF%E7%94%A8/"/>
+    
+    <category term="mail" scheme="http://blog.cuimouren.cn/categories/%E4%BD%BF%E7%94%A8/mail/"/>
     
     
     <category term="vps" scheme="http://blog.cuimouren.cn/tags/vps/"/>
@@ -323,7 +335,7 @@
     <link href="http://blog.cuimouren.cn/2021/03/22/markdown%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
     <id>http://blog.cuimouren.cn/2021/03/22/markdown%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</id>
     <published>2021-03-22T06:14:23.000Z</published>
-    <updated>2021-03-22T08:18:02.588Z</updated>
+    <updated>2021-05-06T02:31:55.628Z</updated>
     
     
       
@@ -336,7 +348,7 @@
     
     
     
-    <category term="cat1" scheme="http://blog.cuimouren.cn/categories/cat1/"/>
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
     
     
     <category term="markdown" scheme="http://blog.cuimouren.cn/tags/markdown/"/>
@@ -348,7 +360,7 @@
     <link href="http://blog.cuimouren.cn/2021/03/22/hello-world/"/>
     <id>http://blog.cuimouren.cn/2021/03/22/hello-world/</id>
     <published>2021-03-22T06:05:15.000Z</published>
-    <updated>2021-03-22T07:35:20.436Z</updated>
+    <updated>2021-05-06T02:32:48.828Z</updated>
     
     
       
@@ -361,7 +373,7 @@
     
     
     
-    <category term="cat2, cat3" scheme="http://blog.cuimouren.cn/categories/cat2-cat3/"/>
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
     
     
     <category term="hello_world" scheme="http://blog.cuimouren.cn/tags/hello-world/"/>
@@ -373,7 +385,7 @@
     <link href="http://blog.cuimouren.cn/2021/03/22/hexo%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <id>http://blog.cuimouren.cn/2021/03/22/hexo%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
     <published>2021-03-22T05:05:15.000Z</published>
-    <updated>2021-04-21T06:45:00.111Z</updated>
+    <updated>2021-05-06T02:32:59.656Z</updated>
     
     
       
@@ -386,7 +398,7 @@
     
     
     
-    <category term="cat1" scheme="http://blog.cuimouren.cn/categories/cat1/"/>
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
     
     
     <category term="hexo" scheme="http://blog.cuimouren.cn/tags/hexo/"/>
