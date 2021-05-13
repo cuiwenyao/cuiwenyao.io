@@ -712,6 +712,10 @@
 </blockquote>
 </li>
 </ul>
+<h4 id="linux-加速"><a href="#linux-加速" class="headerlink" title="linux 加速"></a>linux 加速</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget &quot;https:&#x2F;&#x2F;github.com&#x2F;chiakge&#x2F;Linux-NetSpeed&#x2F;raw&#x2F;master&#x2F;tcp.sh&quot; &amp;&amp; chmod +x tcp.sh &amp;&amp; .&#x2F;tcp.sh</span><br></pre></td></tr></table></figure>
+
+
+
 ]]></content>
       <categories>
         <category>linux</category>
