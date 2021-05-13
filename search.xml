@@ -346,7 +346,11 @@
     <url>/2021/04/19/linux-base/</url>
     <content><![CDATA[<h1 id="linux-base"><a href="#linux-base" class="headerlink" title="linux base"></a>linux base</h1><h4 id="centos6-定时重启"><a href="#centos6-定时重启" class="headerlink" title="centos6 定时重启"></a>centos6 定时重启</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;crontab</span><br><span class="line">按照提示添加 </span><br><span class="line">00 06 * * * root reboot</span><br><span class="line">载入内存</span><br><span class="line">crontab &#x2F;etc&#x2F;crontab</span><br><span class="line">启动服务并设置开机自启动</span><br><span class="line">systemctl enable crond.service</span><br><span class="line">systemctl restart crond.service</span><br><span class="line">查看定时配置</span><br><span class="line">crontab -l</span><br><span class="line">查看系统启动记录</span><br><span class="line">last reboot</span><br><span class="line">who -b</span><br></pre></td></tr></table></figure>
 <h4 id="ubuntu-设置root-ssh-登录"><a href="#ubuntu-设置root-ssh-登录" class="headerlink" title="ubuntu 设置root ssh 登录"></a>ubuntu 设置root ssh 登录</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">重置 root 的密码</span><br><span class="line">sudo passwd root</span><br><span class="line">su</span><br><span class="line">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config </span><br><span class="line">将 PermitRootLogin 参数修改为 yes。</span><br><span class="line">将 PasswordAuthentication 参数修改为 yes。</span><br><span class="line">若 sshd_config 配置文件中无此配置项，则添加 PasswordAuthentication yes 项即可。</span><br><span class="line">service ssh restart</span><br></pre></td></tr></table></figure>
-<h4 id="远程复制"><a href="#远程复制" class="headerlink" title="远程复制"></a>远程复制</h4>]]></content>
+<h4 id="远程复制"><a href="#远程复制" class="headerlink" title="远程复制"></a>远程复制</h4><h4 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h4><ul>
+<li>问题描述：<br>安装postgresql开发环境的时候，配置环境变量，写入export PGHOME到 /etc/profile中，由于需要重启机器才能使修改全面生效；<br>在不重启电脑的情况下，每次打开终端都得source一下才能生效。如何才能立刻生效呢？</li>
+</ul>
+<p>解决方法：由于每次启动终端的时候，都会执行 /etc/bashrc ，所以可以把source /etc/profile 命令<br>写入到 /etc/bashrc 文件中，实现环境变量立刻全面生效的效果。</p>
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -1004,6 +1008,106 @@
       <tags>
         <tag>linux</tag>
         <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>os 001 bochs</title>
+    <url>/2021/05/11/os-001-bochs/</url>
+    <content><![CDATA[<h1 id="make-an-os-001"><a href="#make-an-os-001" class="headerlink" title="make an os -001"></a>make an os -001</h1><ul>
+<li>积攒了这么久，终于要开始写一个操作系统了，加油。</li>
+</ul>
+<h4 id="bochs"><a href="#bochs" class="headerlink" title="bochs"></a>bochs</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;cfhcable.dl.sourceforge.net&#x2F;project&#x2F;bochs&#x2F;bochs&#x2F;2.6.2&#x2F;bochs-2.6.2.tar.gz</span><br></pre></td></tr></table></figure>
+<ul>
+<li>解压进入目录中</li>
+<li>configure</li>
+</ul>
+<blockquote>
+<p>./configure –prefix=/lib/bochs –enable-debugger –enable-disasm  –enable-iodebug  –enable-x86-debugger  –with-x –with-x11</p>
+</blockquote>
+<ul>
+<li><p>make<br>make会出现lpthread未链接的信息，则添加以下内容。<br>修改Makefile 在93行加入以下信息</p>
+<blockquote>
+<p>./configure –prefix=/lib/bochs –enable-debugger –enable-disasm  –enable-iodebug  –enable-x86-debugger  –with-x –with-x11<br>191行与192行改为</p>
+<p>$(LIBS) \    </p>
+<pre><code>   -lpthread
+</code></pre>
+</blockquote>
+</li>
+<li><p>make install</p>
+</li>
+<li><p>Makefile的示例如下<br><a href="/file/bochs/Makefile">makefile</a></p>
+</li>
+<li><p>配置bochs的启动选项<br><a href="/file/bochs/conf">conf</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Bochs配置文件</span><br><span class="line"></span><br><span class="line"># 机器内存: 32MB</span><br><span class="line">megs: 32</span><br><span class="line"></span><br><span class="line"># 对应真实机器的bios</span><br><span class="line">romimage: file&#x3D;&#x2F;lib&#x2F;bochs&#x2F;share&#x2F;bochs&#x2F;BIOS-bochs-latest</span><br><span class="line"># 对应真实机器的VGA bios</span><br><span class="line">vgaromimage: file&#x3D;&#x2F;lib&#x2F;bochs&#x2F;share&#x2F;bochs&#x2F;VGABIOS-lgpl-latest</span><br><span class="line"></span><br><span class="line"># 启动方式</span><br><span class="line">boot: disk</span><br><span class="line"></span><br><span class="line">log: bochs.out</span><br><span class="line"></span><br><span class="line"># 关闭鼠标</span><br><span class="line">mouse: enabled&#x3D;0</span><br><span class="line">keyboard:keymap&#x3D;&#x2F;lib&#x2F;bochs&#x2F;share&#x2F;bochs&#x2F;keymaps&#x2F;x11-pc-us.map</span><br><span class="line"># 硬盘设置</span><br><span class="line"></span><br><span class="line">ata0: enabled&#x3D;1, ioaddr1&#x3D;0x1f0, ioaddr2&#x3D;0x3f0, irq&#x3D;14</span><br><span class="line">ata0-master: type&#x3D;disk, path&#x3D;&quot;hd60M.img&quot;, mode&#x3D;flat, cylinders&#x3D;121, heads&#x3D;16, spt&#x3D;63</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>添加环境变量<br>在 <strong>/etc/profile</strong> 的最后一行添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;lib&#x2F;bochs&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure></li>
+<li><p>启动bochs</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">boshs</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>os</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>os 002 mbr</title>
+    <url>/2021/05/11/os-002-mbr/</url>
+    <content><![CDATA[<h1 id="os-002-mbr"><a href="#os-002-mbr" class="headerlink" title="os 002 mbr"></a>os 002 mbr</h1><h4 id="一个mbr示例"><a href="#一个mbr示例" class="headerlink" title="一个mbr示例"></a>一个mbr示例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SECTION MBR vstart&#x3D;0x7c00 </span><br><span class="line">mov ax,cs </span><br><span class="line">mov ds,ax </span><br><span class="line">mov es,ax </span><br><span class="line">mov ss,ax </span><br><span class="line">mov fs,ax </span><br><span class="line">mov sp,0x7c00 </span><br><span class="line"></span><br><span class="line">mov ax, 0x600 </span><br><span class="line">mov bx, 0x700 </span><br><span class="line">mov cx, 0 ; 左上角: (0, 0) </span><br><span class="line">mov dx, 0x184f ; 右下角: (80,25), </span><br><span class="line"></span><br><span class="line">int 0x10 ; int 0x10 </span><br><span class="line"></span><br><span class="line">mov ah, 3 ; 输入: 3 号子功能是获取光标位置,需要存入 ah 寄存器</span><br><span class="line">mov bh, 0 ; bh 寄存器存储的是待获取光标的页号</span><br><span class="line"></span><br><span class="line">int 0x10 ; 输出: ch&#x3D;光标开始行,cl&#x3D;光标结束行</span><br><span class="line"></span><br><span class="line">mov ax, message </span><br><span class="line">mov bp, ax ; es:bp 为串首地址,es 此时同 cs 一致, </span><br><span class="line"></span><br><span class="line">mov cx, 5 ; cx 为串长度,不包括结束符 0 的字符个数</span><br><span class="line">mov ax, 0x1301 ;子功能号 13 显示字符及属性,要存入 ah 寄存器, </span><br><span class="line"></span><br><span class="line">mov bx, 0x2 ; bh 存储要显示的页号,此处是第 0 页, </span><br><span class="line"></span><br><span class="line">int 0x10 ; 执行 BIOS 0x10 号中断</span><br><span class="line"></span><br><span class="line">jmp $ ; 使程序悬停在此</span><br><span class="line"></span><br><span class="line">message db &quot;1 MBR&quot; </span><br><span class="line">times 510-($-$$) db 0 </span><br><span class="line">db 0x55,0xaa</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>nasm mbr.asm -o mbr.bin<br>dd if=/lib/bochs/mbr.bin of=/lib/bochs/hd60M.img bs=512 count=1 conv=notrunc<br>bochs</p>
+</blockquote>
+<blockquote>
+<p>在实模式环境下：<br>当压入 8 位立即数时，由于实模式下默认操作数是 16 位，CPU 会将其扩展为 16 位后再将其入栈，sp-2。<br>当压入 16 位立即数时，CPU 会将其直接入栈，sp-2。<br>当压入 32 位立即数时，CPU 会将其直接入栈，sp-4。<br>在保护模式下:<br>当压入 8 位立即数时，由于保护模式下默认操作数是 32 位，CPU 将其扩展为 32 位后入栈，esp 指针<br>减 4。<br>当压入 16 位立即数时，CPU 直接压入 2 字节，esp 指针减 2。<br>当压入 32 位立即数时，CPU 直接压入 4 字节，esp 指针减 4。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>nonetag</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gcc 使用入门</title>
+    <url>/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h1 id="gcc-使用入门"><a href="#gcc-使用入门" class="headerlink" title="gcc 使用入门"></a>gcc 使用入门</h1><p>GCC是GUN Compiler Collection 的简称，除了编译程序之外，还包含其他的相关工具。</p>
+<h4 id="程序的编译过程"><a href="#程序的编译过程" class="headerlink" title="程序的编译过程"></a>程序的编译过程</h4><p>对于GUN编译器来说，程序的编译要经过预处理、编译、汇编、连接四个阶段。</p>
+<h6 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h6><p>输入c语言源文件 ***.c** ,输出中间文件 ***.i** ,该阶段主要处理源文件中的预处理指令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -E test.c -o test.i</span><br></pre></td></tr></table></figure>
+
+<h6 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h6><p>输入中间文件 ***.i** ,输出汇编语言文件 ***.s** 。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -S test.i -o test.s</span><br></pre></td></tr></table></figure>
+
+<h6 id="汇编阶段"><a href="#汇编阶段" class="headerlink" title="汇编阶段"></a>汇编阶段</h6><p>输入汇编语言源 ***.s** ,输出机器语言文件 ***.o** 。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -c test.s -o test.o</span><br></pre></td></tr></table></figure>
+
+<h6 id="连接阶段"><a href="#连接阶段" class="headerlink" title="连接阶段"></a>连接阶段</h6><p>讲输入的机器代码文件***.o**与其他的机器代码文件和库文件汇集成一个可执行的二进制代码文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc test.o -o test</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用命令编译选项"><a href="#常用命令编译选项" class="headerlink" title="常用命令编译选项"></a>常用命令编译选项</h4><h6 id="无选项编译链接"><a href="#无选项编译链接" class="headerlink" title="无选项编译链接"></a>无选项编译链接</h6><p>用法：#gcc test.c<br>作用：将 test.c 预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认<br>输出为 a.out。</p>
+<h6 id="选项-o"><a href="#选项-o" class="headerlink" title="选项 -o"></a>选项 -o</h6><p>用法：#gcc test.c -o test<br>作用：将 test.c 预处理、汇编、编译并链接形成可执行文件 test。-o 选项用来指定输出文<br>件的文件名。</p>
+<h6 id="选项-E"><a href="#选项-E" class="headerlink" title="选项 -E"></a>选项 -E</h6><p>用法：#gcc -E test.c -o test.i<br>作用：将 test.c 预处理输出 test.i 文件。</p>
+<h6 id="选项-S"><a href="#选项-S" class="headerlink" title="选项 -S"></a>选项 -S</h6><p>用法：#gcc -S test.i<br>作用：将预处理输出文件 test.i 汇编成 test.s 文件。</p>
+<h6 id="选项-c"><a href="#选项-c" class="headerlink" title="选项 -c"></a>选项 -c</h6><p>用法：#gcc -c test.s<br>作用：将汇编输出文件 test.s 编译输出 test.o 文件。</p>
+<h6 id="无选项链接"><a href="#无选项链接" class="headerlink" title="无选项链接"></a>无选项链接</h6><p>用法：#gcc test.o -o test<br>作用：将编译输出文件 test.o 链接成最终可执行文件 test。</p>
+<h6 id="选项-O"><a href="#选项-O" class="headerlink" title="选项-O"></a>选项-O</h6><p>用法：#gcc -O1 test.c -o test<br>作用：使用编译优化级别 1 编译程序。级别为 1~3，级别越大优化效果越好，但编译时间越<br>长。</p>
+<h4 id="多源文件的编译方法"><a href="#多源文件的编译方法" class="headerlink" title="多源文件的编译方法"></a>多源文件的编译方法</h4><p>如果有多个源文件，基本上有两种编译方法：<br>[假设有两个源文件为 test.c 和 testfun.c]</p>
+<ol>
+<li>多个文件一起编译<br>用法：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc testfun.c test.c -o test</span><br></pre></td></tr></table></figure>
+作用：将 testfun.c 和 test.c 分别编译后链接成 test 可执行文件。     </li>
+<li>分别编译各个源文件，之后对编译后输出的目标文件链接。<br>用法：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -c testfun.c &#x2F;&#x2F;将 testfun.c 编译成 testfun.o</span><br><span class="line">gcc -c test.c &#x2F;&#x2F;将 test.c 编译成 test.o</span><br><span class="line">gcc -o testfun.o test.o -o test &#x2F;&#x2F;将 testfun.o 和 test.o 链接成 test</span><br></pre></td></tr></table></figure>
+以上两种方法相比较，第一中方法编译时需要所有文件重新编译，而第二种方法可以只<br>重新编译修改的文件，未修改的文件不用重新编译。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>gcc</category>
+      </categories>
+      <tags>
+        <tag>gcc</tag>
       </tags>
   </entry>
 </search>

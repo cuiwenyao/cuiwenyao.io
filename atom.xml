@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-05-06T13:29:08.448Z</updated>
+  <updated>2021-05-13T12:45:13.121Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -15,6 +15,81 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gcc 使用入门</title>
+    <link href="http://blog.cuimouren.cn/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/"/>
+    <id>http://blog.cuimouren.cn/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</id>
+    <published>2021-05-13T12:16:20.000Z</published>
+    <updated>2021-05-13T12:45:13.121Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;gcc-使用入门&quot;&gt;&lt;a href=&quot;#gcc-使用入门&quot; class=&quot;headerlink&quot; title=&quot;gcc 使用入门&quot;&gt;&lt;/a&gt;gcc 使用入门&lt;/h1&gt;&lt;p&gt;GCC是GUN Compiler Collection</summary>
+        
+      
+    
+    
+    
+    <category term="gcc" scheme="http://blog.cuimouren.cn/categories/gcc/"/>
+    
+    
+    <category term="gcc" scheme="http://blog.cuimouren.cn/tags/gcc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>os 002 mbr</title>
+    <link href="http://blog.cuimouren.cn/2021/05/11/os-002-mbr/"/>
+    <id>http://blog.cuimouren.cn/2021/05/11/os-002-mbr/</id>
+    <published>2021-05-11T15:19:37.000Z</published>
+    <updated>2021-05-12T07:04:43.324Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;os-002-mbr&quot;&gt;&lt;a href=&quot;#os-002-mbr&quot; class=&quot;headerlink&quot; title=&quot;os 002 mbr&quot;&gt;&lt;/a&gt;os 002 mbr&lt;/h1&gt;&lt;h4 id=&quot;一个mbr示例&quot;&gt;&lt;a href=&quot;#一个mbr示例&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    
+    
+    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>os 001 bochs</title>
+    <link href="http://blog.cuimouren.cn/2021/05/11/os-001-bochs/"/>
+    <id>http://blog.cuimouren.cn/2021/05/11/os-001-bochs/</id>
+    <published>2021-05-11T12:59:35.000Z</published>
+    <updated>2021-05-11T15:19:28.731Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;make-an-os-001&quot;&gt;&lt;a href=&quot;#make-an-os-001&quot; class=&quot;headerlink&quot; title=&quot;make an os -001&quot;&gt;&lt;/a&gt;make an os</summary>
+        
+      
+    
+    
+    
+    <category term="os" scheme="http://blog.cuimouren.cn/categories/os/"/>
+    
+    
+    <category term="os" scheme="http://blog.cuimouren.cn/tags/os/"/>
+    
+  </entry>
   
   <entry>
     <title>shell 编程</title>
@@ -250,7 +325,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/19/linux-base/"/>
     <id>http://blog.cuimouren.cn/2021/04/19/linux-base/</id>
     <published>2021-04-19T15:14:50.000Z</published>
-    <updated>2021-05-02T07:59:57.231Z</updated>
+    <updated>2021-05-11T15:43:19.477Z</updated>
     
     
       
