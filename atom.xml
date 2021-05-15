@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-05-13T12:45:13.121Z</updated>
+  <updated>2021-05-14T02:47:55.550Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>os 003 protected mode</title>
+    <link href="http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/"/>
+    <id>http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/</id>
+    <published>2021-05-14T02:45:15.000Z</published>
+    <updated>2021-05-14T02:47:55.550Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;protected-mode&quot;&gt;&lt;a href=&quot;#protected-mode&quot; class=&quot;headerlink&quot; title=&quot;protected mode&quot;&gt;&lt;/a&gt;protected mode&lt;/h1&gt;&lt;h3 id=&quot;页表&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="os" scheme="http://blog.cuimouren.cn/categories/os/"/>
+    
+    
+    <category term="os" scheme="http://blog.cuimouren.cn/tags/os/"/>
+    
+  </entry>
+  
+  <entry>
     <title>gcc 使用入门</title>
     <link href="http://blog.cuimouren.cn/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/"/>
     <id>http://blog.cuimouren.cn/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</id>
     <published>2021-05-13T12:16:20.000Z</published>
-    <updated>2021-05-13T12:45:13.121Z</updated>
+    <updated>2021-05-15T09:39:49.946Z</updated>
     
     
       
@@ -46,7 +71,7 @@
     <link href="http://blog.cuimouren.cn/2021/05/11/os-002-mbr/"/>
     <id>http://blog.cuimouren.cn/2021/05/11/os-002-mbr/</id>
     <published>2021-05-11T15:19:37.000Z</published>
-    <updated>2021-05-12T07:04:43.324Z</updated>
+    <updated>2021-05-14T02:45:51.282Z</updated>
     
     
       
@@ -59,10 +84,10 @@
     
     
     
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    <category term="os" scheme="http://blog.cuimouren.cn/categories/os/"/>
     
     
-    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
+    <category term="os" scheme="http://blog.cuimouren.cn/tags/os/"/>
     
   </entry>
   
