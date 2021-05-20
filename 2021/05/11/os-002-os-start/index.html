@@ -43,7 +43,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-os-002-mbr"
+  id="post-os-002-os-start"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -61,7 +61,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2021/05/11/os-002-mbr/" class="article-date">
+      <a href="/2021/05/11/os-002-os-start/" class="article-date">
   <time datetime="2021-05-11T15:19:37.000Z" itemprop="datePublished">2021-05-11</time>
 </a> 
   <div class="article-category">
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">362</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -198,6 +198,112 @@
 <h4 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h4><ol>
 <li>BIOS本身是一个程序。BIOS的工作：检测硬件，做各种初始化工作，建立中断向量表，加载MBR。</li>
 </ol>
+<h4 id="硬盘操作"><a href="#硬盘操作" class="headerlink" title="硬盘操作"></a>硬盘操作</h4><h6 id="硬盘控制器主要端口寄存器"><a href="#硬盘控制器主要端口寄存器" class="headerlink" title="硬盘控制器主要端口寄存器"></a>硬盘控制器主要端口寄存器</h6><table>
+<thead>
+<tr>
+<th>IO端口</th>
+<th></th>
+<th>端口用途</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>primary通道</td>
+<td>secondary通道</td>
+<td>读</td>
+<td>写</td>
+</tr>
+<tr>
+<td>指令寄存器</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x1F0</td>
+<td>0x170</td>
+<td>data</td>
+<td>data</td>
+</tr>
+<tr>
+<td>0x1F1</td>
+<td>0x171</td>
+<td>data</td>
+<td>features</td>
+</tr>
+<tr>
+<td>0x1F2</td>
+<td>0x172</td>
+<td>扇区数量</td>
+<td>扇区数量</td>
+</tr>
+<tr>
+<td>0x1F3</td>
+<td>0x173</td>
+<td>LBA LOW</td>
+<td>LBA LOW</td>
+</tr>
+<tr>
+<td>0x1F4</td>
+<td>0x174</td>
+<td>LBA MID</td>
+<td>LBA MID</td>
+</tr>
+<tr>
+<td>0x1F5</td>
+<td>0x175</td>
+<td>LBA HIGH</td>
+<td>LBA HIGH</td>
+</tr>
+<tr>
+<td>0x1F6</td>
+<td>0x176</td>
+<td>device</td>
+<td>device</td>
+</tr>
+<tr>
+<td>0x1F7</td>
+<td>0x177</td>
+<td>status</td>
+<td>command</td>
+</tr>
+<tr>
+<td>控制寄存器</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x3F6</td>
+<td>0x376</td>
+<td>alternate status</td>
+<td>device control</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Sector count 寄存器用来指定待读取或待写入的扇区数。硬盘每完成一个扇区，就会将此寄存器的值<br>减 1，所以如果中间失败了，此寄存器中的值便是尚未完成的扇区。这是 8 位寄存器，最大值为 255，若<br>指定为 0，则表示要操作 256 个扇区。      </p>
+</blockquote>
+<blockquote>
+<p>在读硬盘时，端口 0x1F7 或 0x177 的寄存器名称是 Status，它是 8 位宽度的寄存器，用来给出硬盘的<br>状态信息。第 0 位是 ERR 位，如果此位为 1，表示命令出错了，具体原因可见 error 寄存器。第 3 位是 data<br>request 位，如果此位为 1，表示硬盘已经把数据准备好了，主机现在可以把数据读出来。第 6 位是 DRDY，<br>表示硬盘就绪，此位是在对硬盘诊断时用的，表示硬盘检测正常，可以继续执行一些命令。第 7 位是 BSY<br>位，表示硬盘是否繁忙，如果为 1 表示硬盘正忙着，此寄存器中的其他位都无效。另外的 4 位暂不关注。      </p>
+</blockquote>
+<blockquote>
+<p>在写硬盘时，端口 0x1F7 或 0x177 的寄存器名称是 command，和上面说过的 error 和 feature 寄存器情况<br>一样，只是用途变了，所以换了个名字表示新的用途，它和 status 寄存器是同一个。此寄存器用来存储让硬<br>盘执行的命令，只要把命令写进此寄存器，硬盘就开始工作了。主要使用了三个命令。<br>（1）identify：0xEC，即硬盘识别。<br>（2）read sector：0x20，即读扇区。<br>（3）write sector：0x30，即写扇区。   </p>
+</blockquote>
+<h6 id="硬盘读取步骤"><a href="#硬盘读取步骤" class="headerlink" title="硬盘读取步骤"></a>硬盘读取步骤</h6><blockquote>
+<p>（1）先选择通道，往该通道的 sector count 寄存器中写入待操作的扇区数。<br>（2）往该通道上的三个 LBA 寄存器写入扇区起始地址的低 24 位。<br>（3）往 device 寄存器中写入 LBA 地址的 24～27 位，并置第 6 位为 1，使其为 LBA 模式，设置第4位，选择操作的硬盘（master 硬盘或 slave 硬盘）。<br>（4）往该通道上的 command 寄存器写入操作命令。<br>（5）读取该通道上的 status 寄存器，判断硬盘工作是否完成。<br>（6）如果以上步骤是读硬盘，进入下一个步骤。否则，完工。<br>（7）将硬盘数据读出。        </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">;-------------------------------------------------------------------------------</span><br><span class="line">;功能:读取硬盘n个扇区</span><br><span class="line">rd_disk_m_16:	   </span><br><span class="line">;-------------------------------------------------------------------------------</span><br><span class="line">; eax&#x3D;LBA扇区号</span><br><span class="line">; ebx&#x3D;将数据写入的内存地址</span><br><span class="line">; ecx&#x3D;读入的扇区数</span><br><span class="line">      mov esi,eax	  ;备份eax</span><br><span class="line">      mov di,cx		  ;备份cx</span><br><span class="line">;读写硬盘:</span><br><span class="line">;第1步：设置要读取的扇区数</span><br><span class="line">      mov dx,0x1f2</span><br><span class="line">      mov al,cl</span><br><span class="line">      out dx,al            ;读取的扇区数</span><br><span class="line"></span><br><span class="line">      mov eax,esi	   ;恢复ax</span><br><span class="line"></span><br><span class="line">;第2步：将LBA地址存入0x1f3 ~ 0x1f6</span><br><span class="line"></span><br><span class="line">      ;LBA地址7~0位写入端口0x1f3</span><br><span class="line">      mov dx,0x1f3                       </span><br><span class="line">      out dx,al                          </span><br><span class="line"></span><br><span class="line">      ;LBA地址15~8位写入端口0x1f4</span><br><span class="line">      mov cl,8</span><br><span class="line">      shr eax,cl</span><br><span class="line">      mov dx,0x1f4</span><br><span class="line">      out dx,al</span><br><span class="line"></span><br><span class="line">      ;LBA地址23~16位写入端口0x1f5</span><br><span class="line">      shr eax,cl</span><br><span class="line">      mov dx,0x1f5</span><br><span class="line">      out dx,al</span><br><span class="line"></span><br><span class="line">      shr eax,cl</span><br><span class="line">      and al,0x0f	   ;lba第24~27位</span><br><span class="line">      or al,0xe0	   ; 设置7～4位为1110,表示lba模式</span><br><span class="line">      mov dx,0x1f6</span><br><span class="line">      out dx,al</span><br><span class="line"></span><br><span class="line">;第3步：向0x1f7端口写入读命令，0x20 </span><br><span class="line">      mov dx,0x1f7</span><br><span class="line">      mov al,0x20                        </span><br><span class="line">      out dx,al</span><br><span class="line"></span><br><span class="line">;第4步：检测硬盘状态</span><br><span class="line">  .not_ready:</span><br><span class="line">      ;同一端口，写时表示写入命令字，读时表示读入硬盘状态</span><br><span class="line">      nop</span><br><span class="line">      in al,dx</span><br><span class="line">      and al,0x88	   ;第4位为1表示硬盘控制器已准备好数据传输，第7位为1表示硬盘忙</span><br><span class="line">      cmp al,0x08</span><br><span class="line">      jnz .not_ready	   ;若未准备好，继续等。</span><br><span class="line"></span><br><span class="line">;第5步：从0x1f0端口读数据</span><br><span class="line">      mov ax, di</span><br><span class="line">      mov dx, 256</span><br><span class="line">      mul dx</span><br><span class="line">      mov cx, ax	   ; di为要读取的扇区数，一个扇区有512字节，每次读入一个字，</span><br><span class="line">			   ; 共需di*512&#x2F;2次，所以di*256</span><br><span class="line">      mov dx, 0x1f0</span><br><span class="line">  .go_on_read:</span><br><span class="line">      in ax,dx</span><br><span class="line">      mov [bx],ax</span><br><span class="line">      add bx,2		  </span><br><span class="line">      loop .go_on_read</span><br><span class="line">      ret</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
  
       <!-- reward -->
       
@@ -262,7 +368,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://blog.cuimouren.cn/2021/05/11/os-002-mbr/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://blog.cuimouren.cn/2021/05/11/os-002-os-start/" alt="微信分享二维码">
     </div>
 </div>
 
