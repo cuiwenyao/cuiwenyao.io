@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    linux journey |  这里是文耀的space
+    linux command |  这里是文耀的space
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -54,7 +54,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  linux journey
+  linux command
 </h1>
  
 
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">494</span>
+            <span class="post-count">628</span>
         </span>
     </span>
 
@@ -97,7 +97,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="linux-journey"><a href="#linux-journey" class="headerlink" title="linux journey"></a>linux journey</h1><h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><ul>
+  <h1 id="linux-command"><a href="#linux-command" class="headerlink" title="linux command"></a>linux command</h1><h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><ul>
 <li>let’s start with a siple command, echo. The command just prints out the arguments to the display.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo hello,world!</span><br></pre></td></tr></table></figure>
 <h4 id="pwd-print-working-directory"><a href="#pwd-print-working-directory" class="headerlink" title="pwd (print working directory)"></a>pwd (print working directory)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
 <h4 id="cd-change-directory"><a href="#cd-change-directory" class="headerlink" title="cd (change directory)"></a>cd (change directory)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;test</span><br><span class="line">cd test2</span><br></pre></td></tr></table></figure></li>
@@ -150,8 +150,17 @@
 <h4 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h4></li>
 <li>exit the shell<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">or </span><br><span class="line">logout</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>```</p>
- 
+<p><strong>以下信息来源于</strong> <a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html">linux tools quick tutorial</a></p>
+<h4 id="命令帮助"><a href="#命令帮助" class="headerlink" title="命令帮助"></a>命令帮助</h4><ul>
+<li>简要说明命令的作用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whatis [command]</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>正则匹配<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whatis -w &quot;m*&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>详细说明<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">info [command]</span><br><span class="line">man [command]</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>查看路径<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">which [command]</span><br></pre></td></tr></table></figure></li>
+<li>查看程序的搜索路径,当系统中安装了一个软件的多个版本的话，这个命令可以帮助确定版本。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis [command]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="文件与目录管理"><a href="#文件与目录管理" class="headerlink" title="文件与目录管理"></a>文件与目录管理</h4><h4 id="创建和删除"><a href="#创建和删除" class="headerlink" title="创建和删除"></a>创建和删除</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir</span><br><span class="line">touch </span><br><span class="line">rm</span><br><span class="line">mv </span><br><span class="line">cp</span><br></pre></td></tr></table></figure>
+<h4 id="目录切换"><a href="#目录切换" class="headerlink" title="目录切换"></a>目录切换</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br><span class="line">cd -  #切换到上一个工作目录</span><br><span class="line">cd ~  #回到home目录</span><br><span class="line">cd ..&#x2F;</span><br></pre></td></tr></table></figure>
+<h4 id="查找目录与文件"><a href="#查找目录与文件" class="headerlink" title="查找目录与文件"></a>查找目录与文件</h4> 
       <!-- reward -->
       
     </div>

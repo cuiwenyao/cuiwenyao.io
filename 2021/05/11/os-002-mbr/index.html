@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    os 002 mbr |  这里是文耀的space
+    os 002 os start |  这里是文耀的space
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -54,7 +54,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  os 002 mbr
+  os 002 os start
 </h1>
  
 
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">424</span>
+            <span class="post-count">362</span>
         </span>
     </span>
 
@@ -97,13 +97,107 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="os-002-mbr"><a href="#os-002-mbr" class="headerlink" title="os 002 mbr"></a>os 002 mbr</h1><h4 id="一个mbr示例"><a href="#一个mbr示例" class="headerlink" title="一个mbr示例"></a>一个mbr示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">SECTION MBR vstart&#x3D;0x7c00 </span><br><span class="line">mov ax,cs </span><br><span class="line">mov ds,ax </span><br><span class="line">mov es,ax </span><br><span class="line">mov ss,ax </span><br><span class="line">mov fs,ax </span><br><span class="line">mov sp,0x7c00 </span><br><span class="line"></span><br><span class="line">mov ax, 0x600 </span><br><span class="line">mov bx, 0x700 </span><br><span class="line">mov cx, 0 ; 左上角: (0, 0) </span><br><span class="line">mov dx, 0x184f ; 右下角: (80,25), </span><br><span class="line"></span><br><span class="line">int 0x10 ; int 0x10 </span><br><span class="line"></span><br><span class="line">mov ah, 3 ; 输入: 3 号子功能是获取光标位置,需要存入 ah 寄存器</span><br><span class="line">mov bh, 0 ; bh 寄存器存储的是待获取光标的页号</span><br><span class="line"></span><br><span class="line">int 0x10 ; 输出: ch&#x3D;光标开始行,cl&#x3D;光标结束行</span><br><span class="line"></span><br><span class="line">mov ax, message </span><br><span class="line">mov bp, ax ; es:bp 为串首地址,es 此时同 cs 一致, </span><br><span class="line"></span><br><span class="line">mov cx, 5 ; cx 为串长度,不包括结束符 0 的字符个数</span><br><span class="line">mov ax, 0x1301 ;子功能号 13 显示字符及属性,要存入 ah 寄存器, </span><br><span class="line"></span><br><span class="line">mov bx, 0x2 ; bh 存储要显示的页号,此处是第 0 页, </span><br><span class="line"></span><br><span class="line">int 0x10 ; 执行 BIOS 0x10 号中断</span><br><span class="line"></span><br><span class="line">jmp $ ; 使程序悬停在此</span><br><span class="line"></span><br><span class="line">message db &quot;1 MBR&quot; </span><br><span class="line">times 510-($-$$) db 0 </span><br><span class="line">db 0x55,0xaa</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>nasm mbr.asm -o mbr.bin<br>dd if=/lib/bochs/mbr.bin of=/lib/bochs/hd60M.img bs=512 count=1 conv=notrunc<br>bochs</p>
-</blockquote>
-<blockquote>
-<p>在实模式环境下：<br>当压入 8 位立即数时，由于实模式下默认操作数是 16 位，CPU 会将其扩展为 16 位后再将其入栈，sp-2。<br>当压入 16 位立即数时，CPU 会将其直接入栈，sp-2。<br>当压入 32 位立即数时，CPU 会将其直接入栈，sp-4。<br>在保护模式下:<br>当压入 8 位立即数时，由于保护模式下默认操作数是 32 位，CPU 将其扩展为 32 位后入栈，esp 指针<br>减 4。<br>当压入 16 位立即数时，CPU 直接压入 2 字节，esp 指针减 2。<br>当压入 32 位立即数时，CPU 直接压入 4 字节，esp 指针减 4。</p>
-</blockquote>
+  <h1 id="os-002-os-start"><a href="#os-002-os-start" class="headerlink" title="os 002 os start"></a>os 002 os start</h1><h4 id="实模式下的1M内存布局"><a href="#实模式下的1M内存布局" class="headerlink" title="实模式下的1M内存布局"></a>实模式下的1M内存布局</h4><table>
+<thead>
+<tr>
+<th>起始</th>
+<th>结束</th>
+<th>大小</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FFFF0</td>
+<td>FFFFF</td>
+<td>16B</td>
+<td>BIOS入口地址，此16字节的指令是jmp f000:e05b</td>
+</tr>
+<tr>
+<td>F0000</td>
+<td>FFFEF</td>
+<td>64KB-16B</td>
+<td>BIOS的范围是F0000~FFFFF共640KB</td>
+</tr>
+<tr>
+<td>C8000</td>
+<td>EFFFF</td>
+<td>160KB</td>
+<td>映射硬件适配器的ROM或者内存映射式IO</td>
+</tr>
+<tr>
+<td>C0000</td>
+<td>C7FFF</td>
+<td>32KB</td>
+<td>显示适配器BIOS</td>
+</tr>
+<tr>
+<td>B8000</td>
+<td>BFFFF</td>
+<td>32KB</td>
+<td>用于文本模式的显示适配器</td>
+</tr>
+<tr>
+<td>B0000</td>
+<td>B7FFF</td>
+<td>32KB</td>
+<td>用于黑白显示适配器</td>
+</tr>
+<tr>
+<td>A0000</td>
+<td>AFFFF</td>
+<td>64KB</td>
+<td>用于彩色显示适配器</td>
+</tr>
+<tr>
+<td>9FC00</td>
+<td>9FFFF</td>
+<td>1KB</td>
+<td>扩展BIOS数据区</td>
+</tr>
+<tr>
+<td>7E00</td>
+<td>9FBFF</td>
+<td>608KB</td>
+<td>可用区域</td>
+</tr>
+<tr>
+<td>7C00</td>
+<td>7DFF</td>
+<td>512B</td>
+<td>MBR被加载到此处，共512字节</td>
+</tr>
+<tr>
+<td>500</td>
+<td>7BFF</td>
+<td>30KB</td>
+<td>可用区域</td>
+</tr>
+<tr>
+<td>400</td>
+<td>4FF</td>
+<td>256B</td>
+<td>BIOS数据区</td>
+</tr>
+<tr>
+<td>0</td>
+<td>3FF</td>
+<td>1KB</td>
+<td>中断向量表IVT</td>
+</tr>
+</tbody></table>
+<h4 id="计算机的启动过程"><a href="#计算机的启动过程" class="headerlink" title="计算机的启动过程"></a>计算机的启动过程</h4><ol>
+<li>按下开机键，cs:ip被初始化为F000:FFF0，指向BIOS入口地址。</li>
+<li>BIOS被加载进ROM并被映射到1MB内存的顶部（见上表）。</li>
+<li>jmp f000:e05b,执行BIOS的工作。</li>
+<li>BIOS的最后一项工作是校验启动盘中位于0盘0道1扇区的内容，若最后两个字节分别为0x55与0xaa，（即最后一个字的内容为0xaa55(小端字节序)）,则认为这是一个MBR程序（主引导记录），则将此512字节加载如内存0x7C00. BIOS跳转，jmp 0:7C00</li>
+<li>执行MBR。</li>
+<li>MBR，加载boot loader</li>
+<li>boot loader加载os 内核。</li>
+<li>内核执行</li>
+</ol>
+<h4 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h4><ol>
+<li>BIOS本身是一个程序。BIOS的工作：检测硬件，做各种初始化工作，建立中断向量表，加载MBR。</li>
+</ol>
  
       <!-- reward -->
       

@@ -350,6 +350,7 @@
 <li>问题描述：<br>安装postgresql开发环境的时候，配置环境变量，写入export PGHOME到 /etc/profile中，由于需要重启机器才能使修改全面生效；<br>在不重启电脑的情况下，每次打开终端都得source一下才能生效。如何才能立刻生效呢？</li>
 </ul>
 <p>解决方法：由于每次启动终端的时候，都会执行 /etc/bashrc ，所以可以把source /etc/profile 命令<br>写入到 /etc/bashrc 文件中，实现环境变量立刻全面生效的效果。</p>
+<h4 id="忘记root密码"><a href="#忘记root密码" class="headerlink" title="忘记root密码"></a>忘记root密码</h4><p>按住shift键reboot进入grub,选择advanced option，进入recovery mode, 选择root drop to root shell prompt</p>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -359,9 +360,9 @@
       </tags>
   </entry>
   <entry>
-    <title>linux journey</title>
+    <title>linux command</title>
     <url>/2021/04/21/linux-journey/</url>
-    <content><![CDATA[<h1 id="linux-journey"><a href="#linux-journey" class="headerlink" title="linux journey"></a>linux journey</h1><h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><ul>
+    <content><![CDATA[<h1 id="linux-command"><a href="#linux-command" class="headerlink" title="linux command"></a>linux command</h1><h2 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h2><h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><ul>
 <li>let’s start with a siple command, echo. The command just prints out the arguments to the display.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo hello,world!</span><br></pre></td></tr></table></figure>
 <h4 id="pwd-print-working-directory"><a href="#pwd-print-working-directory" class="headerlink" title="pwd (print working directory)"></a>pwd (print working directory)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
 <h4 id="cd-change-directory"><a href="#cd-change-directory" class="headerlink" title="cd (change directory)"></a>cd (change directory)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;test</span><br><span class="line">cd test2</span><br></pre></td></tr></table></figure></li>
@@ -414,8 +415,17 @@
 <h4 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h4></li>
 <li>exit the shell<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit</span><br><span class="line">or </span><br><span class="line">logout</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>```</p>
-]]></content>
+<p><strong>以下信息来源于</strong> <a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html">linux tools quick tutorial</a></p>
+<h4 id="命令帮助"><a href="#命令帮助" class="headerlink" title="命令帮助"></a>命令帮助</h4><ul>
+<li>简要说明命令的作用<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">whatis [command]</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>正则匹配<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">whatis -w &quot;m*&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>详细说明<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">info [command]</span><br><span class="line">man [command]</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>查看路径<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">which [command]</span><br></pre></td></tr></table></figure></li>
+<li>查看程序的搜索路径,当系统中安装了一个软件的多个版本的话，这个命令可以帮助确定版本。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">whereis [command]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="文件与目录管理"><a href="#文件与目录管理" class="headerlink" title="文件与目录管理"></a>文件与目录管理</h4><h4 id="创建和删除"><a href="#创建和删除" class="headerlink" title="创建和删除"></a>创建和删除</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir</span><br><span class="line">touch </span><br><span class="line">rm</span><br><span class="line">mv </span><br><span class="line">cp</span><br></pre></td></tr></table></figure>
+<h4 id="目录切换"><a href="#目录切换" class="headerlink" title="目录切换"></a>目录切换</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwd</span><br><span class="line">cd -  #切换到上一个工作目录</span><br><span class="line">cd ~  #回到home目录</span><br><span class="line">cd ..&#x2F;</span><br></pre></td></tr></table></figure>
+<h4 id="查找目录与文件"><a href="#查找目录与文件" class="headerlink" title="查找目录与文件"></a>查找目录与文件</h4>]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -490,7 +500,7 @@
 <li>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</li>
 </ul>
 <blockquote>
-<p>|  表头   | 表头  |<br>|  —-  | —-  |<br>| 单元格  | 单元格 |<br>| 单元格  | 单元格 |    </p>
+<p>|  表头   | 表头  |<br>|  —  | —  |<br>| 单元格  | 单元格 |<br>| 单元格  | 单元格 |    </p>
 </blockquote>
 <table>
 <thead>
@@ -1058,15 +1068,109 @@
       </tags>
   </entry>
   <entry>
-    <title>os 002 mbr</title>
+    <title>os 002 os start</title>
     <url>/2021/05/11/os-002-mbr/</url>
-    <content><![CDATA[<h1 id="os-002-mbr"><a href="#os-002-mbr" class="headerlink" title="os 002 mbr"></a>os 002 mbr</h1><h4 id="一个mbr示例"><a href="#一个mbr示例" class="headerlink" title="一个mbr示例"></a>一个mbr示例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SECTION MBR vstart&#x3D;0x7c00 </span><br><span class="line">mov ax,cs </span><br><span class="line">mov ds,ax </span><br><span class="line">mov es,ax </span><br><span class="line">mov ss,ax </span><br><span class="line">mov fs,ax </span><br><span class="line">mov sp,0x7c00 </span><br><span class="line"></span><br><span class="line">mov ax, 0x600 </span><br><span class="line">mov bx, 0x700 </span><br><span class="line">mov cx, 0 ; 左上角: (0, 0) </span><br><span class="line">mov dx, 0x184f ; 右下角: (80,25), </span><br><span class="line"></span><br><span class="line">int 0x10 ; int 0x10 </span><br><span class="line"></span><br><span class="line">mov ah, 3 ; 输入: 3 号子功能是获取光标位置,需要存入 ah 寄存器</span><br><span class="line">mov bh, 0 ; bh 寄存器存储的是待获取光标的页号</span><br><span class="line"></span><br><span class="line">int 0x10 ; 输出: ch&#x3D;光标开始行,cl&#x3D;光标结束行</span><br><span class="line"></span><br><span class="line">mov ax, message </span><br><span class="line">mov bp, ax ; es:bp 为串首地址,es 此时同 cs 一致, </span><br><span class="line"></span><br><span class="line">mov cx, 5 ; cx 为串长度,不包括结束符 0 的字符个数</span><br><span class="line">mov ax, 0x1301 ;子功能号 13 显示字符及属性,要存入 ah 寄存器, </span><br><span class="line"></span><br><span class="line">mov bx, 0x2 ; bh 存储要显示的页号,此处是第 0 页, </span><br><span class="line"></span><br><span class="line">int 0x10 ; 执行 BIOS 0x10 号中断</span><br><span class="line"></span><br><span class="line">jmp $ ; 使程序悬停在此</span><br><span class="line"></span><br><span class="line">message db &quot;1 MBR&quot; </span><br><span class="line">times 510-($-$$) db 0 </span><br><span class="line">db 0x55,0xaa</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>nasm mbr.asm -o mbr.bin<br>dd if=/lib/bochs/mbr.bin of=/lib/bochs/hd60M.img bs=512 count=1 conv=notrunc<br>bochs</p>
-</blockquote>
-<blockquote>
-<p>在实模式环境下：<br>当压入 8 位立即数时，由于实模式下默认操作数是 16 位，CPU 会将其扩展为 16 位后再将其入栈，sp-2。<br>当压入 16 位立即数时，CPU 会将其直接入栈，sp-2。<br>当压入 32 位立即数时，CPU 会将其直接入栈，sp-4。<br>在保护模式下:<br>当压入 8 位立即数时，由于保护模式下默认操作数是 32 位，CPU 将其扩展为 32 位后入栈，esp 指针<br>减 4。<br>当压入 16 位立即数时，CPU 直接压入 2 字节，esp 指针减 2。<br>当压入 32 位立即数时，CPU 直接压入 4 字节，esp 指针减 4。</p>
-</blockquote>
+    <content><![CDATA[<h1 id="os-002-os-start"><a href="#os-002-os-start" class="headerlink" title="os 002 os start"></a>os 002 os start</h1><h4 id="实模式下的1M内存布局"><a href="#实模式下的1M内存布局" class="headerlink" title="实模式下的1M内存布局"></a>实模式下的1M内存布局</h4><table>
+<thead>
+<tr>
+<th>起始</th>
+<th>结束</th>
+<th>大小</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FFFF0</td>
+<td>FFFFF</td>
+<td>16B</td>
+<td>BIOS入口地址，此16字节的指令是jmp f000:e05b</td>
+</tr>
+<tr>
+<td>F0000</td>
+<td>FFFEF</td>
+<td>64KB-16B</td>
+<td>BIOS的范围是F0000~FFFFF共640KB</td>
+</tr>
+<tr>
+<td>C8000</td>
+<td>EFFFF</td>
+<td>160KB</td>
+<td>映射硬件适配器的ROM或者内存映射式IO</td>
+</tr>
+<tr>
+<td>C0000</td>
+<td>C7FFF</td>
+<td>32KB</td>
+<td>显示适配器BIOS</td>
+</tr>
+<tr>
+<td>B8000</td>
+<td>BFFFF</td>
+<td>32KB</td>
+<td>用于文本模式的显示适配器</td>
+</tr>
+<tr>
+<td>B0000</td>
+<td>B7FFF</td>
+<td>32KB</td>
+<td>用于黑白显示适配器</td>
+</tr>
+<tr>
+<td>A0000</td>
+<td>AFFFF</td>
+<td>64KB</td>
+<td>用于彩色显示适配器</td>
+</tr>
+<tr>
+<td>9FC00</td>
+<td>9FFFF</td>
+<td>1KB</td>
+<td>扩展BIOS数据区</td>
+</tr>
+<tr>
+<td>7E00</td>
+<td>9FBFF</td>
+<td>608KB</td>
+<td>可用区域</td>
+</tr>
+<tr>
+<td>7C00</td>
+<td>7DFF</td>
+<td>512B</td>
+<td>MBR被加载到此处，共512字节</td>
+</tr>
+<tr>
+<td>500</td>
+<td>7BFF</td>
+<td>30KB</td>
+<td>可用区域</td>
+</tr>
+<tr>
+<td>400</td>
+<td>4FF</td>
+<td>256B</td>
+<td>BIOS数据区</td>
+</tr>
+<tr>
+<td>0</td>
+<td>3FF</td>
+<td>1KB</td>
+<td>中断向量表IVT</td>
+</tr>
+</tbody></table>
+<h4 id="计算机的启动过程"><a href="#计算机的启动过程" class="headerlink" title="计算机的启动过程"></a>计算机的启动过程</h4><ol>
+<li>按下开机键，cs:ip被初始化为F000:FFF0，指向BIOS入口地址。</li>
+<li>BIOS被加载进ROM并被映射到1MB内存的顶部（见上表）。</li>
+<li>jmp f000:e05b,执行BIOS的工作。</li>
+<li>BIOS的最后一项工作是校验启动盘中位于0盘0道1扇区的内容，若最后两个字节分别为0x55与0xaa，（即最后一个字的内容为0xaa55(小端字节序)）,则认为这是一个MBR程序（主引导记录），则将此512字节加载如内存0x7C00. BIOS跳转，jmp 0:7C00</li>
+<li>执行MBR。</li>
+<li>MBR，加载boot loader</li>
+<li>boot loader加载os 内核。</li>
+<li>内核执行</li>
+</ol>
+<h4 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h4><ol>
+<li>BIOS本身是一个程序。BIOS的工作：检测硬件，做各种初始化工作，建立中断向量表，加载MBR。</li>
+</ol>
 ]]></content>
       <categories>
         <category>os</category>
