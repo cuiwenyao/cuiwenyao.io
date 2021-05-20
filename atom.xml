@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-05-14T02:47:55.550Z</updated>
+  <updated>2021-05-20T08:12:46.706Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nasm 使用</title>
+    <link href="http://blog.cuimouren.cn/2021/05/20/nasm-%E4%BD%BF%E7%94%A8/"/>
+    <id>http://blog.cuimouren.cn/2021/05/20/nasm-%E4%BD%BF%E7%94%A8/</id>
+    <published>2021-05-20T08:08:33.000Z</published>
+    <updated>2021-05-20T08:12:46.706Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;nasm-使用&quot;&gt;&lt;a href=&quot;#nasm-使用&quot; class=&quot;headerlink&quot; title=&quot;nasm 使用&quot;&gt;&lt;/a&gt;nasm 使用&lt;/h1&gt;&lt;h4 id=&quot;基本命令&quot;&gt;&lt;a href=&quot;#基本命令&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    
+    
+    <category term="使用" scheme="http://blog.cuimouren.cn/tags/%E4%BD%BF%E7%94%A8/"/>
+    
+    <category term="nasm" scheme="http://blog.cuimouren.cn/tags/nasm/"/>
+    
+  </entry>
   
   <entry>
     <title>os 003 protected mode</title>
@@ -181,7 +208,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/21/linux-journey/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/linux-journey/</id>
     <published>2021-04-21T14:36:40.000Z</published>
-    <updated>2021-05-15T13:09:19.569Z</updated>
+    <updated>2021-05-20T08:21:26.940Z</updated>
     
     
       

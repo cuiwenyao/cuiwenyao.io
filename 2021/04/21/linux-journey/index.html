@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">628</span>
+            <span class="post-count">726</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -160,7 +160,11 @@
 </ul>
 <h4 id="文件与目录管理"><a href="#文件与目录管理" class="headerlink" title="文件与目录管理"></a>文件与目录管理</h4><h4 id="创建和删除"><a href="#创建和删除" class="headerlink" title="创建和删除"></a>创建和删除</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir</span><br><span class="line">touch </span><br><span class="line">rm</span><br><span class="line">mv </span><br><span class="line">cp</span><br></pre></td></tr></table></figure>
 <h4 id="目录切换"><a href="#目录切换" class="headerlink" title="目录切换"></a>目录切换</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br><span class="line">cd -  #切换到上一个工作目录</span><br><span class="line">cd ~  #回到home目录</span><br><span class="line">cd ..&#x2F;</span><br></pre></td></tr></table></figure>
-<h4 id="查找目录与文件"><a href="#查找目录与文件" class="headerlink" title="查找目录与文件"></a>查找目录与文件</h4> 
+<h4 id="查找目录与文件"><a href="#查找目录与文件" class="headerlink" title="查找目录与文件"></a>查找目录与文件</h4><h4 id="磁盘操作"><a href="#磁盘操作" class="headerlink" title="磁盘操作"></a>磁盘操作</h4><p>dd</p>
+<blockquote>
+<p>if=file #read from file instead of stdin<br>of-file write to file instead of stdout<br>by=bytes #read and write bytes bytes at a time (指定块大小)<br>count=blocks #copy only blocks input blocks 指定块数量<br>seek=blocks #把块输出到文件时指定要跳过的几块<br>conv=convs #指定追加数据时的操作 notrunc 是不打断文件。<br>dd if=mbr.bin of=hd60M.hd bs=512 count=1 seek=0 conv=notrunc</p>
+</blockquote>
+ 
       <!-- reward -->
       
     </div>

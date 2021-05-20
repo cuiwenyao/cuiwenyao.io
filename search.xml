@@ -425,7 +425,11 @@
 </ul>
 <h4 id="文件与目录管理"><a href="#文件与目录管理" class="headerlink" title="文件与目录管理"></a>文件与目录管理</h4><h4 id="创建和删除"><a href="#创建和删除" class="headerlink" title="创建和删除"></a>创建和删除</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir</span><br><span class="line">touch </span><br><span class="line">rm</span><br><span class="line">mv </span><br><span class="line">cp</span><br></pre></td></tr></table></figure>
 <h4 id="目录切换"><a href="#目录切换" class="headerlink" title="目录切换"></a>目录切换</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwd</span><br><span class="line">cd -  #切换到上一个工作目录</span><br><span class="line">cd ~  #回到home目录</span><br><span class="line">cd ..&#x2F;</span><br></pre></td></tr></table></figure>
-<h4 id="查找目录与文件"><a href="#查找目录与文件" class="headerlink" title="查找目录与文件"></a>查找目录与文件</h4>]]></content>
+<h4 id="查找目录与文件"><a href="#查找目录与文件" class="headerlink" title="查找目录与文件"></a>查找目录与文件</h4><h4 id="磁盘操作"><a href="#磁盘操作" class="headerlink" title="磁盘操作"></a>磁盘操作</h4><p>dd</p>
+<blockquote>
+<p>if=file #read from file instead of stdin<br>of-file write to file instead of stdout<br>by=bytes #read and write bytes bytes at a time (指定块大小)<br>count=blocks #copy only blocks input blocks 指定块数量<br>seek=blocks #把块输出到文件时指定要跳过的几块<br>conv=convs #指定追加数据时的操作 notrunc 是不打断文件。<br>dd if=mbr.bin of=hd60M.hd bs=512 count=1 seek=0 conv=notrunc</p>
+</blockquote>
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -1230,6 +1234,24 @@
       </categories>
       <tags>
         <tag>os</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nasm 使用</title>
+    <url>/2021/05/20/nasm-%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="nasm-使用"><a href="#nasm-使用" class="headerlink" title="nasm 使用"></a>nasm 使用</h1><h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><ol>
+<li>汇编一个文件<blockquote>
+<p>nasm -f <format> <filename> [-o <output>]<br>nasm -f elf my.asm # 把文件’my.asm’汇编成’ELF’格式 的文件’my.o’.<br>nasm -f bin my.asm -o my.bin # 把文件’my.asm’汇编成纯二进制格式的文件’my.bin’。       </p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>使用</tag>
+        <tag>nasm</tag>
       </tags>
   </entry>
 </search>
