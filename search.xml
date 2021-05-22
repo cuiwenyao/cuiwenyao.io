@@ -1113,9 +1113,262 @@
   <entry>
     <title>os 003 protected mode</title>
     <url>/2021/05/14/os-003-protected-mode/</url>
-    <content><![CDATA[<h1 id="protected-mode"><a href="#protected-mode" class="headerlink" title="protected mode"></a>protected mode</h1><h3 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h3><blockquote>
-<p>假设咱们是在平坦模型下工作，不管段选择子值是多少，其所指向的段基址都是 0，指令 mov ax，<br>[0x1234]中的 0x1234 称为有效地址，它作为“段基址：段内偏移地址”中的段内偏移地址。这样段基址<br>为 0，段内偏移地址为 0x1234，经过段部件处理后，输出的线性地址是 0x1234。由于咱们是演示分页机<br>制，必须假定系统已经打开了分页机制，所以线性地址 0x1234 被送入了页部件。页部件分析 0x1234 的高<br>20 位，用十六进制表示高 20 位是 0x00001。将此项作为页表项索引，再将该索引乘以 4 后加上 cr3 寄存<br>器中页表的物理地址，这样便得到索引所指代的页表项的物理地址，从该物理地址处（页表项中）读取所<br>映射的物理页地址：0x9000。线性地址的低 12 位是 0x234，它作为物理页的页内偏移地址与物理页地址<br>0x9000 相加，和为 0x9234，这就是线性地址 0x1234 最终转换成的物理地址。           </p>
+    <content><![CDATA[<h1 id="protected-mode"><a href="#protected-mode" class="headerlink" title="protected mode"></a>protected mode</h1><h4 id="保护模式简介"><a href="#保护模式简介" class="headerlink" title="保护模式简介"></a>保护模式简介</h4><h6 id="实模式的缺陷"><a href="#实模式的缺陷" class="headerlink" title="实模式的缺陷"></a>实模式的缺陷</h6><ol>
+<li>实模式下操作系统与用户程序属于听一个特权级，容易引起系统崩溃。</li>
+<li>程序引用的地址指向真实的物理地址，即逻辑地址等于物理地址，不利于内存分片管理，容易造成内存碎片化。</li>
+<li>用户程序可以随意访问任意内存。</li>
+<li>一个短只能访问64KB地址，太小了，操作不方便。</li>
+<li>一次只能运行一个程序。</li>
+<li>只有20根地址线，只能寻址1M的空间，太小啦。   </li>
+</ol>
+<blockquote>
+<p>为了克服实模式低劣的内存管理方式，开发出了保护模式。  </p>
 </blockquote>
+<h6 id="保护模式的特点"><a href="#保护模式的特点" class="headerlink" title="保护模式的特点"></a>保护模式的特点</h6><ol>
+<li>寄存器扩展。</li>
+<li>寻址空间扩展为4GB。</li>
+<li>对内存分段并进行描述。全局描述符表，全局描述符表寄存器，段描述符缓冲寄存器。</li>
+<li></li>
+</ol>
+<h6 id="进入保护模式"><a href="#进入保护模式" class="headerlink" title="进入保护模式"></a>进入保护模式</h6><p>进入保护模式的步骤为：</p>
+<ol>
+<li>打开A20</li>
+<li>加载gdt</li>
+<li>将cr0的pe位置1</li>
+<li>jmp 刷新流水线</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">;-----------------  打开A20  ----------------</span><br><span class="line">in al,0x92</span><br><span class="line">or al,0000_0010B</span><br><span class="line">out 0x92,al</span><br><span class="line"></span><br><span class="line">;-----------------  加载GDT  ----------------</span><br><span class="line">lgdt [gdt_ptr]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;-----------------  cr0第0位置1  ----------------</span><br><span class="line">mov eax, cr0</span><br><span class="line">or eax, 0x00000001</span><br><span class="line">mov cr0, eax</span><br></pre></td></tr></table></figure>
+
+<h4 id="内存分段"><a href="#内存分段" class="headerlink" title="内存分段"></a>内存分段</h4><h6 id="段描述符的结构"><a href="#段描述符的结构" class="headerlink" title="段描述符的结构"></a>段描述符的结构</h6><table>
+<thead>
+<tr>
+<th>位</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高32位</td>
+<td></td>
+</tr>
+<tr>
+<td>31-24</td>
+<td>段基址31-24</td>
+</tr>
+<tr>
+<td>23</td>
+<td>G</td>
+</tr>
+<tr>
+<td>22</td>
+<td>D/B</td>
+</tr>
+<tr>
+<td>21</td>
+<td>L</td>
+</tr>
+<tr>
+<td>20</td>
+<td>AVL</td>
+</tr>
+<tr>
+<td>19-16</td>
+<td>段界限19-16</td>
+</tr>
+<tr>
+<td>15</td>
+<td>P</td>
+</tr>
+<tr>
+<td>14-13</td>
+<td>DPL</td>
+</tr>
+<tr>
+<td>12</td>
+<td>S</td>
+</tr>
+<tr>
+<td>11-8</td>
+<td>TYPE</td>
+</tr>
+<tr>
+<td>7-0</td>
+<td>段基址23-16</td>
+</tr>
+<tr>
+<td>低32位</td>
+<td></td>
+</tr>
+<tr>
+<td>31-16</td>
+<td>段基址15-0</td>
+</tr>
+<tr>
+<td>15-0</td>
+<td>段界限15-0</td>
+</tr>
+</tbody></table>
+<ol>
+<li>实际的段界限值=（描述符中的段界限值+1）*（段界限的粒度，1B 或者 4KB) - 1</li>
+<li>G=0，粒度为1B，G=1，粒度为4KB.<br>3、E=0，向上扩展，常用于代码段与数据段。E=1，向下扩展，常用于栈段。</li>
+</ol>
+<h6 id="全局描述符表-GDT"><a href="#全局描述符表-GDT" class="headerlink" title="全局描述符表 GDT"></a>全局描述符表 GDT</h6><p>全局描述符表相当于描述符的数组，每一个元素是8字节的描述符，使用选择子进行索引。GDT中的第0个描述符是不可用的。</p>
+<h6 id="全局描述符表寄存器-GDTR"><a href="#全局描述符表寄存器-GDTR" class="headerlink" title="全局描述符表寄存器 GDTR"></a>全局描述符表寄存器 GDTR</h6><p>GDT存在于内存中，GDTR是一个专门指向全局描述符表的寄存器。结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>47-15</th>
+<th>15-0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GDT初始地址</td>
+<td>GDT界限</td>
+</tr>
+</tbody></table>
+<p>在实模式先使用lgdt加载描述符表，但是由于实模式的限制，此时的GTD只能处于1M地址空间以内，所以到了保护模式可以再次进行lgdt更改GDT的位置。</p>
+<p>lgdt [48位内存数据]<br>按小端字节序，前16位用于舒适化GDT界限，后32位，用于指定GDT的初始地址。</p>
+<h6 id="选择子"><a href="#选择子" class="headerlink" title="选择子"></a>选择子</h6><p>在实模式下，段寄存器选择的是段基址，在开启内存分段后，段寄存器存储的是对应段描述符表的索引和相关数据。选择子的结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>15-4</th>
+<th>3</th>
+<th>2-0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述符索引值</td>
+<td>TI</td>
+<td>RPL</td>
+</tr>
+</tbody></table>
+<p>描述符索引值正好为12位，刚好和GDTR界限所确定的最大描述符数量相匹配。</p>
+<h4 id="获得内存信息"><a href="#获得内存信息" class="headerlink" title="获得内存信息"></a>获得内存信息</h4><h4 id="内存分页"><a href="#内存分页" class="headerlink" title="内存分页"></a>内存分页</h4><p><strong>分段是分页的前提</strong></p>
+<h6 id="内存分段模式下的问题"><a href="#内存分段模式下的问题" class="headerlink" title="内存分段模式下的问题"></a>内存分段模式下的问题</h6><ol>
+<li>物理内存不足时怎么把？</li>
+<li>内存碎片化问题怎么解决。</li>
+</ol>
+<blockquote>
+<p>在保护模式下，段描述符是内存段的身份证，cpu根据一个段描述符来引用一个段。很多时候，段描述符对应的段并不在内存中。如果一个描述符的P位为1，则表示该段在内存中存在。访问过一个段后，cpu将该描述符中的A为置1。如果P位为0，则说明内存中不存在这个段，则cpu抛出np异常，操作系统将对应的段加载到内存中。</p>
+</blockquote>
+<blockquote>
+<p>分页机制的思想是，通过映射，可以使连续的线性地址与任意物理内存地址相关联，逻辑上连续的额线性地址在物理上可以不连续。分页机制将大小不不等的段分解为大小相等的页，再将页映射到物理页。分页机制的作用有：将线性地址转化为物理地址，用大小相等的页代替大小不等的段。有了页表的映射关系，经过段部件的处理输出的则为虚拟地址。在分页机制下，每个进程都认为自己独享整个4GB空间。即程序以为自己身处于段式存储下并拥有4GB空间，但是他的地址经由页部件处理之后才是真正的物理地址。</p>
+</blockquote>
+<h6 id="一级页表"><a href="#一级页表" class="headerlink" title="一级页表"></a>一级页表</h6><blockquote>
+<p>页表用于存储线性地址与物理地址之间的映射。页表中的每一项为大小为4字节的页表项，用来记录4GB空间的物理地址。当访问一个线性地址的时候，实际上就是在访问页表项中对应的物理地址。</p>
+</blockquote>
+<blockquote>
+<p>每个页大小为4KB，一个页表可以存储1M个页表项，加起来一个页表可以表示整个4GB物理空间。</p>
+</blockquote>
+<blockquote>
+<p>一级页表的地址转换过程为：用线性地址的高20位作为页表项的索引，每个页表项占用4字节的大小，索引值乘上4就可以得到该页表项在页表中的偏移量。用cr3寄存器中的页表物理地址加上此偏移量就可以得到该页表项的物理地址，从该页表项中得到映射的物理地址，再与低12位的线性地址相加就可以得到最终要访问的物理地址。</p>
+</blockquote>
+<blockquote>
+<p>假设咱们是在平坦模型下工作，不管段选择子值是多少，其所指向的段基址都是 0，指令 mov ax，<br>[0x1234]中的 0x1234 称为有效地址，它作为“段基址：段内偏移地址”中的段内偏移地址。这样段基址<br>为 0，段内偏移地址为 0x1234，经过段部件处理后，输出的线性地址是 0x1234。由于咱们是演示分页机制，必须假定系统已经打开了分页机制，所以线性地址 0x1234 被送入了页部件。页部件分析 0x1234 的高20 位，用十六进制表示高 20 位是 0x00001。将此项作为页表项索引，再将该索引乘以 4 后加上 cr3 寄存器中页表的物理地址，这样便得到索引所指代的页表项的物理地址，从该物理地址处（页表项中）读取所映射的物理页地址：0x9000。线性地址的低 12 位是 0x234，它作为物理页的页内偏移地址与物理页地址0x9000 相加，和为 0x9234，这就是线性地址 0x1234 最终转换成的物理地址。     </p>
+</blockquote>
+<h6 id="二级页表"><a href="#二级页表" class="headerlink" title="二级页表"></a>二级页表</h6><blockquote>
+<p>二级页表地址转换原理是将 32 位虚拟地址拆分成高 10 位、中间 10 位、低 12 位三部分，它们<br>的作用是：高 10 位作为页表的索引，用于在页目录表中定位一个页目录项 PDE，页目录项中有页表物理地址，也就是定位到了某个页表。中间 10 位作为物理页的索引，用于在页表内定位到某个页表项 PTE，页表项中有分配的物理页地址，也就是定位到了某个物理页。低 12 位作为页内偏移量用于在已经定位到的物理页内寻址。</p>
+</blockquote>
+<blockquote>
+<p>转换过程背后的具体步骤如下。<br>（1）用虚拟地址的高 10 位乘以 4，作为页目录表内的偏移地址，加上页目录表的物理地址，所得的<br>和，便是页目录项的物理地址。读取该页目录项，从中获取到页表的物理地址。<br>（2）用虚拟地址的中间 10 位乘以 4，作为页表内的偏移地址，加上在第 1 步中得到的页表物理地址，<br>所得的和，便是页表项的物理地址。读取该页表项，从中获取到分配的物理页地址。<br>（3）虚拟地址的高 10 位和中间 10 位分别是 PDE 和 PTE 的索引值，所以它们需要乘以 4。但低 12 位就不是索引值啦，其表示的范围是 0～0xfff，作为页内偏移最合适，所以虚拟地址的低 12 位加上第 2 步中得到的物理页地址，所得的和便是最终转换的物理地址。 </p>
+</blockquote>
+<h6 id="页目录项和页表项的结构"><a href="#页目录项和页表项的结构" class="headerlink" title="页目录项和页表项的结构"></a>页目录项和页表项的结构</h6><p><strong>页目录项</strong>    </p>
+<table>
+<thead>
+<tr>
+<th>31-12</th>
+<th>11-9</th>
+<th>8</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>页表物理页地址31-12位</td>
+<td>AVL</td>
+<td>G</td>
+<td>0</td>
+<td>D</td>
+<td>A</td>
+<td>PCD</td>
+<td>PWT</td>
+<td>US</td>
+<td>RW</td>
+<td>P</td>
+</tr>
+</tbody></table>
+<p><strong>页表项</strong>    </p>
+<table>
+<thead>
+<tr>
+<th>31-12</th>
+<th>11-9</th>
+<th>8</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物理页地址31-12位</td>
+<td>AVL</td>
+<td>G</td>
+<td>PAT</td>
+<td>D</td>
+<td>A</td>
+<td>PCD</td>
+<td>PWT</td>
+<td>US</td>
+<td>RW</td>
+<td>P</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>页表目录项和页表项中的都是物理页地址，标准页大小就是4KB，所以地址都是4K的倍数，即低12位全为零，所以只需要记录高20位就可以了。省下来的12位可以用于其他属性。</p>
+</blockquote>
+<blockquote>
+<p>P，Present，意为存在位。若为 1 表示该页存在于物理内存中，若为 0 表示该表不在物理内存中。操<br>作系统的页式虚拟内存管理便是通过 P 位和相应的 pagefault 异常来实现的。</p>
+</blockquote>
+<blockquote>
+<p>RW，Read/Write，意为读写位。若为 1 表示可读可写，若为 0 表示可读不可写。<br>US，User/Supervisor，意为普通用户/超级用户位。若为 1 时，表示处于 User 级，任意级别（0、1、2、 3）特权的程序都可以访问该页。若为 0，表示处于 Supervisor 级，特权级别为 3 的程序不允许访问该页，该页只允许特权级别为 0、1、2 的程序可以访问。</p>
+</blockquote>
+<blockquote>
+<p>PWT，Page-level Write-Through，意为页级通写位，也称页级写透位。若为 1 表示此项采用通写方式，表示该页不仅是普通内存，还是高速缓存。此项和高速缓存有关，“通写”是高速缓存的一种工作方式，本位用来间接决定是否用此方式改善该页的访问效率。这里咱们直接置为 0 就可以啦。</p>
+</blockquote>
+<blockquote>
+<p>PCD，Page-level Cache Disable，意为页级高速缓存禁止位。若为 1 表示该页启用高速缓存，为 0 表示禁止将该页缓存。这里咱们将其置为 0。 A，Accessed，意为访问位。若为 1 表示该页被 CPU 访问过啦，所以该位是由 CPU 设置的。还记得段描述符中的 A 位和 P 位吗？这两位在一起可以实现段式虚拟内存管理。和它们一样，这里页目录项和页表项中的 A 位也可以用来记录某一内存页的使用频率（操作系统定期将该位清 0，统计一段时间内变成 1 的次数），从而当内存不足时，可以将使用频率较低的页面换出到外存（如硬盘），同时将页目录项或页表项的 P位置 0，下次访问该页引起 pagefault 异常时，中断处理程序将硬盘上的页再次换入，同时将 P 位置 1。 D，Dirty，意为脏页位。当 CPU 对一个页面执行写操作时，就会设置对应页表项的 D 位为 1。此项仅针对页表项有效，并不会修改页目录项中的 D 位。</p>
+</blockquote>
+<blockquote>
+<p>PAT，Page Attribute Table，意为页属性表位，能够在页面一级的粒度上设置内存属性。比较复杂，将此位置 0 即可。</p>
+</blockquote>
+<blockquote>
+<p>G,Global，意为全局位。由于内存地址转换也是颇费周折，先得拆分虚拟地址，然后又要查页目录，又要查页表的，所以为了提高获取物理地址的速度，将虚拟地址与物理地址转换结果存储在 TLB（Translation Lookaside Buffer）中，TLB 以后咱们会细说。在此先知道 TLB 是用来缓存地址转换结果的高速缓存就 ok 啦。此 G 位用来指定该页是否为全局页，为 1 表示是全局页，为 0 表示不是全局页。若为全局页，该页将在高速缓存 TLB 中一直保存，给出虚拟地址直接就出物理地址啦，无需那三步骤转换。由于 TLB 容量比较小（一般速度较快的存储设备容量都比较小），所以这里面就存放使用频率较高的页面。顺便说一句，清空 TLB 有两种方式，一是用 invlpg 指令针对单独虚拟地址条目清理，或者是重新加载 cr3 寄存器，这将直接清空 TLB。</p>
+</blockquote>
+<blockquote>
+<p>AVL，意为 Available 位，表示可用，谁可以用？当然是软件，操作系统可用该位，CPU 不理会该位<br>的值，那咱们也不理会吧。</p>
+</blockquote>
+<h6 id="开启分页"><a href="#开启分页" class="headerlink" title="开启分页"></a>开启分页</h6><p>开启分页需要顺序做以下三件事情。</p>
+<ol>
+<li>准备好页目录表和页表。</li>
+<li>将页表地址写入控制寄存器cr3。</li>
+<li>寄存器的PG位置1.</li>
+</ol>
+<h4 id="杂项问题"><a href="#杂项问题" class="headerlink" title="杂项问题"></a>杂项问题</h4><ol>
+<li>对于push指令，处于对齐的要求，操作数要么是16位要么是32位，所以8位操作数会被扩展为运行模式下的默认操作数宽度。实模式为16位，保护模式为32位。</li>
+<li>使用伪指令 [bits 16] [bits 32] 指定编译器进行模式指定。 </li>
+<li>操作数反转前缀 0x66 寻址方式反转前缀 0x67</li>
+</ol>
 ]]></content>
       <categories>
         <category>os</category>
@@ -1245,6 +1498,7 @@
 </ol>
 <h4 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h4><ol>
 <li>BIOS本身是一个程序。BIOS的工作：检测硬件，做各种初始化工作，建立中断向量表，加载MBR。</li>
+<li>BIOS中断只能用于实模式，在保护模式下不可以使用。</li>
 </ol>
 <h4 id="硬盘操作"><a href="#硬盘操作" class="headerlink" title="硬盘操作"></a>硬盘操作</h4><h6 id="硬盘控制器主要端口寄存器"><a href="#硬盘控制器主要端口寄存器" class="headerlink" title="硬盘控制器主要端口寄存器"></a>硬盘控制器主要端口寄存器</h6><table>
 <thead>

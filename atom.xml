@@ -48,14 +48,14 @@
     <link href="http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/"/>
     <id>http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/</id>
     <published>2021-05-14T02:45:15.000Z</published>
-    <updated>2021-05-14T02:47:55.550Z</updated>
+    <updated>2021-05-22T09:01:35.024Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;protected-mode&quot;&gt;&lt;a href=&quot;#protected-mode&quot; class=&quot;headerlink&quot; title=&quot;protected mode&quot;&gt;&lt;/a&gt;protected mode&lt;/h1&gt;&lt;h3 id=&quot;页表&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;protected-mode&quot;&gt;&lt;a href=&quot;#protected-mode&quot; class=&quot;headerlink&quot; title=&quot;protected mode&quot;&gt;&lt;/a&gt;protected mode&lt;/h1&gt;&lt;h4 id=&quot;保护模式简介&quot;&gt;&lt;a</summary>
         
       
     
@@ -98,7 +98,7 @@
     <link href="http://blog.cuimouren.cn/2021/05/11/os-002-os-start/"/>
     <id>http://blog.cuimouren.cn/2021/05/11/os-002-os-start/</id>
     <published>2021-05-11T15:19:37.000Z</published>
-    <updated>2021-05-20T16:44:42.712Z</updated>
+    <updated>2021-05-21T08:19:15.148Z</updated>
     
     
       
