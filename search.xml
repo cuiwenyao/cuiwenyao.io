@@ -1114,12 +1114,18 @@
     <title>os 003 protected mode</title>
     <url>/2021/05/14/os-003-protected-mode/</url>
     <content><![CDATA[<h1 id="protected-mode"><a href="#protected-mode" class="headerlink" title="protected mode"></a>protected mode</h1><h4 id="保护模式简介"><a href="#保护模式简介" class="headerlink" title="保护模式简介"></a>保护模式简介</h4><h6 id="实模式的缺陷"><a href="#实模式的缺陷" class="headerlink" title="实模式的缺陷"></a>实模式的缺陷</h6><ol>
-<li>实模式下操作系统与用户程序属于听一个特权级，容易引起系统崩溃。</li>
-<li>程序引用的地址指向真实的物理地址，即逻辑地址等于物理地址，不利于内存分片管理，容易造成内存碎片化。</li>
-<li>用户程序可以随意访问任意内存。</li>
-<li>一个短只能访问64KB地址，太小了，操作不方便。</li>
-<li>一次只能运行一个程序。</li>
-<li>只有20根地址线，只能寻址1M的空间，太小啦。   </li>
+<li><p>实模式下操作系统与用户程序属于听一个特权级，容易引起系统崩溃。</p>
+</li>
+<li><p>程序引用的地址指向真实的物理地址，即逻辑地址等于物理地址，不利于内存分片管理，容易造成内存碎片化。</p>
+</li>
+<li><p>用户程序可以随意访问任意内存。</p>
+</li>
+<li><p>一个短只能访问64KB地址，太小了，操作不方便。</p>
+</li>
+<li><p>一次只能运行一个程序。</p>
+</li>
+<li><p>只有20根地址线，只能寻址1M的空间，太小啦。   </p>
+</li>
 </ol>
 <blockquote>
 <p>为了克服实模式低劣的内存管理方式，开发出了保护模式。  </p>
@@ -1243,7 +1249,10 @@
 </tr>
 </tbody></table>
 <p>描述符索引值正好为12位，刚好和GDTR界限所确定的最大描述符数量相匹配。</p>
-<h4 id="获得内存信息"><a href="#获得内存信息" class="headerlink" title="获得内存信息"></a>获得内存信息</h4><h4 id="内存分页"><a href="#内存分页" class="headerlink" title="内存分页"></a>内存分页</h4><p><strong>分段是分页的前提</strong></p>
+<h4 id="获得内存信息"><a href="#获得内存信息" class="headerlink" title="获得内存信息"></a>获得内存信息</h4><p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">;-------  int 15h eax &#x3D; 0000E820h ,edx &#x3D; 534D4150h (&#39;SMAP&#39;) 获取内存布局  -------</span><br><span class="line"></span><br><span class="line">   xor ebx, ebx		      ;第一次调用时，ebx值要为0</span><br><span class="line">   mov edx, 0x534d4150	      ;edx只赋值一次，循环体中不会改变</span><br><span class="line">   mov di, ards_buf	      ;ards结构缓冲区</span><br><span class="line">.e820_mem_get_loop:	      ;循环获取每个ARDS内存范围描述结构</span><br><span class="line">   mov eax, 0x0000e820	      ;执行int 0x15后,eax值变为0x534d4150,所以每次执行int前都要更新为子功能号。</span><br><span class="line">   mov ecx, 20		      ;ARDS地址范围描述符结构大小是20字节</span><br><span class="line">   int 0x15</span><br><span class="line">   jc .e820_failed_so_try_e801   ;若cf位为1则有错误发生，尝试0xe801子功能</span><br><span class="line">   add di, cx		      ;使di增加20字节指向缓冲区中新的ARDS结构位置</span><br><span class="line">   inc word [ards_nr]	      ;记录ARDS数量</span><br><span class="line">   cmp ebx, 0		      ;若ebx为0且cf不为1,这说明ards全部返回，当前已是最后一个</span><br><span class="line">   jnz .e820_mem_get_loop</span><br><span class="line"></span><br><span class="line">;在所有ards结构中，找出(base_add_low + length_low)的最大值，即内存的容量。</span><br><span class="line">   mov cx, [ards_nr]	      ;遍历每一个ARDS结构体,循环次数是ARDS的数量</span><br><span class="line">   mov ebx, ards_buf </span><br><span class="line">   xor edx, edx		      ;edx为最大的内存容量,在此先清0</span><br><span class="line">.find_max_mem_area:	      ;无须判断type是否为1,最大的内存块一定是可被使用</span><br><span class="line">   mov eax, [ebx]	      ;base_add_low</span><br><span class="line">   add eax, [ebx+8]	      ;length_low</span><br><span class="line">   add ebx, 20		      ;指向缓冲区中下一个ARDS结构</span><br><span class="line">   cmp edx, eax		      ;冒泡排序，找出最大,edx寄存器始终是最大的内存容量</span><br><span class="line">   jge .next_ards</span><br><span class="line">   mov edx, eax		      ;edx为总内存大小</span><br><span class="line">.next_ards:</span><br><span class="line">   loop .find_max_mem_area</span><br><span class="line">   jmp .mem_get_ok</span><br><span class="line"></span><br><span class="line">;------  int 15h ax &#x3D; E801h 获取内存大小,最大支持4G  ------</span><br><span class="line">; 返回后, ax cx 值一样,以KB为单位,bx dx值一样,以64KB为单位</span><br><span class="line">; 在ax和cx寄存器中为低16M,在bx和dx寄存器中为16MB到4G。</span><br><span class="line">.e820_failed_so_try_e801:</span><br><span class="line">   mov ax,0xe801</span><br><span class="line">   int 0x15</span><br><span class="line">   jc .e801_failed_so_try88   ;若当前e801方法失败,就尝试0x88方法</span><br><span class="line"></span><br><span class="line">;1 先算出低15M的内存,ax和cx中是以KB为单位的内存数量,将其转换为以byte为单位</span><br><span class="line">   mov cx,0x400	     ;cx和ax值一样,cx用做乘数</span><br><span class="line">   mul cx </span><br><span class="line">   shl edx,16</span><br><span class="line">   and eax,0x0000FFFF</span><br><span class="line">   or edx,eax</span><br><span class="line">   add edx, 0x100000 ;ax只是15MB,故要加1MB</span><br><span class="line">   mov esi,edx	     ;先把低15MB的内存容量存入esi寄存器备份</span><br><span class="line"></span><br><span class="line">;2 再将16MB以上的内存转换为byte为单位,寄存器bx和dx中是以64KB为单位的内存数量</span><br><span class="line">   xor eax,eax</span><br><span class="line">   mov ax,bx		</span><br><span class="line">   mov ecx, 0x10000	;0x10000十进制为64KB</span><br><span class="line">   mul ecx		;32位乘法,默认的被乘数是eax,积为64位,高32位存入edx,低32位存入eax.</span><br><span class="line">   add esi,eax		;由于此方法只能测出4G以内的内存,故32位eax足够了,edx肯定为0,只加eax便可</span><br><span class="line">   mov edx,esi		;edx为总内存大小</span><br><span class="line">   jmp .mem_get_ok</span><br><span class="line"></span><br><span class="line">;-----------------  int 15h ah &#x3D; 0x88 获取内存大小,只能获取64M之内  ----------</span><br><span class="line">.e801_failed_so_try88: </span><br><span class="line">   ;int 15后，ax存入的是以kb为单位的内存容量</span><br><span class="line">   mov  ah, 0x88</span><br><span class="line">   int  0x15</span><br><span class="line">   jc .error_hlt</span><br><span class="line">   and eax,0x0000FFFF</span><br><span class="line">      </span><br><span class="line">   ;16位乘法，被乘数是ax,积为32位.积的高16位在dx中，积的低16位在ax中</span><br><span class="line">   mov cx, 0x400     ;0x400等于1024,将ax中的内存容量换为以byte为单位</span><br><span class="line">   mul cx</span><br><span class="line">   shl edx, 16	     ;把dx移到高16位</span><br><span class="line">   or edx, eax	     ;把积的低16位组合到edx,为32位的积</span><br><span class="line">   add edx,0x100000  ;0x88子功能只会返回1MB以上的内存,故实际内存大小要加上1MB</span><br><span class="line"></span><br><span class="line">.mem_get_ok:</span><br><span class="line">   mov [total_mem_bytes], edx	 ;将内存换为byte单位后存入total_mem_bytes处。</span><br></pre></td></tr></table></figure>
+
+<h4 id="内存分页"><a href="#内存分页" class="headerlink" title="内存分页"></a>内存分页</h4><p><strong>分段是分页的前提</strong></p>
 <h6 id="内存分段模式下的问题"><a href="#内存分段模式下的问题" class="headerlink" title="内存分段模式下的问题"></a>内存分段模式下的问题</h6><ol>
 <li>物理内存不足时怎么把？</li>
 <li>内存碎片化问题怎么解决。</li>
@@ -1267,6 +1276,9 @@
 <p>假设咱们是在平坦模型下工作，不管段选择子值是多少，其所指向的段基址都是 0，指令 mov ax，<br>[0x1234]中的 0x1234 称为有效地址，它作为“段基址：段内偏移地址”中的段内偏移地址。这样段基址<br>为 0，段内偏移地址为 0x1234，经过段部件处理后，输出的线性地址是 0x1234。由于咱们是演示分页机制，必须假定系统已经打开了分页机制，所以线性地址 0x1234 被送入了页部件。页部件分析 0x1234 的高20 位，用十六进制表示高 20 位是 0x00001。将此项作为页表项索引，再将该索引乘以 4 后加上 cr3 寄存器中页表的物理地址，这样便得到索引所指代的页表项的物理地址，从该物理地址处（页表项中）读取所映射的物理页地址：0x9000。线性地址的低 12 位是 0x234，它作为物理页的页内偏移地址与物理页地址0x9000 相加，和为 0x9234，这就是线性地址 0x1234 最终转换成的物理地址。     </p>
 </blockquote>
 <h6 id="二级页表"><a href="#二级页表" class="headerlink" title="二级页表"></a>二级页表</h6><blockquote>
+<p>二级页表将4GB空间按每一个标准页大小4KB分为1M个页，将这1M个页分1K*1K个页，每1K个页表项又正好可以组成一个新的页（1K*4B=4KB），将这个新产生的页记录为一个页表项，则总共会产生1K个新的页表项，再将这1K个页表项组成一个标准页，则最后产生的这个标准页为页目录表，其中每一项为页目录项PDE。</p>
+</blockquote>
+<blockquote>
 <p>二级页表地址转换原理是将 32 位虚拟地址拆分成高 10 位、中间 10 位、低 12 位三部分，它们<br>的作用是：高 10 位作为页表的索引，用于在页目录表中定位一个页目录项 PDE，页目录项中有页表物理地址，也就是定位到了某个页表。中间 10 位作为物理页的索引，用于在页表内定位到某个页表项 PTE，页表项中有分配的物理页地址，也就是定位到了某个物理页。低 12 位作为页内偏移量用于在已经定位到的物理页内寻址。</p>
 </blockquote>
 <blockquote>
@@ -1341,7 +1353,10 @@
 <p>P，Present，意为存在位。若为 1 表示该页存在于物理内存中，若为 0 表示该表不在物理内存中。操<br>作系统的页式虚拟内存管理便是通过 P 位和相应的 pagefault 异常来实现的。</p>
 </blockquote>
 <blockquote>
-<p>RW，Read/Write，意为读写位。若为 1 表示可读可写，若为 0 表示可读不可写。<br>US，User/Supervisor，意为普通用户/超级用户位。若为 1 时，表示处于 User 级，任意级别（0、1、2、 3）特权的程序都可以访问该页。若为 0，表示处于 Supervisor 级，特权级别为 3 的程序不允许访问该页，该页只允许特权级别为 0、1、2 的程序可以访问。</p>
+<p>RW，Read/Write，意为读写位。若为 1 表示可读可写，若为 0 表示可读不可写。</p>
+</blockquote>
+<blockquote>
+<p>US，User/Supervisor，意为普通用户/超级用户位。若为 1 时，表示处于 User 级，任意级别（0、1、2、 3）特权的程序都可以访问该页。若为 0，表示处于 Supervisor 级，特权级别为 3 的程序不允许访问该页，该页只允许特权级别为 0、1、2 的程序可以访问。</p>
 </blockquote>
 <blockquote>
 <p>PWT，Page-level Write-Through，意为页级通写位，也称页级写透位。若为 1 表示此项采用通写方式，表示该页不仅是普通内存，还是高速缓存。此项和高速缓存有关，“通写”是高速缓存的一种工作方式，本位用来间接决定是否用此方式改善该页的访问效率。这里咱们直接置为 0 就可以啦。</p>
@@ -1363,6 +1378,64 @@
 <li>准备好页目录表和页表。</li>
 <li>将页表地址写入控制寄存器cr3。</li>
 <li>寄存器的PG位置1.</li>
+</ol>
+<h4 id="elf-executable-and-linkable-format"><a href="#elf-executable-and-linkable-format" class="headerlink" title="elf (executable and linkable format)"></a>elf (executable and linkable format)</h4><h6 id="elf中的数据类型"><a href="#elf中的数据类型" class="headerlink" title="elf中的数据类型"></a>elf中的数据类型</h6><table>
+<thead>
+<tr>
+<th>数据类型名称</th>
+<th>字节大小</th>
+<th>对齐</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Elf_Half</td>
+<td>2</td>
+<td>2</td>
+<td>无符号中等大小的整数</td>
+</tr>
+<tr>
+<td>Elf_Word</td>
+<td>4</td>
+<td>4</td>
+<td>无符号大整数</td>
+</tr>
+<tr>
+<td>Elf_Addr</td>
+<td>4</td>
+<td>4</td>
+<td>无符号程序运行地址</td>
+</tr>
+<tr>
+<td>Elf_Off</td>
+<td>4</td>
+<td>4</td>
+<td>无符号文件偏移量</td>
+</tr>
+</tbody></table>
+<h4 id="特权级"><a href="#特权级" class="headerlink" title="特权级"></a>特权级</h4><blockquote>
+<p>RPL:请求特权级指令请求访问其他资源的能力成为请求特权级，指令存放在代码段中，所所以使用CS中选择子的RPL位表示代码请求别人资源的能力。    </p>
+</blockquote>
+<blockquote>
+<p>CPL：表示处理器当亲的特权级。指令最终是由处理器执行的，执行到不同特权的代码，处理器的特权级就切换到不同的等级。代码段描述符中的DPL便是当前处理器所处的特权级。    </p>
+</blockquote>
+<blockquote>
+<p>对于数据段来讲，只有访问者的权限大于或等于段描述符中的DPL表示的最低权限时才能够访问。</p>
+</blockquote>
+<blockquote>
+<p>对于代码段来讲，只有访问者的权限<strong>等于</strong>段描述符中的DPL才能访问。即只能平级访问。访问一个代码段实质上就是跳转到这个段进行执行。唯一一种处理器从高特权级降到低特权级执行的情况是处理器从中断处理程序中返回到用户态。</p>
+</blockquote>
+<blockquote>
+<p>一致性代码段：一致性代码段也成为依从代码段，用来实现从低特权级的代码向高特权级代码的转移。一致性代码段是指如果自己是转移后的目标段，则自己的特权级一定能要大于等于转移前的CPL，也就是说一致性代码段的DPL是特权的上限。处理器遇到目标端位一致性代码段的时候并不会将CPL用该段的DPL来替换。代码段可以有一致性与不一致性的段，但是数据段只能有非一致性，即数据段不允许比自己特权级低的代码段访问。</p>
+</blockquote>
+<h4 id="函数调约定"><a href="#函数调约定" class="headerlink" title="函数调约定"></a>函数调约定</h4><h6 id="cdecl-c-declaration-即c声明"><a href="#cdecl-c-declaration-即c声明" class="headerlink" title="cdecl (c declaration 即c声明)"></a>cdecl (c declaration 即c声明)</h6><p>函数参数从右到左顺序入栈，EAX,ECX,EDX,寄存器由<strong>调用者</strong>保存，其余的寄存器由<strong>被调用者</strong>保存。函数的返回值存储在EAX寄存器中。由<strong>调用者</strong>清理栈空间。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int subtract(int a, int b); &#x2F;&#x2F;被调用者</span><br><span class="line">int sub &#x3D; subtract (3,2); &#x2F;&#x2F; 主调用者</span><br><span class="line">主调用者：</span><br><span class="line">; 从右到左将参数入栈</span><br><span class="line">push 2 ;压入参数 b </span><br><span class="line">push 3 ;压入参数 a </span><br><span class="line">call subtract ;调用函数 subtract </span><br><span class="line">add esp, 8 ;回收（清理）栈空间</span><br><span class="line">被调用者：</span><br><span class="line">push ebp ;压入 ebp 备份</span><br><span class="line">mov ebp,esp ;将 esp 赋值给 ebp </span><br><span class="line"> ;用 ebp 作为基址来访问栈中参数</span><br><span class="line">mov eax,[ebp+0x8] ;偏移 8 字节处为第 1 个参数 a </span><br><span class="line">add eax,[ebp+0xc] ;偏移 0xc 字节处是第 2 个参数 b </span><br><span class="line"> ;参数 a 和 b 相加后存入 eax </span><br><span class="line">mov esp,ebp ;为防止中间有入栈操作，用 ebp 恢复 esp </span><br><span class="line"> ;本句在此例子中可有可无,属于通用代码</span><br><span class="line">pop ebp ;将 ebp 恢复</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+
+<h4 id="C与汇编混合编程"><a href="#C与汇编混合编程" class="headerlink" title="C与汇编混合编程"></a>C与汇编混合编程</h4><p>c语言和汇编语言混合编程分为两种：</p>
+<ol>
+<li>单独的汇编代码文件与单独的c语言文件分别编译成目标文件后，再进行连接成可执行程序。</li>
+<li>再c语言中嵌入汇编语言，直接编译成生可执行程序。这种也叫做内联汇编。</li>
 </ol>
 <h4 id="杂项问题"><a href="#杂项问题" class="headerlink" title="杂项问题"></a>杂项问题</h4><ol>
 <li>对于push指令，处于对齐的要求，操作数要么是16位要么是32位，所以8位操作数会被扩展为运行模式下的默认操作数宽度。实模式为16位，保护模式为32位。</li>
