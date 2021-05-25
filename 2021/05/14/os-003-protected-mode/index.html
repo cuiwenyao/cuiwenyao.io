@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">5.2k</span>
+            <span class="post-count">7.1k</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">19 分钟</span>
+            <span class="post-count">27 分钟</span>
         </span>
     </span>
 </div>
@@ -416,11 +416,131 @@
 <p>示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">int subtract(int a, int b); &#x2F;&#x2F;被调用者</span><br><span class="line">int sub &#x3D; subtract (3,2); &#x2F;&#x2F; 主调用者</span><br><span class="line">主调用者：</span><br><span class="line">; 从右到左将参数入栈</span><br><span class="line">push 2 ;压入参数 b </span><br><span class="line">push 3 ;压入参数 a </span><br><span class="line">call subtract ;调用函数 subtract </span><br><span class="line">add esp, 8 ;回收（清理）栈空间</span><br><span class="line">被调用者：</span><br><span class="line">push ebp ;压入 ebp 备份</span><br><span class="line">mov ebp,esp ;将 esp 赋值给 ebp </span><br><span class="line"> ;用 ebp 作为基址来访问栈中参数</span><br><span class="line">mov eax,[ebp+0x8] ;偏移 8 字节处为第 1 个参数 a </span><br><span class="line">add eax,[ebp+0xc] ;偏移 0xc 字节处是第 2 个参数 b </span><br><span class="line"> ;参数 a 和 b 相加后存入 eax </span><br><span class="line">mov esp,ebp ;为防止中间有入栈操作，用 ebp 恢复 esp </span><br><span class="line"> ;本句在此例子中可有可无,属于通用代码</span><br><span class="line">pop ebp ;将 ebp 恢复</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
 
+
 <h4 id="C与汇编混合编程"><a href="#C与汇编混合编程" class="headerlink" title="C与汇编混合编程"></a>C与汇编混合编程</h4><p>c语言和汇编语言混合编程分为两种：</p>
 <ol>
 <li>单独的汇编代码文件与单独的c语言文件分别编译成目标文件后，再进行连接成可执行程序。</li>
 <li>再c语言中嵌入汇编语言，直接编译成生可执行程序。这种也叫做内联汇编。</li>
 </ol>
+<h4 id="内联汇编"><a href="#内联汇编" class="headerlink" title="内联汇编"></a>内联汇编</h4><h6 id="基本内联汇编"><a href="#基本内联汇编" class="headerlink" title="基本内联汇编"></a>基本内联汇编</h6><p>格式：<br>asm [volatile](“asm code”)       </p>
+<ol>
+<li>指令必须要用双引号括起来</li>
+<li>一对双引号不可以跨行，如果跨行需要在结尾使用’\‘转义。</li>
+<li>指令之间使用’;’,’\n’,’\t’分隔开。</li>
+<li>即使指令分隔在多个双引号中也要使用分隔符。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> char* str&#x3D;&quot;hello,world\n&quot;; </span><br><span class="line"> int count &#x3D; 0; </span><br><span class="line"> void main()&#123; </span><br><span class="line"> asm(&quot;pusha; \ </span><br><span class="line"> movl $4,%eax; \ </span><br><span class="line"> movl $1,%ebx; \ </span><br><span class="line"> movl str,%ecx; \ </span><br><span class="line"> movl $12,%edx; \ </span><br><span class="line"> int $0x80; \ </span><br><span class="line">mov %eax,count;\ </span><br><span class="line">popa \ </span><br><span class="line">&quot;); </span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h6 id="扩展内联汇编"><a href="#扩展内联汇编" class="headerlink" title="扩展内联汇编"></a>扩展内联汇编</h6><p>格式：<br>asm [volatile] (“assembly code”:output : input : clobber/modify)</p>
+<ol>
+<li><p>assembly code：还是用户写入的汇编指令，和基本内联汇编一样。</p>
+</li>
+<li><p>output:output 用来指定汇编代码的数据如何输出给 C 代码使用。内嵌的汇编指令运行结束后，如果想将运行结果存储到 c 变量中，就用此项指定输出的位置。</p>
+</li>
+<li><p>input：input 用来指定 C 中数据如何输入给汇编使用。要想让汇编使用 C 中的变量作为参数，就要在此指定。</p>
+</li>
+<li><p>clobber/modify：汇编代码执行后会破坏一些内存或寄存器资源，通过此项通知编译器，可能造成寄<br>存器或内存数据的破坏，这样 gcc 就知道哪些寄存器或内存需要提前保护起来。</p>
+</li>
+</ol>
+<p><strong>约束</strong></p>
+<ol>
+<li>寄存器约束  </li>
+</ol>
+<p>寄存器约束就是要求 gcc 使用哪个寄存器，将 input 或 output 中变量约束在某个寄存器中。常见的寄存器约束有：<br>a：表示寄存器 eax/ax/al<br>b：表示寄存器 ebx/bx/bl<br>c：表示寄存器 ecx/cx/cl<br>d：表示寄存器 edx/dx/dl<br>D：表示寄存器 edi/di<br>S：表示寄存器 esi/si<br>q：表示任意这 4 个通用寄存器之一：eax/ebx/ecx/edx<br>r：表示任意这 6 个通用寄存器之一：eax/ebx/ecx/edx/esi/edi<br>g：表示可以存放到任意地点（寄存器和内存）。相当于除了同 q 一样外，还可以让 gcc 安排在内存中<br>A：把 eax 和 edx 组合成 64 位整数<br>f：表示浮点寄存器<br>t：表示第 1 个浮点寄存器<br>u：表示第 2 个浮点寄存器      </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt; </span><br><span class="line">void main() &#123; </span><br><span class="line">int in_a &#x3D; 1, in_b &#x3D; 2, out_sum; </span><br><span class="line">asm(&quot;addl %%ebx, %%eax&quot;:&quot;&#x3D;a&quot;(out_sum):&quot;a&quot;(in_a),&quot;b&quot;(in_b)); </span><br><span class="line">printf(&quot;sum is %d\n&quot;,out_sum); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>内存约束</li>
+</ol>
+<p>内存约束是要求 gcc 直接将位于 input 和 output 中的 C 变量的内存地址作为内联汇编代码的操作数，不需要寄存器做中转，直接进行内存读写，也就是汇编代码的操作数是 C 变量的指针。    </p>
+<p>m：表示操作数可以使用任意一种内存形式。<br>o：操作数为内存变量，但访问它是通过偏移量的形式访问，即包含 offset_address 的格式。       </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt; </span><br><span class="line">void main() &#123; </span><br><span class="line">int in_a &#x3D; 1, in_b &#x3D; 2; </span><br><span class="line">printf(&quot;in_b is %d\n&quot;, in_b); </span><br><span class="line">asm(&quot;movb %b0, %1;&quot;::&quot;a&quot;(in_a),&quot;m&quot;(in_b)); </span><br><span class="line">printf(&quot;in_b now is %d\n&quot;, in_b); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>立即数约束</li>
+</ol>
+<p>i：表示操作数为整数立即数<br>F：表示操作数为浮点数立即数<br>I：表示操作数为 0～31 之间的立即数<br>J：表示操作数为 0～63 之间的立即数<br>N：表示操作数为 0～255 之间的立即数<br>O：表示操作数为 0～32 之间的立即数<br>X：表示操作数为任何类型立即数    </p>
+<ol start="4">
+<li>通用约束</li>
+</ol>
+<p>0～9：此约束只用在 input 部分，但表示可与 output 和 input 中第 n 个操作数用相同的寄存器或内存。</p>
+<h4 id="AT-amp-T汇编"><a href="#AT-amp-T汇编" class="headerlink" title="AT&amp;T汇编"></a>AT&amp;T汇编</h4><p>intel 与 AT&amp;T 语法风格对比</p>
+<table>
+<thead>
+<tr>
+<th>区别</th>
+<th>intel</th>
+<th>AT&amp;T</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>寄存器</td>
+<td>寄存器没有钱追你</td>
+<td>寄存器有前缀%</td>
+<td></td>
+</tr>
+<tr>
+<td>操作数顺序</td>
+<td>目的操作数在左边，源操作数在右边</td>
+<td>相反</td>
+<td></td>
+</tr>
+<tr>
+<td>操作数指定大小</td>
+<td>有关内存的操作数要加数据类型指定大小，byte：8位，word:16位，dword:32位</td>
+<td>指令的最后一个字母代表指令操作数大小，b:8位，w:16位，l:32位。</td>
+<td></td>
+</tr>
+<tr>
+<td>立即数</td>
+<td>没有前缀</td>
+<td>有前缀$</td>
+<td></td>
+</tr>
+<tr>
+<td>远跳转</td>
+<td>jmp far segment:offset</td>
+<td>ljmp $segment:$offset</td>
+<td></td>
+</tr>
+<tr>
+<td>远调用</td>
+<td>call far segment:offset</td>
+<td>lcall $segment:$offset</td>
+<td></td>
+</tr>
+<tr>
+<td>远返回</td>
+<td>ret far n</td>
+<td>lret $n</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>内存寻址格式：<br>segreg(段基址):base_address(offset,index,size)        </p>
+<p>segreg:base_address+offset+index*size</p>
+<h4 id="打印-printf-的实现"><a href="#打印-printf-的实现" class="headerlink" title="打印 printf 的实现"></a>打印 printf 的实现</h4><h6 id="打印字符"><a href="#打印字符" class="headerlink" title="打印字符"></a>打印字符</h6><p>在printf.h中声明函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put_char(uint8_t char_asci)</span><br></pre></td></tr></table></figure>
+
+<p>在print.s中完成函数的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">global put_char</span><br><span class="line">;外部符号声明 </span><br><span class="line">pushad   ;备份8个32位寄存器</span><br><span class="line">mov ax,SELECTOR_VIDEO</span><br><span class="line">mov gs,ax</span><br><span class="line"></span><br><span class="line">;获取光标位置</span><br><span class="line">;高8位</span><br><span class="line">mov dx,0x03d4  ;索引寄存器</span><br><span class="line">mov al,0x0e    ;光标位置高8位</span><br><span class="line">out dx,al      </span><br><span class="line">mov dx,0x03d5     </span><br><span class="line">in al,dx</span><br><span class="line">mov ah,al</span><br><span class="line">;低8位</span><br><span class="line">mov dx,0x03d4  ;索引寄存器</span><br><span class="line">mov al,0x0f   ;光标位置高8位</span><br><span class="line">out dx,al      </span><br><span class="line">mov dx,0x03d5     </span><br><span class="line">in al,dx</span><br><span class="line"></span><br><span class="line">;光标为值存放在bx中</span><br><span class="line">mov ax,bx</span><br><span class="line">;取得要打印的字符</span><br><span class="line">mov ecx,[esp+36]</span><br><span class="line">cmp cl,0xd</span><br><span class="line">jz .is_carriage_return</span><br><span class="line">cmp cl,0xa</span><br><span class="line">jz .is_line_feed</span><br><span class="line">cmp cl,0x8</span><br><span class="line">jz .is_backspace</span><br><span class="line">jmp .put_other</span><br><span class="line"></span><br><span class="line">.is_backspace:</span><br><span class="line">dec bx   ;光标位置减一</span><br><span class="line">shl bx,1    ;左移一位，bx乘二得到光标处字符所在为内存地址。</span><br><span class="line">mov word [gs:bx],0   ;将这一个字符为位置清零包括颜色属性</span><br><span class="line">shr bx,1    ;bx恢复原状</span><br><span class="line">jmp .set_cursor</span><br><span class="line"></span><br><span class="line">.put_other:</span><br><span class="line">shl bx,1</span><br><span class="line">mov [gs:bx],cl</span><br><span class="line">inc bx</span><br><span class="line">mov byte [gs:bx],0x07</span><br><span class="line">shr bx,1</span><br><span class="line">inc bx</span><br><span class="line">;若光标值小于2000，则表示该页现存没有写完，若超出2000，则回车换行处理</span><br><span class="line">cmp bx,2000</span><br><span class="line">jl .set_cursor</span><br><span class="line"></span><br><span class="line">.is_line_feed:</span><br><span class="line">.is_carriage_return:</span><br><span class="line">xor dx,dx</span><br><span class="line">mov ax,bx</span><br><span class="line">mov si,80</span><br><span class="line">div si</span><br><span class="line">sub bx,dx</span><br><span class="line">;先让光标回到行首再下一行，判断是否超出。</span><br><span class="line">.is_carriage_return_end:</span><br><span class="line">add bx,80</span><br><span class="line">cmp bx,2000</span><br><span class="line">.is_line_feed_end:</span><br><span class="line">jl .set_cursor</span><br><span class="line"></span><br><span class="line">;超出屏幕大小开始滚屏</span><br><span class="line">.roll_screen:</span><br><span class="line">cld</span><br><span class="line">mov ecx,960 ;共搬运 2000-80&#x3D;1920个字符</span><br><span class="line">mov esi,0xb80a0   ;第一行行首</span><br><span class="line">mov edi,0xb8000   ;第零行行首</span><br><span class="line">rep movsd</span><br><span class="line">;将最后一行填充为空白</span><br><span class="line">mov ebx,3840</span><br><span class="line">mov ecx,80</span><br><span class="line">.cls:</span><br><span class="line">mov word [gs:ebx],0</span><br><span class="line">add ebx,2</span><br><span class="line">loop .cls</span><br><span class="line">mov bx,1920</span><br><span class="line"></span><br><span class="line">;设置光标值</span><br><span class="line">.set_cursor:</span><br><span class="line">;将光标设为bx值</span><br><span class="line">   mov dx, 0x03d4			  ;索引寄存器</span><br><span class="line">   mov al, 0x0e				  ;用于提供光标位置的高8位</span><br><span class="line">   out dx, al</span><br><span class="line">   mov dx, 0x03d5			  ;通过读写数据端口0x3d5来获得或设置光标位置 </span><br><span class="line">   mov al, bh</span><br><span class="line">   out dx, al</span><br><span class="line"></span><br><span class="line">   mov dx, 0x03d4</span><br><span class="line">   mov al, 0x0f</span><br><span class="line">   out dx, al</span><br><span class="line">   mov dx, 0x03d5 </span><br><span class="line">   mov al, bl</span><br><span class="line">   out dx, al</span><br><span class="line"></span><br><span class="line">.put_char_done:</span><br><span class="line">   popad</span><br><span class="line">   ret</span><br></pre></td></tr></table></figure>
+
+<h6 id="打印字符串"><a href="#打印字符串" class="headerlink" title="打印字符串"></a>打印字符串</h6><p>在printf.h中声明函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put_str(char* message)</span><br></pre></td></tr></table></figure>
+
+<p>在print.s中完成函数的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">global put_str</span><br><span class="line">put_str:</span><br><span class="line">;由于本函数中只用到了ebx和ecx,只备份这两个寄存器</span><br><span class="line">   push ebx</span><br><span class="line">   push ecx</span><br><span class="line">   xor ecx, ecx		      ; 准备用ecx存储参数,清空</span><br><span class="line">   mov ebx, [esp + 12]	      ; 从栈中得到待打印的字符串地址 </span><br><span class="line">.goon:</span><br><span class="line">   mov cl, [ebx]</span><br><span class="line">   cmp cl, 0		      ; 如果处理到了字符串尾,跳到结束处返回</span><br><span class="line">   jz .str_over</span><br><span class="line">   push ecx		      ; 为put_char函数传递参数</span><br><span class="line">   call put_char</span><br><span class="line">   add esp, 4		      ; 回收参数所占的栈空间</span><br><span class="line">                        ;由调用者回收栈空间，C语言调用的话编译器会自动完成但是汇编语言不会，需要我们手动回收。</span><br><span class="line">   inc ebx		      ; 使ebx指向下一个字符</span><br><span class="line">   jmp .goon</span><br><span class="line">.str_over:</span><br><span class="line">   pop ecx</span><br><span class="line">   pop ebx</span><br><span class="line">   ret</span><br></pre></td></tr></table></figure>
+
+<h6 id="打印整数"><a href="#打印整数" class="headerlink" title="打印整数"></a>打印整数</h6><p>在printf.h中声明函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put_int(uint32_t num);</span><br></pre></td></tr></table></figure>
+
+<p>在print.s中完成函数的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">global put_int</span><br><span class="line">put_int:</span><br><span class="line">pushad</span><br><span class="line">mov ebp,esp</span><br><span class="line">mov eax,[ebp+36]</span><br><span class="line">mov edx,eax</span><br><span class="line">mov edi,7</span><br><span class="line">mov ecx,8   ;32位数字共分为8块</span><br><span class="line">mov ebx,put_int_buffer</span><br><span class="line"></span><br><span class="line">.16based_4bits:</span><br><span class="line">and edx,0x0000000F</span><br><span class="line">cmp,9</span><br><span class="line">jg .isA2F</span><br><span class="line">add edx,&#39;0&#39;</span><br><span class="line">jmp .store</span><br><span class="line">.is_A2F:</span><br><span class="line">sub edx,10</span><br><span class="line">add edx,&#39;A&#39;</span><br><span class="line">;从大往小存储在缓冲区内，最后一个数字放在最高位</span><br><span class="line">.store:</span><br><span class="line">mov [ebx+edi],dl</span><br><span class="line">dec edi</span><br><span class="line">shr eax,4</span><br><span class="line">mov edx,4</span><br><span class="line">loop .16based_4bits</span><br><span class="line"></span><br><span class="line">.ready_to_print:</span><br><span class="line">inc edi</span><br><span class="line">.skip_prefix_0    ;判断是不是8位全零</span><br><span class="line">cmp edi,8</span><br><span class="line">je .full0</span><br><span class="line">.go_on_skip:</span><br><span class="line">mov cl,[put_int_buffer+edi]</span><br><span class="line">inc edi</span><br><span class="line">cmp cl,&#39;0&#39;</span><br><span class="line">je .skip_prefix_0</span><br><span class="line">dec edi</span><br><span class="line">jmp .put_each_num</span><br><span class="line"></span><br><span class="line">.full0:</span><br><span class="line">mov cl,&#39;0&#39;</span><br><span class="line">.put_each_num:</span><br><span class="line">push ecx</span><br><span class="line">call put_char</span><br><span class="line">add esp,4</span><br><span class="line">inc edi</span><br><span class="line">mov cl,[put_int_buffer+edi]</span><br><span class="line">cmp edi,8</span><br><span class="line">jl .put_each_num</span><br><span class="line">popad</span><br><span class="line">ret</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
 <h4 id="杂项问题"><a href="#杂项问题" class="headerlink" title="杂项问题"></a>杂项问题</h4><ol>
 <li>对于push指令，处于对齐的要求，操作数要么是16位要么是32位，所以8位操作数会被扩展为运行模式下的默认操作数宽度。实模式为16位，保护模式为32位。</li>
 <li>使用伪指令 [bits 16] [bits 32] 指定编译器进行模式指定。 </li>
