@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-05-20T16:27:56.260Z</updated>
+  <updated>2021-05-26T07:35:15.565Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>os 004 中断</title>
+    <link href="http://blog.cuimouren.cn/2021/05/25/os-004-%E4%B8%AD%E6%96%AD/"/>
+    <id>http://blog.cuimouren.cn/2021/05/25/os-004-%E4%B8%AD%E6%96%AD/</id>
+    <published>2021-05-25T13:35:46.000Z</published>
+    <updated>2021-05-26T07:35:15.565Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;os-004-中断&quot;&gt;&lt;a href=&quot;#os-004-中断&quot; class=&quot;headerlink&quot; title=&quot;os 004 中断&quot;&gt;&lt;/a&gt;os 004 中断&lt;/h1&gt;&lt;h4 id=&quot;中断分类&quot;&gt;&lt;a href=&quot;#中断分类&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    
+    
+    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
+    
+  </entry>
   
   <entry>
     <title>nasm 使用</title>
