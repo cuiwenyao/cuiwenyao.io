@@ -2067,7 +2067,7 @@
 </tbody></table>
 <p>TI=0,表示来自GDT,TI=1表示来自LDT。</p>
 <p>IDT=1，表示选择子指向IDT。否则表示指向GDT或者LDT。</p>
-<p>EXT=1，表示中断源时不可屏蔽中断设备，否则为0.</p>
+<p>EXT=1，表示中断源时不可屏蔽中断或者外部设备，否则为0.</p>
 <h4 id="8259A"><a href="#8259A" class="headerlink" title="8259A"></a>8259A</h4><h6 id="8259A的一些信号的寄存器"><a href="#8259A的一些信号的寄存器" class="headerlink" title="8259A的一些信号的寄存器"></a>8259A的一些信号的寄存器</h6><ol>
 <li><p>INT：8259A选出优先级最高的中断请求之后，发送信号给CPU。</p>
 </li>
@@ -2083,7 +2083,28 @@
 </li>
 </ol>
 <p>一个8259A由8个IRQ接口，使用8位寄存器中的每一位代表一个IRQ接口。</p>
-]]></content>
+<h6 id="8259A的中断处理流程"><a href="#8259A的中断处理流程" class="headerlink" title="8259A的中断处理流程"></a>8259A的中断处理流程</h6><ol>
+<li><p>当某个外设发出一个中断信号后，由于主板已经把信号通路指向了8259A芯片的某个IRQ接口，所以该中断信号会被送入8259A。8259A先检查IMR寄存器是否屏蔽了来自该IRQ接口的中断信号，该为为1表示被屏蔽了。</p>
+</li>
+<li><p>将中断信号送入IRR寄存器，将该IRQ接口所在的IRR寄存器对应的位置1.</p>
+</li>
+<li><p>PR从IRR寄存器中挑选一个优先级最大的一个中断（IRQ接口号最低的）。</p>
+</li>
+<li><p>通过INT接口向CPU发送INTR信号。</p>
+</li>
+<li><p>CPU完成一条指令后，通过自己的INTA接口向8259A的INTA接口发送中断响应信号。</p>
+</li>
+<li><p>8259A收到CPU的中断响应信号后，将刚刚挑选出的优先级最大的中断在ISR寄存器中对应的位置1，表示正在处理当前中断，同时在IRR中该中断位置0。</p>
+</li>
+<li><p>CPU再次发送INTA信号，要求获取中断向量号。<strong>如果EIO被设置为自动的话，则8259A自动将ISR对应位置0，表示中断结束，否则需要手动发送EOI信号</strong></p>
+</li>
+<li><p>8259A向CPU发送中断向量号。<strong>此时如果来了一个优先级更高的中断，则将该中断替换上去，将被替换下来的中断重新装入IRR中</strong></p>
+</li>
+<li><p>CPU从数据总线上拿到中断向量号止之后，用作中断向量表或者中断描述符表的索引，转到对应的中断处理程序执行。</p>
+</li>
+</ol>
+<p><strong>以上为中断处理流程的上半场</strong></p>
+<h6 id="8259A的编程"><a href="#8259A的编程" class="headerlink" title="8259A的编程"></a>8259A的编程</h6>]]></content>
       <categories>
         <category>uncategorized</category>
       </categories>
