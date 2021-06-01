@@ -131,10 +131,25 @@
     <url>/2021/04/21/code-server/</url>
     <content><![CDATA[<h1 id="code-server"><a href="#code-server" class="headerlink" title="code-server"></a>code-server</h1><ul>
 <li>code-server is a cloud ide platform, which can enable us to code through browser anywhere. But how to set up the code-server on ubuntu 18.04</li>
-<li>Eeee, to practice my English, I prefer to using English in my blog, unless there is something I can’t express by using my poor English.<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><blockquote>
-</blockquote>
-</li>
+<li>Eeee, to practice my English, I prefer to using English in my blog, unless there is something I can’t express by using my poor English.<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4></li>
 </ul>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkdir ~/code-server</span><br><span class="line">cd ~/code-server</span><br><span class="line">proxychains wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/cdr/</span>code-server<span class="regexp">/releases/</span>download<span class="regexp">/v3.10.1/</span>code-server-<span class="number">3.10</span>.<span class="number">1</span>-linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xzvf code-server-<span class="number">3.10</span>.<span class="number">1</span>-linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">mv code-server-<span class="number">3.10</span>.<span class="number">1</span>-linux-amd64 code-server</span><br><span class="line"></span><br><span class="line">rm -rf <span class="regexp">/usr/</span>lib/code-server</span><br><span class="line"></span><br><span class="line">cp -r code-server <span class="regexp">/usr/</span>lib/code-server</span><br><span class="line"></span><br><span class="line">ln -s <span class="regexp">/usr/</span>lib<span class="regexp">/code-server/</span>code-server <span class="regexp">/usr/</span>bin/code-server</span><br><span class="line"></span><br><span class="line">mkdir <span class="regexp">/var/</span>lib/code-server</span><br><span class="line"></span><br><span class="line">vi <span class="regexp">/lib/</span>systemd<span class="regexp">/system/</span>code-server.service</span><br></pre></td></tr></table></figure>
+<p><strong>填入以下内容</strong></p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=code-server</span><br><span class="line"><span class="attr">After</span>=nginx.service</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">Environment</span>=PASSWORD=your_password</span><br><span class="line"><span class="attr">ExecStart</span>=/usr/bin/code-server --bind-addr <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8080</span> --user-data-dir /var/lib/code-server --auth password</span><br><span class="line"><span class="attr">Restart</span>=always</span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">systemctl <span class="keyword">start</span> code-<span class="keyword">server</span></span><br><span class="line">systemctl <span class="keyword">enable</span> code-<span class="keyword">server</span></span><br><span class="line">systemctl status code-<span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>export</strong><br>使用nginx使得外网可以访问</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>nginx<span class="regexp">/sites-available/</span>code-server</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">server_name</span> code-server.your-domain;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">      <span class="attribute">proxy_pass</span> http://localhost:8080/;</span><br><span class="line">      <span class="attribute">proxy_set_header</span> Upgrade $http_upgrade;</span><br><span class="line">      <span class="attribute">proxy_set_header</span> Connection upgrade;</span><br><span class="line">      <span class="attribute">proxy_set_header</span> Accept-Encoding gzip;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">ln -s <span class="regexp">/etc/</span>nginx<span class="regexp">/sites-available/</span>code-server <span class="regexp">/etc/</span>nginx<span class="regexp">/sites-enabled/</span>code-server</span><br><span class="line"></span><br><span class="line">nginx -t</span><br><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure>
+
+<p><strong>Securing Your Domain</strong></p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line"><span class="built_in">add</span>-apt-repository ppa:certbot/certbot</span><br><span class="line">apt install python-certbot-nginx</span><br><span class="line">ufw allow <span class="keyword">https</span></span><br><span class="line">ufw reload</span><br><span class="line">certbot <span class="comment">--nginx -d code-server.your-domain</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>code-server 3.9.3之后的版本在markdown preview 时滚轮不同步。</p>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -1829,7 +1844,26 @@
 </ol>
 </li>
 </ol>
-<p>IF位只能屏蔽外部设备的中断。<br>|指令|IF|作用|<br>|—|—|—|<br>|cli|IF=0|关中断|<br>|sti|IF=1|开中断|</p>
+<p>IF位只能屏蔽外部设备的中断。    </p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>IF</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cli</td>
+<td>IF=0</td>
+<td>关中断</td>
+</tr>
+<tr>
+<td>sti</td>
+<td>IF=1</td>
+<td>开中断</td>
+</tr>
+</tbody></table>
 <h4 id="中断描述符表-IDT"><a href="#中断描述符表-IDT" class="headerlink" title="中断描述符表 IDT"></a>中断描述符表 IDT</h4><p>中断描述符表是保护模式下用于存储中断处理程序入口的表，当CPU接受一个中断时，使用中断向量在这个表中检索相应的中断描述符，继而找到中断处理程序的入口地址，执行中断处理程序。       </p>
 <p>中断描述符表中可以存储中断描述符、任务们描述符、陷阱们描述符。所以中断描述符又称为<strong>门</strong>。  </p>
 <p>门都属于系统段，所以其描述符中的S字段全为0.     </p>
@@ -1992,23 +2026,23 @@
 </tr>
 <tr>
 <td>esp_old</td>
-<td></td>
+<td>esp_old</td>
 </tr>
 <tr>
 <td>eflags</td>
-<td></td>
+<td>eflags</td>
 </tr>
 <tr>
 <td>0</td>
-<td>ss_old</td>
+<td>cs_old</td>
 </tr>
 <tr>
 <td>eip_old</td>
-<td></td>
+<td>eip_old</td>
 </tr>
 <tr>
 <td>error_code</td>
-<td></td>
+<td>error_code</td>
 </tr>
 </tbody></table>
 <p>执行完中断程序之后，使用<strong>iret</strong>进行返回。依次弹出EIP,CS,EFLAGS。所以中断返回前栈顶指针必须指向EIP_old。处理器根据弹出的CS指向的代码段描述符判断出该次中断是否进行了特权级改变，如果进行了特权级改变的话，继续将esp和ss弹出。</p>
@@ -2018,7 +2052,8 @@
 <tr>
 <th>31-16</th>
 <th>15-3</th>
-<th>2-1</th>
+<th>2</th>
+<th>1</th>
 <th>0</th>
 </tr>
 </thead>
@@ -2027,12 +2062,28 @@
 <td>选择子高13位索引</td>
 <td>TI</td>
 <td>IDT</td>
+<td>EXT</td>
 </tr>
 </tbody></table>
 <p>TI=0,表示来自GDT,TI=1表示来自LDT。</p>
 <p>IDT=1，表示选择子指向IDT。否则表示指向GDT或者LDT。</p>
 <p>EXT=1，表示中断源时不可屏蔽中断设备，否则为0.</p>
-<h4 id="8259A"><a href="#8259A" class="headerlink" title="8259A"></a>8259A</h4>]]></content>
+<h4 id="8259A"><a href="#8259A" class="headerlink" title="8259A"></a>8259A</h4><h6 id="8259A的一些信号的寄存器"><a href="#8259A的一些信号的寄存器" class="headerlink" title="8259A的一些信号的寄存器"></a>8259A的一些信号的寄存器</h6><ol>
+<li><p>INT：8259A选出优先级最高的中断请求之后，发送信号给CPU。</p>
+</li>
+<li><p>INTA：INT acknowledge, 中断响应信号。接收来自CPU的INTA接口的中断响应信号。</p>
+</li>
+<li><p>IMR：中断屏蔽寄存器，8位，屏蔽某个外设的中断。</p>
+</li>
+<li><p>IRR：中断请求寄存器，8位，接受IMR过滤后的中断信号并锁存，相当于维护未处理的中断信号请求队列。</p>
+</li>
+<li><p>PR: 优先级仲裁器。多个中断同时发生的时候找出优先级更高的中断。</p>
+</li>
+<li><p>ISR： 中断服务寄存器，8位，保存正在被处理的中断服务。</p>
+</li>
+</ol>
+<p>一个8259A由8个IRQ接口，使用8位寄存器中的每一位代表一个IRQ接口。</p>
+]]></content>
       <categories>
         <category>uncategorized</category>
       </categories>

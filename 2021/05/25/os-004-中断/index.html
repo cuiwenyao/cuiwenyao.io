@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -116,7 +116,26 @@
 </ol>
 </li>
 </ol>
-<p>IF位只能屏蔽外部设备的中断。<br>|指令|IF|作用|<br>|—|—|—|<br>|cli|IF=0|关中断|<br>|sti|IF=1|开中断|</p>
+<p>IF位只能屏蔽外部设备的中断。    </p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>IF</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cli</td>
+<td>IF=0</td>
+<td>关中断</td>
+</tr>
+<tr>
+<td>sti</td>
+<td>IF=1</td>
+<td>开中断</td>
+</tr>
+</tbody></table>
 <h4 id="中断描述符表-IDT"><a href="#中断描述符表-IDT" class="headerlink" title="中断描述符表 IDT"></a>中断描述符表 IDT</h4><p>中断描述符表是保护模式下用于存储中断处理程序入口的表，当CPU接受一个中断时，使用中断向量在这个表中检索相应的中断描述符，继而找到中断处理程序的入口地址，执行中断处理程序。       </p>
 <p>中断描述符表中可以存储中断描述符、任务们描述符、陷阱们描述符。所以中断描述符又称为<strong>门</strong>。  </p>
 <p>门都属于系统段，所以其描述符中的S字段全为0.     </p>
@@ -279,23 +298,23 @@
 </tr>
 <tr>
 <td>esp_old</td>
-<td></td>
+<td>esp_old</td>
 </tr>
 <tr>
 <td>eflags</td>
-<td></td>
+<td>eflags</td>
 </tr>
 <tr>
 <td>0</td>
-<td>ss_old</td>
+<td>cs_old</td>
 </tr>
 <tr>
 <td>eip_old</td>
-<td></td>
+<td>eip_old</td>
 </tr>
 <tr>
 <td>error_code</td>
-<td></td>
+<td>error_code</td>
 </tr>
 </tbody></table>
 <p>执行完中断程序之后，使用<strong>iret</strong>进行返回。依次弹出EIP,CS,EFLAGS。所以中断返回前栈顶指针必须指向EIP_old。处理器根据弹出的CS指向的代码段描述符判断出该次中断是否进行了特权级改变，如果进行了特权级改变的话，继续将esp和ss弹出。</p>
@@ -305,7 +324,8 @@
 <tr>
 <th>31-16</th>
 <th>15-3</th>
-<th>2-1</th>
+<th>2</th>
+<th>1</th>
 <th>0</th>
 </tr>
 </thead>
@@ -314,12 +334,28 @@
 <td>选择子高13位索引</td>
 <td>TI</td>
 <td>IDT</td>
+<td>EXT</td>
 </tr>
 </tbody></table>
 <p>TI=0,表示来自GDT,TI=1表示来自LDT。</p>
 <p>IDT=1，表示选择子指向IDT。否则表示指向GDT或者LDT。</p>
 <p>EXT=1，表示中断源时不可屏蔽中断设备，否则为0.</p>
-<h4 id="8259A"><a href="#8259A" class="headerlink" title="8259A"></a>8259A</h4> 
+<h4 id="8259A"><a href="#8259A" class="headerlink" title="8259A"></a>8259A</h4><h6 id="8259A的一些信号的寄存器"><a href="#8259A的一些信号的寄存器" class="headerlink" title="8259A的一些信号的寄存器"></a>8259A的一些信号的寄存器</h6><ol>
+<li><p>INT：8259A选出优先级最高的中断请求之后，发送信号给CPU。</p>
+</li>
+<li><p>INTA：INT acknowledge, 中断响应信号。接收来自CPU的INTA接口的中断响应信号。</p>
+</li>
+<li><p>IMR：中断屏蔽寄存器，8位，屏蔽某个外设的中断。</p>
+</li>
+<li><p>IRR：中断请求寄存器，8位，接受IMR过滤后的中断信号并锁存，相当于维护未处理的中断信号请求队列。</p>
+</li>
+<li><p>PR: 优先级仲裁器。多个中断同时发生的时候找出优先级更高的中断。</p>
+</li>
+<li><p>ISR： 中断服务寄存器，8位，保存正在被处理的中断服务。</p>
+</li>
+</ol>
+<p>一个8259A由8个IRQ接口，使用8位寄存器中的每一位代表一个IRQ接口。</p>
+ 
       <!-- reward -->
       
     </div>
