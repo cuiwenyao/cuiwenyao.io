@@ -1,147 +1,107 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>os 003 protected mode | 这里是文耀的space</title><meta name="keywords" content="os"><meta name="author" content="崔文耀"><meta name="copyright" content="崔文耀"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="protected mode保护模式简介实模式的缺陷 实模式下操作系统与用户程序属于听一个特权级，容易引起系统崩溃。  程序引用的地址指向真实的物理地址，即逻辑地址等于物理地址，不利于内存分片管理，容易造成内存碎片化。  用户程序可以随意访问任意内存。  一个短只能访问64KB地址，太小了，操作不方便。  一次只能运行一个程序。  只有20根地址线，只能寻址1M的空间，太小啦。       为了克">
-<meta property="og:type" content="article">
-<meta property="og:title" content="os 003 protected mode">
-<meta property="og:url" content="http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/index.html">
-<meta property="og:site_name" content="这里是文耀的space">
-<meta property="og:description" content="protected mode保护模式简介实模式的缺陷 实模式下操作系统与用户程序属于听一个特权级，容易引起系统崩溃。  程序引用的地址指向真实的物理地址，即逻辑地址等于物理地址，不利于内存分片管理，容易造成内存碎片化。  用户程序可以随意访问任意内存。  一个短只能访问64KB地址，太小了，操作不方便。  一次只能运行一个程序。  只有20根地址线，只能寻址1M的空间，太小啦。       为了克">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
-<meta property="article:published_time" content="2021-05-14T02:45:15.000Z">
-<meta property="article:modified_time" content="2021-05-25T08:39:34.788Z">
-<meta property="article:author" content="崔文耀">
-<meta property="article:tag" content="os">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
-    },
-    fancybox: {
-      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isanchor: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'os 003 protected mode',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2021-05-25 16:39:34'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
+<!DOCTYPE html>
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+<html lang="zh-CN">
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
+
+    <head>
+      <meta charset="utf-8" />
         
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="这里是文耀的space" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">这里是文耀的space</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">os 003 protected mode</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-14T02:45:15.000Z" title="发表于 2021-05-14 10:45:15">2021-05-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-05-25T08:39:34.788Z" title="更新于 2021-05-25 16:39:34">2021-05-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/os/">os</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="os 003 protected mode"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="protected-mode"><a href="#protected-mode" class="headerlink" title="protected mode"></a>protected mode</h1><h4 id="保护模式简介"><a href="#保护模式简介" class="headerlink" title="保护模式简介"></a>保护模式简介</h4><h6 id="实模式的缺陷"><a href="#实模式的缺陷" class="headerlink" title="实模式的缺陷"></a>实模式的缺陷</h6><ol>
+      <meta name="description" content="Hello, here is wenyao&#39;s space, how do you come in???" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>os 003 protected mode |  这里是文耀的space</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="这里是文耀的space" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-os-003-protected-mode"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  os 003 protected mode
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/05/14/os-003-protected-mode/" class="article-date">
+  <time datetime="2021-05-14T02:45:15.000Z" itemprop="datePublished">2021-05-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/os/">os</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">27 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="protected-mode"><a href="#protected-mode" class="headerlink" title="protected mode"></a>protected mode</h1><h4 id="保护模式简介"><a href="#保护模式简介" class="headerlink" title="保护模式简介"></a>保护模式简介</h4><h6 id="实模式的缺陷"><a href="#实模式的缺陷" class="headerlink" title="实模式的缺陷"></a>实模式的缺陷</h6><ol>
 <li><p>实模式下操作系统与用户程序属于听一个特权级，容易引起系统崩溃。</p>
 </li>
 <li><p>程序引用的地址指向真实的物理地址，即逻辑地址等于物理地址，不利于内存分片管理，容易造成内存碎片化。</p>
@@ -171,7 +131,7 @@
 <li>将cr0的pe位置1</li>
 <li>jmp 刷新流水线</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">;-----------------  打开A20  ----------------</span><br><span class="line">in al,0x92</span><br><span class="line">or al,0000_0010B</span><br><span class="line">out 0x92,al</span><br><span class="line"></span><br><span class="line">;-----------------  加载GDT  ----------------</span><br><span class="line">lgdt [gdt_ptr]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;-----------------  cr0第0位置1  ----------------</span><br><span class="line">mov eax, cr0</span><br><span class="line">or eax, 0x00000001</span><br><span class="line">mov cr0, eax</span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;-----------------  打开A20  ----------------</span></span><br><span class="line"><span class="keyword">in</span> <span class="built_in">al</span>,<span class="number">0x92</span></span><br><span class="line"><span class="keyword">or</span> <span class="built_in">al</span>,<span class="number">0000_0010B</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">0x92</span>,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;-----------------  加载GDT  ----------------</span></span><br><span class="line"><span class="keyword">lgdt</span> [gdt_ptr]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">;-----------------  cr0第0位置1  ----------------</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">eax</span>, <span class="built_in">cr0</span></span><br><span class="line"><span class="keyword">or</span> <span class="built_in">eax</span>, <span class="number">0x00000001</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">cr0</span>, <span class="built_in">eax</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="内存分段"><a href="#内存分段" class="headerlink" title="内存分段"></a>内存分段</h4><h6 id="段描述符的结构"><a href="#段描述符的结构" class="headerlink" title="段描述符的结构"></a>段描述符的结构</h6><table>
 <thead>
@@ -278,7 +238,7 @@
 </tbody></table>
 <p>描述符索引值正好为12位，刚好和GDTR界限所确定的最大描述符数量相匹配。</p>
 <h4 id="获得内存信息"><a href="#获得内存信息" class="headerlink" title="获得内存信息"></a>获得内存信息</h4><p>eg:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">;-------  int 15h eax &#x3D; 0000E820h ,edx &#x3D; 534D4150h (&#39;SMAP&#39;) 获取内存布局  -------</span><br><span class="line"></span><br><span class="line">   xor ebx, ebx		      ;第一次调用时，ebx值要为0</span><br><span class="line">   mov edx, 0x534d4150	      ;edx只赋值一次，循环体中不会改变</span><br><span class="line">   mov di, ards_buf	      ;ards结构缓冲区</span><br><span class="line">.e820_mem_get_loop:	      ;循环获取每个ARDS内存范围描述结构</span><br><span class="line">   mov eax, 0x0000e820	      ;执行int 0x15后,eax值变为0x534d4150,所以每次执行int前都要更新为子功能号。</span><br><span class="line">   mov ecx, 20		      ;ARDS地址范围描述符结构大小是20字节</span><br><span class="line">   int 0x15</span><br><span class="line">   jc .e820_failed_so_try_e801   ;若cf位为1则有错误发生，尝试0xe801子功能</span><br><span class="line">   add di, cx		      ;使di增加20字节指向缓冲区中新的ARDS结构位置</span><br><span class="line">   inc word [ards_nr]	      ;记录ARDS数量</span><br><span class="line">   cmp ebx, 0		      ;若ebx为0且cf不为1,这说明ards全部返回，当前已是最后一个</span><br><span class="line">   jnz .e820_mem_get_loop</span><br><span class="line"></span><br><span class="line">;在所有ards结构中，找出(base_add_low + length_low)的最大值，即内存的容量。</span><br><span class="line">   mov cx, [ards_nr]	      ;遍历每一个ARDS结构体,循环次数是ARDS的数量</span><br><span class="line">   mov ebx, ards_buf </span><br><span class="line">   xor edx, edx		      ;edx为最大的内存容量,在此先清0</span><br><span class="line">.find_max_mem_area:	      ;无须判断type是否为1,最大的内存块一定是可被使用</span><br><span class="line">   mov eax, [ebx]	      ;base_add_low</span><br><span class="line">   add eax, [ebx+8]	      ;length_low</span><br><span class="line">   add ebx, 20		      ;指向缓冲区中下一个ARDS结构</span><br><span class="line">   cmp edx, eax		      ;冒泡排序，找出最大,edx寄存器始终是最大的内存容量</span><br><span class="line">   jge .next_ards</span><br><span class="line">   mov edx, eax		      ;edx为总内存大小</span><br><span class="line">.next_ards:</span><br><span class="line">   loop .find_max_mem_area</span><br><span class="line">   jmp .mem_get_ok</span><br><span class="line"></span><br><span class="line">;------  int 15h ax &#x3D; E801h 获取内存大小,最大支持4G  ------</span><br><span class="line">; 返回后, ax cx 值一样,以KB为单位,bx dx值一样,以64KB为单位</span><br><span class="line">; 在ax和cx寄存器中为低16M,在bx和dx寄存器中为16MB到4G。</span><br><span class="line">.e820_failed_so_try_e801:</span><br><span class="line">   mov ax,0xe801</span><br><span class="line">   int 0x15</span><br><span class="line">   jc .e801_failed_so_try88   ;若当前e801方法失败,就尝试0x88方法</span><br><span class="line"></span><br><span class="line">;1 先算出低15M的内存,ax和cx中是以KB为单位的内存数量,将其转换为以byte为单位</span><br><span class="line">   mov cx,0x400	     ;cx和ax值一样,cx用做乘数</span><br><span class="line">   mul cx </span><br><span class="line">   shl edx,16</span><br><span class="line">   and eax,0x0000FFFF</span><br><span class="line">   or edx,eax</span><br><span class="line">   add edx, 0x100000 ;ax只是15MB,故要加1MB</span><br><span class="line">   mov esi,edx	     ;先把低15MB的内存容量存入esi寄存器备份</span><br><span class="line"></span><br><span class="line">;2 再将16MB以上的内存转换为byte为单位,寄存器bx和dx中是以64KB为单位的内存数量</span><br><span class="line">   xor eax,eax</span><br><span class="line">   mov ax,bx		</span><br><span class="line">   mov ecx, 0x10000	;0x10000十进制为64KB</span><br><span class="line">   mul ecx		;32位乘法,默认的被乘数是eax,积为64位,高32位存入edx,低32位存入eax.</span><br><span class="line">   add esi,eax		;由于此方法只能测出4G以内的内存,故32位eax足够了,edx肯定为0,只加eax便可</span><br><span class="line">   mov edx,esi		;edx为总内存大小</span><br><span class="line">   jmp .mem_get_ok</span><br><span class="line"></span><br><span class="line">;-----------------  int 15h ah &#x3D; 0x88 获取内存大小,只能获取64M之内  ----------</span><br><span class="line">.e801_failed_so_try88: </span><br><span class="line">   ;int 15后，ax存入的是以kb为单位的内存容量</span><br><span class="line">   mov  ah, 0x88</span><br><span class="line">   int  0x15</span><br><span class="line">   jc .error_hlt</span><br><span class="line">   and eax,0x0000FFFF</span><br><span class="line">      </span><br><span class="line">   ;16位乘法，被乘数是ax,积为32位.积的高16位在dx中，积的低16位在ax中</span><br><span class="line">   mov cx, 0x400     ;0x400等于1024,将ax中的内存容量换为以byte为单位</span><br><span class="line">   mul cx</span><br><span class="line">   shl edx, 16	     ;把dx移到高16位</span><br><span class="line">   or edx, eax	     ;把积的低16位组合到edx,为32位的积</span><br><span class="line">   add edx,0x100000  ;0x88子功能只会返回1MB以上的内存,故实际内存大小要加上1MB</span><br><span class="line"></span><br><span class="line">.mem_get_ok:</span><br><span class="line">   mov [total_mem_bytes], edx	 ;将内存换为byte单位后存入total_mem_bytes处。</span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;-------  int 15h eax = 0000E820h ,edx = 534D4150h (&#x27;SMAP&#x27;) 获取内存布局  -------</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">xor</span> <span class="built_in">ebx</span>, <span class="built_in">ebx</span>		      <span class="comment">;第一次调用时，ebx值要为0</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">edx</span>, <span class="number">0x534d4150</span>	      <span class="comment">;edx只赋值一次，循环体中不会改变</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">di</span>, ards_buf	      <span class="comment">;ards结构缓冲区</span></span><br><span class="line"><span class="symbol">.e820_mem_get_loop:</span>	      <span class="comment">;循环获取每个ARDS内存范围描述结构</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">eax</span>, <span class="number">0x0000e820</span>	      <span class="comment">;执行int 0x15后,eax值变为0x534d4150,所以每次执行int前都要更新为子功能号。</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">ecx</span>, <span class="number">20</span>		      <span class="comment">;ARDS地址范围描述符结构大小是20字节</span></span><br><span class="line">   <span class="keyword">int</span> <span class="number">0x15</span></span><br><span class="line">   <span class="keyword">jc</span> .e820_failed_so_try_e801   <span class="comment">;若cf位为1则有错误发生，尝试0xe801子功能</span></span><br><span class="line">   <span class="keyword">add</span> <span class="built_in">di</span>, <span class="built_in">cx</span>		      <span class="comment">;使di增加20字节指向缓冲区中新的ARDS结构位置</span></span><br><span class="line">   <span class="keyword">inc</span> <span class="built_in">word</span> [ards_nr]	      <span class="comment">;记录ARDS数量</span></span><br><span class="line">   <span class="keyword">cmp</span> <span class="built_in">ebx</span>, <span class="number">0</span>		      <span class="comment">;若ebx为0且cf不为1,这说明ards全部返回，当前已是最后一个</span></span><br><span class="line">   <span class="keyword">jnz</span> .e820_mem_get_loop</span><br><span class="line"></span><br><span class="line"><span class="comment">;在所有ards结构中，找出(base_add_low + length_low)的最大值，即内存的容量。</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">cx</span>, [ards_nr]	      <span class="comment">;遍历每一个ARDS结构体,循环次数是ARDS的数量</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">ebx</span>, ards_buf </span><br><span class="line">   <span class="keyword">xor</span> <span class="built_in">edx</span>, <span class="built_in">edx</span>		      <span class="comment">;edx为最大的内存容量,在此先清0</span></span><br><span class="line"><span class="symbol">.find_max_mem_area:</span>	      <span class="comment">;无须判断type是否为1,最大的内存块一定是可被使用</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">eax</span>, [<span class="built_in">ebx</span>]	      <span class="comment">;base_add_low</span></span><br><span class="line">   <span class="keyword">add</span> <span class="built_in">eax</span>, [<span class="built_in">ebx</span>+<span class="number">8</span>]	      <span class="comment">;length_low</span></span><br><span class="line">   <span class="keyword">add</span> <span class="built_in">ebx</span>, <span class="number">20</span>		      <span class="comment">;指向缓冲区中下一个ARDS结构</span></span><br><span class="line">   <span class="keyword">cmp</span> <span class="built_in">edx</span>, <span class="built_in">eax</span>		      <span class="comment">;冒泡排序，找出最大,edx寄存器始终是最大的内存容量</span></span><br><span class="line">   <span class="keyword">jge</span> .next_ards</span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">edx</span>, <span class="built_in">eax</span>		      <span class="comment">;edx为总内存大小</span></span><br><span class="line"><span class="symbol">.next_ards:</span></span><br><span class="line">   <span class="keyword">loop</span> .find_max_mem_area</span><br><span class="line">   <span class="keyword">jmp</span> .mem_get_ok</span><br><span class="line"></span><br><span class="line"><span class="comment">;------  int 15h ax = E801h 获取内存大小,最大支持4G  ------</span></span><br><span class="line"><span class="comment">; 返回后, ax cx 值一样,以KB为单位,bx dx值一样,以64KB为单位</span></span><br><span class="line"><span class="comment">; 在ax和cx寄存器中为低16M,在bx和dx寄存器中为16MB到4G。</span></span><br><span class="line"><span class="symbol">.e820_failed_so_try_e801:</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">0xe801</span></span><br><span class="line">   <span class="keyword">int</span> <span class="number">0x15</span></span><br><span class="line">   <span class="keyword">jc</span> .e801_failed_so_try88   <span class="comment">;若当前e801方法失败,就尝试0x88方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;1 先算出低15M的内存,ax和cx中是以KB为单位的内存数量,将其转换为以byte为单位</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">cx</span>,<span class="number">0x400</span>	     <span class="comment">;cx和ax值一样,cx用做乘数</span></span><br><span class="line">   <span class="keyword">mul</span> <span class="built_in">cx</span> </span><br><span class="line">   <span class="keyword">shl</span> <span class="built_in">edx</span>,<span class="number">16</span></span><br><span class="line">   <span class="keyword">and</span> <span class="built_in">eax</span>,<span class="number">0x0000FFFF</span></span><br><span class="line">   <span class="keyword">or</span> <span class="built_in">edx</span>,<span class="built_in">eax</span></span><br><span class="line">   <span class="keyword">add</span> <span class="built_in">edx</span>, <span class="number">0x100000</span> <span class="comment">;ax只是15MB,故要加1MB</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">esi</span>,<span class="built_in">edx</span>	     <span class="comment">;先把低15MB的内存容量存入esi寄存器备份</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;2 再将16MB以上的内存转换为byte为单位,寄存器bx和dx中是以64KB为单位的内存数量</span></span><br><span class="line">   <span class="keyword">xor</span> <span class="built_in">eax</span>,<span class="built_in">eax</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="built_in">bx</span>		</span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">ecx</span>, <span class="number">0x10000</span>	<span class="comment">;0x10000十进制为64KB</span></span><br><span class="line">   <span class="keyword">mul</span> <span class="built_in">ecx</span>		<span class="comment">;32位乘法,默认的被乘数是eax,积为64位,高32位存入edx,低32位存入eax.</span></span><br><span class="line">   <span class="keyword">add</span> <span class="built_in">esi</span>,<span class="built_in">eax</span>		<span class="comment">;由于此方法只能测出4G以内的内存,故32位eax足够了,edx肯定为0,只加eax便可</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">edx</span>,<span class="built_in">esi</span>		<span class="comment">;edx为总内存大小</span></span><br><span class="line">   <span class="keyword">jmp</span> .mem_get_ok</span><br><span class="line"></span><br><span class="line"><span class="comment">;-----------------  int 15h ah = 0x88 获取内存大小,只能获取64M之内  ----------</span></span><br><span class="line"><span class="symbol">.e801_failed_so_try88:</span> </span><br><span class="line">   <span class="comment">;int 15后，ax存入的是以kb为单位的内存容量</span></span><br><span class="line">   <span class="keyword">mov</span>  <span class="number">ah</span>, <span class="number">0x88</span></span><br><span class="line">   <span class="keyword">int</span>  <span class="number">0x15</span></span><br><span class="line">   <span class="keyword">jc</span> .error_hlt</span><br><span class="line">   <span class="keyword">and</span> <span class="built_in">eax</span>,<span class="number">0x0000FFFF</span></span><br><span class="line">      </span><br><span class="line">   <span class="comment">;16位乘法，被乘数是ax,积为32位.积的高16位在dx中，积的低16位在ax中</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">cx</span>, <span class="number">0x400</span>     <span class="comment">;0x400等于1024,将ax中的内存容量换为以byte为单位</span></span><br><span class="line">   <span class="keyword">mul</span> <span class="built_in">cx</span></span><br><span class="line">   <span class="keyword">shl</span> <span class="built_in">edx</span>, <span class="number">16</span>	     <span class="comment">;把dx移到高16位</span></span><br><span class="line">   <span class="keyword">or</span> <span class="built_in">edx</span>, <span class="built_in">eax</span>	     <span class="comment">;把积的低16位组合到edx,为32位的积</span></span><br><span class="line">   <span class="keyword">add</span> <span class="built_in">edx</span>,<span class="number">0x100000</span>  <span class="comment">;0x88子功能只会返回1MB以上的内存,故实际内存大小要加上1MB</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">.mem_get_ok:</span></span><br><span class="line">   <span class="keyword">mov</span> [total_mem_bytes], <span class="built_in">edx</span>	 <span class="comment">;将内存换为byte单位后存入total_mem_bytes处。</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="内存分页"><a href="#内存分页" class="headerlink" title="内存分页"></a>内存分页</h4><p><strong>分段是分页的前提</strong></p>
 <h6 id="内存分段模式下的问题"><a href="#内存分段模式下的问题" class="headerlink" title="内存分段模式下的问题"></a>内存分段模式下的问题</h6><ol>
@@ -458,7 +418,7 @@
 </blockquote>
 <h4 id="函数调约定"><a href="#函数调约定" class="headerlink" title="函数调约定"></a>函数调约定</h4><h6 id="cdecl-c-declaration-即c声明"><a href="#cdecl-c-declaration-即c声明" class="headerlink" title="cdecl (c declaration 即c声明)"></a>cdecl (c declaration 即c声明)</h6><p>函数参数从右到左顺序入栈，EAX,ECX,EDX,寄存器由<strong>调用者</strong>保存，其余的寄存器由<strong>被调用者</strong>保存。函数的返回值存储在EAX寄存器中。由<strong>调用者</strong>清理栈空间。</p>
 <p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">int subtract(int a, int b); &#x2F;&#x2F;被调用者</span><br><span class="line">int sub &#x3D; subtract (3,2); &#x2F;&#x2F; 主调用者</span><br><span class="line">主调用者：</span><br><span class="line">; 从右到左将参数入栈</span><br><span class="line">push 2 ;压入参数 b </span><br><span class="line">push 3 ;压入参数 a </span><br><span class="line">call subtract ;调用函数 subtract </span><br><span class="line">add esp, 8 ;回收（清理）栈空间</span><br><span class="line">被调用者：</span><br><span class="line">push ebp ;压入 ebp 备份</span><br><span class="line">mov ebp,esp ;将 esp 赋值给 ebp </span><br><span class="line"> ;用 ebp 作为基址来访问栈中参数</span><br><span class="line">mov eax,[ebp+0x8] ;偏移 8 字节处为第 1 个参数 a </span><br><span class="line">add eax,[ebp+0xc] ;偏移 0xc 字节处是第 2 个参数 b </span><br><span class="line"> ;参数 a 和 b 相加后存入 eax </span><br><span class="line">mov esp,ebp ;为防止中间有入栈操作，用 ebp 恢复 esp </span><br><span class="line"> ;本句在此例子中可有可无,属于通用代码</span><br><span class="line">pop ebp ;将 ebp 恢复</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> subtract(<span class="keyword">int</span> a, <span class="keyword">int</span> b)<span class="comment">; //被调用者</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">sub</span> = subtract (<span class="number">3</span>,<span class="number">2</span>)<span class="comment">; // 主调用者</span></span><br><span class="line">主调用者：</span><br><span class="line"><span class="comment">; 从右到左将参数入栈</span></span><br><span class="line"><span class="keyword">push</span> <span class="number">2</span> <span class="comment">;压入参数 b </span></span><br><span class="line"><span class="keyword">push</span> <span class="number">3</span> <span class="comment">;压入参数 a </span></span><br><span class="line"><span class="keyword">call</span> subtract <span class="comment">;调用函数 subtract </span></span><br><span class="line"><span class="keyword">add</span> <span class="built_in">esp</span>, <span class="number">8</span> <span class="comment">;回收（清理）栈空间</span></span><br><span class="line">被调用者：</span><br><span class="line"><span class="keyword">push</span> <span class="built_in">ebp</span> <span class="comment">;压入 ebp 备份</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ebp</span>,<span class="built_in">esp</span> <span class="comment">;将 esp 赋值给 ebp </span></span><br><span class="line"> <span class="comment">;用 ebp 作为基址来访问栈中参数</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">eax</span>,[<span class="built_in">ebp</span>+<span class="number">0x8</span>] <span class="comment">;偏移 8 字节处为第 1 个参数 a </span></span><br><span class="line"><span class="keyword">add</span> <span class="built_in">eax</span>,[<span class="built_in">ebp</span>+<span class="number">0xc</span>] <span class="comment">;偏移 0xc 字节处是第 2 个参数 b </span></span><br><span class="line"> <span class="comment">;参数 a 和 b 相加后存入 eax </span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">esp</span>,<span class="built_in">ebp</span> <span class="comment">;为防止中间有入栈操作，用 ebp 恢复 esp </span></span><br><span class="line"> <span class="comment">;本句在此例子中可有可无,属于通用代码</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ebp</span> <span class="comment">;将 ebp 恢复</span></span><br><span class="line"><span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
 
 
 <h4 id="C与汇编混合编程"><a href="#C与汇编混合编程" class="headerlink" title="C与汇编混合编程"></a>C与汇编混合编程</h4><p>c语言和汇编语言混合编程分为两种：</p>
@@ -473,7 +433,7 @@
 <li>指令之间使用’;’,’\n’,’\t’分隔开。</li>
 <li>即使指令分隔在多个双引号中也要使用分隔符。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> char* str&#x3D;&quot;hello,world\n&quot;; </span><br><span class="line"> int count &#x3D; 0; </span><br><span class="line"> void main()&#123; </span><br><span class="line"> asm(&quot;pusha; \ </span><br><span class="line"> movl $4,%eax; \ </span><br><span class="line"> movl $1,%ebx; \ </span><br><span class="line"> movl str,%ecx; \ </span><br><span class="line"> movl $12,%edx; \ </span><br><span class="line"> int $0x80; \ </span><br><span class="line">mov %eax,count;\ </span><br><span class="line">popa \ </span><br><span class="line">&quot;); </span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> char* str=<span class="string">&quot;hello,world\n&quot;</span>; </span><br><span class="line"> <span class="keyword">int</span> count = <span class="number">0</span>; </span><br><span class="line"> void main()&#123; </span><br><span class="line"> asm(<span class="string">&quot;pusha; \ </span></span><br><span class="line"><span class="string"> movl $4,%eax; \ </span></span><br><span class="line"><span class="string"> movl $1,%ebx; \ </span></span><br><span class="line"><span class="string"> movl str,%ecx; \ </span></span><br><span class="line"><span class="string"> movl $12,%edx; \ </span></span><br><span class="line"><span class="string"> int $0x80; \ </span></span><br><span class="line"><span class="string">mov %eax,count;\ </span></span><br><span class="line"><span class="string">popa \ </span></span><br><span class="line"><span class="string">&quot;</span>); </span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <h6 id="扩展内联汇编"><a href="#扩展内联汇编" class="headerlink" title="扩展内联汇编"></a>扩展内联汇编</h6><p>格式：<br>asm [volatile] (“assembly code”:output : input : clobber/modify)</p>
@@ -492,14 +452,14 @@
 <li>寄存器约束  </li>
 </ol>
 <p>寄存器约束就是要求 gcc 使用哪个寄存器，将 input 或 output 中变量约束在某个寄存器中。常见的寄存器约束有：<br>a：表示寄存器 eax/ax/al<br>b：表示寄存器 ebx/bx/bl<br>c：表示寄存器 ecx/cx/cl<br>d：表示寄存器 edx/dx/dl<br>D：表示寄存器 edi/di<br>S：表示寄存器 esi/si<br>q：表示任意这 4 个通用寄存器之一：eax/ebx/ecx/edx<br>r：表示任意这 6 个通用寄存器之一：eax/ebx/ecx/edx/esi/edi<br>g：表示可以存放到任意地点（寄存器和内存）。相当于除了同 q 一样外，还可以让 gcc 安排在内存中<br>A：把 eax 和 edx 组合成 64 位整数<br>f：表示浮点寄存器<br>t：表示第 1 个浮点寄存器<br>u：表示第 2 个浮点寄存器      </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt; </span><br><span class="line">void main() &#123; </span><br><span class="line">int in_a &#x3D; 1, in_b &#x3D; 2, out_sum; </span><br><span class="line">asm(&quot;addl %%ebx, %%eax&quot;:&quot;&#x3D;a&quot;(out_sum):&quot;a&quot;(in_a),&quot;b&quot;(in_b)); </span><br><span class="line">printf(&quot;sum is %d\n&quot;,out_sum); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123; </span><br><span class="line"><span class="keyword">int</span> in_a = <span class="number">1</span>, in_b = <span class="number">2</span>, out_sum; </span><br><span class="line"><span class="built_in"><span class="keyword">asm</span></span>(<span class="string">&quot;addl %%ebx, %%eax&quot;</span>:<span class="string">&quot;=a&quot;</span>(out_sum):<span class="string">&quot;a&quot;</span>(in_a),<span class="string">&quot;b&quot;</span>(in_b)); </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;sum is %d\n&quot;</span>,out_sum); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>内存约束</li>
 </ol>
 <p>内存约束是要求 gcc 直接将位于 input 和 output 中的 C 变量的内存地址作为内联汇编代码的操作数，不需要寄存器做中转，直接进行内存读写，也就是汇编代码的操作数是 C 变量的指针。    </p>
 <p>m：表示操作数可以使用任意一种内存形式。<br>o：操作数为内存变量，但访问它是通过偏移量的形式访问，即包含 offset_address 的格式。       </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt; </span><br><span class="line">void main() &#123; </span><br><span class="line">int in_a &#x3D; 1, in_b &#x3D; 2; </span><br><span class="line">printf(&quot;in_b is %d\n&quot;, in_b); </span><br><span class="line">asm(&quot;movb %b0, %1;&quot;::&quot;a&quot;(in_a),&quot;m&quot;(in_b)); </span><br><span class="line">printf(&quot;in_b now is %d\n&quot;, in_b); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123; </span><br><span class="line"><span class="keyword">int</span> in_a = <span class="number">1</span>, in_b = <span class="number">2</span>; </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;in_b is %d\n&quot;</span>, in_b); </span><br><span class="line"><span class="built_in"><span class="keyword">asm</span></span>(<span class="string">&quot;movb %b0, %1;&quot;</span>::<span class="string">&quot;a&quot;</span>(in_a),<span class="string">&quot;m&quot;</span>(in_b)); </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;in_b now is %d\n&quot;</span>, in_b); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>立即数约束</li>
@@ -565,22 +525,22 @@
 <p>内存寻址格式：<br>segreg(段基址):base_address(offset,index,size)        </p>
 <p>segreg:base_address+offset+index*size</p>
 <h4 id="打印-printf-的实现"><a href="#打印-printf-的实现" class="headerlink" title="打印 printf 的实现"></a>打印 printf 的实现</h4><h6 id="打印字符"><a href="#打印字符" class="headerlink" title="打印字符"></a>打印字符</h6><p>在printf.h中声明函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put_char(uint8_t char_asci)</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put<span class="constructor">_char(<span class="params">uint8_t</span> <span class="params">char_asci</span>)</span></span><br></pre></td></tr></table></figure>
 
 <p>在print.s中完成函数的定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">global put_char</span><br><span class="line">;外部符号声明 </span><br><span class="line">pushad   ;备份8个32位寄存器</span><br><span class="line">mov ax,SELECTOR_VIDEO</span><br><span class="line">mov gs,ax</span><br><span class="line"></span><br><span class="line">;获取光标位置</span><br><span class="line">;高8位</span><br><span class="line">mov dx,0x03d4  ;索引寄存器</span><br><span class="line">mov al,0x0e    ;光标位置高8位</span><br><span class="line">out dx,al      </span><br><span class="line">mov dx,0x03d5     </span><br><span class="line">in al,dx</span><br><span class="line">mov ah,al</span><br><span class="line">;低8位</span><br><span class="line">mov dx,0x03d4  ;索引寄存器</span><br><span class="line">mov al,0x0f   ;光标位置高8位</span><br><span class="line">out dx,al      </span><br><span class="line">mov dx,0x03d5     </span><br><span class="line">in al,dx</span><br><span class="line"></span><br><span class="line">;光标为值存放在bx中</span><br><span class="line">mov ax,bx</span><br><span class="line">;取得要打印的字符</span><br><span class="line">mov ecx,[esp+36]</span><br><span class="line">cmp cl,0xd</span><br><span class="line">jz .is_carriage_return</span><br><span class="line">cmp cl,0xa</span><br><span class="line">jz .is_line_feed</span><br><span class="line">cmp cl,0x8</span><br><span class="line">jz .is_backspace</span><br><span class="line">jmp .put_other</span><br><span class="line"></span><br><span class="line">.is_backspace:</span><br><span class="line">dec bx   ;光标位置减一</span><br><span class="line">shl bx,1    ;左移一位，bx乘二得到光标处字符所在为内存地址。</span><br><span class="line">mov word [gs:bx],0   ;将这一个字符为位置清零包括颜色属性</span><br><span class="line">shr bx,1    ;bx恢复原状</span><br><span class="line">jmp .set_cursor</span><br><span class="line"></span><br><span class="line">.put_other:</span><br><span class="line">shl bx,1</span><br><span class="line">mov [gs:bx],cl</span><br><span class="line">inc bx</span><br><span class="line">mov byte [gs:bx],0x07</span><br><span class="line">shr bx,1</span><br><span class="line">inc bx</span><br><span class="line">;若光标值小于2000，则表示该页现存没有写完，若超出2000，则回车换行处理</span><br><span class="line">cmp bx,2000</span><br><span class="line">jl .set_cursor</span><br><span class="line"></span><br><span class="line">.is_line_feed:</span><br><span class="line">.is_carriage_return:</span><br><span class="line">xor dx,dx</span><br><span class="line">mov ax,bx</span><br><span class="line">mov si,80</span><br><span class="line">div si</span><br><span class="line">sub bx,dx</span><br><span class="line">;先让光标回到行首再下一行，判断是否超出。</span><br><span class="line">.is_carriage_return_end:</span><br><span class="line">add bx,80</span><br><span class="line">cmp bx,2000</span><br><span class="line">.is_line_feed_end:</span><br><span class="line">jl .set_cursor</span><br><span class="line"></span><br><span class="line">;超出屏幕大小开始滚屏</span><br><span class="line">.roll_screen:</span><br><span class="line">cld</span><br><span class="line">mov ecx,960 ;共搬运 2000-80&#x3D;1920个字符</span><br><span class="line">mov esi,0xb80a0   ;第一行行首</span><br><span class="line">mov edi,0xb8000   ;第零行行首</span><br><span class="line">rep movsd</span><br><span class="line">;将最后一行填充为空白</span><br><span class="line">mov ebx,3840</span><br><span class="line">mov ecx,80</span><br><span class="line">.cls:</span><br><span class="line">mov word [gs:ebx],0</span><br><span class="line">add ebx,2</span><br><span class="line">loop .cls</span><br><span class="line">mov bx,1920</span><br><span class="line"></span><br><span class="line">;设置光标值</span><br><span class="line">.set_cursor:</span><br><span class="line">;将光标设为bx值</span><br><span class="line">   mov dx, 0x03d4			  ;索引寄存器</span><br><span class="line">   mov al, 0x0e				  ;用于提供光标位置的高8位</span><br><span class="line">   out dx, al</span><br><span class="line">   mov dx, 0x03d5			  ;通过读写数据端口0x3d5来获得或设置光标位置 </span><br><span class="line">   mov al, bh</span><br><span class="line">   out dx, al</span><br><span class="line"></span><br><span class="line">   mov dx, 0x03d4</span><br><span class="line">   mov al, 0x0f</span><br><span class="line">   out dx, al</span><br><span class="line">   mov dx, 0x03d5 </span><br><span class="line">   mov al, bl</span><br><span class="line">   out dx, al</span><br><span class="line"></span><br><span class="line">.put_char_done:</span><br><span class="line">   popad</span><br><span class="line">   ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">global</span> put_char</span><br><span class="line"><span class="comment">;外部符号声明 </span></span><br><span class="line"><span class="keyword">pushad</span>   <span class="comment">;备份8个32位寄存器</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,SELECTOR_VIDEO</span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">gs</span>,<span class="built_in">ax</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;获取光标位置</span></span><br><span class="line"><span class="comment">;高8位</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0x03d4</span>  <span class="comment">;索引寄存器</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">0x0e</span>    <span class="comment">;光标位置高8位</span></span><br><span class="line"><span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span>      </span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0x03d5</span>     </span><br><span class="line"><span class="keyword">in</span> <span class="built_in">al</span>,<span class="built_in">dx</span></span><br><span class="line"><span class="keyword">mov</span> <span class="number">ah</span>,<span class="built_in">al</span></span><br><span class="line"><span class="comment">;低8位</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0x03d4</span>  <span class="comment">;索引寄存器</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">0x0f</span>   <span class="comment">;光标位置高8位</span></span><br><span class="line"><span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span>      </span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0x03d5</span>     </span><br><span class="line"><span class="keyword">in</span> <span class="built_in">al</span>,<span class="built_in">dx</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;光标为值存放在bx中</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="built_in">bx</span></span><br><span class="line"><span class="comment">;取得要打印的字符</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ecx</span>,[<span class="built_in">esp</span>+<span class="number">36</span>]</span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">cl</span>,<span class="number">0xd</span></span><br><span class="line"><span class="keyword">jz</span> .is_carriage_return</span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">cl</span>,<span class="number">0xa</span></span><br><span class="line"><span class="keyword">jz</span> .is_line_feed</span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">cl</span>,<span class="number">0x8</span></span><br><span class="line"><span class="keyword">jz</span> .is_backspace</span><br><span class="line"><span class="keyword">jmp</span> .put_other</span><br><span class="line"></span><br><span class="line"><span class="symbol">.is_backspace:</span></span><br><span class="line"><span class="keyword">dec</span> <span class="built_in">bx</span>   <span class="comment">;光标位置减一</span></span><br><span class="line"><span class="keyword">shl</span> <span class="built_in">bx</span>,<span class="number">1</span>    <span class="comment">;左移一位，bx乘二得到光标处字符所在为内存地址。</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">word</span> [<span class="built_in">gs</span>:<span class="built_in">bx</span>],<span class="number">0</span>   <span class="comment">;将这一个字符为位置清零包括颜色属性</span></span><br><span class="line"><span class="keyword">shr</span> <span class="built_in">bx</span>,<span class="number">1</span>    <span class="comment">;bx恢复原状</span></span><br><span class="line"><span class="keyword">jmp</span> .set_cursor</span><br><span class="line"></span><br><span class="line"><span class="symbol">.put_other:</span></span><br><span class="line"><span class="keyword">shl</span> <span class="built_in">bx</span>,<span class="number">1</span></span><br><span class="line"><span class="keyword">mov</span> [<span class="built_in">gs</span>:<span class="built_in">bx</span>],<span class="built_in">cl</span></span><br><span class="line"><span class="keyword">inc</span> <span class="built_in">bx</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">byte</span> [<span class="built_in">gs</span>:<span class="built_in">bx</span>],<span class="number">0x07</span></span><br><span class="line"><span class="keyword">shr</span> <span class="built_in">bx</span>,<span class="number">1</span></span><br><span class="line"><span class="keyword">inc</span> <span class="built_in">bx</span></span><br><span class="line"><span class="comment">;若光标值小于2000，则表示该页现存没有写完，若超出2000，则回车换行处理</span></span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">bx</span>,<span class="number">2000</span></span><br><span class="line"><span class="keyword">jl</span> .set_cursor</span><br><span class="line"></span><br><span class="line"><span class="symbol">.is_line_feed:</span></span><br><span class="line"><span class="symbol">.is_carriage_return:</span></span><br><span class="line"><span class="keyword">xor</span> <span class="built_in">dx</span>,<span class="built_in">dx</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="built_in">bx</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">si</span>,<span class="number">80</span></span><br><span class="line"><span class="keyword">div</span> <span class="built_in">si</span></span><br><span class="line"><span class="keyword">sub</span> <span class="built_in">bx</span>,<span class="built_in">dx</span></span><br><span class="line"><span class="comment">;先让光标回到行首再下一行，判断是否超出。</span></span><br><span class="line"><span class="symbol">.is_carriage_return_end:</span></span><br><span class="line"><span class="keyword">add</span> <span class="built_in">bx</span>,<span class="number">80</span></span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">bx</span>,<span class="number">2000</span></span><br><span class="line"><span class="symbol">.is_line_feed_end:</span></span><br><span class="line"><span class="keyword">jl</span> .set_cursor</span><br><span class="line"></span><br><span class="line"><span class="comment">;超出屏幕大小开始滚屏</span></span><br><span class="line"><span class="symbol">.roll_screen:</span></span><br><span class="line"><span class="keyword">cld</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ecx</span>,<span class="number">960</span> <span class="comment">;共搬运 2000-80=1920个字符</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">esi</span>,<span class="number">0xb80a0</span>   <span class="comment">;第一行行首</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">edi</span>,<span class="number">0xb8000</span>   <span class="comment">;第零行行首</span></span><br><span class="line"><span class="keyword">rep</span> <span class="keyword">movsd</span></span><br><span class="line"><span class="comment">;将最后一行填充为空白</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ebx</span>,<span class="number">3840</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ecx</span>,<span class="number">80</span></span><br><span class="line"><span class="symbol">.cls:</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">word</span> [<span class="built_in">gs</span>:<span class="built_in">ebx</span>],<span class="number">0</span></span><br><span class="line"><span class="keyword">add</span> <span class="built_in">ebx</span>,<span class="number">2</span></span><br><span class="line"><span class="keyword">loop</span> .cls</span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">bx</span>,<span class="number">1920</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;设置光标值</span></span><br><span class="line"><span class="symbol">.set_cursor:</span></span><br><span class="line"><span class="comment">;将光标设为bx值</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">dx</span>, <span class="number">0x03d4</span>			  <span class="comment">;索引寄存器</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">al</span>, <span class="number">0x0e</span>				  <span class="comment">;用于提供光标位置的高8位</span></span><br><span class="line">   <span class="keyword">out</span> <span class="built_in">dx</span>, <span class="built_in">al</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">dx</span>, <span class="number">0x03d5</span>			  <span class="comment">;通过读写数据端口0x3d5来获得或设置光标位置 </span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">al</span>, <span class="number">bh</span></span><br><span class="line">   <span class="keyword">out</span> <span class="built_in">dx</span>, <span class="built_in">al</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">dx</span>, <span class="number">0x03d4</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">al</span>, <span class="number">0x0f</span></span><br><span class="line">   <span class="keyword">out</span> <span class="built_in">dx</span>, <span class="built_in">al</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">dx</span>, <span class="number">0x03d5</span> </span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">al</span>, <span class="built_in">bl</span></span><br><span class="line">   <span class="keyword">out</span> <span class="built_in">dx</span>, <span class="built_in">al</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">.put_char_done:</span></span><br><span class="line">   <span class="keyword">popad</span></span><br><span class="line">   <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
 
 <h6 id="打印字符串"><a href="#打印字符串" class="headerlink" title="打印字符串"></a>打印字符串</h6><p>在printf.h中声明函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put_str(char* message)</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put<span class="constructor">_str(<span class="params">char</span><span class="operator">*</span> <span class="params">message</span>)</span></span><br></pre></td></tr></table></figure>
 
 <p>在print.s中完成函数的定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">global put_str</span><br><span class="line">put_str:</span><br><span class="line">;由于本函数中只用到了ebx和ecx,只备份这两个寄存器</span><br><span class="line">   push ebx</span><br><span class="line">   push ecx</span><br><span class="line">   xor ecx, ecx		      ; 准备用ecx存储参数,清空</span><br><span class="line">   mov ebx, [esp + 12]	      ; 从栈中得到待打印的字符串地址 </span><br><span class="line">.goon:</span><br><span class="line">   mov cl, [ebx]</span><br><span class="line">   cmp cl, 0		      ; 如果处理到了字符串尾,跳到结束处返回</span><br><span class="line">   jz .str_over</span><br><span class="line">   push ecx		      ; 为put_char函数传递参数</span><br><span class="line">   call put_char</span><br><span class="line">   add esp, 4		      ; 回收参数所占的栈空间</span><br><span class="line">                        ;由调用者回收栈空间，C语言调用的话编译器会自动完成但是汇编语言不会，需要我们手动回收。</span><br><span class="line">   inc ebx		      ; 使ebx指向下一个字符</span><br><span class="line">   jmp .goon</span><br><span class="line">.str_over:</span><br><span class="line">   pop ecx</span><br><span class="line">   pop ebx</span><br><span class="line">   ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">global</span> put_str</span><br><span class="line"><span class="symbol">put_str:</span></span><br><span class="line"><span class="comment">;由于本函数中只用到了ebx和ecx,只备份这两个寄存器</span></span><br><span class="line">   <span class="keyword">push</span> <span class="built_in">ebx</span></span><br><span class="line">   <span class="keyword">push</span> <span class="built_in">ecx</span></span><br><span class="line">   <span class="keyword">xor</span> <span class="built_in">ecx</span>, <span class="built_in">ecx</span>		      <span class="comment">; 准备用ecx存储参数,清空</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">ebx</span>, [<span class="built_in">esp</span> + <span class="number">12</span>]	      <span class="comment">; 从栈中得到待打印的字符串地址 </span></span><br><span class="line"><span class="symbol">.goon:</span></span><br><span class="line">   <span class="keyword">mov</span> <span class="built_in">cl</span>, [<span class="built_in">ebx</span>]</span><br><span class="line">   <span class="keyword">cmp</span> <span class="built_in">cl</span>, <span class="number">0</span>		      <span class="comment">; 如果处理到了字符串尾,跳到结束处返回</span></span><br><span class="line">   <span class="keyword">jz</span> .str_over</span><br><span class="line">   <span class="keyword">push</span> <span class="built_in">ecx</span>		      <span class="comment">; 为put_char函数传递参数</span></span><br><span class="line">   <span class="keyword">call</span> put_char</span><br><span class="line">   <span class="keyword">add</span> <span class="built_in">esp</span>, <span class="number">4</span>		      <span class="comment">; 回收参数所占的栈空间</span></span><br><span class="line">                        <span class="comment">;由调用者回收栈空间，C语言调用的话编译器会自动完成但是汇编语言不会，需要我们手动回收。</span></span><br><span class="line">   <span class="keyword">inc</span> <span class="built_in">ebx</span>		      <span class="comment">; 使ebx指向下一个字符</span></span><br><span class="line">   <span class="keyword">jmp</span> .goon</span><br><span class="line"><span class="symbol">.str_over:</span></span><br><span class="line">   <span class="keyword">pop</span> <span class="built_in">ecx</span></span><br><span class="line">   <span class="keyword">pop</span> <span class="built_in">ebx</span></span><br><span class="line">   <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
 
 <h6 id="打印整数"><a href="#打印整数" class="headerlink" title="打印整数"></a>打印整数</h6><p>在printf.h中声明函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void put_int(uint32_t num);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">put_int</span><span class="params">(<span class="keyword">uint32_t</span> num)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>在print.s中完成函数的定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">global put_int</span><br><span class="line">put_int:</span><br><span class="line">pushad</span><br><span class="line">mov ebp,esp</span><br><span class="line">mov eax,[ebp+36]</span><br><span class="line">mov edx,eax</span><br><span class="line">mov edi,7</span><br><span class="line">mov ecx,8   ;32位数字共分为8块</span><br><span class="line">mov ebx,put_int_buffer</span><br><span class="line"></span><br><span class="line">.16based_4bits:</span><br><span class="line">and edx,0x0000000F</span><br><span class="line">cmp,9</span><br><span class="line">jg .isA2F</span><br><span class="line">add edx,&#39;0&#39;</span><br><span class="line">jmp .store</span><br><span class="line">.is_A2F:</span><br><span class="line">sub edx,10</span><br><span class="line">add edx,&#39;A&#39;</span><br><span class="line">;从大往小存储在缓冲区内，最后一个数字放在最高位</span><br><span class="line">.store:</span><br><span class="line">mov [ebx+edi],dl</span><br><span class="line">dec edi</span><br><span class="line">shr eax,4</span><br><span class="line">mov edx,4</span><br><span class="line">loop .16based_4bits</span><br><span class="line"></span><br><span class="line">.ready_to_print:</span><br><span class="line">inc edi</span><br><span class="line">.skip_prefix_0    ;判断是不是8位全零</span><br><span class="line">cmp edi,8</span><br><span class="line">je .full0</span><br><span class="line">.go_on_skip:</span><br><span class="line">mov cl,[put_int_buffer+edi]</span><br><span class="line">inc edi</span><br><span class="line">cmp cl,&#39;0&#39;</span><br><span class="line">je .skip_prefix_0</span><br><span class="line">dec edi</span><br><span class="line">jmp .put_each_num</span><br><span class="line"></span><br><span class="line">.full0:</span><br><span class="line">mov cl,&#39;0&#39;</span><br><span class="line">.put_each_num:</span><br><span class="line">push ecx</span><br><span class="line">call put_char</span><br><span class="line">add esp,4</span><br><span class="line">inc edi</span><br><span class="line">mov cl,[put_int_buffer+edi]</span><br><span class="line">cmp edi,8</span><br><span class="line">jl .put_each_num</span><br><span class="line">popad</span><br><span class="line">ret</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">global</span> put_int</span><br><span class="line"><span class="symbol">put_int:</span></span><br><span class="line"><span class="keyword">pushad</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ebp</span>,<span class="built_in">esp</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">eax</span>,[<span class="built_in">ebp</span>+<span class="number">36</span>]</span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">edx</span>,<span class="built_in">eax</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">edi</span>,<span class="number">7</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ecx</span>,<span class="number">8</span>   <span class="comment">;32位数字共分为8块</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ebx</span>,put_int_buffer</span><br><span class="line"></span><br><span class="line"><span class="symbol">.16based_4bits:</span></span><br><span class="line"><span class="keyword">and</span> <span class="built_in">edx</span>,<span class="number">0x0000000F</span></span><br><span class="line"><span class="keyword">cmp</span>,<span class="number">9</span></span><br><span class="line"><span class="keyword">jg</span> .isA2F</span><br><span class="line"><span class="keyword">add</span> <span class="built_in">edx</span>,<span class="string">&#x27;0&#x27;</span></span><br><span class="line"><span class="keyword">jmp</span> .store</span><br><span class="line"><span class="symbol">.is_A2F:</span></span><br><span class="line"><span class="keyword">sub</span> <span class="built_in">edx</span>,<span class="number">10</span></span><br><span class="line"><span class="keyword">add</span> <span class="built_in">edx</span>,<span class="string">&#x27;A&#x27;</span></span><br><span class="line"><span class="comment">;从大往小存储在缓冲区内，最后一个数字放在最高位</span></span><br><span class="line"><span class="symbol">.store:</span></span><br><span class="line"><span class="keyword">mov</span> [<span class="built_in">ebx</span>+<span class="built_in">edi</span>],<span class="built_in">dl</span></span><br><span class="line"><span class="keyword">dec</span> <span class="built_in">edi</span></span><br><span class="line"><span class="keyword">shr</span> <span class="built_in">eax</span>,<span class="number">4</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">edx</span>,<span class="number">4</span></span><br><span class="line"><span class="keyword">loop</span> .16based_4bits</span><br><span class="line"></span><br><span class="line"><span class="symbol">.ready_to_print:</span></span><br><span class="line"><span class="keyword">inc</span> <span class="built_in">edi</span></span><br><span class="line"><span class="meta">.skip_prefix_0</span>    <span class="comment">;判断是不是8位全零</span></span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">edi</span>,<span class="number">8</span></span><br><span class="line"><span class="keyword">je</span> .full0</span><br><span class="line"><span class="symbol">.go_on_skip:</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">cl</span>,[put_int_buffer+<span class="built_in">edi</span>]</span><br><span class="line"><span class="keyword">inc</span> <span class="built_in">edi</span></span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">cl</span>,<span class="string">&#x27;0&#x27;</span></span><br><span class="line"><span class="keyword">je</span> .skip_prefix_0</span><br><span class="line"><span class="keyword">dec</span> <span class="built_in">edi</span></span><br><span class="line"><span class="keyword">jmp</span> .put_each_num</span><br><span class="line"></span><br><span class="line"><span class="symbol">.full0:</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">cl</span>,<span class="string">&#x27;0&#x27;</span></span><br><span class="line"><span class="symbol">.put_each_num:</span></span><br><span class="line"><span class="keyword">push</span> <span class="built_in">ecx</span></span><br><span class="line"><span class="keyword">call</span> put_char</span><br><span class="line"><span class="keyword">add</span> <span class="built_in">esp</span>,<span class="number">4</span></span><br><span class="line"><span class="keyword">inc</span> <span class="built_in">edi</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">cl</span>,[put_int_buffer+<span class="built_in">edi</span>]</span><br><span class="line"><span class="keyword">cmp</span> <span class="built_in">edi</span>,<span class="number">8</span></span><br><span class="line"><span class="keyword">jl</span> .put_each_num</span><br><span class="line"><span class="keyword">popad</span></span><br><span class="line"><span class="keyword">ret</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -590,4 +550,498 @@
 <li>使用伪指令 [bits 16] [bits 32] 指定编译器进行模式指定。 </li>
 <li>操作数反转前缀 0x66 寻址方式反转前缀 0x67</li>
 </ol>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">崔文耀</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/">http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.cuimouren.cn" target="_blank">这里是文耀的space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/os/">os</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/05/20/nasm-%E4%BD%BF%E7%94%A8/"><img class="prev-cover" src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">nasm 使用</div></div></a></div><div class="next-post pull-right"><a href="/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/"><img class="next-cover" src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">gcc 使用入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/05/11/os-001-bochs/" title="os 001 bochs"><img class="cover" src="/" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-11</div><div class="title">os 001 bochs</div></div></a></div><div><a href="/2021/05/11/os-002-os-start/" title="os 002 os start"><img class="cover" src="/" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-11</div><div class="title">os 002 os start</div></div></a></div><div><a href="/2021/05/25/os-004-中断/" title="os 004 中断"><img class="cover" src="/" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-25</div><div class="title">os 004 中断</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">崔文耀</div><div class="author-info__description">Hello, here is wenyao's space, how do you come in???</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#protected-mode"><span class="toc-number">1.</span> <span class="toc-text">protected mode</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%AE%80%E4%BB%8B"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">保护模式简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-number">1.0.0.1.0.1.</span> <span class="toc-text">实模式的缺陷</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.0.0.1.0.2.</span> <span class="toc-text">保护模式的特点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.0.0.1.0.3.</span> <span class="toc-text">进入保护模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E6%AE%B5"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">内存分段</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.0.2.0.1.</span> <span class="toc-text">段描述符的结构</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8-GDT"><span class="toc-number">1.0.0.2.0.2.</span> <span class="toc-text">全局描述符表 GDT</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%E5%AF%84%E5%AD%98%E5%99%A8-GDTR"><span class="toc-number">1.0.0.2.0.3.</span> <span class="toc-text">全局描述符表寄存器 GDTR</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%AD%90"><span class="toc-number">1.0.0.2.0.4.</span> <span class="toc-text">选择子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%BE%97%E5%86%85%E5%AD%98%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">获得内存信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%A1%B5"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">内存分页</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E6%AE%B5%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.0.0.4.0.1.</span> <span class="toc-text">内存分段模式下的问题</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%80%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="toc-number">1.0.0.4.0.2.</span> <span class="toc-text">一级页表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="toc-number">1.0.0.4.0.3.</span> <span class="toc-text">二级页表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%A1%B5%E7%9B%AE%E5%BD%95%E9%A1%B9%E5%92%8C%E9%A1%B5%E8%A1%A8%E9%A1%B9%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.0.4.0.4.</span> <span class="toc-text">页目录项和页表项的结构</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E5%88%86%E9%A1%B5"><span class="toc-number">1.0.0.4.0.5.</span> <span class="toc-text">开启分页</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#elf-executable-and-linkable-format"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">elf (executable and linkable format)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#elf%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.0.0.5.0.1.</span> <span class="toc-text">elf中的数据类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%9D%83%E7%BA%A7"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">特权级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%BA%A6%E5%AE%9A"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">函数调约定</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#cdecl-c-declaration-%E5%8D%B3c%E5%A3%B0%E6%98%8E"><span class="toc-number">1.0.0.7.0.1.</span> <span class="toc-text">cdecl (c declaration 即c声明)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C%E4%B8%8E%E6%B1%87%E7%BC%96%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">C与汇编混合编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96"><span class="toc-number">1.0.0.9.</span> <span class="toc-text">内联汇编</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96"><span class="toc-number">1.0.0.9.0.1.</span> <span class="toc-text">基本内联汇编</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96"><span class="toc-number">1.0.0.9.0.2.</span> <span class="toc-text">扩展内联汇编</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AT-amp-T%E6%B1%87%E7%BC%96"><span class="toc-number">1.0.0.10.</span> <span class="toc-text">AT&amp;T汇编</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8D%B0-printf-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.0.11.</span> <span class="toc-text">打印 printf 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6"><span class="toc-number">1.0.0.11.0.1.</span> <span class="toc-text">打印字符</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">1.0.0.11.0.2.</span> <span class="toc-text">打印字符串</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E6%95%B4%E6%95%B0"><span class="toc-number">1.0.0.11.0.3.</span> <span class="toc-text">打印整数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9%E9%97%AE%E9%A2%98"><span class="toc-number">1.0.0.12.</span> <span class="toc-text">杂项问题</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/06/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%B8%80-%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BADT/" title="数据结构 一 抽象数据类型ADT"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构 一 抽象数据类型ADT"/></a><div class="content"><a class="title" href="/2021/06/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%B8%80-%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BADT/" title="数据结构 一 抽象数据类型ADT">数据结构 一 抽象数据类型ADT</a><time datetime="2021-06-24T05:48:40.000Z" title="发表于 2021-06-24 13:48:40">2021-06-24</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/06/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="计算机网络期末复习">计算机网络期末复习</a><time datetime="2021-06-19T02:09:40.000Z" title="发表于 2021-06-19 10:09:40">2021-06-19</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/06/18/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E9%93%BE%E8%A1%A8/" title="leedcode 初级算法 链表">leedcode 初级算法 链表</a><time datetime="2021-06-18T08:28:17.000Z" title="发表于 2021-06-18 16:28:17">2021-06-18</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/06/17/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="leedcode 初级算法 字符串">leedcode 初级算法 字符串</a><time datetime="2021-06-16T16:04:43.000Z" title="发表于 2021-06-17 00:04:43">2021-06-17</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2021/06/15/C-STL/" title="C++ STL">C++ STL</a><time datetime="2021-06-15T07:00:20.000Z" title="发表于 2021-06-15 15:00:20">2021-06-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 崔文耀</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/os/" rel="tag">os</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/05/20/nasm-%E4%BD%BF%E7%94%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            nasm 使用
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">gcc 使用入门</div>
+      </a>
+    
+  </nav>
+
+  
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021
+        <i class="ri-heart-fill heart_icon"></i> 崔文耀
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="https://beian.miit.gov.cn/" target="_black" rel="nofollow">豫ICP备20002729号</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="这里是文耀的space"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">photos</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+  </div>
+</body>
+
+</html>

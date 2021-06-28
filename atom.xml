@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-06-24T07:48:35.627Z</updated>
+  <updated>2021-06-28T01:51:57.309Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -15,6 +15,93 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微机期末复习之知识总结</title>
+    <link href="http://blog.cuimouren.cn/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
+    <id>http://blog.cuimouren.cn/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</id>
+    <published>2021-06-26T11:32:59.000Z</published>
+    <updated>2021-06-28T01:51:57.309Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;微机期末复习之知识总结&quot;&gt;&lt;a href=&quot;#微机期末复习之知识总结&quot; class=&quot;headerlink&quot; title=&quot;微机期末复习之知识总结&quot;&gt;&lt;/a&gt;微机期末复习之知识总结&lt;/h1&gt;&lt;h2 id=&quot;第一章&quot;&gt;&lt;a href=&quot;#第一章&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="期末复习" scheme="http://blog.cuimouren.cn/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E5%BE%AE%E6%9C%BA/"/>
+    
+    
+    <category term="期末复习" scheme="http://blog.cuimouren.cn/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/tags/%E5%BE%AE%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微机期末复习之实验源代码</title>
+    <link href="http://blog.cuimouren.cn/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E5%AE%9E%E9%AA%8C%E6%BA%90%E4%BB%A3%E7%A0%81/"/>
+    <id>http://blog.cuimouren.cn/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E5%AE%9E%E9%AA%8C%E6%BA%90%E4%BB%A3%E7%A0%81/</id>
+    <published>2021-06-26T03:09:24.000Z</published>
+    <updated>2021-06-26T06:47:16.954Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;微机期末复习之实验源代码&quot;&gt;&lt;a href=&quot;#微机期末复习之实验源代码&quot; class=&quot;headerlink&quot; title=&quot;微机期末复习之实验源代码&quot;&gt;&lt;/a&gt;微机期末复习之实验源代码&lt;/h1&gt;&lt;h2 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="期末复习" scheme="http://blog.cuimouren.cn/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E5%BE%AE%E6%9C%BA/"/>
+    
+    
+    <category term="期末复习" scheme="http://blog.cuimouren.cn/tags/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/tags/%E5%BE%AE%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构 二 线性表</title>
+    <link href="http://blog.cuimouren.cn/2021/06/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C-%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
+    <id>http://blog.cuimouren.cn/2021/06/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C-%E7%BA%BF%E6%80%A7%E8%A1%A8/</id>
+    <published>2021-06-24T08:13:56.000Z</published>
+    <updated>2021-06-24T15:33:03.347Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;线性表&quot;&gt;&lt;a href=&quot;#线性表&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据结构" scheme="http://blog.cuimouren.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="线性表" scheme="http://blog.cuimouren.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
+    
+    
+    <category term="数据结构" scheme="http://blog.cuimouren.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="线性表" scheme="http://blog.cuimouren.cn/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>数据结构 一 抽象数据类型ADT</title>
@@ -50,7 +137,7 @@
     <link href="http://blog.cuimouren.cn/2021/06/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
     <id>http://blog.cuimouren.cn/2021/06/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/</id>
     <published>2021-06-19T02:09:40.000Z</published>
-    <updated>2021-06-19T09:07:31.596Z</updated>
+    <updated>2021-06-26T03:10:22.930Z</updated>
     
     
       
@@ -63,7 +150,9 @@
     
     
     
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    <category term="期末复习" scheme="http://blog.cuimouren.cn/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+    
+    <category term="计算机网络" scheme="http://blog.cuimouren.cn/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     
     <category term="计算机网络" scheme="http://blog.cuimouren.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
@@ -137,14 +226,14 @@
     <link href="http://blog.cuimouren.cn/2021/06/15/C-STL/"/>
     <id>http://blog.cuimouren.cn/2021/06/15/C-STL/</id>
     <published>2021-06-15T07:00:20.000Z</published>
-    <updated>2021-06-16T08:26:10.967Z</updated>
+    <updated>2021-06-24T10:50:02.768Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;C-STL&quot;&gt;&lt;a href=&quot;#C-STL&quot; class=&quot;headerlink&quot; title=&quot;C++ STL&quot;&gt;&lt;/a&gt;C++ STL&lt;/h1&gt;&lt;p&gt;stl</summary>
+    <summary type="html">&lt;h1 id=&quot;C-STL&quot;&gt;&lt;a href=&quot;#C-STL&quot; class=&quot;headerlink&quot; title=&quot;C++ STL&quot;&gt;&lt;/a&gt;C++ STL&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
         
       
     
@@ -374,7 +463,7 @@
     <link href="http://blog.cuimouren.cn/2021/05/06/shell-%E7%BC%96%E7%A8%8B/"/>
     <id>http://blog.cuimouren.cn/2021/05/06/shell-%E7%BC%96%E7%A8%8B/</id>
     <published>2021-05-06T01:44:16.000Z</published>
-    <updated>2021-05-06T13:29:08.448Z</updated>
+    <updated>2021-05-08T06:28:19.430Z</updated>
     
     
       
@@ -403,7 +492,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/25/use-nginx-on-ubuntu-18-04/"/>
     <id>http://blog.cuimouren.cn/2021/04/25/use-nginx-on-ubuntu-18-04/</id>
     <published>2021-04-25T09:24:12.000Z</published>
-    <updated>2021-05-03T04:10:29.100Z</updated>
+    <updated>2021-05-08T07:14:27.254Z</updated>
     
     
       
@@ -459,7 +548,7 @@
     <link href="http://blog.cuimouren.cn/2021/04/21/Initial-Server-Setup-with-Ubuntu/"/>
     <id>http://blog.cuimouren.cn/2021/04/21/Initial-Server-Setup-with-Ubuntu/</id>
     <published>2021-04-21T07:21:12.000Z</published>
-    <updated>2021-04-23T08:08:09.920Z</updated>
+    <updated>2021-04-23T08:08:09.000Z</updated>
     
     
       
@@ -482,90 +571,6 @@
     <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
     
     <category term="ubuntu" scheme="http://blog.cuimouren.cn/tags/ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>code-server</title>
-    <link href="http://blog.cuimouren.cn/2021/04/21/code-server/"/>
-    <id>http://blog.cuimouren.cn/2021/04/21/code-server/</id>
-    <published>2021-04-21T06:47:01.000Z</published>
-    <updated>2021-06-01T07:18:59.160Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;code-server&quot;&gt;&lt;a href=&quot;#code-server&quot; class=&quot;headerlink&quot; title=&quot;code-server&quot;&gt;&lt;/a&gt;code-server&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;code-server is a cloud ide</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
-    
-    
-    <category term="技术" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
-    
-    <category term="code-server" scheme="http://blog.cuimouren.cn/tags/code-server/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>零碎的技术</title>
-    <link href="http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/"/>
-    <id>http://blog.cuimouren.cn/2021/04/21/%E9%9B%B6%E7%A2%8E%E7%9A%84%E6%8A%80%E6%9C%AF/</id>
-    <published>2021-04-21T06:37:04.000Z</published>
-    <updated>2021-05-08T07:02:54.895Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;零碎的技术&quot;&gt;&lt;a href=&quot;#零碎的技术&quot; class=&quot;headerlink&quot; title=&quot;零碎的技术&quot;&gt;&lt;/a&gt;零碎的技术&lt;/h1&gt;&lt;h4 id=&quot;域名解析&quot;&gt;&lt;a href=&quot;#域名解析&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
-    
-    
-    <category term="技术" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>proxy trojan</title>
-    <link href="http://blog.cuimouren.cn/2021/04/21/proxy-trojan/"/>
-    <id>http://blog.cuimouren.cn/2021/04/21/proxy-trojan/</id>
-    <published>2021-04-21T06:02:49.000Z</published>
-    <updated>2021-05-13T15:10:11.418Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;proxy-trojan&quot;&gt;&lt;a href=&quot;#proxy-trojan&quot; class=&quot;headerlink&quot; title=&quot;proxy trojan&quot;&gt;&lt;/a&gt;proxy trojan&lt;/h1&gt;&lt;h4 id=&quot;trojan-server-服务端&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
-    
-    <category term="proxy" scheme="http://blog.cuimouren.cn/tags/proxy/"/>
-    
-    <category term="trojan" scheme="http://blog.cuimouren.cn/tags/trojan/"/>
     
   </entry>
   
