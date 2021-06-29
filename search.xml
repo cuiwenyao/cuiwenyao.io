@@ -1721,162 +1721,6 @@
       </tags>
   </entry>
   <entry>
-    <title>微机期末复习之知识总结</title>
-    <url>/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="微机期末复习之知识总结"><a href="#微机期末复习之知识总结" class="headerlink" title="微机期末复习之知识总结"></a>微机期末复习之知识总结</h1><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="QUS"><a href="#QUS" class="headerlink" title="QUS"></a>QUS</h3><h4 id="简答"><a href="#简答" class="headerlink" title="简答"></a>简答</h4><ol>
-<li>处理器字长：处理器单位时间内可以处理的二进制位数。</li>
-<li>总线信号分为哪三种：数据总线、地址总线、控制总线</li>
-<li>取指译码执行周期是指什么：从主存储器读取指令、翻译指令代码的功能、执行指令所需要的操作。</li>
-</ol>
-<h4 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h4><ol>
-<li>IA-64结构是IA-32结构的64位扩展，也就是Intel64 结构？ <strong>×</strong></li>
-<li>微机主存只要使用RAM芯片就足够了？    <strong>×</strong></li>
-</ol>
-<h4 id="大题"><a href="#大题" class="headerlink" title="大题"></a>大题</h4><ol>
-<li>什么是通用微处理器、单片机（微控制器）、DSP芯片、嵌入式系统？<ol>
-<li>通用微处理器：适合较广领域的微处理器芯片，例如装在笔记本上的。</li>
-<li>单片机：是指通常用于控制领域的微处理器芯片，其内部除了CPU外还集成了计算机的主要部件，只需要配上少量外部电路和设备就可以工作。</li>
-<li>DSP芯片：数字信号处理器，也是一种微控制器，其更加适合处理高速的数字信号，内部集成有告诉的乘法器，能够进行乘法和加法运算。</li>
-<li>嵌入式系统：利用微控制器、数字信号处理器或者通用微处理器结核病具体应用构成的控制系统。</li>
-</ol>
-</li>
-<li>区分：类路径、绝对路径、相对路径、当前目录。<ol>
-<li>路径：操作系统以目录的形式管理磁盘上的文件，文件所在的分区和目录就是该文件的路径。</li>
-<li>绝对路径：从根目录到文件所在的目录的完整的路径称为绝对路径，是保证文件唯一性的指示方法。</li>
-<li>相对路径：从系统当前目录到文件所在目录的路径称为相对路径。</li>
-<li>当前目录：用户当前所在的目录。</li>
-</ol>
-</li>
-<li>冯诺依曼计算机的基本设计思想是什么？<ol>
-<li>采用二进制表示数据和指令。指令由操作码和地址吗组成。</li>
-<li>将程序和数据存放在存储器中，计算机在工作时从存储器中取出指令加以执行，自动完成计算任务。</li>
-<li>指令的执行是顺序的，即按照指令在存储器中的存放顺序执行、程序分支由转移指令实现。</li>
-<li>计算机由存储器、运算器、控制器、输入输出设备组成。</li>
-</ol>
-</li>
-<li>计算机系统的层次。<blockquote>
-<p>最长层是用户层。<br> 第五层是高级语言层。<br> 第四层是汇编语言层<br> 第三层是操作系统层<br> 第二层是机器语言层<br> 第一层是控制层<br> 第零层是数字电路层</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><ol>
-<li><p>指令执行过程</p>
-<ul>
-<li>取指：指令处理单元从主存中将指令取出并通过总线传输到处理器内部的指令寄存器中。</li>
-<li>译码：指令处理单元通过指令译码电路获得该指令的功能。</li>
-<li>执行：指令的处理单元的时序和控制逻辑按照一定的时间顺序接收响应的信号，完成至指令所要求的额操作。</li>
-</ul>
-</li>
-<li><p>存储模型</p>
-<ol>
-<li>平展存储模型</li>
-<li>段式存储模型</li>
-<li>实地址存储模型</li>
-</ol>
-</li>
-<li><p>16位模拟DOS平台开发环境代码框架</p>
-</li>
-</ol>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">include io16<span class="number">.</span><span class="keyword">inc</span></span><br><span class="line"><span class="meta">    .data</span></span><br><span class="line"><span class="comment">;数据</span></span><br><span class="line"><span class="meta">    .code</span></span><br><span class="line"><span class="symbol">start:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,@data</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ds</span>,<span class="built_in">ax</span></span><br><span class="line"><span class="comment">;主程序</span></span><br><span class="line">    exit0</span><br><span class="line"><span class="comment">;子程序</span></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
-
-<h2 id="第三章-第四章-汇编基础知识"><a href="#第三章-第四章-汇编基础知识" class="headerlink" title="第三章 第四章 汇编基础知识"></a>第三章 第四章 汇编基础知识</h2><h2 id="第五章-微机总线"><a href="#第五章-微机总线" class="headerlink" title="第五章 微机总线"></a>第五章 微机总线</h2><ol>
-<li>微机以总线作为信息传输的公共通道。</li>
-<li>总线结构的特点<ol>
-<li>通过总线互相连接，实现数据传输。</li>
-<li>组态灵活，易于扩展。</li>
-</ol>
-</li>
-<li>总线类型<ol>
-<li>芯片总线：在大规模集成电路内部进行芯片级互连。</li>
-<li>内总线：模板级互连</li>
-<li>外总线：设备级互连</li>
-</ol>
-</li>
-<li>总线操作<ol>
-<li>总线请求和仲裁：使用总线的主模块提出申请，总线仲裁机制确定把总线分配给请求模块。</li>
-<li>寻址：主模块发出将要访问的从模块地址信息以及有关命令，启动从模块。</li>
-<li>数据传送：源模块发出数据，经数据总线传送到目标模块。</li>
-<li>结束：数据、地址、状态、命令信息均从总线上撤除，让出总线。</li>
-</ol>
-</li>
-<li>同步方式<ol>
-<li>同步时序：总线操作过程由公用的总线时钟信号控制，适合速度相当的设备。</li>
-<li>总线的操作需要握手联络应答信号控制，开始伴有启动、选通或者读写信号。</li>
-<li>传输的结束有一个确认信号，进行应答。</li>
-<li>操作周期可变，适应速度相差很大的设备。</li>
-</ol>
-</li>
-<li>总线的性能指标<ol>
-<li>总线宽度：总线能够同时传送的数据位数。</li>
-<li>总线频率：总线信号的时钟频率。</li>
-<li>总线带宽：单位时间内传送的数据量。</li>
-</ol>
-</li>
-<li>总线分类：地址总线、数据总线、控制总线。</li>
-</ol>
-<h2 id="第六章-存储系统"><a href="#第六章-存储系统" class="headerlink" title="第六章 存储系统"></a>第六章 存储系统</h2><ol>
-<li>ram</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>RAM类型</th>
-<th>组成单元</th>
-<th>速度</th>
-<th>集成度</th>
-<th>应用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SRAM</td>
-<td>触发器</td>
-<td>快</td>
-<td>低</td>
-<td>小容量系统</td>
-</tr>
-<tr>
-<td>DRAM</td>
-<td>单个MOS管</td>
-<td>慢</td>
-<td>高</td>
-<td>大容量系统</td>
-</tr>
-</tbody></table>
-<ol start="2">
-<li>cache地址映射方式<ol>
-<li>直接映射：将一个主存块存储到唯一的cache行</li>
-<li>全相联映射：将一个贮存快吧存储到任意一个cache行</li>
-<li>组相联映射：将一个主存块存储到唯一一个cache组的任意一行。</li>
-</ol>
-</li>
-<li>页表<ol>
-<li>不详细说了，在os里面讲过</li>
-</ol>
-</li>
-</ol>
-<h2 id="第七章-输入输出接口"><a href="#第七章-输入输出接口" class="headerlink" title="第七章 输入输出接口"></a>第七章 输入输出接口</h2><ol>
-<li>I/O接口概述：<br> 微机的外设多种多样，工作原理、驱动方式、信息格式、工作速度千差万别，他们不可以直接和cpu相连接，必须通过中间电路（I/O）接口电路与系统连接。I/O接口就是位于基本系统和外设之间实现两者数据交换的控制电路。其基本功能有数据缓冲和信号变换。</li>
-<li>主机和外设输送数据的方式<ol>
-<li>无条件传送</li>
-<li>查询</li>
-<li>中断</li>
-<li>DMA</li>
-<li>专门的额IO处理机</li>
-</ol>
-</li>
-</ol>
-<h2 id="第八章-常用接口电路"><a href="#第八章-常用接口电路" class="headerlink" title="第八章 常用接口电路"></a>第八章 常用接口电路</h2><p>没什么好些的，实验都做过了，去看上一个文章写的代码吧。</p>
-]]></content>
-      <categories>
-        <category>期末复习</category>
-        <category>微机</category>
-      </categories>
-      <tags>
-        <tag>期末复习</tag>
-        <tag>微机</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据结构 一 抽象数据类型ADT</title>
     <url>/2021/06/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%B8%80-%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BADT/</url>
     <content><![CDATA[<h1 id="抽象数据类型ADT"><a href="#抽象数据类型ADT" class="headerlink" title="抽象数据类型ADT"></a>抽象数据类型ADT</h1><p>计算机科学领域已开发了一种定义新类型的好方法，用 3 个步骤完成从抽象到具体的过程。</p>
@@ -3061,6 +2905,536 @@
       </categories>
       <tags>
         <tag>os</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微机期末复习之知识总结</title>
+    <url>/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="微机期末复习之知识总结"><a href="#微机期末复习之知识总结" class="headerlink" title="微机期末复习之知识总结"></a>微机期末复习之知识总结</h1><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="QUS"><a href="#QUS" class="headerlink" title="QUS"></a>QUS</h3><h4 id="简答"><a href="#简答" class="headerlink" title="简答"></a>简答</h4><ol>
+<li>处理器字长：处理器单位时间内可以处理的二进制位数。</li>
+<li>总线信号分为哪三种：数据总线、地址总线、控制总线</li>
+<li>取指译码执行周期是指什么：从主存储器读取指令、翻译指令代码的功能、执行指令所需要的操作。</li>
+</ol>
+<h4 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h4><ol>
+<li>IA-64结构是IA-32结构的64位扩展，也就是Intel64 结构？ <strong>×</strong></li>
+<li>微机主存只要使用RAM芯片就足够了？    <strong>×</strong></li>
+</ol>
+<h4 id="大题"><a href="#大题" class="headerlink" title="大题"></a>大题</h4><ol>
+<li>什么是通用微处理器、单片机（微控制器）、DSP芯片、嵌入式系统？<ol>
+<li>通用微处理器：适合较广领域的微处理器芯片，例如装在笔记本上的。</li>
+<li>单片机：是指通常用于控制领域的微处理器芯片，其内部除了CPU外还集成了计算机的主要部件，只需要配上少量外部电路和设备就可以工作。</li>
+<li>DSP芯片：数字信号处理器，也是一种微控制器，其更加适合处理高速的数字信号，内部集成有告诉的乘法器，能够进行乘法和加法运算。</li>
+<li>嵌入式系统：利用微控制器、数字信号处理器或者通用微处理器结核病具体应用构成的控制系统。</li>
+</ol>
+</li>
+<li>区分：类路径、绝对路径、相对路径、当前目录。<ol>
+<li>路径：操作系统以目录的形式管理磁盘上的文件，文件所在的分区和目录就是该文件的路径。</li>
+<li>绝对路径：从根目录到文件所在的目录的完整的路径称为绝对路径，是保证文件唯一性的指示方法。</li>
+<li>相对路径：从系统当前目录到文件所在目录的路径称为相对路径。</li>
+<li>当前目录：用户当前所在的目录。</li>
+</ol>
+</li>
+<li>冯诺依曼计算机的基本设计思想是什么？<ol>
+<li>采用二进制表示数据和指令。指令由操作码和地址吗组成。</li>
+<li>将程序和数据存放在存储器中，计算机在工作时从存储器中取出指令加以执行，自动完成计算任务。</li>
+<li>指令的执行是顺序的，即按照指令在存储器中的存放顺序执行、程序分支由转移指令实现。</li>
+<li>计算机由存储器、运算器、控制器、输入输出设备组成。</li>
+</ol>
+</li>
+<li>计算机系统的层次。<blockquote>
+<p>最长层是用户层。<br> 第五层是高级语言层。<br> 第四层是汇编语言层<br> 第三层是操作系统层<br> 第二层是机器语言层<br> 第一层是控制层<br> 第零层是数字电路层</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><ol>
+<li><p>指令执行过程</p>
+<ol>
+<li>取指：指令处理单元从主存中将指令取出并通过总线传输到处理器内部的指令寄存器中。</li>
+<li>译码：指令处理单元通过指令译码电路获得该指令的功能。</li>
+<li>执行：指令的处理单元的时序和控制逻辑按照一定的时间顺序接收响应的信号，完成至指令所要求的额操作。</li>
+</ol>
+</li>
+<li><p>存储模型</p>
+<ol>
+<li>平展存储模型</li>
+<li>段式存储模型</li>
+<li>实地址存储模型</li>
+</ol>
+</li>
+<li><p>16位模拟DOS平台开发环境代码框架</p>
+</li>
+</ol>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">include io16<span class="number">.</span><span class="keyword">inc</span></span><br><span class="line"><span class="meta">    .data</span></span><br><span class="line"><span class="comment">;数据</span></span><br><span class="line"><span class="meta">    .code</span></span><br><span class="line"><span class="symbol">start:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,@data</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ds</span>,<span class="built_in">ax</span></span><br><span class="line"><span class="comment">;主程序</span></span><br><span class="line">    exit0</span><br><span class="line"><span class="comment">;子程序</span></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<h3 id="QUS-1"><a href="#QUS-1" class="headerlink" title="QUS"></a>QUS</h3><h4 id="简答题"><a href="#简答题" class="headerlink" title="简答题"></a>简答题</h4><ol>
+<li>8086取指为什么可以被称为指令预取？<blockquote>
+<p>8086分成总线接口单元和指令执行单元，可以独立操作。在执行单元执行一条指令的同时，总线接口单元可以读取下一条指令，等到执行的时候不用再进行取指了，所以称为预取。</p>
+</blockquote>
+</li>
+<li>标志寄存器主要保存哪一些方面的信息？<blockquote>
+<p>指令执行结果和控制指令的执行形式。</p>
+</blockquote>
+</li>
+<li>除外设外的数据寻址方式有三类，分别为：立即数寻址、寄存器寻址、存储器寻址。</li>
+<li>说明以下指令中源操作数的寻址方式。 VARD是一个双子变量。<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>寻址方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mov edx,1234h</td>
+<td>立即数</td>
+</tr>
+<tr>
+<td>mov edx,VARD</td>
+<td>直接</td>
+</tr>
+<tr>
+<td>mov edx,ebx</td>
+<td>寄存器</td>
+</tr>
+<tr>
+<td>mov edx,[ebx]</td>
+<td>寄存器间接</td>
+</tr>
+<tr>
+<td>mov edx,[evx+1234h]</td>
+<td>寄存器相对</td>
+</tr>
+<tr>
+<td>mov edx,VARD[ebx]</td>
+<td>寄存器相对</td>
+</tr>
+<tr>
+<td>mov edx,[ebx+edi]</td>
+<td>基址变址</td>
+</tr>
+<tr>
+<td>mov edx,[ebx+edi+1234h]</td>
+<td>相对基址变址</td>
+</tr>
+<tr>
+<td>mov edx,VARD[esi+edi]</td>
+<td>相对基址变址</td>
+</tr>
+<tr>
+<td>mov edx,[ebp*4]</td>
+<td>带比例寻址</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="第三章-第四章-汇编基础知识"><a href="#第三章-第四章-汇编基础知识" class="headerlink" title="第三章 第四章 汇编基础知识"></a>第三章 第四章 汇编基础知识</h2><h2 id="第五章-微机总线"><a href="#第五章-微机总线" class="headerlink" title="第五章 微机总线"></a>第五章 微机总线</h2><ol>
+<li>微机以总线作为信息传输的公共通道。</li>
+<li>总线结构的特点<ol>
+<li>通过总线互相连接，实现数据传输。</li>
+<li>组态灵活，易于扩展。</li>
+</ol>
+</li>
+<li>总线类型<ol>
+<li>芯片总线：在大规模集成电路内部进行芯片级互连。</li>
+<li>内总线：模板级互连</li>
+<li>外总线：设备级互连</li>
+</ol>
+</li>
+<li>总线操作<ol>
+<li>总线请求和仲裁：使用总线的主模块提出申请，总线仲裁机制确定把总线分配给请求模块。</li>
+<li>寻址：主模块发出将要访问的从模块地址信息以及有关命令，启动从模块。</li>
+<li>数据传送：源模块发出数据，经数据总线传送到目标模块。</li>
+<li>结束：数据、地址、状态、命令信息均从总线上撤除，让出总线。</li>
+</ol>
+</li>
+<li>同步方式<ol>
+<li>同步时序：总线操作过程由公用的总线时钟信号控制，适合速度相当的设备。</li>
+<li>总线的操作需要握手联络应答信号控制，开始伴有启动、选通或者读写信号。</li>
+<li>传输的结束有一个确认信号，进行应答。</li>
+<li>操作周期可变，适应速度相差很大的设备。</li>
+</ol>
+</li>
+<li>总线的性能指标<ol>
+<li>总线宽度：总线能够同时传送的数据位数。</li>
+<li>总线频率：总线信号的时钟频率。</li>
+<li>总线带宽：单位时间内传送的数据量。</li>
+</ol>
+</li>
+<li>总线分类：地址总线、数据总线、控制总线。</li>
+</ol>
+<h3 id="QUS-2"><a href="#QUS-2" class="headerlink" title="QUS"></a>QUS</h3><h4 id="简答题-1"><a href="#简答题-1" class="headerlink" title="简答题"></a>简答题</h4><ol>
+<li>为什么称处理器的数据总线是双向的？<blockquote>
+<p>数据总线承担着处理器和存储器、外设之间的数据交换、既可以输入也可以输出。</p>
+</blockquote>
+</li>
+<li>具有三态能力的引脚输出高阻意味着什么？<blockquote>
+<p>相当于连接了一个阻抗很高的外部器件，信号无法正常输出，即放弃对于该引脚的额控制，断开其连接。</p>
+</blockquote>
+</li>
+<li>总线时钟周期中的等待状态意味着什么？<blockquote>
+<p>处理器检测到存储器或者IO端口速度太慢，不能按照基本的总线周期进行数据交换，插入一个等待状态Tw,保持总线信号不变。</p>
+</blockquote>
+</li>
+<li>什么是猝发传送？<blockquote>
+<p>处理器只提供首地址、但可以从后续连续地存储单元中读写多个数据。</p>
+</blockquote>
+</li>
+<li>总线周期：<blockquote>
+<p>总线请求和仲裁、寻址、数据传送、结束。</p>
+</blockquote>
+</li>
+<li>处理器基本的总线操作：<blockquote>
+<p>存储器读 存储器写 IO读 IO写</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="大题-1"><a href="#大题-1" class="headerlink" title="大题"></a>大题</h4><ol>
+<li>8086处理器输入控制信号有RESET,HOLD,NMI,INTR,他们的具体含义是什么？当他们有效时，8086CPU将做出什么反应。<ol>
+<li>RESET：复位出入信号，高电平有效。有效时，迫使处理器回到其初始状态，转为无效时，处理器继续工作。</li>
+<li>HOLD：总线请求，高电平有效。有效时，表示其他总线主控设备向处理器申请使用原来由处理器控制的总线。</li>
+<li>NMI：不可屏蔽中断请求，是一个利用上升沿有效的输入信号。有效时表示外界正在向CPU申请不可屏蔽中断。</li>
+<li>INTR：可屏蔽中断请求，高电平有效，有效时表示中断请求设备向CPU发出可屏蔽中断请求。</li>
+</ol>
+</li>
+<li>区分概念：指令周期，总线周期（机器周期），时钟周期，T状态。<ol>
+<li>指令周期：一条指令从取指译码到执行完成的过程。</li>
+<li>总线周期（机器周期）：有数据交换的总线操作。</li>
+<li>始终周期：处理器的基本工作节拍，由时钟信号产生，一个高电平一个低电平位一个周期。</li>
+<li>完成特定操作的一个时钟周期。<ol>
+<li>T1：总线周期的第一个时钟周期主要用于输出存储器或者IO地址。</li>
+<li>T2：输出读/写控制信号。</li>
+<li>T3：锁存地址、处理器提供的控制信号和数据再总线上继续维持有效，且T3时钟的前沿（下降沿）对READY引脚进行检测。若有效则进入T4。</li>
+<li>T4：总线周期的最后一个时钟周期，处理器和存储器或者I/O端口进行数据传输直到完成，并为下一个时钟周期做好准备。</li>
+<li>Tw：等待状态。T3时READY信号无效时，插入Tw，延续T3的状态，维持不变。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>请解释8086（最小组态）以下引脚的含义：CLK, A19/S6～A16/S3，AD15～AD0, ALE,M/$\overline{\text{IO}}$, $\overline{\text{RD}}$, $\overline{\text{WR}}$。并画出其在一个具有等待状态的读总线周期的波形示意。<ol>
+<li>CLK：时钟输入。其频率就是处理器工作的频率。</li>
+<li>A19/S6～A16/S3：地址/状态时分复用引脚，在访问存储器的第一个时钟周期输出高四位地址A19～A16，在访问外设的第一个时钟周期输出低电平无效。其余时间输出状态信号S6～S3。</li>
+<li>AD15～AD0：地址/数据时分复用引脚，用作地址线时是单项输出，用作数据线时时双向。</li>
+<li>ALE：地址锁存允许，是一个三态、输出、高电平有效的信号。有效时，表示复用引脚A19/S6～A16/S3，AD15～AD0正在传输地址信号。</li>
+<li>M/$\overline{\text{IO}}$：访问存储器或者IO，高电平为存储器（A19～A0），20位，低电平时为（A15～A0）16位IO端口。</li>
+<li>$\overline{\text{RD}}$：读控制，低电平有效，表示正在读（存储器或者IO）</li>
+<li>$\overline{\text{WR}}$：写控制，低电平有效，表示正在写（存储器或者IO）</li>
+<li><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/1.png" alt="图"></li>
+</ol>
+</li>
+<li>时序<ol>
+<li>同步时序：总线操作的各个过程由共用的总线时钟信号控制。</li>
+<li>半同步时序：总线操作的各个过程由共用的总线时钟信号控制，但是慢的设备可以通过等待信号让快设备等待。</li>
+<li>异步时序：总线操作需要握手联络应答信号控制，总线时钟信号可有可无。</li>
+</ol>
+</li>
+</ol>
+<h2 id="第六章-存储系统"><a href="#第六章-存储系统" class="headerlink" title="第六章 存储系统"></a>第六章 存储系统</h2><ol>
+<li>ram</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>RAM类型</th>
+<th>组成单元</th>
+<th>速度</th>
+<th>集成度</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SRAM</td>
+<td>触发器</td>
+<td>快</td>
+<td>低</td>
+<td>小容量系统</td>
+</tr>
+<tr>
+<td>DRAM</td>
+<td>单个MOS管</td>
+<td>慢</td>
+<td>高</td>
+<td>大容量系统</td>
+</tr>
+<tr>
+<td>NVRAM</td>
+<td>触发器</td>
+<td>快</td>
+<td>低</td>
+<td>有后备电池</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>cache地址映射方式<ol>
+<li>直接映射：将一个主存块存储到唯一的cache行</li>
+<li>全相联映射：将一个贮存快吧存储到任意一个cache行</li>
+<li>组相联映射：将一个主存块存储到唯一一个cache组的任意一行。</li>
+</ol>
+</li>
+<li>页表<ol>
+<li>不详细说了，在os里面讲过</li>
+</ol>
+</li>
+</ol>
+<h3 id="QUS-3"><a href="#QUS-3" class="headerlink" title="QUS"></a>QUS</h3><h4 id="简答题-2"><a href="#简答题-2" class="headerlink" title="简答题"></a>简答题</h4><ol>
+<li>什么时高速命中，什么时告诉缺失（未命中）？<ol>
+<li>Cache中复制这主存中的部分内容。让处理器试图读取某一个字的时候，Cache控制器会首先检查Cache中是否已经包含这个字，若包含，则处理器直接读取Cache的内容，称为高速命中，反之，称为高速缺失。</li>
+</ol>
+</li>
+<li>什么时Cache的地址映射？<ol>
+<li>主存块和Cache行组之间的映射关系称为地址映射。分为直接映射，全相联映射，组相联映射。</li>
+</ol>
+</li>
+<li>Cache写入策略用于解决什么问题？<ol>
+<li>用于解决写入Cache时引起主存和Cache不一致的问题。</li>
+</ol>
+</li>
+<li>存储器的存取时间和存取周期有什么区别？<ol>
+<li>存储时间表示读写命令发出到数据传输完成所需要的时间，存储周期表示两次存储器访问所允许的最小时间间隔。</li>
+</ol>
+</li>
+<li>DRAM芯片怎么既有行地址又有列地址？<ol>
+<li>DRAM时分复用地址线，先传送行地址再传送列地址。</li>
+</ol>
+</li>
+<li>译码分类<ol>
+<li>全译码：使用全部地址总线进行译码，地址唯一，一个存储单元对应一个存储器地址。</li>
+<li>部分译码：只是用部分地址总线进行译码，每有一个没有使用的地址信号就会有两种不同的编码指向同一个存储单元，出现地址重复。</li>
+</ol>
+</li>
+<li>区分以下主存名称的含义。<ol>
+<li>常规主存：再1MB空间中的第640KB系统RAM区称为常规主存或者基本主存。</li>
+<li>扩展主存：IA-32处理器在1MB之后的主存空间称为扩展主存。</li>
+<li>扩充主存：处理器不可以直接访问，利用体交换技术实现访问。</li>
+<li>上位主存区UMA：在常规主存区后384K（A0000H～FFFFFH）称为UMA</li>
+<li>上位主存块UMB：UMA没有使用的部分称为UMB</li>
+<li>高端主存区HMA：1MB之上的64KB.</li>
+<li>影子主存：PC机启动后可以将ROM-BIOS映射到RAM中，这部分用作RAM-BIOS的主存称为RAM，只读。</li>
+</ol>
+</li>
+</ol>
+<h4 id="判断题"><a href="#判断题" class="headerlink" title="判断题"></a>判断题</h4><ol>
+<li>部分译码可以简化译码电路，且不会减少可用的存储空间。 <strong>×</strong></li>
+<li>DRAM芯片上的所有单元同时刷新一次。<strong>×</strong></li>
+<li>存储系统的刷新地址提供给所有的DRAM芯片。 <strong>√</strong></li>
+</ol>
+<h4 id="填空题"><a href="#填空题" class="headerlink" title="填空题"></a>填空题</h4><ol>
+<li>对一个存储器芯片进行片选译码时，有一个高位系统地址信号没有参加译码，则该芯片扽每一个存储单元占有几个存储器地址？ <strong>ANS：2，2^1=2</strong></li>
+<li>段描述符为<strong>0000B98200002000H</strong>，则段基地址为：<strong>00820000H</strong>  ，段界限为：<strong>02000</strong><ol>
+<li><strong>段描述符的结构</strong></li>
+</ol>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>位</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高32位</td>
+<td></td>
+</tr>
+<tr>
+<td>31-24</td>
+<td>段基址31-24</td>
+</tr>
+<tr>
+<td>23</td>
+<td>G</td>
+</tr>
+<tr>
+<td>22</td>
+<td>D/B</td>
+</tr>
+<tr>
+<td>21</td>
+<td>L</td>
+</tr>
+<tr>
+<td>20</td>
+<td>AVL</td>
+</tr>
+<tr>
+<td>19-16</td>
+<td>段界限19-16</td>
+</tr>
+<tr>
+<td>15</td>
+<td>P</td>
+</tr>
+<tr>
+<td>14-13</td>
+<td>DPL</td>
+</tr>
+<tr>
+<td>12</td>
+<td>S</td>
+</tr>
+<tr>
+<td>11-8</td>
+<td>TYPE</td>
+</tr>
+<tr>
+<td>7-0</td>
+<td>段基址23-16</td>
+</tr>
+<tr>
+<td>低32位</td>
+<td></td>
+</tr>
+<tr>
+<td>31-16</td>
+<td>段基址15-0</td>
+</tr>
+<tr>
+<td>15-0</td>
+<td>段界限15-0</td>
+</tr>
+</tbody></table>
+<h4 id="大题-2"><a href="#大题-2" class="headerlink" title="大题"></a>大题</h4><ol>
+<li><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/2.png" alt="图"></li>
+</ol>
+<h2 id="第七章-输入输出接口"><a href="#第七章-输入输出接口" class="headerlink" title="第七章 输入输出接口"></a>第七章 输入输出接口</h2><ol>
+<li><p>I/O接口概述：<br> 微机的外设多种多样，工作原理、驱动方式、信息格式、工作速度千差万别，他们不可以直接和cpu相连接，必须通过中间电路（I/O）接口电路与系统连接。I/O接口就是位于基本系统和外设之间实现两者数据交换的控制电路。其基本功能有数据缓冲和信号变换。</p>
+</li>
+<li><p>主机和外设输送数据的方式</p>
+<ol>
+<li>无条件传送</li>
+<li>查询</li>
+<li>中断</li>
+<li>DMA</li>
+<li>专门的额IO处理机</li>
+</ol>
+</li>
+<li><p>8259A的中断处理流程</p>
+<ol>
+<li><p>当某个外设发出一个中断信号后，由于主板已经把信号通路指向了8259A芯片的某个IRQ接口，所以该中断信号会被送入8259A。8259A先检查IMR寄存器是否屏蔽了来自该IRQ接口的中断信号，该为为1表示被屏蔽了。</p>
+</li>
+<li><p>将中断信号送入IRR寄存器，将该IRQ接口所在的IRR寄存器对应的位置1.</p>
+</li>
+<li><p>PR从IRR寄存器中挑选一个优先级最大的一个中断（IRQ接口号最低的）。</p>
+</li>
+<li><p>通过INT接口向CPU发送INTR信号。</p>
+</li>
+<li><p>CPU完成一条指令后，通过自己的INTA接口向8259A的INTA接口发送中断响应信号。</p>
+</li>
+<li><p>8259A收到CPU的中断响应信号后，将刚刚挑选出的优先级最大的中断在ISR寄存器中对应的位置1，表示正在处理当前中断，同时在IRR中该中断位置0。</p>
+</li>
+<li><p>CPU再次发送INTA信号，要求获取中断向量号。<strong>如果EIO被设置为自动的话，则8259A自动将ISR对应位置0，表示中断结束，否则需要手动发送EOI信号</strong></p>
+</li>
+<li><p>8259A向CPU发送中断向量号。<strong>此时如果来了一个优先级更高的中断，则将该中断替换上去，将被替换下来的中断重新装入IRR中</strong></p>
+</li>
+<li><p>CPU从数据总线上拿到中断向量号止之后，用作中断向量表或者中断描述符表的索引，转到对应的中断处理程序执行。</p>
+</li>
+</ol>
+</li>
+<li><p>设置中断的程序框架</p>
+ <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;获取系统原80号向量的地址  es:bx</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">3580H</span> </span><br><span class="line"><span class="keyword">int</span> <span class="number">21h</span></span><br><span class="line"><span class="keyword">mov</span> int80seg,<span class="built_in">es</span></span><br><span class="line"><span class="keyword">mov</span> int80off,<span class="built_in">bx</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;设置新的向量</span></span><br><span class="line"><span class="keyword">push</span> <span class="built_in">ds</span> <span class="comment">;保存ds</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>, <span class="built_in">seg</span> new80</span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ds</span>,<span class="built_in">ax</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">dx</span>,offset new80</span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">2580h</span></span><br><span class="line"><span class="keyword">int</span> <span class="number">21h</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ds</span> <span class="comment">;恢复ds</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;设置IMR</span></span><br><span class="line"><span class="keyword">in</span> <span class="built_in">al</span>,<span class="number">21h</span> <span class="comment">;这是主片，从片使用0a1h</span></span><br><span class="line"><span class="keyword">and</span> <span class="built_in">al</span>,<span class="number">0feh</span><span class="comment">; 允许哪一位就设置哪一位为零。</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">21h</span>,<span class="built_in">al</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;恢复原中断</span></span><br><span class="line"><span class="comment">;和设置一样，不在赘述</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;中断程序的书写</span></span><br><span class="line"><span class="comment">;记得开中断</span></span><br><span class="line"><span class="comment">;记得发送EOI指令</span></span><br><span class="line">new80 proc</span><br><span class="line"><span class="keyword">sti</span> <span class="comment">;开中断</span></span><br><span class="line"><span class="comment">;保护寄存器和中断程序处理</span></span><br><span class="line"><span class="comment">;EOI</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">20h</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">20h</span>,<span class="built_in">al</span><span class="comment">;主片</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">0a0h</span>,<span class="built_in">al</span><span class="comment">;从片</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">new80 endp</span><br></pre></td></tr></table></figure></li>
+<li><p>中断程序驻留内存</p>
+ <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;dx中存放要驻留程序的长度（以16字节为单位)</span></span><br><span class="line"><span class="keyword">add</span> <span class="built_in">dx</span>,<span class="number">15</span></span><br><span class="line"><span class="keyword">shr</span> <span class="built_in">dx</span>,<span class="number">4</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">3100h</span></span><br><span class="line"><span class="keyword">int</span> <span class="number">21h</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="QUS-4"><a href="#QUS-4" class="headerlink" title="QUS"></a>QUS</h3><h4 id="简答题-3"><a href="#简答题-3" class="headerlink" title="简答题"></a>简答题</h4><ol>
+<li>外设为什么不能和处理器之间相连？<ol>
+<li>微机的外设多种多样，工作原理、驱动方式、信息格式、工作速度千差万别，他们不可以直接和cpu相连接，必须通过中间电路（I/O）接口电路与系统连接。</li>
+</ol>
+</li>
+<li>计算机的两个功能部件、设备之间为什么一般需要数据缓冲？<ol>
+<li>数据缓冲用于匹配快速的处理器和相对慢速度额外设或者两个功能部件速度不匹配的数据交换。</li>
+</ol>
+</li>
+<li>什么时电路的命令字或者控制字？<ol>
+<li>处理器向特定的接口板芯片的吧相应端口写入特定的数据用于选择IO芯片的工作方式或者控制外设工作，该数据称为命令字或者控制字。</li>
+</ol>
+</li>
+<li>为什么说外部中断才是真正意义上的中断？<ol>
+<li>玩不终端是由处理器外部提出的中断请求引起的程序中断，对于处理器来说，外部中断时随机产生的，所以才是真正意义上的中断。</li>
+</ol>
+</li>
+<li>IO接口电路的寄存器分类？<ol>
+<li>数据寄存器：保存处理器和外设之间交换的数据。</li>
+<li>状态寄存器：保存外设当前的工作状态信息。</li>
+<li>控制寄存器：保存处理器控制接口电路和外设进行操作的有关信息。处理器向控制寄存器写入信息选择接口电路的不同工作方式和与外设交换信息的数据格式。</li>
+</ol>
+</li>
+<li>简述主机和外设交换数据的几种方式。<ol>
+<li>无条件传送：最简单的数据传送，认为设备总是处于就绪状态。</li>
+<li>程序查询方式：处理器查询外设的状态，在外设就绪的时候进行数据传输。</li>
+<li>中断，外设就绪的时候通过请求引脚信号，主动向处理器提出交换数据的请求，处理器没有其他更加紧迫的任务就执行中断程序。</li>
+<li>DMA传送：DMA控制器可以接管总线，作为总线的主控设备，通过系统总线来控制存储器和外设直接进行数据交换。</li>
+</ol>
+</li>
+<li>以可屏蔽中断为例，说明一次完成的中断过程包括哪一些环节？<ol>
+<li>中断请求。</li>
+<li>中断响应。</li>
+<li>关中断。</li>
+<li>断点保护</li>
+<li>中断源识别</li>
+<li>现场保护。</li>
+<li>中断服务</li>
+<li>回复现场。</li>
+<li>开中断</li>
+<li>中断返回。</li>
+</ol>
+</li>
+</ol>
+<h4 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h4><ol>
+<li><p>编程<br> <img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/3.png" alt="图"><br><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/4.png" alt="图"><br>由图可知，开关时低电平有效（代表闭合），灯是高电平有效（代表亮），端口地址为8000</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">again:</span></span><br><span class="line">     <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">8000H</span></span><br><span class="line">     <span class="keyword">in</span> <span class="built_in">al</span>,<span class="built_in">dx</span></span><br><span class="line">     <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">11111110B</span> <span class="comment">;k0单独按下</span></span><br><span class="line">     <span class="keyword">jz</span> next0</span><br><span class="line">     <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">11111101B</span> <span class="comment">;k1单独按下</span></span><br><span class="line">     <span class="keyword">jz</span> next1</span><br><span class="line">     <span class="keyword">jmp</span> again</span><br><span class="line"><span class="symbol"> next0:</span></span><br><span class="line">     <span class="comment">;顺序点亮</span></span><br><span class="line">     <span class="keyword">mov</span> <span class="built_in">cx</span>,<span class="number">8</span></span><br><span class="line">     <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">1</span></span><br><span class="line"><span class="symbol"> next11:</span></span><br><span class="line">     <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">     <span class="keyword">call</span> delay</span><br><span class="line">     <span class="keyword">shl</span> <span class="built_in">al</span>,<span class="number">1</span></span><br><span class="line">     <span class="keyword">loop</span> next11</span><br><span class="line"> <span class="keyword">jmp</span> again</span><br><span class="line"><span class="symbol"> next1:</span></span><br><span class="line">     <span class="comment">;倒序点亮</span></span><br><span class="line">     <span class="keyword">mov</span> <span class="built_in">cx</span>,<span class="number">8</span></span><br><span class="line">     <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">10000000B</span></span><br><span class="line"><span class="symbol"> next11:</span></span><br><span class="line">     <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">     <span class="keyword">call</span> delay</span><br><span class="line">     <span class="keyword">shr</span> <span class="built_in">al</span>,<span class="number">1</span></span><br><span class="line">     <span class="keyword">loop</span> enxt11</span><br><span class="line"> <span class="keyword">jmp</span> again</span><br></pre></td></tr></table></figure></li>
+<li><p>编程<br> <img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/5.png" alt="图"></p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>编程<br> <img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/6.png" alt="图"></p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="第八章-常用接口电路"><a href="#第八章-常用接口电路" class="headerlink" title="第八章 常用接口电路"></a>第八章 常用接口电路</h2><h3 id="8253-8254"><a href="#8253-8254" class="headerlink" title="8253/8254"></a>8253/8254</h3><h4 id="控制字"><a href="#控制字" class="headerlink" title="控制字"></a>控制字</h4><p><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/7.png" alt="图"></p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ol>
+<li>定时中断  计数器0方式3 每秒产生计数器初值次的请求 <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;计数器0，先低后高, 方式3，二进制</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">00110110b</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">43h</span>,<span class="built_in">al</span>  <span class="comment">;方式控制字</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">0</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">40h</span>,<span class="built_in">al</span>  <span class="comment">;低</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">40h</span>,<span class="built_in">al</span>  <span class="comment">;高</span></span><br></pre></td></tr></table></figure></li>
+<li>定时刷新 使用计数器1方式2 产生可自动重新计时的中断进行刷新 <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;计数器1，低字节，方式二，二进制</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">01010100b</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">43h</span>,<span class="built_in">al</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">10</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">41h</span>,<span class="built_in">al</span></span><br></pre></td></tr></table></figure></li>
+<li>扬声器控制 计数器2 方式3  <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ax</span>=<span class="number">1193180</span>/发声频率</span><br><span class="line"><span class="comment">;计数器2 先低后高 方式3 二进制</span></span><br><span class="line"><span class="comment">;写入计时器</span></span><br><span class="line"><span class="keyword">push</span> <span class="built_in">ax</span><span class="comment">;</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">10110110b</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">43h</span>,<span class="built_in">al</span></span><br><span class="line"><span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">42h</span>,<span class="built_in">al</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">42h</span>,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;发声 </span></span><br><span class="line"><span class="comment">;读取61H端口，使得PB1 PB0=11</span></span><br><span class="line"><span class="keyword">in</span> <span class="built_in">al</span>,<span class="number">61H</span></span><br><span class="line"><span class="keyword">or</span> <span class="built_in">al</span>,<span class="number">00000011b</span><span class="comment">;</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">61h</span>,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;闭声 </span></span><br><span class="line"><span class="comment">;读取61H端口，使得PB1 PB0=00</span></span><br><span class="line"><span class="keyword">in</span> <span class="built_in">al</span>,<span class="number">61H</span></span><br><span class="line"><span class="keyword">and</span> <span class="built_in">al</span>,<span class="number">11111100b</span></span><br><span class="line"><span class="keyword">out</span> <span class="number">61h</span>,<span class="built_in">al</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="8255"><a href="#8255" class="headerlink" title="8255"></a>8255</h3><h4 id="控制字-1"><a href="#控制字-1" class="headerlink" title="控制字"></a>控制字</h4><p><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/8.png" alt="图"><br><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/9.png" alt="图"></p>
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><ol>
+<li><p>8255端口A使用方式0输出打印数据<br> <img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/10.png" alt="图"></p>
+ <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;初始化程序</span></span><br><span class="line"><span class="comment">;端口A为方式0输出，端口C（PC7）上部分和A一样，下部分为输入（PC2）。</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fffeh</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">10000001b</span></span><br><span class="line"><span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line"><span class="comment">;初始使得打印机不打印 即 STROBE 高电平</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">00001111b</span></span><br><span class="line"><span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">ax</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;子程序 入口参数 AH为打印数据</span></span><br><span class="line">printc proc</span><br><span class="line"><span class="keyword">push</span> <span class="built_in">ax</span></span><br><span class="line"><span class="keyword">push</span> <span class="built_in">dx</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;查询PC2，看打印机是否忙 1为忙</span></span><br><span class="line"><span class="symbol">wait:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fffch</span></span><br><span class="line">    <span class="keyword">in</span> <span class="built_in">al</span>,<span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">al</span>,<span class="number">00000100b</span></span><br><span class="line">    <span class="keyword">jnz</span> wait</span><br><span class="line">    <span class="comment">;不忙，则输出数据</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fff8h</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">    <span class="comment">;使得STROBE=0 低电平有效，进行打印数据</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fffeh</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">00001110b</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">ax</span></span><br><span class="line">    <span class="comment">;适当延时 维持低电平有效</span></span><br><span class="line">    <span class="keyword">nop</span></span><br><span class="line">    <span class="keyword">nop</span></span><br><span class="line">    <span class="comment">;打印完了一个数据，使STROBE=1 无效</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fffeh</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">00001111b</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">ax</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line">peintc endp</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>8255端口A使用方式1输出打印数据<br> <img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/11.png" alt="图"></p>
+ <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">    <span class="comment">;初始化</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fffeh</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>, <span class="number">10100000b</span> <span class="comment">;不知道为什么 PC6也要为输出</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;禁止中断 PC6=0</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">00001100b</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;子程序 入口参数 AH为打印数据</span></span><br><span class="line">    printc proc</span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">dx</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">print:</span></span><br><span class="line">    <span class="comment">;输出数据</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fff8h</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;判断 PC7==0？</span></span><br><span class="line"><span class="symbol">wait:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">0fffch</span></span><br><span class="line">    <span class="keyword">in</span> <span class="built_in">al</span>,<span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">test</span> <span class="built_in">al</span>,<span class="number">10000000b</span></span><br><span class="line">    <span class="keyword">jz</span> wait</span><br><span class="line">    <span class="comment">;PC7==1 继续打印</span></span><br><span class="line">    <span class="keyword">jmp</span> print</span><br><span class="line"></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line">    peintc endp</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="数码管"><a href="#数码管" class="headerlink" title="数码管"></a>数码管</h3><ol>
+<li>数码管分为段码和位码。注意判断是共阴极还是共阳极，前者为低电平有效，后者为高电平有效。</li>
+</ol>
+<h4 id="数码管的使用"><a href="#数码管的使用" class="headerlink" title="数码管的使用"></a>数码管的使用</h4><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"> 	include io<span class="number">.</span><span class="keyword">inc</span></span><br><span class="line"><span class="meta">	.model</span> small</span><br><span class="line"><span class="meta">	.stack</span></span><br><span class="line"><span class="meta">	.data</span></span><br><span class="line">leddt <span class="built_in">byte</span> <span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span></span><br><span class="line">ledtb <span class="built_in">byte</span> <span class="number">3fh</span>,<span class="number">06h</span>,<span class="number">5bh</span>,<span class="number">4fh</span>,<span class="number">66h</span>,<span class="number">6dh</span>,<span class="number">7dh</span>,<span class="number">07h</span>,<span class="number">7fh</span>,<span class="number">6fh</span></span><br><span class="line"><span class="meta">	.code</span></span><br><span class="line"><span class="symbol">start:</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">ax</span>,@data</span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">ds</span>,<span class="built_in">ax</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">;8255 method cotrol word</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">28bh</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">10000000b</span></span><br><span class="line">	<span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">     </span><br><span class="line"><span class="symbol">again:</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">si</span>,offset leddt</span><br><span class="line">	<span class="keyword">call</span> displed</span><br><span class="line">	<span class="keyword">jmp</span> again</span><br><span class="line"><span class="meta">	.exit</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">displed proc</span><br><span class="line">	<span class="keyword">push</span> <span class="built_in">ax</span></span><br><span class="line">	<span class="keyword">push</span> <span class="built_in">bx</span></span><br><span class="line">	<span class="keyword">push</span> <span class="built_in">dx</span></span><br><span class="line">	<span class="keyword">xor</span> <span class="built_in">bx</span>,<span class="built_in">bx</span></span><br><span class="line">	<span class="comment">;which light </span></span><br><span class="line">	<span class="keyword">mov</span> <span class="number">ah</span>,<span class="number">00001000b</span></span><br><span class="line"><span class="symbol">led1:</span></span><br><span class="line">	<span class="comment">;pa</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">bl</span>,[<span class="built_in">si</span>]</span><br><span class="line">	<span class="keyword">inc</span> <span class="built_in">si</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">al</span>,ledtb[<span class="built_in">bx</span>]</span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">288h</span></span><br><span class="line">	<span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">;pb which light to light</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">289h</span></span><br><span class="line">	<span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">;delay</span></span><br><span class="line">	<span class="keyword">call</span> delay</span><br><span class="line">	<span class="comment">;next light</span></span><br><span class="line">	<span class="keyword">ror</span> <span class="number">ah</span>,<span class="number">1</span></span><br><span class="line">	<span class="comment">;all lights light,exit and begin nest round</span></span><br><span class="line">	<span class="keyword">cmp</span> <span class="number">ah</span>,<span class="number">10000000b</span></span><br><span class="line">	<span class="keyword">jnz</span> led1</span><br><span class="line">	<span class="keyword">pop</span> <span class="built_in">dx</span></span><br><span class="line">	<span class="keyword">pop</span> <span class="built_in">bx</span></span><br><span class="line">	<span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line">	<span class="keyword">ret</span></span><br><span class="line">displed endp</span><br><span class="line">	</span><br><span class="line">time=<span class="number">20</span></span><br><span class="line">delay proc</span><br><span class="line">	<span class="keyword">push</span> <span class="built_in">bx</span></span><br><span class="line">	<span class="keyword">push</span> <span class="built_in">cx</span></span><br><span class="line">	<span class="keyword">mov</span> <span class="built_in">bx</span>,time</span><br><span class="line"><span class="symbol">delay1:</span></span><br><span class="line">	<span class="keyword">xor</span> <span class="built_in">cx</span>,<span class="built_in">cx</span></span><br><span class="line"><span class="symbol">delay2:</span></span><br><span class="line">	<span class="keyword">loop</span> delay2</span><br><span class="line">	<span class="keyword">dec</span> <span class="built_in">bx</span></span><br><span class="line">	<span class="keyword">jnz</span> delay1</span><br><span class="line">	<span class="keyword">pop</span> <span class="built_in">cx</span></span><br><span class="line">	<span class="keyword">pop</span> <span class="built_in">bx</span></span><br><span class="line">	<span class="keyword">ret</span></span><br><span class="line">delay endp</span><br><span class="line">	end start</span><br></pre></td></tr></table></figure>
+
+<h3 id="ADC"><a href="#ADC" class="headerlink" title="ADC"></a>ADC</h3><ol>
+<li>中断方式<br><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/12.png" alt="图"></li>
+</ol>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;启动ADC</span></span><br><span class="line"><span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">220h</span></span><br><span class="line"><span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<ol start="2">
+<li>查询方式<br> 见实验代码</li>
+</ol>
+<h3 id="QUS-5"><a href="#QUS-5" class="headerlink" title="QUS"></a>QUS</h3><h4 id="判断题-1"><a href="#判断题-1" class="headerlink" title="判断题"></a>判断题</h4><ol>
+<li>8255没有时钟信号，其工作方式1的数据传送采用异步传送。 <strong>√</strong></li>
+<li>调制解调器的信号调制是数字信号和模拟信号的转换，所以其转换原理与ADC或者DAC器件一样。 <strong>×</strong></li>
+</ol>
+<h4 id="大题-3"><a href="#大题-3" class="headerlink" title="大题"></a>大题</h4><ol>
+<li><p>偏移码</p>
+<ol>
+<li>符号位取反的补码。</li>
+</ol>
+</li>
+<li><p>如图<br><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/13.png" alt="图"></p>
+</li>
+<li><p>如图<br><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/14.png" alt="图"><br><img src="/file/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/15.png" alt="图"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>期末复习</category>
+        <category>微机</category>
+      </categories>
+      <tags>
+        <tag>期末复习</tag>
+        <tag>微机</tag>
       </tags>
   </entry>
   <entry>
