@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="Hello, here is wenyao&#39;s space, how do you come in???" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>cmake 使用 |  这里是文耀的space</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="这里是文耀的space" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-cmake-使用"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  cmake 使用
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/07/13/cmake-%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2021-07-13T05:47:11.000Z" itemprop="datePublished">2021-07-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tools/">tools</a> / <a class="article-category-link" href="/categories/tools/cmake/">cmake</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">4 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="CMmake"><a href="#CMmake" class="headerlink" title="CMmake"></a>CMmake</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>简单来讲，cmake是一个跨平台的makefile生成器。大型项目的额makefile实在是太繁琐了。学习cmake就是在学习其语法。一般来讲，只有在使用c/c++做一个大项目的时候才用得到cmake</p>
+<h2 id="基本命令简介"><a href="#基本命令简介" class="headerlink" title="基本命令简介"></a>基本命令简介</h2><h3 id="project"><a href="#project" class="headerlink" title="project"></a>project</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROJECT(&lt;projectname&gt; <span class="selector-attr">[CXX]</span> <span class="selector-attr">[C]</span> <span class="selector-attr">[Java]</span>)</span><br></pre></td></tr></table></figure>
+
+<p>指定生成项目的名字，可选项目语言（默认位全选）<br>同时 cmake 系统也帮助我们预定义了<br>PROJECT_BINARY_DIR 指向生成的项目的路径（build） 和<br>PROJECT_SOURCE_DIR  指向项目源文件的路径(source)</p>
+<h3 id="MESSAGE"><a href="#MESSAGE" class="headerlink" title="MESSAGE"></a>MESSAGE</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">MESSAGE</span><span class="params">([SEND_ERROR | STATUS | FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>这个指令用于向终端输出用户定义的信息，包含了三种类型:</p>
+<ol>
+<li>SEND_ERROR，产生错误，生成过程被跳过。</li>
+<li>SATUS，输出前缀为—的信息。</li>
+<li>FATAL_ERROR，立即终止所有 cmake 过程. </li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MESSAGE</span>(STATUS <span class="string">&quot;build &quot;</span> <span class="variable">$&#123;PROJECT_BINARY_DIR&#125;</span> <span class="string">&quot; source &quot;</span> <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h3><p>显式地定义变量</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constructor">SET(SRC_LIST <span class="params">main</span>.<span class="params">c</span> <span class="params">t1</span>.<span class="params">c</span> <span class="params">t2</span>.<span class="params">c</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>将 main.c t1.c t2.c 定义为源文件列表</p>
+<h3 id="ADD-EXECUTABLE"><a href="#ADD-EXECUTABLE" class="headerlink" title="ADD_EXECUTABLE"></a>ADD_EXECUTABLE</h3><p>生成可执行文件</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">ADD_EXECUTABLE</span><span class="params">(hello $&#123;SRC_LIST&#125;)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ADD-SUBDIRECTORY"><a href="#ADD-SUBDIRECTORY" class="headerlink" title="ADD_SUBDIRECTORY"></a>ADD_SUBDIRECTORY</h3><p>位当前目录添加一个子目录 </p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constructor">ADD_SUBDIRECTORY(<span class="params">source_dir</span> [<span class="params">binary_dir</span>] [EXCLUDE_FROM_ALL])</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="INSTALL"><a href="#INSTALL" class="headerlink" title="INSTALL"></a>INSTALL</h3><p>CMAKE_INSTALL_PREFIX</p>
+<p>DESTINATION 定义了安装的路径，如果路径以/开头，那么指的是绝对路径，这时候<br>CMAKE_INSTALL_PREFIX 其实就无效了。如果你希望使用 CMAKE_INSTALL_PREFIX 来定义安装路径，就要写成相对路径，即不要以/开头，那么安装后的路径就是<br>${CMAKE_INSTALL_PREFIX}/&lt;DESTINATION 定义的路径&gt;</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSTALL</span>(TARGETS myrun mylib mystaticlib</span><br><span class="line">RUNTIME DESTINATION bin</span><br><span class="line">LIBRARY DESTINATION lib</span><br><span class="line">ARCHIVE DESTINATION libstatic )</span><br><span class="line"></span><br><span class="line">上面的例子会将： </span><br><span class="line">可执行二进制 myrun 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/bin 目录 </span><br><span class="line">动态库 libmylib 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/lib 目录 </span><br><span class="line">静态库 libmystaticlib 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/libstatic 目录</span><br></pre></td></tr></table></figure>
+
+<p>普通文件的安装</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSTALL(FILES files... DESTINATION &lt;dir&gt;</span><br><span class="line"> <span class="comment">[PERMISSIONS permissions...]</span></span><br><span class="line"> <span class="comment">[CONFIGURATIONS <span class="comment">[Debug|Release|...]</span>]</span></span><br><span class="line"> <span class="comment">[COMPONENT &lt;component&gt;]</span></span><br><span class="line"> <span class="comment">[RENAME &lt;name&gt;]</span> <span class="comment">[OPTIONAL]</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="ADD-LIBRARY"><a href="#ADD-LIBRARY" class="headerlink" title="ADD_LIBRARY"></a>ADD_LIBRARY</h3><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ADD_LIBRARY(libname [<span class="keyword">SHARED</span>|<span class="keyword">STATIC</span>|<span class="keyword">MODULE</span>]</span><br><span class="line"> [EXCLUDE_FROM_ALL]</span><br><span class="line"> source1 source2 ... sourceN)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="SET-TARGET-PROPERTIES"><a href="#SET-TARGET-PROPERTIES" class="headerlink" title="SET_TARGET_PROPERTIES"></a>SET_TARGET_PROPERTIES</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SET_TARGET_PROPERTIES</span>(target<span class="number">1</span> target<span class="number">2</span> ...</span><br><span class="line"> <span class="attribute">PROPERTIES</span> prop<span class="number">1</span> value<span class="number">1</span></span><br><span class="line"> <span class="attribute">prop2</span> value<span class="number">2</span> ...)</span><br></pre></td></tr></table></figure>
+
+<h3 id="GET-TARGET-PROPERTY"><a href="#GET-TARGET-PROPERTY" class="headerlink" title="GET_TARGET_PROPERTY"></a>GET_TARGET_PROPERTY</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">与他对应的指令是：</span><br><span class="line"><span class="function"><span class="title">GET_TARGET_PROPERTY</span><span class="params">(VAR target property)</span></span></span><br><span class="line">具体用法如下例，我们向 lib/CMakeListst<span class="selector-class">.txt</span> 中添加：</span><br><span class="line"><span class="function"><span class="title">GET_TARGET_PROPERTY</span><span class="params">(OUTPUT_VALUE hello_static OUTPUT_NAME)</span></span></span><br><span class="line">MESSAGE(STATUS “This is the hello_static</span><br><span class="line">OUTPUT_NAME:”$&#123;OUTPUT_VALUE&#125;)</span><br><span class="line">如果没有这个属性定义，则返回 NOTFOUND.</span><br></pre></td></tr></table></figure>
+
+<h3 id="INCLUDE-DIRECTORIES"><a href="#INCLUDE-DIRECTORIES" class="headerlink" title="INCLUDE_DIRECTORIES"></a>INCLUDE_DIRECTORIES</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">现在我们在 src/<span class="module-access"><span class="module"><span class="identifier">CMakeLists</span>.</span></span>txt 中添加一个头文件搜索路径，方式很简单，加入：</span><br><span class="line"><span class="constructor">INCLUDE_DIRECTORIES(<span class="operator">/</span><span class="params">usr</span><span class="operator">/</span><span class="params">include</span><span class="operator">/</span><span class="params">hello</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LINK-DIRECTORIES"><a href="#LINK-DIRECTORIES" class="headerlink" title="LINK_DIRECTORIES"></a>LINK_DIRECTORIES</h3><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">LINK_DIRECTORIES</span>(<span class="params">directory1 directory2 ...</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>这个指令非常简单，添加非标准的共享库搜索路径，比如，在工程内部同时存在共享库和可 执行二进制，在编译时就需要指定一下这些共享库的路径。这个例子中我们没有用到这个指 令。</p>
+<h3 id="TARGET-LINK-LIBRARIES"><a href="#TARGET-LINK-LIBRARIES" class="headerlink" title="TARGET_LINK_LIBRARIES"></a>TARGET_LINK_LIBRARIES</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TARGET_LINK_LIBRARIES</span>(<span class="keyword">target</span> library1</span><br><span class="line"> &lt;debug | optimized&gt; library2</span><br><span class="line"> ...)</span><br><span class="line">这个指令可以用来为 <span class="keyword">target</span> 添加需要链接的共享库，本例中是一个可执行文件，但是同样</span><br><span class="line">可以用于为自己编写的共享库添加共享库链接。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="cmake-学习-assimp的经验"><a href="#cmake-学习-assimp的经验" class="headerlink" title="cmake 学习 assimp的经验"></a>cmake 学习 assimp的经验</h2><h3 id="项目文件目录"><a href="#项目文件目录" class="headerlink" title="项目文件目录"></a>项目文件目录</h3><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">code</span><br><span class="line">    <span class="comment">--项目的各种代码文件夹</span></span><br><span class="line">    <span class="comment">--CMakeLists.txt</span></span><br><span class="line">contrib</span><br><span class="line">    <span class="comment">--各种依赖的文件夹</span></span><br><span class="line">doc</span><br><span class="line"><span class="built_in">include</span></span><br><span class="line">    <span class="comment">--项目的头文件，对外的接口</span></span><br><span class="line">samples</span><br><span class="line">tests</span><br><span class="line">tools</span><br><span class="line">readme.md</span><br><span class="line">CMakeLists.txt</span><br></pre></td></tr></table></figure>
+
+<p>特点：</p>
+<ol>
+<li>对别的项目的依赖不使用自己编译好的lib或者dll，而是直接使用源文件。估计编译assimp的时候把这些源文件都编译了一遍</li>
+<li>code文件夹就放自己的代码。</li>
+<li>include文件夹就负责对外提供接口。</li>
+<li>只使用两个CMakeLists.txt,根目录下的负责项目的整体信息描述，code目录下的负责对文件的编译。</li>
+</ol>
+<h3 id="cmake-编写"><a href="#cmake-编写" class="headerlink" title="cmake 编写"></a>cmake 编写</h3><p>太复杂了，我现在并看不懂。但并不像我这样每一个模块编写一个CMakeLists.txt进行cmake，而是根目录下的负责项目的整体信息描述，code目录下的负责对文件的编译。</p>
+<h3 id="项目编译"><a href="#项目编译" class="headerlink" title="项目编译"></a>项目编译</h3><ol>
+<li>首先按照上面的文件目录进行编排。</li>
+<li>编写CMakeLists.txt 文件<ol>
+<li>最好编译成动态链接库，不然没有办法将项目的静态依赖库lib文件包含在内。</li>
+<li>若项目的依赖中存在动态库，比如assimp 时，就没办法将其包含在内了，只能让用户显式地使用assimp.</li>
+</ol>
+</li>
+<li>将项目的头文件列举出来保存到include文件夹中，这里面的就是提供给用户的接口，将不想提供给用户的接口删除即可。</li>
+<li>记得cmake中进行install，将所有需要提供给用户的文件全部放在最显眼的地方。</li>
+</ol>
+<h3 id="CMakeLists-txt-编写"><a href="#CMakeLists-txt-编写" class="headerlink" title="CMakeLists.txt 编写"></a>CMakeLists.txt 编写</h3><p>我现在对编译有关的知识了解甚少，所以现在只能使用一些最基础的东西，日后会对编译有更深得了解。</p>
+<ol>
+<li><p>cmake的最下版本要求</p>
+</li>
+<li><p>确定项目的名称</p>
+</li>
+<li><p>确定项目的目录安排</p>
+</li>
+<li><p>确定项目的包含目录和库目录</p>
+</li>
+<li><p>确定项目生成目标位置</p>
+</li>
+<li><p>确定项目的额依赖</p>
+</li>
+<li><p>确定目标使用的文件并安排成组</p>
+</li>
+<li><p>确定目标工程的筛选器</p>
+</li>
+<li><p>编译项目</p>
+</li>
+<li><p>安装项目</p>
+</li>
+</ol>
+<h3 id="Demo-list"><a href="#Demo-list" class="headerlink" title="Demo list"></a>Demo list</h3> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://blog.cuimouren.cn/2021/07/13/cmake-%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmake/" rel="tag">cmake</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" rel="tag">项目构建</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/07/16/%E5%8F%8C%E5%88%9B%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            双创工作日志
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/07/11/opencv-1-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">opencv 1 配置环境与图像的基本操作</div>
+      </a>
+    
+  </nav>
+
+  
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021
+        <i class="ri-heart-fill heart_icon"></i> 崔文耀
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="https://beian.miit.gov.cn/" target="_black" rel="nofollow">豫ICP备20002729号</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="这里是文耀的space"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">photos</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+  </div>
+</body>
+
+</html>

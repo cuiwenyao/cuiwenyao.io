@@ -6,7 +6,7 @@
   <link href="http://blog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://blog.cuimouren.cn/"/>
-  <updated>2021-06-29T10:42:36.435Z</updated>
+  <updated>2021-07-18T02:50:30.169Z</updated>
   <id>http://blog.cuimouren.cn/</id>
   
   <author>
@@ -17,11 +17,313 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>贪吃蛇结题报告</title>
+    <link href="http://blog.cuimouren.cn/2021/07/17/%E8%B4%AA%E5%90%83%E8%9B%87%E7%BB%93%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
+    <id>http://blog.cuimouren.cn/2021/07/17/%E8%B4%AA%E5%90%83%E8%9B%87%E7%BB%93%E9%A2%98%E6%8A%A5%E5%91%8A/</id>
+    <published>2021-07-17T11:11:57.000Z</published>
+    <updated>2021-07-18T02:50:30.169Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;贪吃蛇结题报告&quot;&gt;&lt;a href=&quot;#贪吃蛇结题报告&quot; class=&quot;headerlink&quot; title=&quot;贪吃蛇结题报告&quot;&gt;&lt;/a&gt;贪吃蛇结题报告&lt;/h1&gt;&lt;h2 id=&quot;题目意义&quot;&gt;&lt;a href=&quot;#题目意义&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/categories/%E5%BE%AE%E6%9C%BA/"/>
+    
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/tags/%E5%BE%AE%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>双创工作日志</title>
+    <link href="http://blog.cuimouren.cn/2021/07/16/%E5%8F%8C%E5%88%9B%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/"/>
+    <id>http://blog.cuimouren.cn/2021/07/16/%E5%8F%8C%E5%88%9B%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/</id>
+    <published>2021-07-16T07:56:23.000Z</published>
+    <updated>2021-07-16T09:43:13.703Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;双创工作日志&quot;&gt;&lt;a href=&quot;#双创工作日志&quot; class=&quot;headerlink&quot; title=&quot;双创工作日志&quot;&gt;&lt;/a&gt;双创工作日志&lt;/h1&gt;&lt;h2 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    
+    
+    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cmake 使用</title>
+    <link href="http://blog.cuimouren.cn/2021/07/13/cmake-%E4%BD%BF%E7%94%A8/"/>
+    <id>http://blog.cuimouren.cn/2021/07/13/cmake-%E4%BD%BF%E7%94%A8/</id>
+    <published>2021-07-13T05:47:11.000Z</published>
+    <updated>2021-07-16T07:56:37.144Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CMmake&quot;&gt;&lt;a href=&quot;#CMmake&quot; class=&quot;headerlink&quot; title=&quot;CMmake&quot;&gt;&lt;/a&gt;CMmake&lt;/h1&gt;&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="tools" scheme="http://blog.cuimouren.cn/categories/tools/"/>
+    
+    <category term="cmake" scheme="http://blog.cuimouren.cn/categories/tools/cmake/"/>
+    
+    
+    <category term="项目构建" scheme="http://blog.cuimouren.cn/tags/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"/>
+    
+    <category term="cmake" scheme="http://blog.cuimouren.cn/tags/cmake/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>opencv 1 配置环境与图像的基本操作</title>
+    <link href="http://blog.cuimouren.cn/2021/07/11/opencv-1-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
+    <id>http://blog.cuimouren.cn/2021/07/11/opencv-1-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</id>
+    <published>2021-07-11T05:41:03.000Z</published>
+    <updated>2021-07-12T05:25:20.216Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;opencv-1-配置环境与图像的基本操作&quot;&gt;&lt;a href=&quot;#opencv-1-配置环境与图像的基本操作&quot; class=&quot;headerlink&quot; title=&quot;opencv 1 配置环境与图像的基本操作&quot;&gt;&lt;/a&gt;opencv 1</summary>
+        
+      
+    
+    
+    
+    <category term="opencv" scheme="http://blog.cuimouren.cn/categories/opencv/"/>
+    
+    
+    <category term="opencv" scheme="http://blog.cuimouren.cn/tags/opencv/"/>
+    
+    <category term="python" scheme="http://blog.cuimouren.cn/tags/python/"/>
+    
+    <category term="图像处理" scheme="http://blog.cuimouren.cn/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XYY Game Engine 封装和使用</title>
+    <link href="http://blog.cuimouren.cn/2021/07/10/XYY-Game-Engine-%E5%B0%81%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>http://blog.cuimouren.cn/2021/07/10/XYY-Game-Engine-%E5%B0%81%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</id>
+    <published>2021-07-10T14:32:10.000Z</published>
+    <updated>2021-07-12T13:31:32.111Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;XYY-Game-Engine-封装和使用&quot;&gt;&lt;a href=&quot;#XYY-Game-Engine-封装和使用&quot; class=&quot;headerlink&quot; title=&quot;XYY Game Engine 封装和使用&quot;&gt;&lt;/a&gt;XYY Game Engine</summary>
+        
+      
+    
+    
+    
+    <category term="c++" scheme="http://blog.cuimouren.cn/categories/c/"/>
+    
+    
+    <category term="XYY" scheme="http://blog.cuimouren.cn/tags/XYY/"/>
+    
+    <category term="项目构建" scheme="http://blog.cuimouren.cn/tags/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"/>
+    
+    <category term="c++" scheme="http://blog.cuimouren.cn/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>贪吃蛇街机小游戏开题报告</title>
+    <link href="http://blog.cuimouren.cn/2021/07/07/%E8%B4%AA%E5%90%83%E8%9B%87%E8%A1%97%E6%9C%BA%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
+    <id>http://blog.cuimouren.cn/2021/07/07/%E8%B4%AA%E5%90%83%E8%9B%87%E8%A1%97%E6%9C%BA%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A/</id>
+    <published>2021-07-07T07:01:59.000Z</published>
+    <updated>2021-07-11T01:34:51.693Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;开题报告&quot;&gt;&lt;a href=&quot;#开题报告&quot; class=&quot;headerlink&quot; title=&quot;开题报告&quot;&gt;&lt;/a&gt;开题报告&lt;/h1&gt;&lt;h2 id=&quot;项目介绍&quot;&gt;&lt;a href=&quot;#项目介绍&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
+    
+    
+    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微机与汇编接口实验</title>
+    <link href="http://blog.cuimouren.cn/2021/07/05/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C/"/>
+    <id>http://blog.cuimouren.cn/2021/07/05/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C/</id>
+    <published>2021-07-05T11:47:58.000Z</published>
+    <updated>2021-07-10T08:32:55.255Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;微机与汇编接口实验&quot;&gt;&lt;a href=&quot;#微机与汇编接口实验&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/categories/%E5%BE%AE%E6%9C%BA/"/>
+    
+    
+    <category term="微机" scheme="http://blog.cuimouren.cn/tags/%E5%BE%AE%E6%9C%BA/"/>
+    
+    <category term="汇编" scheme="http://blog.cuimouren.cn/tags/%E6%B1%87%E7%BC%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构 四 二叉查找树</title>
+    <link href="http://blog.cuimouren.cn/2021/07/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%9B-%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/"/>
+    <id>http://blog.cuimouren.cn/2021/07/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%9B-%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/</id>
+    <published>2021-07-03T06:50:33.000Z</published>
+    <updated>2021-07-04T12:08:14.666Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;二叉查找树&quot;&gt;&lt;a href=&quot;#二叉查找树&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据结构" scheme="http://blog.cuimouren.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="树" scheme="http://blog.cuimouren.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/"/>
+    
+    
+    <category term="数据结构" scheme="http://blog.cuimouren.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="树" scheme="http://blog.cuimouren.cn/tags/%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入学习C</title>
+    <link href="http://blog.cuimouren.cn/2021/07/01/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0C/"/>
+    <id>http://blog.cuimouren.cn/2021/07/01/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0C/</id>
+    <published>2021-07-01T13:12:45.000Z</published>
+    <updated>2021-07-03T06:10:35.688Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;C&quot;&gt;&lt;a href=&quot;#C&quot; class=&quot;headerlink&quot; title=&quot;C&quot;&gt;&lt;/a&gt;C&lt;/h1&gt;&lt;h2 id=&quot;内存管理&quot;&gt;&lt;a href=&quot;#内存管理&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="C" scheme="http://blog.cuimouren.cn/categories/C/"/>
+    
+    
+    <category term="C" scheme="http://blog.cuimouren.cn/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>I HAVE A PLAN</title>
+    <link href="http://blog.cuimouren.cn/2021/07/01/I-HAVE-A-PLAN/"/>
+    <id>http://blog.cuimouren.cn/2021/07/01/I-HAVE-A-PLAN/</id>
+    <published>2021-07-01T06:40:40.000Z</published>
+    <updated>2021-07-03T06:18:55.778Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;MY-PLANS&quot;&gt;&lt;a href=&quot;#MY-PLANS&quot; class=&quot;headerlink&quot; title=&quot;MY PLANS&quot;&gt;&lt;/a&gt;MY</summary>
+        
+      
+    
+    
+    
+    <category term="project" scheme="http://blog.cuimouren.cn/categories/project/"/>
+    
+    <category term="plan" scheme="http://blog.cuimouren.cn/categories/project/plan/"/>
+    
+    
+    <category term="plan" scheme="http://blog.cuimouren.cn/tags/plan/"/>
+    
+    <category term="project" scheme="http://blog.cuimouren.cn/tags/project/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构 三 栈</title>
+    <link href="http://blog.cuimouren.cn/2021/06/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%B8%89-%E6%A0%88/"/>
+    <id>http://blog.cuimouren.cn/2021/06/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%B8%89-%E6%A0%88/</id>
+    <published>2021-06-30T08:11:05.000Z</published>
+    <updated>2021-07-03T06:17:04.002Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;栈&quot;&gt;&lt;a href=&quot;#栈&quot; class=&quot;headerlink&quot; title=&quot;栈&quot;&gt;&lt;/a&gt;栈&lt;/h1&gt;&lt;p&gt;栈，依靠线性表来实现。&lt;/p&gt;
+&lt;h2 id=&quot;ADT&quot;&gt;&lt;a href=&quot;#ADT&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据结构" scheme="http://blog.cuimouren.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="栈" scheme="http://blog.cuimouren.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/"/>
+    
+    
+    <category term="数据结构" scheme="http://blog.cuimouren.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="栈" scheme="http://blog.cuimouren.cn/tags/%E6%A0%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>微机期末复习之知识总结</title>
     <link href="http://blog.cuimouren.cn/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
     <id>http://blog.cuimouren.cn/2021/06/26/%E5%BE%AE%E6%9C%BA%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</id>
     <published>2021-06-26T11:32:59.000Z</published>
-    <updated>2021-06-29T10:42:36.435Z</updated>
+    <updated>2021-06-29T10:43:38.716Z</updated>
     
     
       
@@ -79,14 +381,14 @@
     <link href="http://blog.cuimouren.cn/2021/06/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C-%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
     <id>http://blog.cuimouren.cn/2021/06/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C-%E7%BA%BF%E6%80%A7%E8%A1%A8/</id>
     <published>2021-06-24T08:13:56.000Z</published>
-    <updated>2021-06-24T15:33:03.347Z</updated>
+    <updated>2021-07-03T06:54:37.217Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;线性表&quot;&gt;&lt;a href=&quot;#线性表&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;线性表-新的实现&quot;&gt;&lt;a href=&quot;#线性表-新的实现&quot; class=&quot;headerlink&quot; title=&quot;线性表 新的实现&quot;&gt;&lt;/a&gt;线性表</summary>
         
       
     
@@ -278,299 +580,6 @@
     <category term="算法" scheme="http://blog.cuimouren.cn/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="数组" scheme="http://blog.cuimouren.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学百年党史，做红色传人</title>
-    <link href="http://blog.cuimouren.cn/2021/06/09/%E5%AD%A6%E7%99%BE%E5%B9%B4%E5%85%9A%E5%8F%B2%EF%BC%8C%E5%81%9A%E7%BA%A2%E8%89%B2%E4%BC%A0%E4%BA%BA/"/>
-    <id>http://blog.cuimouren.cn/2021/06/09/%E5%AD%A6%E7%99%BE%E5%B9%B4%E5%85%9A%E5%8F%B2%EF%BC%8C%E5%81%9A%E7%BA%A2%E8%89%B2%E4%BC%A0%E4%BA%BA/</id>
-    <published>2021-06-09T06:25:04.000Z</published>
-    <updated>2021-06-14T05:39:32.641Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;一百年来，中国共产党从小到大、由弱到强，一路艰辛、一路奋斗，在中华民族的历史上谱写了前所未有的辉煌篇章，在人类发展史上创造了世所罕见的伟大奇迹。在我们党的百年发展历程中，有无数感天动地的红色故事，正是这一个个生动精彩的故事，构成了一部波澜壮阔、气壮山河的党的史诗。中国共产党</summary>
-        
-      
-    
-    
-    
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
-    
-    
-    <category term="百年党史" scheme="http://blog.cuimouren.cn/tags/%E7%99%BE%E5%B9%B4%E5%85%9A%E5%8F%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>os 004 中断</title>
-    <link href="http://blog.cuimouren.cn/2021/05/25/os-004-%E4%B8%AD%E6%96%AD/"/>
-    <id>http://blog.cuimouren.cn/2021/05/25/os-004-%E4%B8%AD%E6%96%AD/</id>
-    <published>2021-05-25T13:35:46.000Z</published>
-    <updated>2021-06-01T09:38:22.489Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;os-004-中断&quot;&gt;&lt;a href=&quot;#os-004-中断&quot; class=&quot;headerlink&quot; title=&quot;os 004 中断&quot;&gt;&lt;/a&gt;os 004 中断&lt;/h1&gt;&lt;h4 id=&quot;中断分类&quot;&gt;&lt;a href=&quot;#中断分类&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/categories/os/"/>
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/tags/os/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nasm 使用</title>
-    <link href="http://blog.cuimouren.cn/2021/05/20/nasm-%E4%BD%BF%E7%94%A8/"/>
-    <id>http://blog.cuimouren.cn/2021/05/20/nasm-%E4%BD%BF%E7%94%A8/</id>
-    <published>2021-05-20T08:08:33.000Z</published>
-    <updated>2021-05-20T16:27:56.260Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;nasm-使用&quot;&gt;&lt;a href=&quot;#nasm-使用&quot; class=&quot;headerlink&quot; title=&quot;nasm 使用&quot;&gt;&lt;/a&gt;nasm 使用&lt;/h1&gt;&lt;h4 id=&quot;基本命令&quot;&gt;&lt;a href=&quot;#基本命令&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="uncategorized" scheme="http://blog.cuimouren.cn/categories/uncategorized/"/>
-    
-    
-    <category term="使用" scheme="http://blog.cuimouren.cn/tags/%E4%BD%BF%E7%94%A8/"/>
-    
-    <category term="nasm" scheme="http://blog.cuimouren.cn/tags/nasm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>os 003 protected mode</title>
-    <link href="http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/"/>
-    <id>http://blog.cuimouren.cn/2021/05/14/os-003-protected-mode/</id>
-    <published>2021-05-14T02:45:15.000Z</published>
-    <updated>2021-05-25T08:39:34.788Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;protected-mode&quot;&gt;&lt;a href=&quot;#protected-mode&quot; class=&quot;headerlink&quot; title=&quot;protected mode&quot;&gt;&lt;/a&gt;protected mode&lt;/h1&gt;&lt;h4 id=&quot;保护模式简介&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/categories/os/"/>
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/tags/os/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>gcc 使用入门</title>
-    <link href="http://blog.cuimouren.cn/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/"/>
-    <id>http://blog.cuimouren.cn/2021/05/13/gcc-%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/</id>
-    <published>2021-05-13T12:16:20.000Z</published>
-    <updated>2021-05-15T09:39:49.946Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;gcc-使用入门&quot;&gt;&lt;a href=&quot;#gcc-使用入门&quot; class=&quot;headerlink&quot; title=&quot;gcc 使用入门&quot;&gt;&lt;/a&gt;gcc 使用入门&lt;/h1&gt;&lt;p&gt;GCC是GUN Compiler Collection</summary>
-        
-      
-    
-    
-    
-    <category term="gcc" scheme="http://blog.cuimouren.cn/categories/gcc/"/>
-    
-    
-    <category term="gcc" scheme="http://blog.cuimouren.cn/tags/gcc/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>os 002 os start</title>
-    <link href="http://blog.cuimouren.cn/2021/05/11/os-002-os-start/"/>
-    <id>http://blog.cuimouren.cn/2021/05/11/os-002-os-start/</id>
-    <published>2021-05-11T15:19:37.000Z</published>
-    <updated>2021-05-21T08:19:15.148Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;os-002-os-start&quot;&gt;&lt;a href=&quot;#os-002-os-start&quot; class=&quot;headerlink&quot; title=&quot;os 002 os start&quot;&gt;&lt;/a&gt;os 002 os start&lt;/h1&gt;&lt;h4</summary>
-        
-      
-    
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/categories/os/"/>
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/tags/os/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>os 001 bochs</title>
-    <link href="http://blog.cuimouren.cn/2021/05/11/os-001-bochs/"/>
-    <id>http://blog.cuimouren.cn/2021/05/11/os-001-bochs/</id>
-    <published>2021-05-11T12:59:35.000Z</published>
-    <updated>2021-05-11T15:19:28.731Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;make-an-os-001&quot;&gt;&lt;a href=&quot;#make-an-os-001&quot; class=&quot;headerlink&quot; title=&quot;make an os -001&quot;&gt;&lt;/a&gt;make an os</summary>
-        
-      
-    
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/categories/os/"/>
-    
-    
-    <category term="os" scheme="http://blog.cuimouren.cn/tags/os/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>shell 编程</title>
-    <link href="http://blog.cuimouren.cn/2021/05/06/shell-%E7%BC%96%E7%A8%8B/"/>
-    <id>http://blog.cuimouren.cn/2021/05/06/shell-%E7%BC%96%E7%A8%8B/</id>
-    <published>2021-05-06T01:44:16.000Z</published>
-    <updated>2021-05-08T06:28:19.430Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;shell-编程&quot;&gt;&lt;a href=&quot;#shell-编程&quot; class=&quot;headerlink&quot; title=&quot;shell 编程&quot;&gt;&lt;/a&gt;shell</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
-    
-    <category term="shell" scheme="http://blog.cuimouren.cn/categories/linux/shell/"/>
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
-    
-    <category term="shell" scheme="http://blog.cuimouren.cn/tags/shell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>use nginx on ubuntu 18.04</title>
-    <link href="http://blog.cuimouren.cn/2021/04/25/use-nginx-on-ubuntu-18-04/"/>
-    <id>http://blog.cuimouren.cn/2021/04/25/use-nginx-on-ubuntu-18-04/</id>
-    <published>2021-04-25T09:24:12.000Z</published>
-    <updated>2021-05-08T07:14:27.254Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;nginx-on-ubuntu-18-04&quot;&gt;&lt;a href=&quot;#nginx-on-ubuntu-18-04&quot; class=&quot;headerlink&quot; title=&quot;nginx on ubuntu 18.04&quot;&gt;&lt;/a&gt;nginx on ubuntu</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
-    
-    <category term="nginx" scheme="http://blog.cuimouren.cn/categories/linux/nginx/"/>
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
-    
-    <category term="ubuntu" scheme="http://blog.cuimouren.cn/tags/ubuntu/"/>
-    
-    <category term="ngiinx" scheme="http://blog.cuimouren.cn/tags/ngiinx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux command</title>
-    <link href="http://blog.cuimouren.cn/2021/04/21/linux-journey/"/>
-    <id>http://blog.cuimouren.cn/2021/04/21/linux-journey/</id>
-    <published>2021-04-21T14:36:40.000Z</published>
-    <updated>2021-05-20T08:21:26.940Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;linux-command&quot;&gt;&lt;a href=&quot;#linux-command&quot; class=&quot;headerlink&quot; title=&quot;linux command&quot;&gt;&lt;/a&gt;linux command&lt;/h1&gt;&lt;h2 id=&quot;command-line&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
-    
-    
-    <category term="nonetag" scheme="http://blog.cuimouren.cn/tags/nonetag/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Initial Server Setup with Ubuntu</title>
-    <link href="http://blog.cuimouren.cn/2021/04/21/Initial-Server-Setup-with-Ubuntu/"/>
-    <id>http://blog.cuimouren.cn/2021/04/21/Initial-Server-Setup-with-Ubuntu/</id>
-    <published>2021-04-21T07:21:12.000Z</published>
-    <updated>2021-04-23T08:08:09.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Initial-Server-Setup-with-Ubuntu&quot;&gt;&lt;a href=&quot;#Initial-Server-Setup-with-Ubuntu&quot; class=&quot;headerlink&quot; title=&quot;Initial Server Setup with</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/categories/linux/"/>
-    
-    <category term="ubuntu" scheme="http://blog.cuimouren.cn/categories/linux/ubuntu/"/>
-    
-    
-    <category term="技术" scheme="http://blog.cuimouren.cn/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="linux" scheme="http://blog.cuimouren.cn/tags/linux/"/>
-    
-    <category term="ubuntu" scheme="http://blog.cuimouren.cn/tags/ubuntu/"/>
     
   </entry>
   
