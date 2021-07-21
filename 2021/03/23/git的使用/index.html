@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.5k</span>
+            <span class="post-count">1.9k</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">6 分钟</span>
+            <span class="post-count">7 分钟</span>
         </span>
     </span>
 </div>
@@ -210,6 +210,38 @@
 <li>即对于不同的仓库使用不同的key,并且使用别名来区分不同的仓库。<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4></li>
 <li><a target="_blank" rel="noopener" href="https://gist.github.com/jexchan/2351996">https://gist.github.com/jexchan/2351996</a></li>
 </ul>
+<h2 id="agent"><a href="#agent" class="headerlink" title="agent"></a>agent</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exec ssh-agent bash</span><br><span class="line">ssh-add ~<span class="regexp">/.ssh/i</span>d_rsa_cuiwenyao</span><br><span class="line">git <span class="keyword">push</span></span><br></pre></td></tr></table></figure>
+<h4 id="多账户"><a href="#多账户" class="headerlink" title="多账户"></a>多账户</h4><p>自己只需要本地保存自己账户的ssh key即可，按照<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ea7f5def28f2">这里</a>的进行多账户配置。</p>
+<p>注意，在windows下，这个认证配置好像是暂时的，关闭git之后就失效了，所以需要每次重新配置，即重新使用：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exec ssh-agent bash</span><br><span class="line">ssh-add ~<span class="regexp">/.ssh/i</span>d_rsa_cuiwenyao</span><br><span class="line">git <span class="keyword">push</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="github-使用"><a href="#github-使用" class="headerlink" title="github 使用"></a>github 使用</h1><h2 id="初始化git信息"><a href="#初始化git信息" class="headerlink" title="初始化git信息"></a>初始化git信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name cuiwenyao</span><br><span class="line">$ git config --global user.email yao1970099540@163.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接到自己的账户"><a href="#连接到自己的账户" class="headerlink" title="连接到自己的账户"></a>连接到自己的账户</h2><h3 id="ssh-key"><a href="#ssh-key" class="headerlink" title="ssh key"></a>ssh key</h3><p>使用以下命令生成ssh key 并命名为 id_rsa_cuiwenyao_github</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;yao1970099540@163.com&quot;</span> -f ~/.ssh/id_rsa_cuiwenyao_github</span><br></pre></td></tr></table></figure>
+
+<p>不想为这个ssh key生成密码的话就一直回车</p>
+<p>这会在 ~/.ssh/目录下生成ssh key</p>
+<pre><code>id_rsa_cuiwenyao
+id_rsa_cuiwenyao.pub
+</code></pre>
+<p>将id_rsa_cuiwenyao.pub添加到github中的用户setting 中的ssh key 中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> ssh-agent bash</span><br><span class="line">ssh-add ~/.ssh/id_rsa_cuiwenyao</span><br></pre></td></tr></table></figure>
+
+<p>将使用id_rsa_cuiwenyao进行验证，只有这样才可以进行 push 等操作</p>
+<p>自己只需要本地保存自己账户的ssh key即可，按照<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ea7f5def28f2">这里</a>的进行多账户配置。</p>
+<p>windows中这个权限确认状态好像只是临时的，需要每一次打开git时重新使用以上命令进行配置。</p>
+<p>验证配置是否成功：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T <span class="symbol">git@</span>github.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="multy-account-and-multy-ssh-keys"><a href="#multy-account-and-multy-ssh-keys" class="headerlink" title="multy account and multy ssh keys"></a>multy account and multy ssh keys</h3><p>除了上述的额命令外，还需要在 ./ssh 下写一个 config 文件</p>
+<p>内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#cuwenyao</span></span><br><span class="line">Host github</span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_cuiwenyao</span><br><span class="line">    user git</span><br><span class="line">Host gitee</span><br><span class="line">    HostName gitee.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_cuiwenyao_gitee</span><br><span class="line">    user git</span><br></pre></td></tr></table></figure>
+
+<h2 id="协同开发"><a href="#协同开发" class="headerlink" title="协同开发"></a>协同开发</h2><h4 id="fork-别人的项目"><a href="#fork-别人的项目" class="headerlink" title="fork 别人的项目"></a>fork 别人的项目</h4><p>别人的仓库： Repo_A<br>fork之后到自己的仓库中    Repo_fork<br>修改后push到自己的仓库 Repo_fork 中<br>发起一个 pull request<br>仓库拥有者接受 pull request</p>
  
       <!-- reward -->
       
