@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CDB</title>
+    <url>/2021/07/20/CDB/</url>
+    <content><![CDATA[<h1 id="CDB"><a href="#CDB" class="headerlink" title="CDB"></a>CDB</h1><p>我想学习数据结构，最好的方式就是使用数据结构的知识做出一个系统，而我认为对于目前的我来讲，最好的选择就是做一个小型的数据库引擎。取名为<strong>CDB</strong></p>
+<p>学习GitHub上的<a href="https://cstack.github.io/db_tutorial/">这个</a>项目。</p>
+<h2 id="第一步-数据库的交互框架"><a href="#第一步-数据库的交互框架" class="headerlink" title="第一步 数据库的交互框架"></a>第一步 数据库的交互框架</h2><p>数据库工作的流程为：<br>    1. 打印提示符接受输入<br>    2. 解析输入，得到真实的命令<br>    3. 将解析得到的语义进行数据库底层操作<br>    4. 数据库底层操作很复杂，现在还不懂，懂了再加上</p>
+<p>所以首先我们需要解析每一次的输入，并解析为程序可以读懂的信息，根据解析结果进行进一步操作。</p>
+]]></content>
+      <categories>
+        <category>项目</category>
+        <category>CDB</category>
+      </categories>
+      <tags>
+        <tag>CDB</tag>
+        <tag>database</tag>
+        <tag>项目</tag>
+        <tag>自制轮子</tag>
+        <tag>计算机底层</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>I HAVE A PLAN</title>
     <url>/2021/07/01/I-HAVE-A-PLAN/</url>
     <content><![CDATA[<h1 id="MY-PLANS"><a href="#MY-PLANS" class="headerlink" title="MY PLANS"></a>MY PLANS</h1><p><strong>这篇博客的说明</strong></p>
@@ -270,6 +290,120 @@
         <tag>vps</tag>
         <tag>mail</tag>
         <tag>myself</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmake 使用</title>
+    <url>/2021/07/13/cmake-%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="CMmake"><a href="#CMmake" class="headerlink" title="CMmake"></a>CMmake</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>简单来讲，cmake是一个跨平台的makefile生成器。大型项目的额makefile实在是太繁琐了。学习cmake就是在学习其语法。一般来讲，只有在使用c/c++做一个大项目的时候才用得到cmake</p>
+<h2 id="基本命令简介"><a href="#基本命令简介" class="headerlink" title="基本命令简介"></a>基本命令简介</h2><h3 id="project"><a href="#project" class="headerlink" title="project"></a>project</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">PROJECT(&lt;projectname&gt; <span class="selector-attr">[CXX]</span> <span class="selector-attr">[C]</span> <span class="selector-attr">[Java]</span>)</span><br></pre></td></tr></table></figure>
+
+<p>指定生成项目的名字，可选项目语言（默认位全选）<br>同时 cmake 系统也帮助我们预定义了<br>PROJECT_BINARY_DIR 指向生成的项目的路径（build） 和<br>PROJECT_SOURCE_DIR  指向项目源文件的路径(source)</p>
+<h3 id="MESSAGE"><a href="#MESSAGE" class="headerlink" title="MESSAGE"></a>MESSAGE</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">MESSAGE</span><span class="params">([SEND_ERROR | STATUS | FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>这个指令用于向终端输出用户定义的信息，包含了三种类型:</p>
+<ol>
+<li>SEND_ERROR，产生错误，生成过程被跳过。</li>
+<li>SATUS，输出前缀为—的信息。</li>
+<li>FATAL_ERROR，立即终止所有 cmake 过程. </li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">MESSAGE</span>(STATUS <span class="string">&quot;build &quot;</span> <span class="variable">$&#123;PROJECT_BINARY_DIR&#125;</span> <span class="string">&quot; source &quot;</span> <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h3><p>显式地定义变量</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">SET(SRC_LIST <span class="params">main</span>.<span class="params">c</span> <span class="params">t1</span>.<span class="params">c</span> <span class="params">t2</span>.<span class="params">c</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>将 main.c t1.c t2.c 定义为源文件列表</p>
+<h3 id="ADD-EXECUTABLE"><a href="#ADD-EXECUTABLE" class="headerlink" title="ADD_EXECUTABLE"></a>ADD_EXECUTABLE</h3><p>生成可执行文件</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">ADD_EXECUTABLE</span><span class="params">(hello $&#123;SRC_LIST&#125;)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ADD-SUBDIRECTORY"><a href="#ADD-SUBDIRECTORY" class="headerlink" title="ADD_SUBDIRECTORY"></a>ADD_SUBDIRECTORY</h3><p>位当前目录添加一个子目录 </p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">ADD_SUBDIRECTORY(<span class="params">source_dir</span> [<span class="params">binary_dir</span>] [EXCLUDE_FROM_ALL])</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="INSTALL"><a href="#INSTALL" class="headerlink" title="INSTALL"></a>INSTALL</h3><p>CMAKE_INSTALL_PREFIX</p>
+<p>DESTINATION 定义了安装的路径，如果路径以/开头，那么指的是绝对路径，这时候<br>CMAKE_INSTALL_PREFIX 其实就无效了。如果你希望使用 CMAKE_INSTALL_PREFIX 来定义安装路径，就要写成相对路径，即不要以/开头，那么安装后的路径就是<br>${CMAKE_INSTALL_PREFIX}/&lt;DESTINATION 定义的路径&gt;</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSTALL</span>(TARGETS myrun mylib mystaticlib</span><br><span class="line">RUNTIME DESTINATION bin</span><br><span class="line">LIBRARY DESTINATION lib</span><br><span class="line">ARCHIVE DESTINATION libstatic )</span><br><span class="line"></span><br><span class="line">上面的例子会将： </span><br><span class="line">可执行二进制 myrun 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/bin 目录 </span><br><span class="line">动态库 libmylib 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/lib 目录 </span><br><span class="line">静态库 libmystaticlib 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/libstatic 目录</span><br></pre></td></tr></table></figure>
+
+<p>普通文件的安装</p>
+<figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">INSTALL(FILES files... DESTINATION &lt;dir&gt;</span><br><span class="line"> <span class="comment">[PERMISSIONS permissions...]</span></span><br><span class="line"> <span class="comment">[CONFIGURATIONS <span class="comment">[Debug|Release|...]</span>]</span></span><br><span class="line"> <span class="comment">[COMPONENT &lt;component&gt;]</span></span><br><span class="line"> <span class="comment">[RENAME &lt;name&gt;]</span> <span class="comment">[OPTIONAL]</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="ADD-LIBRARY"><a href="#ADD-LIBRARY" class="headerlink" title="ADD_LIBRARY"></a>ADD_LIBRARY</h3><figure class="highlight vbnet"><table><tr><td class="code"><pre><span class="line">ADD_LIBRARY(libname [<span class="keyword">SHARED</span>|<span class="keyword">STATIC</span>|<span class="keyword">MODULE</span>]</span><br><span class="line"> [EXCLUDE_FROM_ALL]</span><br><span class="line"> source1 source2 ... sourceN)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="SET-TARGET-PROPERTIES"><a href="#SET-TARGET-PROPERTIES" class="headerlink" title="SET_TARGET_PROPERTIES"></a>SET_TARGET_PROPERTIES</h3><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">SET_TARGET_PROPERTIES</span>(target<span class="number">1</span> target<span class="number">2</span> ...</span><br><span class="line"> <span class="attribute">PROPERTIES</span> prop<span class="number">1</span> value<span class="number">1</span></span><br><span class="line"> <span class="attribute">prop2</span> value<span class="number">2</span> ...)</span><br></pre></td></tr></table></figure>
+
+<h3 id="GET-TARGET-PROPERTY"><a href="#GET-TARGET-PROPERTY" class="headerlink" title="GET_TARGET_PROPERTY"></a>GET_TARGET_PROPERTY</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">与他对应的指令是：</span><br><span class="line"><span class="function"><span class="title">GET_TARGET_PROPERTY</span><span class="params">(VAR target property)</span></span></span><br><span class="line">具体用法如下例，我们向 lib/CMakeListst<span class="selector-class">.txt</span> 中添加：</span><br><span class="line"><span class="function"><span class="title">GET_TARGET_PROPERTY</span><span class="params">(OUTPUT_VALUE hello_static OUTPUT_NAME)</span></span></span><br><span class="line">MESSAGE(STATUS “This is the hello_static</span><br><span class="line">OUTPUT_NAME:”$&#123;OUTPUT_VALUE&#125;)</span><br><span class="line">如果没有这个属性定义，则返回 NOTFOUND.</span><br></pre></td></tr></table></figure>
+
+<h3 id="INCLUDE-DIRECTORIES"><a href="#INCLUDE-DIRECTORIES" class="headerlink" title="INCLUDE_DIRECTORIES"></a>INCLUDE_DIRECTORIES</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">现在我们在 src/<span class="module-access"><span class="module"><span class="identifier">CMakeLists</span>.</span></span>txt 中添加一个头文件搜索路径，方式很简单，加入：</span><br><span class="line"><span class="constructor">INCLUDE_DIRECTORIES(<span class="operator">/</span><span class="params">usr</span><span class="operator">/</span><span class="params">include</span><span class="operator">/</span><span class="params">hello</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LINK-DIRECTORIES"><a href="#LINK-DIRECTORIES" class="headerlink" title="LINK_DIRECTORIES"></a>LINK_DIRECTORIES</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">LINK_DIRECTORIES</span>(<span class="params">directory1 directory2 ...</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>这个指令非常简单，添加非标准的共享库搜索路径，比如，在工程内部同时存在共享库和可 执行二进制，在编译时就需要指定一下这些共享库的路径。这个例子中我们没有用到这个指 令。</p>
+<h3 id="TARGET-LINK-LIBRARIES"><a href="#TARGET-LINK-LIBRARIES" class="headerlink" title="TARGET_LINK_LIBRARIES"></a>TARGET_LINK_LIBRARIES</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">TARGET_LINK_LIBRARIES</span>(<span class="keyword">target</span> library1</span><br><span class="line"> &lt;debug | optimized&gt; library2</span><br><span class="line"> ...)</span><br><span class="line">这个指令可以用来为 <span class="keyword">target</span> 添加需要链接的共享库，本例中是一个可执行文件，但是同样</span><br><span class="line">可以用于为自己编写的共享库添加共享库链接。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="cmake-学习-assimp的经验"><a href="#cmake-学习-assimp的经验" class="headerlink" title="cmake 学习 assimp的经验"></a>cmake 学习 assimp的经验</h2><h3 id="项目文件目录"><a href="#项目文件目录" class="headerlink" title="项目文件目录"></a>项目文件目录</h3><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">code</span><br><span class="line">    <span class="comment">--项目的各种代码文件夹</span></span><br><span class="line">    <span class="comment">--CMakeLists.txt</span></span><br><span class="line">contrib</span><br><span class="line">    <span class="comment">--各种依赖的文件夹</span></span><br><span class="line">doc</span><br><span class="line"><span class="built_in">include</span></span><br><span class="line">    <span class="comment">--项目的头文件，对外的接口</span></span><br><span class="line">samples</span><br><span class="line">tests</span><br><span class="line">tools</span><br><span class="line">readme.md</span><br><span class="line">CMakeLists.txt</span><br></pre></td></tr></table></figure>
+
+<p>特点：</p>
+<ol>
+<li>对别的项目的依赖不使用自己编译好的lib或者dll，而是直接使用源文件。估计编译assimp的时候把这些源文件都编译了一遍</li>
+<li>code文件夹就放自己的代码。</li>
+<li>include文件夹就负责对外提供接口。</li>
+<li>只使用两个CMakeLists.txt,根目录下的负责项目的整体信息描述，code目录下的负责对文件的编译。</li>
+</ol>
+<h3 id="cmake-编写"><a href="#cmake-编写" class="headerlink" title="cmake 编写"></a>cmake 编写</h3><p>太复杂了，我现在并看不懂。但并不像我这样每一个模块编写一个CMakeLists.txt进行cmake，而是根目录下的负责项目的整体信息描述，code目录下的负责对文件的编译。</p>
+<h3 id="项目编译"><a href="#项目编译" class="headerlink" title="项目编译"></a>项目编译</h3><ol>
+<li>首先按照上面的文件目录进行编排。</li>
+<li>编写CMakeLists.txt 文件<ol>
+<li>最好编译成动态链接库，不然没有办法将项目的静态依赖库lib文件包含在内。</li>
+<li>若项目的依赖中存在动态库，比如assimp 时，就没办法将其包含在内了，只能让用户显式地使用assimp.</li>
+</ol>
+</li>
+<li>将项目的头文件列举出来保存到include文件夹中，这里面的就是提供给用户的接口，将不想提供给用户的接口删除即可。</li>
+<li>记得cmake中进行install，将所有需要提供给用户的文件全部放在最显眼的地方。</li>
+</ol>
+<h3 id="CMakeLists-txt-编写"><a href="#CMakeLists-txt-编写" class="headerlink" title="CMakeLists.txt 编写"></a>CMakeLists.txt 编写</h3><p>我现在对编译有关的知识了解甚少，所以现在只能使用一些最基础的东西，日后会对编译有更深得了解。</p>
+<ol>
+<li><p>cmake的最下版本要求</p>
+</li>
+<li><p>确定项目的名称</p>
+</li>
+<li><p>确定项目的目录安排</p>
+</li>
+<li><p>确定项目的包含目录和库目录</p>
+</li>
+<li><p>确定项目生成目标位置</p>
+</li>
+<li><p>确定项目的额依赖</p>
+</li>
+<li><p>确定目标使用的文件并安排成组</p>
+</li>
+<li><p>确定目标工程的筛选器</p>
+</li>
+<li><p>编译项目</p>
+</li>
+<li><p>安装项目</p>
+</li>
+</ol>
+<h3 id="Demo-list"><a href="#Demo-list" class="headerlink" title="Demo list"></a>Demo list</h3><h2 id="XYY-Game-Engine-的构建示例"><a href="#XYY-Game-Engine-的构建示例" class="headerlink" title="XYY_Game_Engine 的构建示例"></a>XYY_Game_Engine 的构建示例</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># CMake 最低版本号要求</span></span><br><span class="line">cmake_minimum_required (VERSION <span class="number">3.20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 项目信息</span></span><br><span class="line">project(XYY_Game_Engine)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#变量设置   主要是目录变量</span></span><br><span class="line"><span class="comment">#CMAKE_INSTALL_PREFIX</span></span><br><span class="line">set(CMAKE_INSTALL_PREFIX <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span>)</span><br><span class="line"><span class="comment">#code目录</span></span><br><span class="line">set(CODE_ROOT_PATH <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>)</span><br><span class="line"><span class="comment">#build目录</span></span><br><span class="line">set(BUILD_PATH <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>)</span><br><span class="line"><span class="comment">#存放生成的lib的目录</span></span><br><span class="line">set(LIB_PATH <span class="variable">$&#123;BUILD_PATH&#125;</span><span class="regexp">/../</span>lib/)</span><br><span class="line"><span class="comment">#存放生成的dll的目录</span></span><br><span class="line">set(DLL_PATH <span class="variable">$&#123;BUILD_PATH&#125;</span><span class="regexp">/../</span>dll/)</span><br><span class="line"><span class="comment">#编译所需包含目录</span></span><br><span class="line">set(INCLUDE_PATH_CODE <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span>)</span><br><span class="line">set(INCLUDE_PATH_CONTRIB <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/contrib/i</span>nclude/)</span><br><span class="line"><span class="comment">#编译所需库目录</span></span><br><span class="line">set(LIBRARY_PATH_CONTRIB <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/contrib/</span>lib/)</span><br><span class="line"><span class="comment">#设置test路径</span></span><br><span class="line">set(TEST_PATH <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/)</span><br><span class="line"><span class="comment">#指定程序的包含目录 库目录</span></span><br><span class="line"><span class="comment">#引用目录</span></span><br><span class="line"><span class="comment">#INCLUDE_DIRECTORIES($&#123;INCLUDE_PATH_CODE&#125;)</span></span><br><span class="line">INCLUDE_DIRECTORIES(<span class="variable">$&#123;INCLUDE_PATH_CONTRIB&#125;</span>)</span><br><span class="line">INCLUDE_DIRECTORIES(<span class="variable">$&#123;TEST_PATH&#125;</span>/include)</span><br><span class="line"><span class="comment">#库目录 将生成的lib 目录也包含在内，为了给test使用</span></span><br><span class="line">LINK_DIRECTORIES(<span class="variable">$&#123;LIBRARY_PATH_CONTRIB&#125;</span>)</span><br><span class="line">LINK_DIRECTORIES(<span class="variable">$&#123;LIB_PATH&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置目标的属性 </span></span><br><span class="line"><span class="keyword">function</span>(SetDefaultTargetProperties target)</span><br><span class="line">	<span class="comment">#程序生成文件的目录   </span></span><br><span class="line">	set_target_properties(<span class="variable">$&#123;target&#125;</span> PROPERTIES</span><br><span class="line">		ARCHIVE_OUTPUT_DIRECTORY <span class="variable">$&#123;LIB_PATH&#125;</span></span><br><span class="line">		LIBRARY_OUTPUT_DIRECTORY <span class="variable">$&#123;LIB_PATH&#125;</span></span><br><span class="line">		RUNTIME_OUTPUT_DIRECTORY <span class="variable">$&#123;DLL_PATH&#125;</span></span><br><span class="line">	)</span><br><span class="line">endfunction()</span><br><span class="line"></span><br><span class="line"><span class="comment">#MESSAGE(STATUS $&#123;LIB_PATH&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#code的编译  得到 XYY_Game_Engine.lib XYY_Game_Engine.dll </span></span><br><span class="line">add_subdirectory(<span class="variable">$&#123;CODE_ROOT_PATH&#125;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#放入 lib 文件夹</span></span><br><span class="line">INSTALL(TARGETS</span><br><span class="line">    XYY_Game_Engine</span><br><span class="line">    LIBRARY DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/lib/</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#放入 bin 中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(EXISTS   <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>Debug/XYY_Game_Engine.dll)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>Debug/XYY_Game_Engine.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span></span><br><span class="line">)</span><br><span class="line">endif()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(EXISTS    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>assimp-vc142-mt.dll)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>assimp-vc142-mt.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span>/bin</span><br><span class="line">)</span><br><span class="line">endif()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#对 test 增加支持   dll  release  test 所有的引用都来原来自include中的</span></span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>assimp-vc142-mt.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Release</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>XYY_Game_Engine.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Release</span><br><span class="line">)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>assimp-vc142-mt.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Debug</span><br><span class="line">)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>XYY_Game_Engine.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Debug</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Driver</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Driver/</span>*.hpp</span><br><span class="line">)</span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Driver_LocalDriver</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Driver/</span>LocalDriver/*.h</span><br><span class="line">)</span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Driver_Global</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Driver/</span>GlobalDriver/*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Element</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Element</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Element/</span>*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Resource</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Resource/</span>*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Scene</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Scene/</span>*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Sync</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Sync</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Sync/</span>*.h</span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Driver&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Driver/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Driver_LocalDriver&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Driver/</span>LocalDriver/</span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Driver_Global&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Driver/</span>GlobalDriver/</span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Element&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Element/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Resource&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Resource/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Scene&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Scene/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Sync&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Sync/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>Scxmlexample</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>resources</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>GLSL</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># example </span></span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span>Scxmlexample</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;TEST_PATH&#125;</span>/</span><br><span class="line">)</span><br><span class="line"><span class="comment"># resources</span></span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span>resources</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;TEST_PATH&#125;</span>/</span><br><span class="line">)</span><br><span class="line"><span class="comment"># header</span></span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span>/include</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;TEST_PATH&#125;</span>/</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#target 测试</span></span><br><span class="line">add_subdirectory(test)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment">#code </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#code 中的所有文件</span></span><br><span class="line"><span class="keyword">FILE</span>(GLOB_RECURSE SOURCE_CODE       </span><br><span class="line">    Driver/*</span><br><span class="line">    Driver/LocalDriver/*</span><br><span class="line">    Driver/GlobalDriver/*</span><br><span class="line">    Element/*</span><br><span class="line">    Resource/*</span><br><span class="line">    Scene/*</span><br><span class="line">    Sync/*</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CONTRIB&#125;</span>/*.c</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#组织 file </span></span><br><span class="line"><span class="comment">#Driver</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Driver</span><br><span class="line">    Driver/*.hpp</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Driver FILES <span class="variable">$&#123;SRC_Driver&#125;</span>)</span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Driver_LocalDriver</span><br><span class="line">    Driver/LocalDriver/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Driver//LocalDriver FILES <span class="variable">$&#123;SRC_Driver_LocalDriver&#125;</span>)</span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Driver_Global</span><br><span class="line">    Driver/GlobalDriver/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Driver//GlobalDriver FILES <span class="variable">$&#123;SRC_Driver_Global&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Element</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Element</span><br><span class="line">    Element/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Element FILES <span class="variable">$&#123;SRC_Element&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Resource</span><br><span class="line">    Resource/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Resource FILES <span class="variable">$&#123;SRC_Resource&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Scene</span><br><span class="line">    Scene/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Scene FILES <span class="variable">$&#123;SRC_Scene&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Sync</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Sync</span><br><span class="line">    Sync/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Sync FILES <span class="variable">$&#123;SRC_Sync&#125;</span>)</span><br><span class="line"><span class="comment">#xml</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Scxmlexample</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span>/Scxmlexample/*.xml</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Scxmlexample FILES <span class="variable">$&#123;SRC_Scxmlexample&#125;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB DEPENDENCE_LIB</span><br><span class="line">    <span class="variable">$&#123;LIBRARY_PATH_CONTRIB&#125;</span>/*.lib</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成链接库</span></span><br><span class="line"><span class="keyword">add_library</span>(XYY_Game_Engine SHARED <span class="variable">$&#123;SOURCE_CODE&#125;</span> <span class="variable">$&#123;SRC_Scxmlexample&#125;</span>)</span><br><span class="line">SetDefaultTargetProperties(XYY_Game_Engine)</span><br><span class="line"><span class="comment">#  应该还要加上 opengl32.lib</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(XYY_Game_Engine   </span><br><span class="line">opengl32  </span><br><span class="line">glfw3.lib </span><br><span class="line">assimp-vc142-mt.lib  </span><br><span class="line">tinyxml.lib  </span><br><span class="line">kernel32.lib</span><br><span class="line">user32.lib</span><br><span class="line">gdi32.lib</span><br><span class="line">winspool.lib</span><br><span class="line">comdlg32.lib</span><br><span class="line">advapi32.lib</span><br><span class="line">shell32.lib</span><br><span class="line">ole32.lib</span><br><span class="line">oleaut32.lib</span><br><span class="line">uuid.lib</span><br><span class="line">odbc32.lib</span><br><span class="line">odbccp32.lib</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment">#对于每一个项目，其相对路径的起始位置是 vs 那一对文件的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#xml</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Scxmlexample_test</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span>/Scxmlexample/*.xml</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Scxmlexample FILES <span class="variable">$&#123;SRC_Scxmlexample_test&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#test1</span></span><br><span class="line"><span class="keyword">add_executable</span>(test1 test1.cpp <span class="variable">$&#123;SRC_Scxmlexample_test&#125;</span>)</span><br><span class="line"><span class="keyword">ADD_DEPENDENCIES</span>(test1 XYY_Game_Engine)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(test1 XYY_Game_Engine)</span><br><span class="line"></span><br><span class="line"><span class="comment">#test1</span></span><br><span class="line"><span class="keyword">add_executable</span>(test2 test2.cpp <span class="variable">$&#123;SRC_Scxmlexample_test&#125;</span>)</span><br><span class="line"><span class="keyword">ADD_DEPENDENCIES</span>(test1 XYY_Game_Engine)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(test2 XYY_Game_Engine)</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>tools</category>
+        <category>cmake</category>
+      </categories>
+      <tags>
+        <tag>项目构建</tag>
+        <tag>cmake</tag>
       </tags>
   </entry>
   <entry>
@@ -828,6 +962,40 @@ id_rsa_cuiwenyao.pub
       <tags>
         <tag>使用</tag>
         <tag>nasm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>opencv 1 配置环境与图像的基本操作</title>
+    <url>/2021/07/11/opencv-1-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="opencv-1-配置环境与图像的基本操作"><a href="#opencv-1-配置环境与图像的基本操作" class="headerlink" title="opencv 1 配置环境与图像的基本操作"></a>opencv 1 配置环境与图像的基本操作</h1><p>最近习惯使用vscode作为主力编辑器，所以这次学习opencv也是用vscode，顺便学习以下python。      </p>
+<p>我的环境是：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">python</span> <span class="number">3</span>.<span class="number">9</span>.<span class="number">6</span></span><br><span class="line"><span class="attribute">opencv</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><ol>
+<li><p>python.org安装python</p>
+</li>
+<li><p>配置环境变量，maybe已自动配置</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>vscode安装python的扩展</p>
+</li>
+<li><p>运行代码。右键选择在python终端中执行代码。</p>
+</li>
+<li><p>注意vscode的路径问题。当前路径是pwd所展示的，和文件的具体位置无关。这个问题在昨天在vs上面写XYY_Game_Engine时也遇到了，注意路径问题，关键时找到pwd到底是什么。对于vs来说是main在的路径，对于命令行来讲是pwd。</p>
+</li>
+</ol>
+<p><strong>shift -f vscode, 还是直接使用pycharm吧，就是jetbrains家的ide太难看了。</strong></p>
+<h2 id="opencv-图像基本操作"><a href="#opencv-图像基本操作" class="headerlink" title="opencv 图像基本操作"></a>opencv 图像基本操作</h2>]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>python</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1820,6 +1988,137 @@ id_rsa_cuiwenyao.pub
       </tags>
   </entry>
   <entry>
+    <title>双创工作日志</title>
+    <url>/2021/07/16/%E5%8F%8C%E5%88%9B%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/</url>
+    <content><![CDATA[<h1 id="双创工作日志"><a href="#双创工作日志" class="headerlink" title="双创工作日志"></a>双创工作日志</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><h3 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h3><p>确定要做的项目的大概方向。</p>
+<h3 id="存在问题及解决办法"><a href="#存在问题及解决办法" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>暂时只知道要去找做一个项目，具体要做什么还不是很清楚。还要再看看资料多了解一下前沿知识。</p>
+<h3 id="体会和建议"><a href="#体会和建议" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学海无涯，想要做出一点厉害的东西只有好好学习。</p>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><h3 id="工作内容-1"><a href="#工作内容-1" class="headerlink" title="工作内容"></a>工作内容</h3><p>确定了项目的大概方向是做一个3D方向的软件。</p>
+<h3 id="存在问题及解决办法-1"><a href="#存在问题及解决办法-1" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>只是直到项目大概要做一个3D方向的软件，至于真正的要做出来什么还不确定。</p>
+<h3 id="体会和建议-1"><a href="#体会和建议-1" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>要好好学习，多学习一些技术才能在要做事情的时候不至于只知道做什么。</p>
+<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><h3 id="工作内容-2"><a href="#工作内容-2" class="headerlink" title="工作内容"></a>工作内容</h3><p>查阅大量资料，了解有关3D的知识，直到制作一个3D场景的途径和相关知识。</p>
+<h3 id="存在问题及解决办法-2"><a href="#存在问题及解决办法-2" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然知道了有关3D的相关知识，涉及到了有关3D的一些领域。但是对于真正的使用3D知识做出来一些东西还是没有什么确切的了解。需要继续学习。</p>
+<h3 id="体会和建议-2"><a href="#体会和建议-2" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>永远都到学习，只有学习的东西足够的多才能直到自己可以做出什么。</p>
+<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><h3 id="工作内容-3"><a href="#工作内容-3" class="headerlink" title="工作内容"></a>工作内容</h3><p>了解有关3D图像学的知识，知道了图形学的集大成者，游戏引擎。于是确定目标要做一个游戏引擎。</p>
+<h3 id="存在问题及解决办法-3"><a href="#存在问题及解决办法-3" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然确定了目标是做出一个游戏引擎，但是对于相关领域的知识还是知之甚少。需要继续学习。</p>
+<h3 id="体会和建议-3"><a href="#体会和建议-3" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>确定了目标说明对一件事情的了解至少到达了一定的程度，但是还远没有到达可以运用知识的程度，需要继续学习。</p>
+<h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><h3 id="工作内容-4"><a href="#工作内容-4" class="headerlink" title="工作内容"></a>工作内容</h3><p>学习了有关游戏引擎的相关知识，知道了当今在游戏引擎领域的相关软件，比如虚幻引擎和u3d等等。</p>
+<h3 id="存在问题及解决办法-4"><a href="#存在问题及解决办法-4" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>不知道一个游戏引擎的具体组成和功能，需要亲自使用相关游戏引擎才可以直到游戏引擎的相关使用和功能。</p>
+<h3 id="体会和建议-4"><a href="#体会和建议-4" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>要多多了解相关领域的知识。</p>
+<h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2><h3 id="工作内容-5"><a href="#工作内容-5" class="headerlink" title="工作内容"></a>工作内容</h3><p>学习游戏引擎，了解u3d和虚幻引擎的基本使用方法和功能，学会游戏引擎的基本使用方法，学会制作一个游戏的基本路径。</p>
+<h3 id="存在问题及解决办法-5"><a href="#存在问题及解决办法-5" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>没有深入了解制作一个游戏所需的知识，不知道支撑起一个游戏所需要的知识。</p>
+<h3 id="体会和建议-5"><a href="#体会和建议-5" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>要继续学习游戏引擎的相关知识，最好使用虚幻引擎亲自做出来一个游戏来加深对游戏制作的了解。</p>
+<h2 id="7"><a href="#7" class="headerlink" title="7"></a>7</h2><h3 id="工作内容-6"><a href="#工作内容-6" class="headerlink" title="工作内容"></a>工作内容</h3><p>使用虚幻引擎做出来了一个小的第一人人称射击游戏的Demo，基本了解了制作一个游戏所需要的基础和资源，以及制作一个游戏的路径。</p>
+<h3 id="存在问题及解决办法-6"><a href="#存在问题及解决办法-6" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然可以使用市场上有的游戏引擎做出一个小的Demo，但是对制作一个游戏引擎仍然只知甚少，需要继续了解计算机图形学和游戏引擎的基础功能架构。</p>
+<h3 id="体会和建议-6"><a href="#体会和建议-6" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>持续学习，不断增强自身技术才能制作出来一个好的软件。</p>
+<h2 id="8"><a href="#8" class="headerlink" title="8"></a>8</h2><h3 id="工作内容-7"><a href="#工作内容-7" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习了游戏引擎的基本功能逻辑，了解制作出一个游戏引擎所需要的基础。了解了计算机图形学相关知识，对制作出一个游戏引擎有了更加深入的了解。</p>
+<h3 id="存在问题及解决办法-7"><a href="#存在问题及解决办法-7" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>计算机图形学基础太薄弱，需要深入学习计算机图形学。</p>
+<h3 id="体会和建议-7"><a href="#体会和建议-7" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境，计算机图形学是一个令人着迷的领域。</p>
+<h2 id="9"><a href="#9" class="headerlink" title="9"></a>9</h2><h3 id="工作内容-8"><a href="#工作内容-8" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习计算机图形学，了解计算机图形学领域的三大名剑–OpenGL、vulkan、direct3D<br>在斟酌了其中的使用范围之后，我们为了增强项目的可移植性，最终选择了使用OpenGL作为项目的基础。</p>
+<h3 id="存在问题及解决办法-8"><a href="#存在问题及解决办法-8" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>要继续学习计算机图形学，首先要深入学习OpenGL，下一步要做的事情就是深入学习OpenGL。</p>
+<h3 id="体会和建议-8"><a href="#体会和建议-8" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>计算机图形学真不愧被称作计算机领域的三大浪漫之一，果然难度挺高的。好好学习。</p>
+<h2 id="10"><a href="#10" class="headerlink" title="10"></a>10</h2><h3 id="工作内容-9"><a href="#工作内容-9" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习计算机图形学，深入学OpenGL，并使用OpenGL做出了一些3D空间的小Demo。</p>
+<h3 id="存在问题及解决办法-9"><a href="#存在问题及解决办法-9" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然OpenGL入门挺难的，但是OpenGL的精通也是挺难的，不过要知难而上，好好学习。</p>
+<h3 id="体会和建议-9"><a href="#体会和建议-9" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>艰苦奋斗，好好学习。</p>
+<h2 id="11"><a href="#11" class="headerlink" title="11"></a>11</h2><h3 id="工作内容-10"><a href="#工作内容-10" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习计算机图形学，深入学OpenGL，并使用OpenGL做出了更多3D空间的小Demo。初步验证了制作一个游戏引擎的可行性。</p>
+<h3 id="存在问题及解决办法-10"><a href="#存在问题及解决办法-10" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>计算机图形学是一个非常复杂的学科，目前为止还不能确定到底可不可以很好的制作出一个游戏引擎。要继续学习。</p>
+<h3 id="体会和建议-10"><a href="#体会和建议-10" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="12"><a href="#12" class="headerlink" title="12"></a>12</h2><h3 id="工作内容-11"><a href="#工作内容-11" class="headerlink" title="工作内容"></a>工作内容</h3><p>继续学习计算机图形学，现在已经可以使用OpenGL做出一个想要的3D场景了，下一步要将模型的导入学会，这样在场景中就不只有自己写的顶点组成的模型了，就可以做出一个任意的3D场景。</p>
+<h3 id="存在问题及解决办法-11"><a href="#存在问题及解决办法-11" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>目前对于3D场景中的模型加载仍然有很大的问题，只是一个难点，要继续深入学习。</p>
+<h3 id="体会和建议-11"><a href="#体会和建议-11" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="13"><a href="#13" class="headerlink" title="13"></a>13</h2><h3 id="工作内容-12"><a href="#工作内容-12" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习了适应assimop加载模型的方法，现在已经可以使用assimp加载模型了。</p>
+<h3 id="存在问题及解决办法-12"><a href="#存在问题及解决办法-12" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>assimp有一些问题，有一些模型没有办法正常导入，头疼。</p>
+<h3 id="体会和建议-12"><a href="#体会和建议-12" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="14"><a href="#14" class="headerlink" title="14"></a>14</h2><h3 id="工作内容-13"><a href="#工作内容-13" class="headerlink" title="工作内容"></a>工作内容</h3><p>现在终于对计算机图形学有了很深的了解了，虽然对于在这个领域深耕多年的前辈来讲我只是一个菜鸟罢了，但是制作出一个简易的3D引擎来讲可以说是足够了。</p>
+<h3 id="存在问题及解决办法-13"><a href="#存在问题及解决办法-13" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然具备了计算机图形学的相关知识，但是对于制作出一个游戏引擎仍然没有一定的了解。需要深入思考游戏引擎的设计和功能。</p>
+<h3 id="体会和建议-13"><a href="#体会和建议-13" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="15"><a href="#15" class="headerlink" title="15"></a>15</h2><h3 id="工作内容-14"><a href="#工作内容-14" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入思考了游戏引擎的架构，确定了制作游戏引擎的步骤和方法。</p>
+<h3 id="存在问题及解决办法-14"><a href="#存在问题及解决办法-14" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>对是否可以使用计算机图形学进行游戏引擎的开饭仍然不太确定，需要制作出一个Demo进行验证。</p>
+<h3 id="体会和建议-14"><a href="#体会和建议-14" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="16"><a href="#16" class="headerlink" title="16"></a>16</h2><h3 id="工作内容-15"><a href="#工作内容-15" class="headerlink" title="工作内容"></a>工作内容</h3><p>继续确定游戏引擎的额架构，确定游戏引擎所需要的模块功能。开始制作游戏引擎Demo来验证想法。</p>
+<h3 id="存在问题及解决办法-15"><a href="#存在问题及解决办法-15" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>没有制作大型项目的经验，所以制作大型项目不太熟练，对于协同开发的版本控制也是处于要学习的阶段。要学习一些版本控制进行协同开发。</p>
+<h3 id="体会和建议-15"><a href="#体会和建议-15" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
+<h2 id="17"><a href="#17" class="headerlink" title="17"></a>17</h2><h3 id="工作内容-16"><a href="#工作内容-16" class="headerlink" title="工作内容"></a>工作内容</h3><p>学习了版本控制相关知识，学习使用git进行开发。将开发的源代码使用GitHub进行共享。</p>
+<h3 id="存在问题及解决办法-16"><a href="#存在问题及解决办法-16" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然解决了开发工具的问题和协同开发中的版本控制的问题，但是对于游戏引擎的开发仍然需要努力写出一个小的Demo来验证想法的正确性。</p>
+<h3 id="体会和建议-16"><a href="#体会和建议-16" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
+<h2 id="18"><a href="#18" class="headerlink" title="18"></a>18</h2><h3 id="工作内容-17"><a href="#工作内容-17" class="headerlink" title="工作内容"></a>工作内容</h3><p>加班加点努力做出来了一个3D游戏币引擎Demo，现在可以实现使用几条很短的额代码就可以加载出一个宏大的3D场景。</p>
+<h3 id="存在问题及解决办法-17"><a href="#存在问题及解决办法-17" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>C++的面向对象有点烦人，先前制作的游戏引擎架构在进行初步实现的时候发现了一些问题。引擎的结构框架在c++的特性下没有办法很好的实现，迫于语言的限制，只好在一定范围内修改游戏引擎的架构来适应c++的特性。</p>
+<h3 id="体会和建议-17"><a href="#体会和建议-17" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
+<h2 id="19"><a href="#19" class="headerlink" title="19"></a>19</h2><h3 id="工作内容-18"><a href="#工作内容-18" class="headerlink" title="工作内容"></a>工作内容</h3><p>使用修改过后的引擎架构做出了一个小的Demo，现在的Demo已经可以拥有灯光等高级更能。</p>
+<h3 id="存在问题及解决办法-18"><a href="#存在问题及解决办法-18" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>是时候基于现有的Demo做出一个真正的游戏引擎了，有了Demo的经验，要制作一个真正的游戏引擎也不是无稽之谈了，但是现在由于引擎的规模变大，先前的架构有一些地方不太适合了，需要因地制宜地修改项目的架构。</p>
+<h3 id="体会和建议-18"><a href="#体会和建议-18" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
+<h2 id="20"><a href="#20" class="headerlink" title="20"></a>20</h2><h3 id="工作内容-19"><a href="#工作内容-19" class="headerlink" title="工作内容"></a>工作内容</h3><p>现在基于先前的经验因地制宜地修改了项目的架构。现在的任务是基于这个新的架构制作出一个全新的游戏引擎。</p>
+<h3 id="存在问题及解决办法-19"><a href="#存在问题及解决办法-19" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目大了之后，对于开发的要求也更加高了，为了更加方便的进行协同开发，我们开发人员组建了一个开发交流群，得益于交流的效率加深，现在进行开发就很方便了。</p>
+<h3 id="体会和建议-19"><a href="#体会和建议-19" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
+<h2 id="21"><a href="#21" class="headerlink" title="21"></a>21</h2><h3 id="工作内容-20"><a href="#工作内容-20" class="headerlink" title="工作内容"></a>工作内容</h3><p>现在进行真正的游戏引擎开发工作。游戏引擎制作中。</p>
+<h3 id="存在问题及解决办法-20"><a href="#存在问题及解决办法-20" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目很大，架构很大，每一次编译都要好长时间。</p>
+<h3 id="体会和建议-20"><a href="#体会和建议-20" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="22"><a href="#22" class="headerlink" title="22"></a>22</h2><h3 id="工作内容-21"><a href="#工作内容-21" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成项目的局部驱动。</p>
+<h3 id="存在问题及解决办法-21"><a href="#存在问题及解决办法-21" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>局部驱动要和全局驱动整合起来，所以要进行全局驱动的编写。</p>
+<h3 id="体会和建议-21"><a href="#体会和建议-21" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="23"><a href="#23" class="headerlink" title="23"></a>23</h2><h3 id="工作内容-22"><a href="#工作内容-22" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成项目的全局驱动。</p>
+<h3 id="存在问题及解决办法-22"><a href="#存在问题及解决办法-22" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目的驱动已经完成，现在需要将物体表达出来。</p>
+<h3 id="体会和建议-22"><a href="#体会和建议-22" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="24"><a href="#24" class="headerlink" title="24"></a>24</h2><h3 id="工作内容-23"><a href="#工作内容-23" class="headerlink" title="工作内容"></a>工作内容</h3><p>编写Element代码，现在将物体的表示码了出来。</p>
+<h3 id="存在问题及解决办法-23"><a href="#存在问题及解决办法-23" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>物体的架构安排有一些不合理需要进行思考更改。</p>
+<h3 id="体会和建议-23"><a href="#体会和建议-23" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="25"><a href="#25" class="headerlink" title="25"></a>25</h2><h3 id="工作内容-24"><a href="#工作内容-24" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成资源管理的编写，现在可以很方便的进行资源的管理了。</p>
+<h3 id="存在问题及解决办法-24"><a href="#存在问题及解决办法-24" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然资源管理可以实现，但是只是在方法层面上的实现，需要在应用上进行实现。</p>
+<h3 id="体会和建议-24"><a href="#体会和建议-24" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="26"><a href="#26" class="headerlink" title="26"></a>26</h2><h3 id="工作内容-25"><a href="#工作内容-25" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成场景的编写，现在可以实现一个场景带动全部代码。</p>
+<h3 id="存在问题及解决办法-25"><a href="#存在问题及解决办法-25" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>加载场景仍然有一些繁琐，需要一个个的进行写入路径，这些代码集中在主程序中不雅观。</p>
+<h3 id="体会和建议-25"><a href="#体会和建议-25" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="27"><a href="#27" class="headerlink" title="27"></a>27</h2><h3 id="工作内容-26"><a href="#工作内容-26" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成场景加载XML的实现，现在可以使用xml文件将场景的信息加载出来，非常优雅。</p>
+<h3 id="存在问题及解决办法-26"><a href="#存在问题及解决办法-26" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>现在虽然游戏引擎在开发中可以很方便的进行使用了，但是怎样让用户方便的使用是一个问题。于是决定将项目以开源的形式进行开源。使用cmake进行开源发布。</p>
+<h3 id="体会和建议-26"><a href="#体会和建议-26" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="28"><a href="#28" class="headerlink" title="28"></a>28</h2><h3 id="工作内容-27"><a href="#工作内容-27" class="headerlink" title="工作内容"></a>工作内容</h3><p>将项目使用cmake进行构建，这样用户就可以使用cmake很方便的进行项目的构建了。</p>
+<h3 id="存在问题及解决办法-27"><a href="#存在问题及解决办法-27" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目需要有门面</p>
+<h3 id="体会和建议-27"><a href="#体会和建议-27" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
+<h2 id="29"><a href="#29" class="headerlink" title="29"></a>29</h2><h3 id="工作内容-28"><a href="#工作内容-28" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成项目的网站制作，现在用户在网站上就可以方便的进行引擎的下载和学习、开发了。</p>
+<h3 id="存在问题及解决办法-28"><a href="#存在问题及解决办法-28" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>引擎使用文档不够仔细，需要认真编写引擎的使用文档。</p>
+<h3 id="体会和建议-28"><a href="#体会和建议-28" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h2 id="30"><a href="#30" class="headerlink" title="30"></a>30</h2><h3 id="工作内容-29"><a href="#工作内容-29" class="headerlink" title="工作内容"></a>工作内容</h3><p>工作结尾，引擎项目到达尾声。开始收尾工作。编写项目的各种文档。</p>
+<h3 id="存在问题及解决办法-29"><a href="#存在问题及解决办法-29" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>引擎还有很大的成长空间。祝他越来越好。</p>
+<h3 id="体会和建议-29"><a href="#体会和建议-29" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
+<h1 id="时间-共-30-个"><a href="#时间-共-30-个" class="headerlink" title="时间  共 30 个"></a>时间  共 30 个</h1><p>10 29   1</p>
+<p>11 06   2</p>
+<p>11 14   3</p>
+<p>11 22   4</p>
+<p>11 30   5</p>
+<p>12 08   6</p>
+<p>12 12   7</p>
+<p>12 20   8</p>
+<p>12 28   9</p>
+<p>1  06   10</p>
+<p>1  14   11</p>
+<p>1  22   12</p>
+<p>1  30   13</p>
+<p>2  08   14</p>
+<p>2  24   15</p>
+<p>3  04   16</p>
+<p>3  12   17</p>
+<p>3  20   18</p>
+<p>4  05   19</p>
+<p>4  13   20</p>
+<p>4  21   21</p>
+<p>4  29   22</p>
+<p>5  07   23</p>
+<p>5  23   24</p>
+<p>5  31   25</p>
+<p>6  09   26</p>
+<p>6  17   27</p>
+<p>6  25   28</p>
+<p>7  11   29</p>
+<p>7  16   30</p>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>nonetag</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于 CentOS 搭建 Discuz 论坛</title>
     <url>/2021/04/19/%E5%9F%BA%E4%BA%8E-CentOS-%E6%90%AD%E5%BB%BA-Discuz-%E8%AE%BA%E5%9D%9B/</url>
     <content><![CDATA[<h1 id="基于-CentOS-搭建-Discuz-论坛"><a href="#基于-CentOS-搭建-Discuz-论坛" class="headerlink" title="基于 CentOS 搭建 Discuz 论坛"></a>基于 CentOS 搭建 Discuz 论坛</h1><h4 id="准备LAMP环境"><a href="#准备LAMP环境" class="headerlink" title="准备LAMP环境"></a>准备LAMP环境</h4><ul>
@@ -1851,6 +2150,140 @@ id_rsa_cuiwenyao.pub
       </categories>
       <tags>
         <tag>百年党史</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪吃蛇街机小游戏开题报告</title>
+    <url>/2021/07/07/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A/</url>
+    <content><![CDATA[<h1 id="开题报告"><a href="#开题报告" class="headerlink" title="开题报告"></a>开题报告</h1><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>贪吃蛇街机小游戏是一款在8*8的LED显示灯上运行的贪吃蛇小游戏，通过红外线遥控器输入设备进行游戏控制，在LED显示灯上显示游戏画面，使用数码管显示当前得分，使用灯光和蜂鸣器营造游戏氛围。</p>
+<h2 id="功能模块划分"><a href="#功能模块划分" class="headerlink" title="功能模块划分"></a>功能模块划分</h2><ul>
+<li>游戏整体逻辑控制模块</li>
+</ul>
+<p>整个项目的入口，控制其他各个模块的调度。</p>
+<ul>
+<li>贪吃蛇逻辑控制模块</li>
+</ul>
+<p>贪吃蛇运行逻辑的控制，负责计算出下一秒贪吃蛇的状态（移动、增长、死亡）、食物位置的刷新、当前得分的计算等。</p>
+<ul>
+<li>LED显示控制模块</li>
+</ul>
+<p>将内容（游戏菜单、当前画面、）显示到8*8的LED灯上。</p>
+<ul>
+<li>全局时钟控制模块</li>
+</ul>
+<p>通过8253每10ms产生一个中断，用于控制游戏进程的同步。</p>
+<ul>
+<li>声音控制模块</li>
+</ul>
+<p>使用蜂鸣器产生游戏音效与背景音乐。</p>
+<ul>
+<li>灯光控制模块</li>
+</ul>
+<p>使用LED灯产生一些光效。</p>
+<ul>
+<li>数码管显示模块</li>
+</ul>
+<p>使用数码管显示出当前游戏的得分。</p>
+<ul>
+<li>红外线输入模块</li>
+</ul>
+<p>使用红外线输入，产生中断，控制贪吃蛇的运动。</p>
+<h2 id="核心功能代码测试"><a href="#核心功能代码测试" class="headerlink" title="核心功能代码测试"></a>核心功能代码测试</h2><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">; LED显示</span></span><br><span class="line">show_led proc</span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">dx</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;写入方式控制字</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span> , <span class="number">283h</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span> , <span class="number">80h</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span> , <span class="built_in">al</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">;逐列刷新 红  si控制红行 di控制绿行</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset red_buffer <span class="comment">;控制每一列的红8行</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">di</span>,offset green_buffer <span class="comment">;控制每一列的绿8行</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">cl</span>,<span class="number">10000000b</span> <span class="comment">;第一列 颜色通过列线进行输出，281h输出则为第零列为红，282h输出则为第零列为绿 </span></span><br><span class="line"><span class="symbol">again_show_led_col:</span></span><br><span class="line">    <span class="comment">;红列  是控制哪一列是什么颜色的 红:281h 绿：282h 第0列为红色 </span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="built_in">cl</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">281h</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">    <span class="comment">;每一列控制哪一行的红灯亮    这里有问题 对于控制行线来讲，若要红灯亮绿灯不亮则都不会亮（但是由于时间间隔很短，所以我在实验室的效果就是看起来不太亮）</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>]                 <span class="comment">;所以这里必须解决红绿灯互相影响的问题</span></span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">si</span>,<span class="number">1</span>                    <span class="comment">;因为时按列亮灯，共用列，所以不可能在一列中同时显示红灯和绿灯。</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">280h</span>                 <span class="comment">;要不试试逐个点亮  </span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span>                   <span class="comment">;我觉得实验室器材不太好，必不能支持如此高频率的数据传送</span></span><br><span class="line">                                <span class="comment">;所以贪吃蛇只能做到食物和蛇一个颜色，让食物闪烁吧。</span></span><br><span class="line">    <span class="comment">;mov bx ,10000</span></span><br><span class="line">    <span class="comment">;call delay</span></span><br><span class="line">    <span class="comment">;绿列  </span></span><br><span class="line">    <span class="comment">;mov al,cl</span></span><br><span class="line">    <span class="comment">;mov dx,282h</span></span><br><span class="line">    <span class="comment">;out dx,al</span></span><br><span class="line">    <span class="comment">;每一列控制哪一行的绿灯亮</span></span><br><span class="line">    <span class="comment">;mov al,[di]</span></span><br><span class="line">    <span class="comment">;add di,1</span></span><br><span class="line">    <span class="comment">;mov dx,280h    </span></span><br><span class="line">    <span class="comment">;out dx,al</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;显示完每一列进行delay 以bx为参数</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bx</span>,<span class="number">10</span></span><br><span class="line">    <span class="keyword">call</span> delay</span><br><span class="line"></span><br><span class="line">    <span class="comment">;关闭所有的列显示</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="built_in">cl</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">281h</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span>   </span><br><span class="line">    <span class="comment">;mov dx,282h</span></span><br><span class="line">    <span class="comment">;out dx,al</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">shr</span> <span class="built_in">cl</span>,<span class="number">1</span>    <span class="comment">;下一列</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">cl</span>,<span class="number">0</span></span><br><span class="line">    <span class="keyword">jnz</span> again_show_led_col</span><br><span class="line"></span><br><span class="line"><span class="symbol">show_led_end:</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line">show_led endp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;运行贪吃蛇的程序   所有按键信息由中断进行扫描，程序只管从缓冲区中读取即可</span></span><br><span class="line">snake_gluttony proc</span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">dx</span></span><br><span class="line"><span class="comment">;蛇的时间量，每经过100个全局时间量 加一，即蛇每1s移动一次 </span></span><br><span class="line">snake_time <span class="built_in">word</span> <span class="number">0</span> </span><br><span class="line"><span class="symbol">snake_gluttony_begin:</span></span><br><span class="line"><span class="symbol">snake_count_time:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,sync_time_buffer</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bl</span>,<span class="number">100</span></span><br><span class="line">    <span class="keyword">div</span> <span class="built_in">bl</span>      <span class="comment">;得到余数在ah中 商在al</span></span><br><span class="line">    <span class="keyword">xor</span> <span class="number">ah</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">ax</span>,[snake_time]     <span class="comment">;当前时间比之前的时间高</span></span><br><span class="line">    <span class="keyword">ja</span> snake_flush</span><br><span class="line">    <span class="comment">;为防止因为溢出而造成的错误判断</span></span><br><span class="line">    <span class="keyword">mov</span> [snake_time],<span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_count_time</span><br><span class="line"><span class="comment">;snake的时间到了，可以刷新</span></span><br><span class="line"><span class="symbol">snake_flush:</span></span><br><span class="line">    <span class="comment">;ax中存放当前贪吃蛇时间，放入snake_time</span></span><br><span class="line">    <span class="keyword">mov</span> [snake_time],<span class="built_in">ax</span></span><br><span class="line">    <span class="comment">;判断按键，进行贪吃蛇的逻辑操作  ;蛇的前近方向 3:上  0:下  2:左   1:右</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,keyboard_input_buffer</span><br><span class="line">    <span class="comment">;处理键盘的W A S D  10-13位存放</span></span><br><span class="line">    <span class="keyword">shr</span> <span class="built_in">ax</span>,<span class="number">10</span></span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">al</span>,<span class="number">00001111B</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00001000B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_w</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00000100B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_s</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00000010B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_a</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00000001B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_d</span><br><span class="line"></span><br><span class="line">    <span class="comment">;没有任何按键按下则直接进行处理</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"></span><br><span class="line"><span class="comment">;处理按键w</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_w:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">0</span>    <span class="comment">;当前方向不为下时改变方向为上</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">3</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"><span class="comment">;处理按键s</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_s:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">3</span>    <span class="comment">;当前方向不为上时改变方向为下</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">0</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"><span class="comment">;处理按键a</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_a:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">1</span>    <span class="comment">;当前方向不为右时改变方向为左</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">2</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"><span class="comment">;处理按键d</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_d:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">2</span>    <span class="comment">;当前方向不为左时改变方向为右</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">1</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"></span><br><span class="line"><span class="comment">;按键处理完了，处理贪吃蛇的位置</span></span><br><span class="line"><span class="symbol">snake_flush_process:</span></span><br><span class="line">    <span class="comment">;将按键信息清零</span></span><br><span class="line"><span class="symbol">snake_flush_process_clear_key:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,keyboard_input_buffer</span><br><span class="line">    <span class="comment">;处理键盘的W A S D 都置为零</span></span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">ax</span>,<span class="number">1100001111111111B</span></span><br><span class="line">    <span class="keyword">mov</span> keyboard_input_buffer,<span class="built_in">ax</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;位置刷新，根据上一次是否吃了食物决定身体更新策略</span></span><br><span class="line"><span class="comment">;若上一次刷新吃到了食物，则这一次蛇头变为蛇尾的一部分，然后蛇头向前走一步，若没有吃到，则从最后一节开始，每一节的位置时前一个的位置，第一个位置更新为蛇头的位置。</span></span><br><span class="line"><span class="symbol">move_snake_body:</span></span><br><span class="line">    <span class="comment">;每个位置需要两个字节</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset snake_body_buffer </span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">di</span>,snake_body_length        <span class="comment">;其实有没有吃都从最后一节向前更新即可，无非是length的不同</span></span><br><span class="line">    <span class="keyword">dec</span> <span class="built_in">di</span>          <span class="comment">;减一 方便指向每一节</span></span><br><span class="line">    <span class="keyword">shl</span> <span class="built_in">di</span>,<span class="number">1</span>    </span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">di</span>,<span class="built_in">si</span>   <span class="comment">;指向最后一节 目标地址</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,<span class="built_in">di</span></span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">si</span>,<span class="number">2</span>    <span class="comment">;源地址</span></span><br><span class="line"><span class="comment">;更新蛇的身体的每一节，第一节不更新</span></span><br><span class="line"><span class="symbol">move_snake_body_every_section:</span></span><br><span class="line">    <span class="comment">;跟新蛇的尾巴信息 si所指向的</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>]</span><br><span class="line">    <span class="keyword">mov</span> snake_tail_position_x,<span class="built_in">al</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">mov</span> snake_tail_position_y,<span class="built_in">al</span></span><br><span class="line">    <span class="comment">;串传送的个数 （word）第一节不传送</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">cx</span>,snake_body_length</span><br><span class="line">    <span class="keyword">dec</span> <span class="built_in">cx</span>              </span><br><span class="line">    <span class="keyword">std</span>         <span class="comment">;反向传送       </span></span><br><span class="line">    <span class="keyword">rep</span> <span class="keyword">movsw</span>       </span><br><span class="line"></span><br><span class="line"><span class="comment">;更新第一节，将头的位置赋予即可</span></span><br><span class="line"><span class="symbol">move_snake_body_first_section:</span></span><br><span class="line">    <span class="comment">;高位存放纵坐标</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset snake_body_buffer</span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">mov</span> [<span class="built_in">si</span>],<span class="built_in">ax</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;位置刷新，将贪吃蛇头朝对应方向移动一格</span></span><br><span class="line"><span class="symbol">move_snake_head:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">3</span>    <span class="comment">;上</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_up</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">0</span>    <span class="comment">;下</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_down</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">2</span>    <span class="comment">;左</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_left</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">1</span>    <span class="comment">;右</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_right</span><br><span class="line">    <span class="comment">;不可能哪个方向都不对</span></span><br><span class="line">    <span class="comment">;jmp move_snake_head_direction_error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;上</span></span><br><span class="line"><span class="symbol">move_snake_head_up:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="number">1</span>    </span><br><span class="line">    <span class="keyword">jnc</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span>    <span class="comment">;小于0，则从下面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"><span class="comment">;下</span></span><br><span class="line"><span class="symbol">move_snake_head_down:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">ax</span>,<span class="number">1</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">ax</span>,<span class="number">8</span>    </span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">0</span>    <span class="comment">;等于8，超界，则从上面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"><span class="comment">;左</span></span><br><span class="line"><span class="symbol">move_snake_head_left:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="number">1</span>    </span><br><span class="line">    <span class="keyword">jnc</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span>    <span class="comment">;小于0，则从下右面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"><span class="comment">;右</span></span><br><span class="line"><span class="symbol">move_snake_head_right:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">ax</span>,<span class="number">1</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">ax</span>,<span class="number">8</span>    </span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">0</span>    <span class="comment">;等于8 ，则从左面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"></span><br><span class="line"><span class="comment">;判断是否冲突</span></span><br><span class="line"><span class="symbol">snake_judge_conflict:</span></span><br><span class="line">    <span class="comment">;首先判断是否蛇头和食物重合，若没有重合则蛇尾向前一步走，若重合则蛇尾不动，将蛇的身体信息全部向后移动一位</span></span><br><span class="line">    <span class="comment">;清空上一次吃到食物的信息</span></span><br><span class="line">    <span class="keyword">mov</span> food_eaten,<span class="number">0</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,food_x</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict_not_eat</span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,food_y</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict_not_eat</span><br><span class="line">    <span class="comment">;下面时蛇吃了食物 </span></span><br><span class="line">    <span class="keyword">mov</span> food_eaten,<span class="number">1</span></span><br><span class="line">    <span class="keyword">add</span> snake_body_length,<span class="number">1</span></span><br><span class="line"><span class="comment">;生成新的食物 位置为（7-当前蛇头x,7-当前蛇尾y)</span></span><br><span class="line"><span class="symbol">snake_create_new_food:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bx</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">mov</span> food_x,<span class="built_in">al</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bx</span> snake_tail_position_y</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">mov</span> food_y,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="comment">;蛇这一步没有吃到食物</span></span><br><span class="line"><span class="symbol">snake_judge_conflict_not_eat:</span></span><br><span class="line">    <span class="keyword">mov</span> food_eaten,<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;在led点阵中点亮蛇阵 使用红色</span></span><br><span class="line">snake_lighten_led_red：</span><br><span class="line">    <span class="comment">;首先点亮食物</span></span><br><span class="line">    <span class="comment">;写入红色灯亮，ah为行号，al为列号 注意这里 （0，0）在左下角    即ah为y al为x</span></span><br><span class="line">    <span class="comment">;make_it_red proc</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,food_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,food_x</span><br><span class="line">    <span class="keyword">call</span> make_it_red</span><br><span class="line">    <span class="comment">;点亮头</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">call</span> make_it_red</span><br><span class="line">    <span class="comment">;点亮身体</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset snake_body_buffer</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">cx</span>,snake_body_length</span><br><span class="line">snake_lighten_led_red_body：</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>]</span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,[<span class="built_in">si</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">si</span>,<span class="number">2</span></span><br><span class="line">    <span class="keyword">loop</span> snake_lighten_led_red_body</span><br><span class="line"></span><br><span class="line">    <span class="keyword">jmp</span> snake_gluttony_begin</span><br><span class="line"></span><br><span class="line"><span class="symbol">snake_gluttony_end:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line">snake_gluttony endp</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="任务分工"><a href="#任务分工" class="headerlink" title="任务分工"></a>任务分工</h2><p>岳希航：贪吃蛇逻辑控制模块、LED显示模块、声音控制模块、数码管显示模块</p>
+<p>崔文耀：游戏整体逻辑控制模块、全局时钟控制模块、灯光控制模块、红外线输入模块</p>
+]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>nonetag</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪吃蛇结题报告</title>
+    <url>/2021/07/17/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C%E7%BB%93%E9%A2%98%E6%8A%A5%E5%91%8A/</url>
+    <content><![CDATA[<h1 id="贪吃蛇结题报告"><a href="#贪吃蛇结题报告" class="headerlink" title="贪吃蛇结题报告"></a>贪吃蛇结题报告</h1><p><a href="/file/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C.zip">代码</a></p>
+<h2 id="题目意义"><a href="#题目意义" class="headerlink" title="题目意义"></a>题目意义</h2><p>这次微机实验，我们选择的题目是贪吃蛇街机小游戏。简单来讲就是使用微机试验台上的led点阵作为显示屏，配合计数操作显示得分情况，利用键盘进行IO操作的贪吃蛇小游戏。之所以选择这个题目是因为我想在有限的实验条件上极可能的做出一个比较有趣的项目。由此可见，此题目的意义就是探求自己在简陋的实验环境中做出复杂工程的能力，同时也是在检验自己在微机课程中所学到的知识是否扎实。</p>
+<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><ol>
+<li>图像显示<br> 使用led点阵将贪吃蛇的位置和食物的位置显示出来，首先我们必须提供一个底层的方法来方便地将led灯进行点亮，这就促使我们引入了缓存地概念（下面再说）和一个读取缓存地内容进行点亮灯的方法。</li>
+<li>图像显示的缓存<br> 为了方便的进行led的显示，我门引入了缓存的概念，即将要显示的led点阵的信息以比特的形式存储在内存中，命名为red_buffer和green_buffer</li>
+<li>图像操控<br> 为了方便的修改缓存中的信息，我们实现了一个函数将特定位置的额灯的颜色置红，值绿或者置暗。</li>
+<li>中断<br> 使用8253产生定时中断为系统提供时间基准。</li>
+<li>IO输入<br> 由中断驱动进行IO操作，将键盘等的输入存入内存。</li>
+<li>时分复用<br> 由于试验台上的输出端口不够用了，所以为了添加数码管功能，我们引入了时分复用的概念，即利用led点阵灭的那一瞬间将数码管点亮，这样既不会影响led点阵也可以实现点亮数码管。</li>
+</ol>
+<h2 id="采用的主要技术，遇到的难点和解决方法"><a href="#采用的主要技术，遇到的难点和解决方法" class="headerlink" title="采用的主要技术，遇到的难点和解决方法"></a>采用的主要技术，遇到的难点和解决方法</h2><ol>
+<li><p>led点阵驱动<br> led点阵驱动提供了make_it_red、make_it_green、make_it_dark等底层方法来供上层控制led点阵的缓冲区内容，而led点阵驱动的硬件交互部分又通过读取缓冲区的内容来按照用户设想的方式亮灯。</p>
+<ol>
+<li>难点<br> 操作内存与硬件底层相衔接的问题。即如何方便的在软件层面上控制底层led亮。</li>
+<li>解决方法<br> 引入了缓冲区的概念，系统存在两个led点阵的缓冲区，分别为ren_buffer和green_buffer，分别用来存储led点阵上灯亮的信息，这两个缓冲区都为8字节的数据，其中每一个比特控制每一个灯的亮的情况，利用这两个缓冲区就可以将led灯亮的信息存储在内存中，led底层控制模块只需要读取这两个内存区就可以将led点阵按预设的点亮了。</li>
+<li>难点<br> 没有足够的端口点亮数码管</li>
+<li>解决方法<br> 引用了时分复用的概念，将led点阵和数码管点亮的过程时分复用，解决了输出端口不够的问题。由于每一次led点阵点亮过后，存在一段时间led点阵的所有列信息为零，所以此时复用使用的8255PA连接数码管的段码显示，就可以利用有限的端口点亮数码管了。</li>
+</ol>
+</li>
+<li><p>IO输入控制<br> IO输入控制负责定时的读取外设的输入信息，并且将其信息存储到内存中的缓冲区。</p>
+<ol>
+<li>难点<br> 如何定时的获取输入内容</li>
+<li>解决方法<br> 使用8253设置定时中断连接在IRQ10上，由此可以实现定时的扫描键盘等外设的输入，键盘输入程序中使用BIOS提供的16号中断获取键盘输入数据。</li>
+<li>难点<br> 如何在将外设的输入存储到内存中。</li>
+<li>解决方法<br> 以键盘为例，在内存中开辟一个键盘输入的缓冲区，keyboard_input，其为16位的字，低1位到第9位存储了1-9按键是否被按下的信息。10-13存储WASD按键的信息。</li>
+</ol>
+</li>
+<li><p>时间同步<br> 程序需要一个全局的同步时间量来控制每一个模块进行同步操作。</p>
+<ol>
+<li>难点<br> 如何获取当前时间呢。</li>
+<li>解决方法<br> 在上文提到的额中断程序中加上时间量处理，即每一次中断将全局的时间同步量加一。</li>
+</ol>
+</li>
+<li><p>状态机<br> 整个程序就是一个巨大的状态机。</p>
+<ol>
+<li>难点<br> 控制每一个状态的转换</li>
+<li>解决方法<br> 使用一个缓冲区status来存储当前状态信息，程序利用该内存数据进行状态的转移。</li>
+</ol>
+</li>
+</ol>
+<h2 id="实现的主要功能和系统结构"><a href="#实现的主要功能和系统结构" class="headerlink" title="实现的主要功能和系统结构"></a>实现的主要功能和系统结构</h2><h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ol>
+<li><p>状态机。<br> 整个程序就是一个巨大的状态机。使用一个缓冲区status来存储当前状态信息，程序利用该内存数据进行状态的转移。</p>
+</li>
+<li><p>键盘输入。<br> 读取键盘输入并存储</p>
+</li>
+<li><p>点亮数码管。<br> 将游戏的得分信息在使用数码管进行显示。</p>
+</li>
+<li><p>控制led点阵任一灯的亮暗。</p>
+</li>
+<li><p>控制led点阵按预定信息亮。</p>
+</li>
+<li><p>贪吃蛇主体程序</p>
+</li>
+<li><p>输入信息处理程序</p>
+</li>
+<li><p>时间同步程序</p>
+</li>
+</ol>
+<h3 id="系统结构"><a href="#系统结构" class="headerlink" title="系统结构"></a>系统结构</h3><p>时间同步程序为所有的程序提供一个时间的基本量，中断程序为负责定时读取输入和更新时间同步量，向上提供输入和同步，状态处理模块负责读取输入信息和状态信息进行状态的控制操作。在进入贪吃蛇主体程序之后，程序通过读取外设的输入信息控制贪吃蛇的移动，并通过贪吃蛇的逻辑控制来控制贪吃蛇的状态信息，并且实时的调用led点阵来动态显示贪吃蛇的位置以及使用数码管动态显示贪吃蛇得分信息。</p>
+<h2 id="相关技术说明"><a href="#相关技术说明" class="headerlink" title="相关技术说明"></a>相关技术说明</h2><ol>
+<li><p>缓冲区<br> 程序的所有所欲信息和状态都存储在缓冲区中，功能之间上下游分别负责存入和读取改变缓冲区，由此来驱动程序的运行。</p>
+ <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;红色   颜色是通过列线进行输出的</span></span><br><span class="line">red_buffer   <span class="keyword">byte </span><span class="number">8</span> dup(<span class="number">0</span>)</span><br><span class="line"><span class="comment">;绿色</span></span><br><span class="line">green_buffer <span class="keyword">byte </span><span class="number">8</span> dup(<span class="number">0</span>)</span><br><span class="line"><span class="comment">;infrared_input_buffer  存储红外线输入的缓冲区  每一个bit可以自由定义其含义</span></span><br><span class="line">infrared_input_buffer word <span class="number">0</span></span><br><span class="line"><span class="comment">;keyboard_input_buffer 存储键盘输入的缓冲区  每一个bit可以自由定义其含义</span></span><br><span class="line">keyboard_input_buffer word <span class="number">0</span></span><br><span class="line"><span class="comment">;Status buffer 状态缓冲区，用来存放程序运行的各种状态</span></span><br><span class="line">status_buffer word <span class="number">0</span></span><br><span class="line"><span class="comment">;时间缓冲区，负责提供同步信息 由中断程序每隔10ms加一</span></span><br><span class="line"><span class="keyword">sync_time_buffer </span>word <span class="number">0</span></span><br><span class="line"><span class="comment">;蛇身位置 不包含蛇头 蛇的每一个位置需要两个字节，8*8*2=128B</span></span><br><span class="line">snake_body_buffer <span class="keyword">byte </span><span class="number">128</span> dup(<span class="number">0</span>)</span><br><span class="line"><span class="comment">;蛇身的长度，不包括蛇头，也是当前的分数</span></span><br><span class="line">snake_body_length word <span class="number">0</span></span><br><span class="line"><span class="comment">;蛇头位置</span></span><br><span class="line">snake_head_position_x <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line">snake_head_position_y <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;蛇尾位置</span></span><br><span class="line">snake_tail_position_x <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line">snake_tail_position_y <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;食物位置</span></span><br><span class="line">food_x <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line">food_y <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;是否吃了食物 0:没有 1:吃了</span></span><br><span class="line">food_eaten <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;碰撞与否</span></span><br><span class="line">collision <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;蛇的前近方向 2:上 0：下 2;左 1：右</span></span><br><span class="line">snake_direction <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;保存原中断程序入口</span></span><br><span class="line">int_<span class="symbol">0b</span>_seg word <span class="number">0</span></span><br><span class="line">int_<span class="symbol">0b</span>_off word <span class="number">0</span></span><br><span class="line"><span class="comment">;蛇的时间量，每经过100个全局时间量 加一，即蛇每1s移动一次 </span></span><br><span class="line">snake_time word <span class="number">0</span></span><br><span class="line"><span class="comment">;数码管</span></span><br><span class="line">ledtb <span class="keyword">byte </span><span class="number">3</span>fh,<span class="number">06</span>h,<span class="number">5</span>bh,<span class="number">4</span>fh,<span class="number">66</span>h,<span class="number">6</span>dh,<span class="number">7</span>dh,<span class="number">07</span>h,<span class="number">7</span>fh,<span class="number">6</span>fh</span><br><span class="line"><span class="comment">;得分（当前长度减去初始长度）存储  分别存储四个数码管的数字</span></span><br><span class="line">lednum <span class="keyword">byte </span><span class="number">4</span> dup(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>状态机。<br> 整个程序就是一个巨大的状态机。使用一个缓冲区status来存储当前状态信息，程序利用该内存数据进行状态的转移。</p>
+</li>
+<li><p>IO输入控制<br> IO输入控制负责定时的读取外设的输入信息，并且将其信息存储到内存中的缓冲区。<br> 使用8253设置定时中断连接在IRQ10上，由此可以实现定时的扫描键盘等外设的输入，键盘输入程序中使用BIOS提供的16号中断获取键盘输入数据。在内存中开辟一个键盘输入的缓冲区，keyboard_input，其为16位的字，低1位到第9位存储了1-9按键是否被按下的信息。10-13存储WASD按键的信息。</p>
+</li>
+<li><p>led点阵驱动<br> led点阵驱动提供了make_it_red、make_it_green、make_it_dark等底层方法来供上层控制led点阵的缓冲区内容，而led点阵驱动的硬件交互部分又通过读取缓冲区的内容来按照用户设想的方式亮灯。系统存在两个led点阵的缓冲区，分别为ren_buffer和green_buffer，分别用来存储led点阵上灯亮的信息，这两个缓冲区都为8字节的数据，其中每一个比特控制每一个灯的亮的情况，利用这两个缓冲区就可以将led灯亮的信息存储在内存中，led底层控制模块只需要读取这两个内存区就可以将led点阵按预设的点亮了。将led点阵和数码管点亮的过程时分复用，解决了输出端口不够的问题。由于每一次led点阵点亮过后，存在一段时间led点阵的所有列信息为零，所以此时复用使用的8255PA连接数码管的段码显示，就可以利用有限的端口点亮数码管了。</p>
+</li>
+</ol>
+<h2 id="总结和体会"><a href="#总结和体会" class="headerlink" title="总结和体会"></a>总结和体会</h2><p>计算机领域的知识都是相通的，之前在操作系统学到了复用的概念于是在本次实验中就利用复用解决了输出端口不够的问题。还有缓冲区的概念和封装的和概念。程序将分散的功能封装为一个一个小模块，使得程序的调用更加方便了。缓冲区为个模块提供信息交互的通道。</p>
+<p>计算机知识博大精深，要好好学习。不要沉迷于上层技术，其实底层原理是更加令人着迷的，只要学好了计算机的底层原理，使用计算机底层原理的方式进行思考问题往往会获得意想不到的结果。</p>
+]]></content>
+      <categories>
+        <category>微机</category>
+      </categories>
+      <tags>
+        <tag>微机</tag>
       </tags>
   </entry>
   <entry>
@@ -1896,8 +2329,8 @@ id_rsa_cuiwenyao.pub
         <category>微机</category>
       </categories>
       <tags>
-        <tag>期末复习</tag>
         <tag>微机</tag>
+        <tag>期末复习</tag>
       </tags>
   </entry>
   <entry>
@@ -3793,8 +4226,8 @@ id_rsa_cuiwenyao.pub
         <category>微机</category>
       </categories>
       <tags>
-        <tag>期末复习</tag>
         <tag>微机</tag>
+        <tag>期末复习</tag>
       </tags>
   </entry>
   <entry>
@@ -3914,439 +4347,6 @@ id_rsa_cuiwenyao.pub
       <tags>
         <tag>数据结构</tag>
         <tag>线性表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>opencv 1 配置环境与图像的基本操作</title>
-    <url>/2021/07/11/opencv-1-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h1 id="opencv-1-配置环境与图像的基本操作"><a href="#opencv-1-配置环境与图像的基本操作" class="headerlink" title="opencv 1 配置环境与图像的基本操作"></a>opencv 1 配置环境与图像的基本操作</h1><p>最近习惯使用vscode作为主力编辑器，所以这次学习opencv也是用vscode，顺便学习以下python。      </p>
-<p>我的环境是：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">python</span> <span class="number">3</span>.<span class="number">9</span>.<span class="number">6</span></span><br><span class="line"><span class="attribute">opencv</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><ol>
-<li><p>python.org安装python</p>
-</li>
-<li><p>配置环境变量，maybe已自动配置</p>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>vscode安装python的扩展</p>
-</li>
-<li><p>运行代码。右键选择在python终端中执行代码。</p>
-</li>
-<li><p>注意vscode的路径问题。当前路径是pwd所展示的，和文件的具体位置无关。这个问题在昨天在vs上面写XYY_Game_Engine时也遇到了，注意路径问题，关键时找到pwd到底是什么。对于vs来说是main在的路径，对于命令行来讲是pwd。</p>
-</li>
-</ol>
-<p><strong>shift -f vscode, 还是直接使用pycharm吧，就是jetbrains家的ide太难看了。</strong></p>
-<h2 id="opencv-图像基本操作"><a href="#opencv-图像基本操作" class="headerlink" title="opencv 图像基本操作"></a>opencv 图像基本操作</h2>]]></content>
-      <categories>
-        <category>opencv</category>
-      </categories>
-      <tags>
-        <tag>opencv</tag>
-        <tag>python</tag>
-        <tag>图像处理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmake 使用</title>
-    <url>/2021/07/13/cmake-%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="CMmake"><a href="#CMmake" class="headerlink" title="CMmake"></a>CMmake</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>简单来讲，cmake是一个跨平台的makefile生成器。大型项目的额makefile实在是太繁琐了。学习cmake就是在学习其语法。一般来讲，只有在使用c/c++做一个大项目的时候才用得到cmake</p>
-<h2 id="基本命令简介"><a href="#基本命令简介" class="headerlink" title="基本命令简介"></a>基本命令简介</h2><h3 id="project"><a href="#project" class="headerlink" title="project"></a>project</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">PROJECT(&lt;projectname&gt; <span class="selector-attr">[CXX]</span> <span class="selector-attr">[C]</span> <span class="selector-attr">[Java]</span>)</span><br></pre></td></tr></table></figure>
-
-<p>指定生成项目的名字，可选项目语言（默认位全选）<br>同时 cmake 系统也帮助我们预定义了<br>PROJECT_BINARY_DIR 指向生成的项目的路径（build） 和<br>PROJECT_SOURCE_DIR  指向项目源文件的路径(source)</p>
-<h3 id="MESSAGE"><a href="#MESSAGE" class="headerlink" title="MESSAGE"></a>MESSAGE</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">MESSAGE</span><span class="params">([SEND_ERROR | STATUS | FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span></span></span><br></pre></td></tr></table></figure>
-<p>这个指令用于向终端输出用户定义的信息，包含了三种类型:</p>
-<ol>
-<li>SEND_ERROR，产生错误，生成过程被跳过。</li>
-<li>SATUS，输出前缀为—的信息。</li>
-<li>FATAL_ERROR，立即终止所有 cmake 过程. </li>
-</ol>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">MESSAGE</span>(STATUS <span class="string">&quot;build &quot;</span> <span class="variable">$&#123;PROJECT_BINARY_DIR&#125;</span> <span class="string">&quot; source &quot;</span> <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h3><p>显式地定义变量</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">SET(SRC_LIST <span class="params">main</span>.<span class="params">c</span> <span class="params">t1</span>.<span class="params">c</span> <span class="params">t2</span>.<span class="params">c</span>)</span></span><br></pre></td></tr></table></figure>
-
-<p>将 main.c t1.c t2.c 定义为源文件列表</p>
-<h3 id="ADD-EXECUTABLE"><a href="#ADD-EXECUTABLE" class="headerlink" title="ADD_EXECUTABLE"></a>ADD_EXECUTABLE</h3><p>生成可执行文件</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">ADD_EXECUTABLE</span><span class="params">(hello $&#123;SRC_LIST&#125;)</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="ADD-SUBDIRECTORY"><a href="#ADD-SUBDIRECTORY" class="headerlink" title="ADD_SUBDIRECTORY"></a>ADD_SUBDIRECTORY</h3><p>位当前目录添加一个子目录 </p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">ADD_SUBDIRECTORY(<span class="params">source_dir</span> [<span class="params">binary_dir</span>] [EXCLUDE_FROM_ALL])</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="INSTALL"><a href="#INSTALL" class="headerlink" title="INSTALL"></a>INSTALL</h3><p>CMAKE_INSTALL_PREFIX</p>
-<p>DESTINATION 定义了安装的路径，如果路径以/开头，那么指的是绝对路径，这时候<br>CMAKE_INSTALL_PREFIX 其实就无效了。如果你希望使用 CMAKE_INSTALL_PREFIX 来定义安装路径，就要写成相对路径，即不要以/开头，那么安装后的路径就是<br>${CMAKE_INSTALL_PREFIX}/&lt;DESTINATION 定义的路径&gt;</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSTALL</span>(TARGETS myrun mylib mystaticlib</span><br><span class="line">RUNTIME DESTINATION bin</span><br><span class="line">LIBRARY DESTINATION lib</span><br><span class="line">ARCHIVE DESTINATION libstatic )</span><br><span class="line"></span><br><span class="line">上面的例子会将： </span><br><span class="line">可执行二进制 myrun 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/bin 目录 </span><br><span class="line">动态库 libmylib 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/lib 目录 </span><br><span class="line">静态库 libmystaticlib 安装到<span class="variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span>/libstatic 目录</span><br></pre></td></tr></table></figure>
-
-<p>普通文件的安装</p>
-<figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">INSTALL(FILES files... DESTINATION &lt;dir&gt;</span><br><span class="line"> <span class="comment">[PERMISSIONS permissions...]</span></span><br><span class="line"> <span class="comment">[CONFIGURATIONS <span class="comment">[Debug|Release|...]</span>]</span></span><br><span class="line"> <span class="comment">[COMPONENT &lt;component&gt;]</span></span><br><span class="line"> <span class="comment">[RENAME &lt;name&gt;]</span> <span class="comment">[OPTIONAL]</span>)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="ADD-LIBRARY"><a href="#ADD-LIBRARY" class="headerlink" title="ADD_LIBRARY"></a>ADD_LIBRARY</h3><figure class="highlight vbnet"><table><tr><td class="code"><pre><span class="line">ADD_LIBRARY(libname [<span class="keyword">SHARED</span>|<span class="keyword">STATIC</span>|<span class="keyword">MODULE</span>]</span><br><span class="line"> [EXCLUDE_FROM_ALL]</span><br><span class="line"> source1 source2 ... sourceN)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="SET-TARGET-PROPERTIES"><a href="#SET-TARGET-PROPERTIES" class="headerlink" title="SET_TARGET_PROPERTIES"></a>SET_TARGET_PROPERTIES</h3><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">SET_TARGET_PROPERTIES</span>(target<span class="number">1</span> target<span class="number">2</span> ...</span><br><span class="line"> <span class="attribute">PROPERTIES</span> prop<span class="number">1</span> value<span class="number">1</span></span><br><span class="line"> <span class="attribute">prop2</span> value<span class="number">2</span> ...)</span><br></pre></td></tr></table></figure>
-
-<h3 id="GET-TARGET-PROPERTY"><a href="#GET-TARGET-PROPERTY" class="headerlink" title="GET_TARGET_PROPERTY"></a>GET_TARGET_PROPERTY</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">与他对应的指令是：</span><br><span class="line"><span class="function"><span class="title">GET_TARGET_PROPERTY</span><span class="params">(VAR target property)</span></span></span><br><span class="line">具体用法如下例，我们向 lib/CMakeListst<span class="selector-class">.txt</span> 中添加：</span><br><span class="line"><span class="function"><span class="title">GET_TARGET_PROPERTY</span><span class="params">(OUTPUT_VALUE hello_static OUTPUT_NAME)</span></span></span><br><span class="line">MESSAGE(STATUS “This is the hello_static</span><br><span class="line">OUTPUT_NAME:”$&#123;OUTPUT_VALUE&#125;)</span><br><span class="line">如果没有这个属性定义，则返回 NOTFOUND.</span><br></pre></td></tr></table></figure>
-
-<h3 id="INCLUDE-DIRECTORIES"><a href="#INCLUDE-DIRECTORIES" class="headerlink" title="INCLUDE_DIRECTORIES"></a>INCLUDE_DIRECTORIES</h3><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">现在我们在 src/<span class="module-access"><span class="module"><span class="identifier">CMakeLists</span>.</span></span>txt 中添加一个头文件搜索路径，方式很简单，加入：</span><br><span class="line"><span class="constructor">INCLUDE_DIRECTORIES(<span class="operator">/</span><span class="params">usr</span><span class="operator">/</span><span class="params">include</span><span class="operator">/</span><span class="params">hello</span>)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="LINK-DIRECTORIES"><a href="#LINK-DIRECTORIES" class="headerlink" title="LINK_DIRECTORIES"></a>LINK_DIRECTORIES</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">LINK_DIRECTORIES</span>(<span class="params">directory1 directory2 ...</span>)</span></span><br></pre></td></tr></table></figure>
-
-<p>这个指令非常简单，添加非标准的共享库搜索路径，比如，在工程内部同时存在共享库和可 执行二进制，在编译时就需要指定一下这些共享库的路径。这个例子中我们没有用到这个指 令。</p>
-<h3 id="TARGET-LINK-LIBRARIES"><a href="#TARGET-LINK-LIBRARIES" class="headerlink" title="TARGET_LINK_LIBRARIES"></a>TARGET_LINK_LIBRARIES</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">TARGET_LINK_LIBRARIES</span>(<span class="keyword">target</span> library1</span><br><span class="line"> &lt;debug | optimized&gt; library2</span><br><span class="line"> ...)</span><br><span class="line">这个指令可以用来为 <span class="keyword">target</span> 添加需要链接的共享库，本例中是一个可执行文件，但是同样</span><br><span class="line">可以用于为自己编写的共享库添加共享库链接。</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-<h2 id="cmake-学习-assimp的经验"><a href="#cmake-学习-assimp的经验" class="headerlink" title="cmake 学习 assimp的经验"></a>cmake 学习 assimp的经验</h2><h3 id="项目文件目录"><a href="#项目文件目录" class="headerlink" title="项目文件目录"></a>项目文件目录</h3><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">code</span><br><span class="line">    <span class="comment">--项目的各种代码文件夹</span></span><br><span class="line">    <span class="comment">--CMakeLists.txt</span></span><br><span class="line">contrib</span><br><span class="line">    <span class="comment">--各种依赖的文件夹</span></span><br><span class="line">doc</span><br><span class="line"><span class="built_in">include</span></span><br><span class="line">    <span class="comment">--项目的头文件，对外的接口</span></span><br><span class="line">samples</span><br><span class="line">tests</span><br><span class="line">tools</span><br><span class="line">readme.md</span><br><span class="line">CMakeLists.txt</span><br></pre></td></tr></table></figure>
-
-<p>特点：</p>
-<ol>
-<li>对别的项目的依赖不使用自己编译好的lib或者dll，而是直接使用源文件。估计编译assimp的时候把这些源文件都编译了一遍</li>
-<li>code文件夹就放自己的代码。</li>
-<li>include文件夹就负责对外提供接口。</li>
-<li>只使用两个CMakeLists.txt,根目录下的负责项目的整体信息描述，code目录下的负责对文件的编译。</li>
-</ol>
-<h3 id="cmake-编写"><a href="#cmake-编写" class="headerlink" title="cmake 编写"></a>cmake 编写</h3><p>太复杂了，我现在并看不懂。但并不像我这样每一个模块编写一个CMakeLists.txt进行cmake，而是根目录下的负责项目的整体信息描述，code目录下的负责对文件的编译。</p>
-<h3 id="项目编译"><a href="#项目编译" class="headerlink" title="项目编译"></a>项目编译</h3><ol>
-<li>首先按照上面的文件目录进行编排。</li>
-<li>编写CMakeLists.txt 文件<ol>
-<li>最好编译成动态链接库，不然没有办法将项目的静态依赖库lib文件包含在内。</li>
-<li>若项目的依赖中存在动态库，比如assimp 时，就没办法将其包含在内了，只能让用户显式地使用assimp.</li>
-</ol>
-</li>
-<li>将项目的头文件列举出来保存到include文件夹中，这里面的就是提供给用户的接口，将不想提供给用户的接口删除即可。</li>
-<li>记得cmake中进行install，将所有需要提供给用户的文件全部放在最显眼的地方。</li>
-</ol>
-<h3 id="CMakeLists-txt-编写"><a href="#CMakeLists-txt-编写" class="headerlink" title="CMakeLists.txt 编写"></a>CMakeLists.txt 编写</h3><p>我现在对编译有关的知识了解甚少，所以现在只能使用一些最基础的东西，日后会对编译有更深得了解。</p>
-<ol>
-<li><p>cmake的最下版本要求</p>
-</li>
-<li><p>确定项目的名称</p>
-</li>
-<li><p>确定项目的目录安排</p>
-</li>
-<li><p>确定项目的包含目录和库目录</p>
-</li>
-<li><p>确定项目生成目标位置</p>
-</li>
-<li><p>确定项目的额依赖</p>
-</li>
-<li><p>确定目标使用的文件并安排成组</p>
-</li>
-<li><p>确定目标工程的筛选器</p>
-</li>
-<li><p>编译项目</p>
-</li>
-<li><p>安装项目</p>
-</li>
-</ol>
-<h3 id="Demo-list"><a href="#Demo-list" class="headerlink" title="Demo list"></a>Demo list</h3><h2 id="XYY-Game-Engine-的构建示例"><a href="#XYY-Game-Engine-的构建示例" class="headerlink" title="XYY_Game_Engine 的构建示例"></a>XYY_Game_Engine 的构建示例</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># CMake 最低版本号要求</span></span><br><span class="line">cmake_minimum_required (VERSION <span class="number">3.20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 项目信息</span></span><br><span class="line">project(XYY_Game_Engine)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#变量设置   主要是目录变量</span></span><br><span class="line"><span class="comment">#CMAKE_INSTALL_PREFIX</span></span><br><span class="line">set(CMAKE_INSTALL_PREFIX <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span>)</span><br><span class="line"><span class="comment">#code目录</span></span><br><span class="line">set(CODE_ROOT_PATH <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>)</span><br><span class="line"><span class="comment">#build目录</span></span><br><span class="line">set(BUILD_PATH <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>)</span><br><span class="line"><span class="comment">#存放生成的lib的目录</span></span><br><span class="line">set(LIB_PATH <span class="variable">$&#123;BUILD_PATH&#125;</span><span class="regexp">/../</span>lib/)</span><br><span class="line"><span class="comment">#存放生成的dll的目录</span></span><br><span class="line">set(DLL_PATH <span class="variable">$&#123;BUILD_PATH&#125;</span><span class="regexp">/../</span>dll/)</span><br><span class="line"><span class="comment">#编译所需包含目录</span></span><br><span class="line">set(INCLUDE_PATH_CODE <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span>)</span><br><span class="line">set(INCLUDE_PATH_CONTRIB <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/contrib/i</span>nclude/)</span><br><span class="line"><span class="comment">#编译所需库目录</span></span><br><span class="line">set(LIBRARY_PATH_CONTRIB <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/contrib/</span>lib/)</span><br><span class="line"><span class="comment">#设置test路径</span></span><br><span class="line">set(TEST_PATH <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/)</span><br><span class="line"><span class="comment">#指定程序的包含目录 库目录</span></span><br><span class="line"><span class="comment">#引用目录</span></span><br><span class="line"><span class="comment">#INCLUDE_DIRECTORIES($&#123;INCLUDE_PATH_CODE&#125;)</span></span><br><span class="line">INCLUDE_DIRECTORIES(<span class="variable">$&#123;INCLUDE_PATH_CONTRIB&#125;</span>)</span><br><span class="line">INCLUDE_DIRECTORIES(<span class="variable">$&#123;TEST_PATH&#125;</span>/include)</span><br><span class="line"><span class="comment">#库目录 将生成的lib 目录也包含在内，为了给test使用</span></span><br><span class="line">LINK_DIRECTORIES(<span class="variable">$&#123;LIBRARY_PATH_CONTRIB&#125;</span>)</span><br><span class="line">LINK_DIRECTORIES(<span class="variable">$&#123;LIB_PATH&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置目标的属性 </span></span><br><span class="line"><span class="keyword">function</span>(SetDefaultTargetProperties target)</span><br><span class="line">	<span class="comment">#程序生成文件的目录   </span></span><br><span class="line">	set_target_properties(<span class="variable">$&#123;target&#125;</span> PROPERTIES</span><br><span class="line">		ARCHIVE_OUTPUT_DIRECTORY <span class="variable">$&#123;LIB_PATH&#125;</span></span><br><span class="line">		LIBRARY_OUTPUT_DIRECTORY <span class="variable">$&#123;LIB_PATH&#125;</span></span><br><span class="line">		RUNTIME_OUTPUT_DIRECTORY <span class="variable">$&#123;DLL_PATH&#125;</span></span><br><span class="line">	)</span><br><span class="line">endfunction()</span><br><span class="line"></span><br><span class="line"><span class="comment">#MESSAGE(STATUS $&#123;LIB_PATH&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#code的编译  得到 XYY_Game_Engine.lib XYY_Game_Engine.dll </span></span><br><span class="line">add_subdirectory(<span class="variable">$&#123;CODE_ROOT_PATH&#125;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#放入 lib 文件夹</span></span><br><span class="line">INSTALL(TARGETS</span><br><span class="line">    XYY_Game_Engine</span><br><span class="line">    LIBRARY DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/lib/</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#放入 bin 中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(EXISTS   <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>Debug/XYY_Game_Engine.dll)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>Debug/XYY_Game_Engine.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span></span><br><span class="line">)</span><br><span class="line">endif()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(EXISTS    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>assimp-vc142-mt.dll)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/dll/</span>assimp-vc142-mt.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span>/bin</span><br><span class="line">)</span><br><span class="line">endif()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#对 test 增加支持   dll  release  test 所有的引用都来原来自include中的</span></span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>assimp-vc142-mt.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Release</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>XYY_Game_Engine.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Release</span><br><span class="line">)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>assimp-vc142-mt.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Debug</span><br><span class="line">)</span><br><span class="line">INSTALL(FILES</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/bin/</span>XYY_Game_Engine.dll</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/build/</span>test/Debug</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Driver</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Driver/</span>*.hpp</span><br><span class="line">)</span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Driver_LocalDriver</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Driver/</span>LocalDriver/*.h</span><br><span class="line">)</span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Driver_Global</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Driver/</span>GlobalDriver/*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Element</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Element</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Element/</span>*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Resource</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Resource/</span>*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Scene</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Scene/</span>*.h</span><br><span class="line">)</span><br><span class="line"><span class="comment">#SRC_Sync</span></span><br><span class="line">FILE(</span><br><span class="line">    GLOB_RECURSE Header_Sync</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span><span class="regexp">/Sync/</span>*.h</span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Driver&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Driver/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Driver_LocalDriver&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Driver/</span>LocalDriver/</span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Driver_Global&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Driver/</span>GlobalDriver/</span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Element&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Element/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Resource&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Resource/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Scene&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Scene/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    FILES</span><br><span class="line">    <span class="variable">$&#123;Header_Sync&#125;</span></span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CODE&#125;</span><span class="regexp">/Sync/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>Scxmlexample</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>resources</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span></span><br><span class="line">)</span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/code/</span>GLSL</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># example </span></span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span>Scxmlexample</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;TEST_PATH&#125;</span>/</span><br><span class="line">)</span><br><span class="line"><span class="comment"># resources</span></span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span><span class="regexp">/include/</span>resources</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;TEST_PATH&#125;</span>/</span><br><span class="line">)</span><br><span class="line"><span class="comment"># header</span></span><br><span class="line">INSTALL(</span><br><span class="line">    DIRECTORY</span><br><span class="line">    <span class="variable">$&#123;CMAKE_CURRENT_LIST_DIR&#125;</span>/include</span><br><span class="line">    DESTINATION</span><br><span class="line">    <span class="variable">$&#123;TEST_PATH&#125;</span>/</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#target 测试</span></span><br><span class="line">add_subdirectory(test)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment">#code </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#code 中的所有文件</span></span><br><span class="line"><span class="keyword">FILE</span>(GLOB_RECURSE SOURCE_CODE       </span><br><span class="line">    Driver/*</span><br><span class="line">    Driver/LocalDriver/*</span><br><span class="line">    Driver/GlobalDriver/*</span><br><span class="line">    Element/*</span><br><span class="line">    Resource/*</span><br><span class="line">    Scene/*</span><br><span class="line">    Sync/*</span><br><span class="line">    <span class="variable">$&#123;INCLUDE_PATH_CONTRIB&#125;</span>/*.c</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#组织 file </span></span><br><span class="line"><span class="comment">#Driver</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Driver</span><br><span class="line">    Driver/*.hpp</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Driver FILES <span class="variable">$&#123;SRC_Driver&#125;</span>)</span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Driver_LocalDriver</span><br><span class="line">    Driver/LocalDriver/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Driver//LocalDriver FILES <span class="variable">$&#123;SRC_Driver_LocalDriver&#125;</span>)</span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Driver_Global</span><br><span class="line">    Driver/GlobalDriver/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Driver//GlobalDriver FILES <span class="variable">$&#123;SRC_Driver_Global&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Element</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Element</span><br><span class="line">    Element/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Element FILES <span class="variable">$&#123;SRC_Element&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Resource</span><br><span class="line">    Resource/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Resource FILES <span class="variable">$&#123;SRC_Resource&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Resource</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Scene</span><br><span class="line">    Scene/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Scene FILES <span class="variable">$&#123;SRC_Scene&#125;</span>)</span><br><span class="line"><span class="comment">#SRC_Sync</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Sync</span><br><span class="line">    Sync/*</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Sync FILES <span class="variable">$&#123;SRC_Sync&#125;</span>)</span><br><span class="line"><span class="comment">#xml</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Scxmlexample</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span>/Scxmlexample/*.xml</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Scxmlexample FILES <span class="variable">$&#123;SRC_Scxmlexample&#125;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB DEPENDENCE_LIB</span><br><span class="line">    <span class="variable">$&#123;LIBRARY_PATH_CONTRIB&#125;</span>/*.lib</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成链接库</span></span><br><span class="line"><span class="keyword">add_library</span>(XYY_Game_Engine SHARED <span class="variable">$&#123;SOURCE_CODE&#125;</span> <span class="variable">$&#123;SRC_Scxmlexample&#125;</span>)</span><br><span class="line">SetDefaultTargetProperties(XYY_Game_Engine)</span><br><span class="line"><span class="comment">#  应该还要加上 opengl32.lib</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(XYY_Game_Engine   </span><br><span class="line">opengl32  </span><br><span class="line">glfw3.lib </span><br><span class="line">assimp-vc142-mt.lib  </span><br><span class="line">tinyxml.lib  </span><br><span class="line">kernel32.lib</span><br><span class="line">user32.lib</span><br><span class="line">gdi32.lib</span><br><span class="line">winspool.lib</span><br><span class="line">comdlg32.lib</span><br><span class="line">advapi32.lib</span><br><span class="line">shell32.lib</span><br><span class="line">ole32.lib</span><br><span class="line">oleaut32.lib</span><br><span class="line">uuid.lib</span><br><span class="line">odbc32.lib</span><br><span class="line">odbccp32.lib</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment">#对于每一个项目，其相对路径的起始位置是 vs 那一对文件的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#xml</span></span><br><span class="line"><span class="keyword">FILE</span>(</span><br><span class="line">    GLOB_RECURSE SRC_Scxmlexample_test</span><br><span class="line">    <span class="variable">$&#123;CODE_ROOT_PATH&#125;</span>/Scxmlexample/*.xml</span><br><span class="line">)</span><br><span class="line"><span class="keyword">source_group</span>(Scxmlexample FILES <span class="variable">$&#123;SRC_Scxmlexample_test&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#test1</span></span><br><span class="line"><span class="keyword">add_executable</span>(test1 test1.cpp <span class="variable">$&#123;SRC_Scxmlexample_test&#125;</span>)</span><br><span class="line"><span class="keyword">ADD_DEPENDENCIES</span>(test1 XYY_Game_Engine)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(test1 XYY_Game_Engine)</span><br><span class="line"></span><br><span class="line"><span class="comment">#test1</span></span><br><span class="line"><span class="keyword">add_executable</span>(test2 test2.cpp <span class="variable">$&#123;SRC_Scxmlexample_test&#125;</span>)</span><br><span class="line"><span class="keyword">ADD_DEPENDENCIES</span>(test1 XYY_Game_Engine)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(test2 XYY_Game_Engine)</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>tools</category>
-        <category>cmake</category>
-      </categories>
-      <tags>
-        <tag>项目构建</tag>
-        <tag>cmake</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>双创工作日志</title>
-    <url>/2021/07/16/%E5%8F%8C%E5%88%9B%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/</url>
-    <content><![CDATA[<h1 id="双创工作日志"><a href="#双创工作日志" class="headerlink" title="双创工作日志"></a>双创工作日志</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><h3 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h3><p>确定要做的项目的大概方向。</p>
-<h3 id="存在问题及解决办法"><a href="#存在问题及解决办法" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>暂时只知道要去找做一个项目，具体要做什么还不是很清楚。还要再看看资料多了解一下前沿知识。</p>
-<h3 id="体会和建议"><a href="#体会和建议" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学海无涯，想要做出一点厉害的东西只有好好学习。</p>
-<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><h3 id="工作内容-1"><a href="#工作内容-1" class="headerlink" title="工作内容"></a>工作内容</h3><p>确定了项目的大概方向是做一个3D方向的软件。</p>
-<h3 id="存在问题及解决办法-1"><a href="#存在问题及解决办法-1" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>只是直到项目大概要做一个3D方向的软件，至于真正的要做出来什么还不确定。</p>
-<h3 id="体会和建议-1"><a href="#体会和建议-1" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>要好好学习，多学习一些技术才能在要做事情的时候不至于只知道做什么。</p>
-<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><h3 id="工作内容-2"><a href="#工作内容-2" class="headerlink" title="工作内容"></a>工作内容</h3><p>查阅大量资料，了解有关3D的知识，直到制作一个3D场景的途径和相关知识。</p>
-<h3 id="存在问题及解决办法-2"><a href="#存在问题及解决办法-2" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然知道了有关3D的相关知识，涉及到了有关3D的一些领域。但是对于真正的使用3D知识做出来一些东西还是没有什么确切的了解。需要继续学习。</p>
-<h3 id="体会和建议-2"><a href="#体会和建议-2" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>永远都到学习，只有学习的东西足够的多才能直到自己可以做出什么。</p>
-<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><h3 id="工作内容-3"><a href="#工作内容-3" class="headerlink" title="工作内容"></a>工作内容</h3><p>了解有关3D图像学的知识，知道了图形学的集大成者，游戏引擎。于是确定目标要做一个游戏引擎。</p>
-<h3 id="存在问题及解决办法-3"><a href="#存在问题及解决办法-3" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然确定了目标是做出一个游戏引擎，但是对于相关领域的知识还是知之甚少。需要继续学习。</p>
-<h3 id="体会和建议-3"><a href="#体会和建议-3" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>确定了目标说明对一件事情的了解至少到达了一定的程度，但是还远没有到达可以运用知识的程度，需要继续学习。</p>
-<h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><h3 id="工作内容-4"><a href="#工作内容-4" class="headerlink" title="工作内容"></a>工作内容</h3><p>学习了有关游戏引擎的相关知识，知道了当今在游戏引擎领域的相关软件，比如虚幻引擎和u3d等等。</p>
-<h3 id="存在问题及解决办法-4"><a href="#存在问题及解决办法-4" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>不知道一个游戏引擎的具体组成和功能，需要亲自使用相关游戏引擎才可以直到游戏引擎的相关使用和功能。</p>
-<h3 id="体会和建议-4"><a href="#体会和建议-4" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>要多多了解相关领域的知识。</p>
-<h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2><h3 id="工作内容-5"><a href="#工作内容-5" class="headerlink" title="工作内容"></a>工作内容</h3><p>学习游戏引擎，了解u3d和虚幻引擎的基本使用方法和功能，学会游戏引擎的基本使用方法，学会制作一个游戏的基本路径。</p>
-<h3 id="存在问题及解决办法-5"><a href="#存在问题及解决办法-5" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>没有深入了解制作一个游戏所需的知识，不知道支撑起一个游戏所需要的知识。</p>
-<h3 id="体会和建议-5"><a href="#体会和建议-5" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>要继续学习游戏引擎的相关知识，最好使用虚幻引擎亲自做出来一个游戏来加深对游戏制作的了解。</p>
-<h2 id="7"><a href="#7" class="headerlink" title="7"></a>7</h2><h3 id="工作内容-6"><a href="#工作内容-6" class="headerlink" title="工作内容"></a>工作内容</h3><p>使用虚幻引擎做出来了一个小的第一人人称射击游戏的Demo，基本了解了制作一个游戏所需要的基础和资源，以及制作一个游戏的路径。</p>
-<h3 id="存在问题及解决办法-6"><a href="#存在问题及解决办法-6" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然可以使用市场上有的游戏引擎做出一个小的Demo，但是对制作一个游戏引擎仍然只知甚少，需要继续了解计算机图形学和游戏引擎的基础功能架构。</p>
-<h3 id="体会和建议-6"><a href="#体会和建议-6" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>持续学习，不断增强自身技术才能制作出来一个好的软件。</p>
-<h2 id="8"><a href="#8" class="headerlink" title="8"></a>8</h2><h3 id="工作内容-7"><a href="#工作内容-7" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习了游戏引擎的基本功能逻辑，了解制作出一个游戏引擎所需要的基础。了解了计算机图形学相关知识，对制作出一个游戏引擎有了更加深入的了解。</p>
-<h3 id="存在问题及解决办法-7"><a href="#存在问题及解决办法-7" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>计算机图形学基础太薄弱，需要深入学习计算机图形学。</p>
-<h3 id="体会和建议-7"><a href="#体会和建议-7" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境，计算机图形学是一个令人着迷的领域。</p>
-<h2 id="9"><a href="#9" class="headerlink" title="9"></a>9</h2><h3 id="工作内容-8"><a href="#工作内容-8" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习计算机图形学，了解计算机图形学领域的三大名剑–OpenGL、vulkan、direct3D<br>在斟酌了其中的使用范围之后，我们为了增强项目的可移植性，最终选择了使用OpenGL作为项目的基础。</p>
-<h3 id="存在问题及解决办法-8"><a href="#存在问题及解决办法-8" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>要继续学习计算机图形学，首先要深入学习OpenGL，下一步要做的事情就是深入学习OpenGL。</p>
-<h3 id="体会和建议-8"><a href="#体会和建议-8" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>计算机图形学真不愧被称作计算机领域的三大浪漫之一，果然难度挺高的。好好学习。</p>
-<h2 id="10"><a href="#10" class="headerlink" title="10"></a>10</h2><h3 id="工作内容-9"><a href="#工作内容-9" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习计算机图形学，深入学OpenGL，并使用OpenGL做出了一些3D空间的小Demo。</p>
-<h3 id="存在问题及解决办法-9"><a href="#存在问题及解决办法-9" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然OpenGL入门挺难的，但是OpenGL的精通也是挺难的，不过要知难而上，好好学习。</p>
-<h3 id="体会和建议-9"><a href="#体会和建议-9" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>艰苦奋斗，好好学习。</p>
-<h2 id="11"><a href="#11" class="headerlink" title="11"></a>11</h2><h3 id="工作内容-10"><a href="#工作内容-10" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习计算机图形学，深入学OpenGL，并使用OpenGL做出了更多3D空间的小Demo。初步验证了制作一个游戏引擎的可行性。</p>
-<h3 id="存在问题及解决办法-10"><a href="#存在问题及解决办法-10" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>计算机图形学是一个非常复杂的学科，目前为止还不能确定到底可不可以很好的制作出一个游戏引擎。要继续学习。</p>
-<h3 id="体会和建议-10"><a href="#体会和建议-10" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="12"><a href="#12" class="headerlink" title="12"></a>12</h2><h3 id="工作内容-11"><a href="#工作内容-11" class="headerlink" title="工作内容"></a>工作内容</h3><p>继续学习计算机图形学，现在已经可以使用OpenGL做出一个想要的3D场景了，下一步要将模型的导入学会，这样在场景中就不只有自己写的顶点组成的模型了，就可以做出一个任意的3D场景。</p>
-<h3 id="存在问题及解决办法-11"><a href="#存在问题及解决办法-11" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>目前对于3D场景中的模型加载仍然有很大的问题，只是一个难点，要继续深入学习。</p>
-<h3 id="体会和建议-11"><a href="#体会和建议-11" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="13"><a href="#13" class="headerlink" title="13"></a>13</h2><h3 id="工作内容-12"><a href="#工作内容-12" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入学习了适应assimop加载模型的方法，现在已经可以使用assimp加载模型了。</p>
-<h3 id="存在问题及解决办法-12"><a href="#存在问题及解决办法-12" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>assimp有一些问题，有一些模型没有办法正常导入，头疼。</p>
-<h3 id="体会和建议-12"><a href="#体会和建议-12" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="14"><a href="#14" class="headerlink" title="14"></a>14</h2><h3 id="工作内容-13"><a href="#工作内容-13" class="headerlink" title="工作内容"></a>工作内容</h3><p>现在终于对计算机图形学有了很深的了解了，虽然对于在这个领域深耕多年的前辈来讲我只是一个菜鸟罢了，但是制作出一个简易的3D引擎来讲可以说是足够了。</p>
-<h3 id="存在问题及解决办法-13"><a href="#存在问题及解决办法-13" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然具备了计算机图形学的相关知识，但是对于制作出一个游戏引擎仍然没有一定的了解。需要深入思考游戏引擎的设计和功能。</p>
-<h3 id="体会和建议-13"><a href="#体会和建议-13" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="15"><a href="#15" class="headerlink" title="15"></a>15</h2><h3 id="工作内容-14"><a href="#工作内容-14" class="headerlink" title="工作内容"></a>工作内容</h3><p>深入思考了游戏引擎的架构，确定了制作游戏引擎的步骤和方法。</p>
-<h3 id="存在问题及解决办法-14"><a href="#存在问题及解决办法-14" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>对是否可以使用计算机图形学进行游戏引擎的开饭仍然不太确定，需要制作出一个Demo进行验证。</p>
-<h3 id="体会和建议-14"><a href="#体会和建议-14" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="16"><a href="#16" class="headerlink" title="16"></a>16</h2><h3 id="工作内容-15"><a href="#工作内容-15" class="headerlink" title="工作内容"></a>工作内容</h3><p>继续确定游戏引擎的额架构，确定游戏引擎所需要的模块功能。开始制作游戏引擎Demo来验证想法。</p>
-<h3 id="存在问题及解决办法-15"><a href="#存在问题及解决办法-15" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>没有制作大型项目的经验，所以制作大型项目不太熟练，对于协同开发的版本控制也是处于要学习的阶段。要学习一些版本控制进行协同开发。</p>
-<h3 id="体会和建议-15"><a href="#体会和建议-15" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
-<h2 id="17"><a href="#17" class="headerlink" title="17"></a>17</h2><h3 id="工作内容-16"><a href="#工作内容-16" class="headerlink" title="工作内容"></a>工作内容</h3><p>学习了版本控制相关知识，学习使用git进行开发。将开发的源代码使用GitHub进行共享。</p>
-<h3 id="存在问题及解决办法-16"><a href="#存在问题及解决办法-16" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然解决了开发工具的问题和协同开发中的版本控制的问题，但是对于游戏引擎的开发仍然需要努力写出一个小的Demo来验证想法的正确性。</p>
-<h3 id="体会和建议-16"><a href="#体会和建议-16" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
-<h2 id="18"><a href="#18" class="headerlink" title="18"></a>18</h2><h3 id="工作内容-17"><a href="#工作内容-17" class="headerlink" title="工作内容"></a>工作内容</h3><p>加班加点努力做出来了一个3D游戏币引擎Demo，现在可以实现使用几条很短的额代码就可以加载出一个宏大的3D场景。</p>
-<h3 id="存在问题及解决办法-17"><a href="#存在问题及解决办法-17" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>C++的面向对象有点烦人，先前制作的游戏引擎架构在进行初步实现的时候发现了一些问题。引擎的结构框架在c++的特性下没有办法很好的实现，迫于语言的限制，只好在一定范围内修改游戏引擎的架构来适应c++的特性。</p>
-<h3 id="体会和建议-17"><a href="#体会和建议-17" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
-<h2 id="19"><a href="#19" class="headerlink" title="19"></a>19</h2><h3 id="工作内容-18"><a href="#工作内容-18" class="headerlink" title="工作内容"></a>工作内容</h3><p>使用修改过后的引擎架构做出了一个小的Demo，现在的Demo已经可以拥有灯光等高级更能。</p>
-<h3 id="存在问题及解决办法-18"><a href="#存在问题及解决办法-18" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>是时候基于现有的Demo做出一个真正的游戏引擎了，有了Demo的经验，要制作一个真正的游戏引擎也不是无稽之谈了，但是现在由于引擎的规模变大，先前的架构有一些地方不太适合了，需要因地制宜地修改项目的架构。</p>
-<h3 id="体会和建议-18"><a href="#体会和建议-18" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
-<h2 id="20"><a href="#20" class="headerlink" title="20"></a>20</h2><h3 id="工作内容-19"><a href="#工作内容-19" class="headerlink" title="工作内容"></a>工作内容</h3><p>现在基于先前的经验因地制宜地修改了项目的架构。现在的任务是基于这个新的架构制作出一个全新的游戏引擎。</p>
-<h3 id="存在问题及解决办法-19"><a href="#存在问题及解决办法-19" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目大了之后，对于开发的要求也更加高了，为了更加方便的进行协同开发，我们开发人员组建了一个开发交流群，得益于交流的效率加深，现在进行开发就很方便了。</p>
-<h3 id="体会和建议-19"><a href="#体会和建议-19" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
-<h2 id="21"><a href="#21" class="headerlink" title="21"></a>21</h2><h3 id="工作内容-20"><a href="#工作内容-20" class="headerlink" title="工作内容"></a>工作内容</h3><p>现在进行真正的游戏引擎开发工作。游戏引擎制作中。</p>
-<h3 id="存在问题及解决办法-20"><a href="#存在问题及解决办法-20" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目很大，架构很大，每一次编译都要好长时间。</p>
-<h3 id="体会和建议-20"><a href="#体会和建议-20" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="22"><a href="#22" class="headerlink" title="22"></a>22</h2><h3 id="工作内容-21"><a href="#工作内容-21" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成项目的局部驱动。</p>
-<h3 id="存在问题及解决办法-21"><a href="#存在问题及解决办法-21" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>局部驱动要和全局驱动整合起来，所以要进行全局驱动的编写。</p>
-<h3 id="体会和建议-21"><a href="#体会和建议-21" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="23"><a href="#23" class="headerlink" title="23"></a>23</h2><h3 id="工作内容-22"><a href="#工作内容-22" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成项目的全局驱动。</p>
-<h3 id="存在问题及解决办法-22"><a href="#存在问题及解决办法-22" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目的驱动已经完成，现在需要将物体表达出来。</p>
-<h3 id="体会和建议-22"><a href="#体会和建议-22" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="24"><a href="#24" class="headerlink" title="24"></a>24</h2><h3 id="工作内容-23"><a href="#工作内容-23" class="headerlink" title="工作内容"></a>工作内容</h3><p>编写Element代码，现在将物体的表示码了出来。</p>
-<h3 id="存在问题及解决办法-23"><a href="#存在问题及解决办法-23" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>物体的架构安排有一些不合理需要进行思考更改。</p>
-<h3 id="体会和建议-23"><a href="#体会和建议-23" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="25"><a href="#25" class="headerlink" title="25"></a>25</h2><h3 id="工作内容-24"><a href="#工作内容-24" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成资源管理的编写，现在可以很方便的进行资源的管理了。</p>
-<h3 id="存在问题及解决办法-24"><a href="#存在问题及解决办法-24" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>虽然资源管理可以实现，但是只是在方法层面上的实现，需要在应用上进行实现。</p>
-<h3 id="体会和建议-24"><a href="#体会和建议-24" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="26"><a href="#26" class="headerlink" title="26"></a>26</h2><h3 id="工作内容-25"><a href="#工作内容-25" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成场景的编写，现在可以实现一个场景带动全部代码。</p>
-<h3 id="存在问题及解决办法-25"><a href="#存在问题及解决办法-25" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>加载场景仍然有一些繁琐，需要一个个的进行写入路径，这些代码集中在主程序中不雅观。</p>
-<h3 id="体会和建议-25"><a href="#体会和建议-25" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="27"><a href="#27" class="headerlink" title="27"></a>27</h2><h3 id="工作内容-26"><a href="#工作内容-26" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成场景加载XML的实现，现在可以使用xml文件将场景的信息加载出来，非常优雅。</p>
-<h3 id="存在问题及解决办法-26"><a href="#存在问题及解决办法-26" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>现在虽然游戏引擎在开发中可以很方便的进行使用了，但是怎样让用户方便的使用是一个问题。于是决定将项目以开源的形式进行开源。使用cmake进行开源发布。</p>
-<h3 id="体会和建议-26"><a href="#体会和建议-26" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="28"><a href="#28" class="headerlink" title="28"></a>28</h2><h3 id="工作内容-27"><a href="#工作内容-27" class="headerlink" title="工作内容"></a>工作内容</h3><p>将项目使用cmake进行构建，这样用户就可以使用cmake很方便的进行项目的构建了。</p>
-<h3 id="存在问题及解决办法-27"><a href="#存在问题及解决办法-27" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>项目需要有门面</p>
-<h3 id="体会和建议-27"><a href="#体会和建议-27" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境</p>
-<h2 id="29"><a href="#29" class="headerlink" title="29"></a>29</h2><h3 id="工作内容-28"><a href="#工作内容-28" class="headerlink" title="工作内容"></a>工作内容</h3><p>完成项目的网站制作，现在用户在网站上就可以方便的进行引擎的下载和学习、开发了。</p>
-<h3 id="存在问题及解决办法-28"><a href="#存在问题及解决办法-28" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>引擎使用文档不够仔细，需要认真编写引擎的使用文档。</p>
-<h3 id="体会和建议-28"><a href="#体会和建议-28" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h2 id="30"><a href="#30" class="headerlink" title="30"></a>30</h2><h3 id="工作内容-29"><a href="#工作内容-29" class="headerlink" title="工作内容"></a>工作内容</h3><p>工作结尾，引擎项目到达尾声。开始收尾工作。编写项目的各种文档。</p>
-<h3 id="存在问题及解决办法-29"><a href="#存在问题及解决办法-29" class="headerlink" title="存在问题及解决办法"></a>存在问题及解决办法</h3><p>引擎还有很大的成长空间。祝他越来越好。</p>
-<h3 id="体会和建议-29"><a href="#体会和建议-29" class="headerlink" title="体会和建议"></a>体会和建议</h3><p>学习永无止境。</p>
-<h1 id="时间-共-30-个"><a href="#时间-共-30-个" class="headerlink" title="时间  共 30 个"></a>时间  共 30 个</h1><p>10 29   1</p>
-<p>11 06   2</p>
-<p>11 14   3</p>
-<p>11 22   4</p>
-<p>11 30   5</p>
-<p>12 08   6</p>
-<p>12 12   7</p>
-<p>12 20   8</p>
-<p>12 28   9</p>
-<p>1  06   10</p>
-<p>1  14   11</p>
-<p>1  22   12</p>
-<p>1  30   13</p>
-<p>2  08   14</p>
-<p>2  24   15</p>
-<p>3  04   16</p>
-<p>3  12   17</p>
-<p>3  20   18</p>
-<p>4  05   19</p>
-<p>4  13   20</p>
-<p>4  21   21</p>
-<p>4  29   22</p>
-<p>5  07   23</p>
-<p>5  23   24</p>
-<p>5  31   25</p>
-<p>6  09   26</p>
-<p>6  17   27</p>
-<p>6  25   28</p>
-<p>7  11   29</p>
-<p>7  16   30</p>
-]]></content>
-      <categories>
-        <category>uncategorized</category>
-      </categories>
-      <tags>
-        <tag>nonetag</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贪吃蛇街机小游戏开题报告</title>
-    <url>/2021/07/07/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A/</url>
-    <content><![CDATA[<h1 id="开题报告"><a href="#开题报告" class="headerlink" title="开题报告"></a>开题报告</h1><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>贪吃蛇街机小游戏是一款在8*8的LED显示灯上运行的贪吃蛇小游戏，通过红外线遥控器输入设备进行游戏控制，在LED显示灯上显示游戏画面，使用数码管显示当前得分，使用灯光和蜂鸣器营造游戏氛围。</p>
-<h2 id="功能模块划分"><a href="#功能模块划分" class="headerlink" title="功能模块划分"></a>功能模块划分</h2><ul>
-<li>游戏整体逻辑控制模块</li>
-</ul>
-<p>整个项目的入口，控制其他各个模块的调度。</p>
-<ul>
-<li>贪吃蛇逻辑控制模块</li>
-</ul>
-<p>贪吃蛇运行逻辑的控制，负责计算出下一秒贪吃蛇的状态（移动、增长、死亡）、食物位置的刷新、当前得分的计算等。</p>
-<ul>
-<li>LED显示控制模块</li>
-</ul>
-<p>将内容（游戏菜单、当前画面、）显示到8*8的LED灯上。</p>
-<ul>
-<li>全局时钟控制模块</li>
-</ul>
-<p>通过8253每10ms产生一个中断，用于控制游戏进程的同步。</p>
-<ul>
-<li>声音控制模块</li>
-</ul>
-<p>使用蜂鸣器产生游戏音效与背景音乐。</p>
-<ul>
-<li>灯光控制模块</li>
-</ul>
-<p>使用LED灯产生一些光效。</p>
-<ul>
-<li>数码管显示模块</li>
-</ul>
-<p>使用数码管显示出当前游戏的得分。</p>
-<ul>
-<li>红外线输入模块</li>
-</ul>
-<p>使用红外线输入，产生中断，控制贪吃蛇的运动。</p>
-<h2 id="核心功能代码测试"><a href="#核心功能代码测试" class="headerlink" title="核心功能代码测试"></a>核心功能代码测试</h2><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">; LED显示</span></span><br><span class="line">show_led proc</span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">dx</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;写入方式控制字</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span> , <span class="number">283h</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span> , <span class="number">80h</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span> , <span class="built_in">al</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">;逐列刷新 红  si控制红行 di控制绿行</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset red_buffer <span class="comment">;控制每一列的红8行</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">di</span>,offset green_buffer <span class="comment">;控制每一列的绿8行</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">cl</span>,<span class="number">10000000b</span> <span class="comment">;第一列 颜色通过列线进行输出，281h输出则为第零列为红，282h输出则为第零列为绿 </span></span><br><span class="line"><span class="symbol">again_show_led_col:</span></span><br><span class="line">    <span class="comment">;红列  是控制哪一列是什么颜色的 红:281h 绿：282h 第0列为红色 </span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="built_in">cl</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">281h</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span></span><br><span class="line">    <span class="comment">;每一列控制哪一行的红灯亮    这里有问题 对于控制行线来讲，若要红灯亮绿灯不亮则都不会亮（但是由于时间间隔很短，所以我在实验室的效果就是看起来不太亮）</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>]                 <span class="comment">;所以这里必须解决红绿灯互相影响的问题</span></span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">si</span>,<span class="number">1</span>                    <span class="comment">;因为时按列亮灯，共用列，所以不可能在一列中同时显示红灯和绿灯。</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">280h</span>                 <span class="comment">;要不试试逐个点亮  </span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span>                   <span class="comment">;我觉得实验室器材不太好，必不能支持如此高频率的数据传送</span></span><br><span class="line">                                <span class="comment">;所以贪吃蛇只能做到食物和蛇一个颜色，让食物闪烁吧。</span></span><br><span class="line">    <span class="comment">;mov bx ,10000</span></span><br><span class="line">    <span class="comment">;call delay</span></span><br><span class="line">    <span class="comment">;绿列  </span></span><br><span class="line">    <span class="comment">;mov al,cl</span></span><br><span class="line">    <span class="comment">;mov dx,282h</span></span><br><span class="line">    <span class="comment">;out dx,al</span></span><br><span class="line">    <span class="comment">;每一列控制哪一行的绿灯亮</span></span><br><span class="line">    <span class="comment">;mov al,[di]</span></span><br><span class="line">    <span class="comment">;add di,1</span></span><br><span class="line">    <span class="comment">;mov dx,280h    </span></span><br><span class="line">    <span class="comment">;out dx,al</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;显示完每一列进行delay 以bx为参数</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bx</span>,<span class="number">10</span></span><br><span class="line">    <span class="keyword">call</span> delay</span><br><span class="line"></span><br><span class="line">    <span class="comment">;关闭所有的列显示</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,<span class="built_in">cl</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">dx</span>,<span class="number">281h</span></span><br><span class="line">    <span class="keyword">out</span> <span class="built_in">dx</span>,<span class="built_in">al</span>   </span><br><span class="line">    <span class="comment">;mov dx,282h</span></span><br><span class="line">    <span class="comment">;out dx,al</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">shr</span> <span class="built_in">cl</span>,<span class="number">1</span>    <span class="comment">;下一列</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">cl</span>,<span class="number">0</span></span><br><span class="line">    <span class="keyword">jnz</span> again_show_led_col</span><br><span class="line"></span><br><span class="line"><span class="symbol">show_led_end:</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line">show_led endp</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;运行贪吃蛇的程序   所有按键信息由中断进行扫描，程序只管从缓冲区中读取即可</span></span><br><span class="line">snake_gluttony proc</span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">push</span> <span class="built_in">dx</span></span><br><span class="line"><span class="comment">;蛇的时间量，每经过100个全局时间量 加一，即蛇每1s移动一次 </span></span><br><span class="line">snake_time <span class="built_in">word</span> <span class="number">0</span> </span><br><span class="line"><span class="symbol">snake_gluttony_begin:</span></span><br><span class="line"><span class="symbol">snake_count_time:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,sync_time_buffer</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bl</span>,<span class="number">100</span></span><br><span class="line">    <span class="keyword">div</span> <span class="built_in">bl</span>      <span class="comment">;得到余数在ah中 商在al</span></span><br><span class="line">    <span class="keyword">xor</span> <span class="number">ah</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">ax</span>,[snake_time]     <span class="comment">;当前时间比之前的时间高</span></span><br><span class="line">    <span class="keyword">ja</span> snake_flush</span><br><span class="line">    <span class="comment">;为防止因为溢出而造成的错误判断</span></span><br><span class="line">    <span class="keyword">mov</span> [snake_time],<span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_count_time</span><br><span class="line"><span class="comment">;snake的时间到了，可以刷新</span></span><br><span class="line"><span class="symbol">snake_flush:</span></span><br><span class="line">    <span class="comment">;ax中存放当前贪吃蛇时间，放入snake_time</span></span><br><span class="line">    <span class="keyword">mov</span> [snake_time],<span class="built_in">ax</span></span><br><span class="line">    <span class="comment">;判断按键，进行贪吃蛇的逻辑操作  ;蛇的前近方向 3:上  0:下  2:左   1:右</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,keyboard_input_buffer</span><br><span class="line">    <span class="comment">;处理键盘的W A S D  10-13位存放</span></span><br><span class="line">    <span class="keyword">shr</span> <span class="built_in">ax</span>,<span class="number">10</span></span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">al</span>,<span class="number">00001111B</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00001000B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_w</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00000100B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_s</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00000010B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_a</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">00000001B</span></span><br><span class="line">    <span class="keyword">jz</span> snake_fulsh_process_key_d</span><br><span class="line"></span><br><span class="line">    <span class="comment">;没有任何按键按下则直接进行处理</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"></span><br><span class="line"><span class="comment">;处理按键w</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_w:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">0</span>    <span class="comment">;当前方向不为下时改变方向为上</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">3</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"><span class="comment">;处理按键s</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_s:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">3</span>    <span class="comment">;当前方向不为上时改变方向为下</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">0</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"><span class="comment">;处理按键a</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_a:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">1</span>    <span class="comment">;当前方向不为右时改变方向为左</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">2</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"><span class="comment">;处理按键d</span></span><br><span class="line"><span class="symbol">snake_fulsh_process_key_d:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">2</span>    <span class="comment">;当前方向不为左时改变方向为右</span></span><br><span class="line">    <span class="keyword">jz</span> snake_flush_process</span><br><span class="line">    <span class="keyword">mov</span> snake_direction,<span class="number">1</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_flush_process</span><br><span class="line"></span><br><span class="line"><span class="comment">;按键处理完了，处理贪吃蛇的位置</span></span><br><span class="line"><span class="symbol">snake_flush_process:</span></span><br><span class="line">    <span class="comment">;将按键信息清零</span></span><br><span class="line"><span class="symbol">snake_flush_process_clear_key:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,keyboard_input_buffer</span><br><span class="line">    <span class="comment">;处理键盘的W A S D 都置为零</span></span><br><span class="line">    <span class="keyword">and</span> <span class="built_in">ax</span>,<span class="number">1100001111111111B</span></span><br><span class="line">    <span class="keyword">mov</span> keyboard_input_buffer,<span class="built_in">ax</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;位置刷新，根据上一次是否吃了食物决定身体更新策略</span></span><br><span class="line"><span class="comment">;若上一次刷新吃到了食物，则这一次蛇头变为蛇尾的一部分，然后蛇头向前走一步，若没有吃到，则从最后一节开始，每一节的位置时前一个的位置，第一个位置更新为蛇头的位置。</span></span><br><span class="line"><span class="symbol">move_snake_body:</span></span><br><span class="line">    <span class="comment">;每个位置需要两个字节</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset snake_body_buffer </span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">di</span>,snake_body_length        <span class="comment">;其实有没有吃都从最后一节向前更新即可，无非是length的不同</span></span><br><span class="line">    <span class="keyword">dec</span> <span class="built_in">di</span>          <span class="comment">;减一 方便指向每一节</span></span><br><span class="line">    <span class="keyword">shl</span> <span class="built_in">di</span>,<span class="number">1</span>    </span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">di</span>,<span class="built_in">si</span>   <span class="comment">;指向最后一节 目标地址</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,<span class="built_in">di</span></span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">si</span>,<span class="number">2</span>    <span class="comment">;源地址</span></span><br><span class="line"><span class="comment">;更新蛇的身体的每一节，第一节不更新</span></span><br><span class="line"><span class="symbol">move_snake_body_every_section:</span></span><br><span class="line">    <span class="comment">;跟新蛇的尾巴信息 si所指向的</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>]</span><br><span class="line">    <span class="keyword">mov</span> snake_tail_position_x,<span class="built_in">al</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">mov</span> snake_tail_position_y,<span class="built_in">al</span></span><br><span class="line">    <span class="comment">;串传送的个数 （word）第一节不传送</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">cx</span>,snake_body_length</span><br><span class="line">    <span class="keyword">dec</span> <span class="built_in">cx</span>              </span><br><span class="line">    <span class="keyword">std</span>         <span class="comment">;反向传送       </span></span><br><span class="line">    <span class="keyword">rep</span> <span class="keyword">movsw</span>       </span><br><span class="line"></span><br><span class="line"><span class="comment">;更新第一节，将头的位置赋予即可</span></span><br><span class="line"><span class="symbol">move_snake_body_first_section:</span></span><br><span class="line">    <span class="comment">;高位存放纵坐标</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset snake_body_buffer</span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">mov</span> [<span class="built_in">si</span>],<span class="built_in">ax</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">;位置刷新，将贪吃蛇头朝对应方向移动一格</span></span><br><span class="line"><span class="symbol">move_snake_head:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_direction</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">3</span>    <span class="comment">;上</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_up</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">0</span>    <span class="comment">;下</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_down</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">2</span>    <span class="comment">;左</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_left</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">1</span>    <span class="comment">;右</span></span><br><span class="line">    <span class="keyword">jz</span> move_snake_head_right</span><br><span class="line">    <span class="comment">;不可能哪个方向都不对</span></span><br><span class="line">    <span class="comment">;jmp move_snake_head_direction_error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;上</span></span><br><span class="line"><span class="symbol">move_snake_head_up:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="number">1</span>    </span><br><span class="line">    <span class="keyword">jnc</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span>    <span class="comment">;小于0，则从下面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"><span class="comment">;下</span></span><br><span class="line"><span class="symbol">move_snake_head_down:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">ax</span>,<span class="number">1</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">ax</span>,<span class="number">8</span>    </span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">0</span>    <span class="comment">;等于8，超界，则从上面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"><span class="comment">;左</span></span><br><span class="line"><span class="symbol">move_snake_head_left:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="number">1</span>    </span><br><span class="line">    <span class="keyword">jnc</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span>    <span class="comment">;小于0，则从下右面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"><span class="comment">;右</span></span><br><span class="line"><span class="symbol">move_snake_head_right:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">ax</span>,<span class="number">1</span></span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">ax</span>,<span class="number">8</span>    </span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">0</span>    <span class="comment">;等于8 ，则从左面钻出来</span></span><br><span class="line">    <span class="keyword">jmp</span> snake_judge_conflict</span><br><span class="line"></span><br><span class="line"><span class="comment">;判断是否冲突</span></span><br><span class="line"><span class="symbol">snake_judge_conflict:</span></span><br><span class="line">    <span class="comment">;首先判断是否蛇头和食物重合，若没有重合则蛇尾向前一步走，若重合则蛇尾不动，将蛇的身体信息全部向后移动一位</span></span><br><span class="line">    <span class="comment">;清空上一次吃到食物的信息</span></span><br><span class="line">    <span class="keyword">mov</span> food_eaten,<span class="number">0</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,food_x</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict_not_eat</span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,food_y</span><br><span class="line">    <span class="keyword">cmp</span> <span class="built_in">al</span>,<span class="number">ah</span></span><br><span class="line">    <span class="keyword">jnz</span> snake_judge_conflict_not_eat</span><br><span class="line">    <span class="comment">;下面时蛇吃了食物 </span></span><br><span class="line">    <span class="keyword">mov</span> food_eaten,<span class="number">1</span></span><br><span class="line">    <span class="keyword">add</span> snake_body_length,<span class="number">1</span></span><br><span class="line"><span class="comment">;生成新的食物 位置为（7-当前蛇头x,7-当前蛇尾y)</span></span><br><span class="line"><span class="symbol">snake_create_new_food:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bx</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">mov</span> food_x,<span class="built_in">al</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">ax</span>,<span class="number">7</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">bx</span> snake_tail_position_y</span><br><span class="line">    <span class="keyword">sub</span> <span class="built_in">ax</span>,<span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">mov</span> food_y,<span class="built_in">al</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="comment">;蛇这一步没有吃到食物</span></span><br><span class="line"><span class="symbol">snake_judge_conflict_not_eat:</span></span><br><span class="line">    <span class="keyword">mov</span> food_eaten,<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;在led点阵中点亮蛇阵 使用红色</span></span><br><span class="line">snake_lighten_led_red：</span><br><span class="line">    <span class="comment">;首先点亮食物</span></span><br><span class="line">    <span class="comment">;写入红色灯亮，ah为行号，al为列号 注意这里 （0，0）在左下角    即ah为y al为x</span></span><br><span class="line">    <span class="comment">;make_it_red proc</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,food_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,food_x</span><br><span class="line">    <span class="keyword">call</span> make_it_red</span><br><span class="line">    <span class="comment">;点亮头</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,snake_head_position_y</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,snake_head_position_x</span><br><span class="line">    <span class="keyword">call</span> make_it_red</span><br><span class="line">    <span class="comment">;点亮身体</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">si</span>,offset snake_body_buffer</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">cx</span>,snake_body_length</span><br><span class="line">snake_lighten_led_red_body：</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">al</span>,[<span class="built_in">si</span>]</span><br><span class="line">    <span class="keyword">mov</span> <span class="number">ah</span>,[<span class="built_in">si</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">si</span>,<span class="number">2</span></span><br><span class="line">    <span class="keyword">loop</span> snake_lighten_led_red_body</span><br><span class="line"></span><br><span class="line">    <span class="keyword">jmp</span> snake_gluttony_begin</span><br><span class="line"></span><br><span class="line"><span class="symbol">snake_gluttony_end:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">dx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">cx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">bx</span></span><br><span class="line">    <span class="keyword">pop</span> <span class="built_in">ax</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line">snake_gluttony endp</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="任务分工"><a href="#任务分工" class="headerlink" title="任务分工"></a>任务分工</h2><p>岳希航：贪吃蛇逻辑控制模块、LED显示模块、声音控制模块、数码管显示模块</p>
-<p>崔文耀：游戏整体逻辑控制模块、全局时钟控制模块、灯光控制模块、红外线输入模块</p>
-]]></content>
-      <categories>
-        <category>uncategorized</category>
-      </categories>
-      <tags>
-        <tag>nonetag</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贪吃蛇结题报告</title>
-    <url>/2021/07/17/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C%E7%BB%93%E9%A2%98%E6%8A%A5%E5%91%8A/</url>
-    <content><![CDATA[<h1 id="贪吃蛇结题报告"><a href="#贪吃蛇结题报告" class="headerlink" title="贪吃蛇结题报告"></a>贪吃蛇结题报告</h1><p><a href="/file/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C.zip">代码</a></p>
-<h2 id="题目意义"><a href="#题目意义" class="headerlink" title="题目意义"></a>题目意义</h2><p>这次微机实验，我们选择的题目是贪吃蛇街机小游戏。简单来讲就是使用微机试验台上的led点阵作为显示屏，配合计数操作显示得分情况，利用键盘进行IO操作的贪吃蛇小游戏。之所以选择这个题目是因为我想在有限的实验条件上极可能的做出一个比较有趣的项目。由此可见，此题目的意义就是探求自己在简陋的实验环境中做出复杂工程的能力，同时也是在检验自己在微机课程中所学到的知识是否扎实。</p>
-<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><ol>
-<li>图像显示<br> 使用led点阵将贪吃蛇的位置和食物的位置显示出来，首先我们必须提供一个底层的方法来方便地将led灯进行点亮，这就促使我们引入了缓存地概念（下面再说）和一个读取缓存地内容进行点亮灯的方法。</li>
-<li>图像显示的缓存<br> 为了方便的进行led的显示，我门引入了缓存的概念，即将要显示的led点阵的信息以比特的形式存储在内存中，命名为red_buffer和green_buffer</li>
-<li>图像操控<br> 为了方便的修改缓存中的信息，我们实现了一个函数将特定位置的额灯的颜色置红，值绿或者置暗。</li>
-<li>中断<br> 使用8253产生定时中断为系统提供时间基准。</li>
-<li>IO输入<br> 由中断驱动进行IO操作，将键盘等的输入存入内存。</li>
-<li>时分复用<br> 由于试验台上的输出端口不够用了，所以为了添加数码管功能，我们引入了时分复用的概念，即利用led点阵灭的那一瞬间将数码管点亮，这样既不会影响led点阵也可以实现点亮数码管。</li>
-</ol>
-<h2 id="采用的主要技术，遇到的难点和解决方法"><a href="#采用的主要技术，遇到的难点和解决方法" class="headerlink" title="采用的主要技术，遇到的难点和解决方法"></a>采用的主要技术，遇到的难点和解决方法</h2><ol>
-<li><p>led点阵驱动<br> led点阵驱动提供了make_it_red、make_it_green、make_it_dark等底层方法来供上层控制led点阵的缓冲区内容，而led点阵驱动的硬件交互部分又通过读取缓冲区的内容来按照用户设想的方式亮灯。</p>
-<ol>
-<li>难点<br> 操作内存与硬件底层相衔接的问题。即如何方便的在软件层面上控制底层led亮。</li>
-<li>解决方法<br> 引入了缓冲区的概念，系统存在两个led点阵的缓冲区，分别为ren_buffer和green_buffer，分别用来存储led点阵上灯亮的信息，这两个缓冲区都为8字节的数据，其中每一个比特控制每一个灯的亮的情况，利用这两个缓冲区就可以将led灯亮的信息存储在内存中，led底层控制模块只需要读取这两个内存区就可以将led点阵按预设的点亮了。</li>
-<li>难点<br> 没有足够的端口点亮数码管</li>
-<li>解决方法<br> 引用了时分复用的概念，将led点阵和数码管点亮的过程时分复用，解决了输出端口不够的问题。由于每一次led点阵点亮过后，存在一段时间led点阵的所有列信息为零，所以此时复用使用的8255PA连接数码管的段码显示，就可以利用有限的端口点亮数码管了。</li>
-</ol>
-</li>
-<li><p>IO输入控制<br> IO输入控制负责定时的读取外设的输入信息，并且将其信息存储到内存中的缓冲区。</p>
-<ol>
-<li>难点<br> 如何定时的获取输入内容</li>
-<li>解决方法<br> 使用8253设置定时中断连接在IRQ10上，由此可以实现定时的扫描键盘等外设的输入，键盘输入程序中使用BIOS提供的16号中断获取键盘输入数据。</li>
-<li>难点<br> 如何在将外设的输入存储到内存中。</li>
-<li>解决方法<br> 以键盘为例，在内存中开辟一个键盘输入的缓冲区，keyboard_input，其为16位的字，低1位到第9位存储了1-9按键是否被按下的信息。10-13存储WASD按键的信息。</li>
-</ol>
-</li>
-<li><p>时间同步<br> 程序需要一个全局的同步时间量来控制每一个模块进行同步操作。</p>
-<ol>
-<li>难点<br> 如何获取当前时间呢。</li>
-<li>解决方法<br> 在上文提到的额中断程序中加上时间量处理，即每一次中断将全局的时间同步量加一。</li>
-</ol>
-</li>
-<li><p>状态机<br> 整个程序就是一个巨大的状态机。</p>
-<ol>
-<li>难点<br> 控制每一个状态的转换</li>
-<li>解决方法<br> 使用一个缓冲区status来存储当前状态信息，程序利用该内存数据进行状态的转移。</li>
-</ol>
-</li>
-</ol>
-<h2 id="实现的主要功能和系统结构"><a href="#实现的主要功能和系统结构" class="headerlink" title="实现的主要功能和系统结构"></a>实现的主要功能和系统结构</h2><h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ol>
-<li><p>状态机。<br> 整个程序就是一个巨大的状态机。使用一个缓冲区status来存储当前状态信息，程序利用该内存数据进行状态的转移。</p>
-</li>
-<li><p>键盘输入。<br> 读取键盘输入并存储</p>
-</li>
-<li><p>点亮数码管。<br> 将游戏的得分信息在使用数码管进行显示。</p>
-</li>
-<li><p>控制led点阵任一灯的亮暗。</p>
-</li>
-<li><p>控制led点阵按预定信息亮。</p>
-</li>
-<li><p>贪吃蛇主体程序</p>
-</li>
-<li><p>输入信息处理程序</p>
-</li>
-<li><p>时间同步程序</p>
-</li>
-</ol>
-<h3 id="系统结构"><a href="#系统结构" class="headerlink" title="系统结构"></a>系统结构</h3><p>时间同步程序为所有的程序提供一个时间的基本量，中断程序为负责定时读取输入和更新时间同步量，向上提供输入和同步，状态处理模块负责读取输入信息和状态信息进行状态的控制操作。在进入贪吃蛇主体程序之后，程序通过读取外设的输入信息控制贪吃蛇的移动，并通过贪吃蛇的逻辑控制来控制贪吃蛇的状态信息，并且实时的调用led点阵来动态显示贪吃蛇的位置以及使用数码管动态显示贪吃蛇得分信息。</p>
-<h2 id="相关技术说明"><a href="#相关技术说明" class="headerlink" title="相关技术说明"></a>相关技术说明</h2><ol>
-<li><p>缓冲区<br> 程序的所有所欲信息和状态都存储在缓冲区中，功能之间上下游分别负责存入和读取改变缓冲区，由此来驱动程序的运行。</p>
- <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="comment">;红色   颜色是通过列线进行输出的</span></span><br><span class="line">red_buffer   <span class="keyword">byte </span><span class="number">8</span> dup(<span class="number">0</span>)</span><br><span class="line"><span class="comment">;绿色</span></span><br><span class="line">green_buffer <span class="keyword">byte </span><span class="number">8</span> dup(<span class="number">0</span>)</span><br><span class="line"><span class="comment">;infrared_input_buffer  存储红外线输入的缓冲区  每一个bit可以自由定义其含义</span></span><br><span class="line">infrared_input_buffer word <span class="number">0</span></span><br><span class="line"><span class="comment">;keyboard_input_buffer 存储键盘输入的缓冲区  每一个bit可以自由定义其含义</span></span><br><span class="line">keyboard_input_buffer word <span class="number">0</span></span><br><span class="line"><span class="comment">;Status buffer 状态缓冲区，用来存放程序运行的各种状态</span></span><br><span class="line">status_buffer word <span class="number">0</span></span><br><span class="line"><span class="comment">;时间缓冲区，负责提供同步信息 由中断程序每隔10ms加一</span></span><br><span class="line"><span class="keyword">sync_time_buffer </span>word <span class="number">0</span></span><br><span class="line"><span class="comment">;蛇身位置 不包含蛇头 蛇的每一个位置需要两个字节，8*8*2=128B</span></span><br><span class="line">snake_body_buffer <span class="keyword">byte </span><span class="number">128</span> dup(<span class="number">0</span>)</span><br><span class="line"><span class="comment">;蛇身的长度，不包括蛇头，也是当前的分数</span></span><br><span class="line">snake_body_length word <span class="number">0</span></span><br><span class="line"><span class="comment">;蛇头位置</span></span><br><span class="line">snake_head_position_x <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line">snake_head_position_y <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;蛇尾位置</span></span><br><span class="line">snake_tail_position_x <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line">snake_tail_position_y <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;食物位置</span></span><br><span class="line">food_x <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line">food_y <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;是否吃了食物 0:没有 1:吃了</span></span><br><span class="line">food_eaten <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;碰撞与否</span></span><br><span class="line">collision <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;蛇的前近方向 2:上 0：下 2;左 1：右</span></span><br><span class="line">snake_direction <span class="keyword">byte </span><span class="number">0</span></span><br><span class="line"><span class="comment">;保存原中断程序入口</span></span><br><span class="line">int_<span class="symbol">0b</span>_seg word <span class="number">0</span></span><br><span class="line">int_<span class="symbol">0b</span>_off word <span class="number">0</span></span><br><span class="line"><span class="comment">;蛇的时间量，每经过100个全局时间量 加一，即蛇每1s移动一次 </span></span><br><span class="line">snake_time word <span class="number">0</span></span><br><span class="line"><span class="comment">;数码管</span></span><br><span class="line">ledtb <span class="keyword">byte </span><span class="number">3</span>fh,<span class="number">06</span>h,<span class="number">5</span>bh,<span class="number">4</span>fh,<span class="number">66</span>h,<span class="number">6</span>dh,<span class="number">7</span>dh,<span class="number">07</span>h,<span class="number">7</span>fh,<span class="number">6</span>fh</span><br><span class="line"><span class="comment">;得分（当前长度减去初始长度）存储  分别存储四个数码管的数字</span></span><br><span class="line">lednum <span class="keyword">byte </span><span class="number">4</span> dup(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></li>
-<li><p>状态机。<br> 整个程序就是一个巨大的状态机。使用一个缓冲区status来存储当前状态信息，程序利用该内存数据进行状态的转移。</p>
-</li>
-<li><p>IO输入控制<br> IO输入控制负责定时的读取外设的输入信息，并且将其信息存储到内存中的缓冲区。<br> 使用8253设置定时中断连接在IRQ10上，由此可以实现定时的扫描键盘等外设的输入，键盘输入程序中使用BIOS提供的16号中断获取键盘输入数据。在内存中开辟一个键盘输入的缓冲区，keyboard_input，其为16位的字，低1位到第9位存储了1-9按键是否被按下的信息。10-13存储WASD按键的信息。</p>
-</li>
-<li><p>led点阵驱动<br> led点阵驱动提供了make_it_red、make_it_green、make_it_dark等底层方法来供上层控制led点阵的缓冲区内容，而led点阵驱动的硬件交互部分又通过读取缓冲区的内容来按照用户设想的方式亮灯。系统存在两个led点阵的缓冲区，分别为ren_buffer和green_buffer，分别用来存储led点阵上灯亮的信息，这两个缓冲区都为8字节的数据，其中每一个比特控制每一个灯的亮的情况，利用这两个缓冲区就可以将led灯亮的信息存储在内存中，led底层控制模块只需要读取这两个内存区就可以将led点阵按预设的点亮了。将led点阵和数码管点亮的过程时分复用，解决了输出端口不够的问题。由于每一次led点阵点亮过后，存在一段时间led点阵的所有列信息为零，所以此时复用使用的8255PA连接数码管的段码显示，就可以利用有限的端口点亮数码管了。</p>
-</li>
-</ol>
-<h2 id="总结和体会"><a href="#总结和体会" class="headerlink" title="总结和体会"></a>总结和体会</h2><p>计算机领域的知识都是相通的，之前在操作系统学到了复用的概念于是在本次实验中就利用复用解决了输出端口不够的问题。还有缓冲区的概念和封装的和概念。程序将分散的功能封装为一个一个小模块，使得程序的调用更加方便了。缓冲区为个模块提供信息交互的通道。</p>
-<p>计算机知识博大精深，要好好学习。不要沉迷于上层技术，其实底层原理是更加令人着迷的，只要学好了计算机的底层原理，使用计算机底层原理的方式进行思考问题往往会获得意想不到的结果。</p>
-]]></content>
-      <categories>
-        <category>微机</category>
-      </categories>
-      <tags>
-        <tag>微机</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CDB</title>
-    <url>/2021/07/20/CDB/</url>
-    <content><![CDATA[<h1 id="CDB"><a href="#CDB" class="headerlink" title="CDB"></a>CDB</h1><p>我想学习数据结构，最好的方式就是使用数据结构的知识做出一个系统，而我认为对于目前的我来讲，最好的选择就是做一个小型的数据库引擎。取名为<strong>CDB</strong></p>
-<p>学习GitHub上的<a href="https://cstack.github.io/db_tutorial/">这个</a>项目。</p>
-<h2 id="第一步-数据库的交互框架"><a href="#第一步-数据库的交互框架" class="headerlink" title="第一步 数据库的交互框架"></a>第一步 数据库的交互框架</h2><p>数据库工作的流程为：<br>    1. 打印提示符接受输入<br>    2. 解析输入，得到真实的命令<br>    3. 将解析得到的语义进行数据库底层操作<br>    4. 数据库底层操作很复杂，现在还不懂，懂了再加上</p>
-<p>所以首先我们需要解析每一次的输入，并解析为程序可以读懂的信息，根据解析结果进行进一步操作。</p>
-]]></content>
-      <categories>
-        <category>项目</category>
-        <category>CDB</category>
-      </categories>
-      <tags>
-        <tag>CDB</tag>
-        <tag>database</tag>
-        <tag>项目</tag>
-        <tag>自制轮子</tag>
-        <tag>计算机底层</tag>
       </tags>
   </entry>
 </search>
