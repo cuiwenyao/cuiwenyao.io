@@ -50,7 +50,7 @@
     <link href="http://myblog.cuimouren.cn/2021/08/23/json-learn-%E4%B8%80/"/>
     <id>http://myblog.cuimouren.cn/2021/08/23/json-learn-%E4%B8%80/</id>
     <published>2021-08-23T11:11:09.000Z</published>
-    <updated>2021-08-23T11:29:23.943Z</updated>
+    <updated>2021-08-28T09:20:39.002Z</updated>
     
     
       
@@ -63,7 +63,9 @@
     
     
     
-    <category term="json" scheme="http://myblog.cuimouren.cn/categories/json/"/>
+    <category term="project" scheme="http://myblog.cuimouren.cn/categories/project/"/>
+    
+    <category term="json" scheme="http://myblog.cuimouren.cn/categories/project/json/"/>
     
     
     <category term="json" scheme="http://myblog.cuimouren.cn/tags/json/"/>
@@ -253,7 +255,7 @@
     <link href="http://myblog.cuimouren.cn/2021/07/20/CDB/"/>
     <id>http://myblog.cuimouren.cn/2021/07/20/CDB/</id>
     <published>2021-07-20T01:53:11.000Z</published>
-    <updated>2021-07-23T07:17:28.632Z</updated>
+    <updated>2021-08-26T12:55:16.345Z</updated>
     
     
       
@@ -266,9 +268,9 @@
     
     
     
-    <category term="项目" scheme="http://myblog.cuimouren.cn/categories/%E9%A1%B9%E7%9B%AE/"/>
+    <category term="project" scheme="http://myblog.cuimouren.cn/categories/project/"/>
     
-    <category term="CDB" scheme="http://myblog.cuimouren.cn/categories/%E9%A1%B9%E7%9B%AE/CDB/"/>
+    <category term="CDB" scheme="http://myblog.cuimouren.cn/categories/project/CDB/"/>
     
     
     <category term="CDB" scheme="http://myblog.cuimouren.cn/tags/CDB/"/>
@@ -506,7 +508,7 @@
     <link href="http://myblog.cuimouren.cn/2021/07/01/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0C/"/>
     <id>http://myblog.cuimouren.cn/2021/07/01/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0C/</id>
     <published>2021-07-01T13:12:45.000Z</published>
-    <updated>2021-07-03T06:10:35.688Z</updated>
+    <updated>2021-08-28T09:18:35.593Z</updated>
     
     
       

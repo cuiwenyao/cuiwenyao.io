@@ -1678,11 +1678,9 @@ id_rsa_cuiwenyao.pub
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/cuiwenyao/trojan-auto-install/master/trojan-install.sh &amp;&amp; chmod +x trojan-install.sh &amp;&amp; ./trojan-install.sh</span><br></pre></td></tr></table></figure>
 
 <p>安装bbr加速模块</p>
-<pre><code class="bash">wget -N --no-check-certificate &quot;https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh&quot; &amp;&amp; chmod +x tcp.sh &amp;&amp; ./tcp.sh
-``
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate <span class="string">&quot;https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh&quot;</span> &amp;&amp; chmod +x tcp.sh &amp;&amp; ./tcp.sh</span><br></pre></td></tr></table></figure>
 
-这次搞这个trojan着实麻烦，好在弄好了，我的Linux技术也增加了一点点。去学习数据结构了。
-</code></pre>
+<p>这次搞这个trojan着实麻烦，好在弄好了，我的Linux技术也增加了一点点。去学习数据结构了。</p>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -2556,6 +2554,9 @@ id_rsa_cuiwenyao.pub
 <p>由于是值传递，所以传入指针的值，在函数中进行更改不会改变实参的数据。<br>eg:</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Item itemsave;</span><br><span class="line">GetItemLinkList(&amp;list, <span class="number">2</span>, &amp;itemsave);</span><br><span class="line"><span class="regexp">//</span>这个函数这样实现</span><br><span class="line"><span class="regexp">//</span>直接改变itemsave时改变形参，对外面的实参没有任何影响。  只有 *itemsave=    才会有作用。</span><br><span class="line">itemsave = &amp;(p-&gt;item);</span><br><span class="line"><span class="regexp">//</span>这样是不对的，以为函数中的itemsave只是一个形参，其指向的内存和传入的实参是一样的，但是这行代码又修改了itemsave的指向，对实参无法造成任何影响。</span><br><span class="line"><span class="regexp">//</span>必须改为这样</span><br><span class="line">*itemsave=p-&gt;item;</span><br><span class="line"><span class="regexp">//</span>这样，直接修改 *itemsave就是在修改实参的值<span class="regexp">//</span></span><br><span class="line">这也就是为什么说指针传入的值可以修改，不是说可以直接对指针进行修改，而是拿着传入的指针的值，由此得到指向的内存地址（实参的内存地址）然后就可以直接修改这块内存的值了，即修改实参。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h4 id="4-小心野针"><a href="#4-小心野针" class="headerlink" title="4 小心野针"></a>4 小心野针</h4><blockquote>
+<p>初始化一个指针的时候，切记要令其指向NULL;<br>在使用完成一个指针后，切记要进行free.<br>在free一个指针过后，切记要令其指向NULL</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>C</category>
@@ -4437,7 +4438,7 @@ id_rsa_cuiwenyao.pub
 
 <h2 id="第三步-使用-B-TREE"><a href="#第三步-使用-B-TREE" class="headerlink" title="第三步 使用 B TREE"></a>第三步 使用 B TREE</h2>]]></content>
       <categories>
-        <category>项目</category>
+        <category>project</category>
         <category>CDB</category>
       </categories>
       <tags>
@@ -5044,6 +5045,8 @@ id_rsa_cuiwenyao.pub
 <li>于是决定学习json</li>
 </ul>
 </blockquote>
+<p><a href="https://zhuanlan.zhihu.com/json-tutorial">从零开始的JSON库教程</a></p>
+<p><a href="https://github.com/miloyip/json-tutorial">GitHub</a></p>
 <h2 id="json简介"><a href="#json简介" class="headerlink" title="json简介"></a>json简介</h2><p>json又六种数据类型，如下：</p>
 <ol>
 <li>null 表示为 null</li>
@@ -5061,6 +5064,7 @@ id_rsa_cuiwenyao.pub
 </ol>
 ]]></content>
       <categories>
+        <category>project</category>
         <category>json</category>
       </categories>
       <tags>
