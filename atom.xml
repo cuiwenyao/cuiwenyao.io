@@ -6,7 +6,7 @@
   <link href="http://myblog.cuimouren.cn/atom.xml" rel="self"/>
   
   <link href="http://myblog.cuimouren.cn/"/>
-  <updated>2021-09-04T08:54:00.542Z</updated>
+  <updated>2021-09-10T01:27:51.707Z</updated>
   <id>http://myblog.cuimouren.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux 管道 重定向 环境变量</title>
+    <link href="http://myblog.cuimouren.cn/2021/09/10/linux-%E7%AE%A1%E9%81%93-%E9%87%8D%E5%AE%9A%E5%90%91-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
+    <id>http://myblog.cuimouren.cn/2021/09/10/linux-%E7%AE%A1%E9%81%93-%E9%87%8D%E5%AE%9A%E5%90%91-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</id>
+    <published>2021-09-10T00:38:47.000Z</published>
+    <updated>2021-09-10T01:27:51.707Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;linux-管道-重定向-环境变量&quot;&gt;&lt;a href=&quot;#linux-管道-重定向-环境变量&quot; class=&quot;headerlink&quot; title=&quot;linux 管道 重定向 环境变量&quot;&gt;&lt;/a&gt;linux 管道 重定向 环境变量&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="http://myblog.cuimouren.cn/categories/linux/"/>
+    
+    <category term="管道 重定向 环境变量" scheme="http://myblog.cuimouren.cn/categories/linux/%E7%AE%A1%E9%81%93-%E9%87%8D%E5%AE%9A%E5%90%91-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
+    
+    
+    <category term="linux" scheme="http://myblog.cuimouren.cn/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>docker learn 4 网络</title>
@@ -556,31 +583,6 @@
     <category term="项目构建" scheme="http://myblog.cuimouren.cn/tags/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"/>
     
     <category term="c++" scheme="http://myblog.cuimouren.cn/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>贪吃蛇街机小游戏开题报告</title>
-    <link href="http://myblog.cuimouren.cn/2021/07/07/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
-    <id>http://myblog.cuimouren.cn/2021/07/07/%E5%BE%AE%E6%9C%BA%E4%B8%8E%E6%B1%87%E7%BC%96%E6%8E%A5%E5%8F%A3%E5%AE%9E%E9%AA%8C%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A/</id>
-    <published>2021-07-07T07:01:59.000Z</published>
-    <updated>2021-07-18T09:18:53.042Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;开题报告&quot;&gt;&lt;a href=&quot;#开题报告&quot; class=&quot;headerlink&quot; title=&quot;开题报告&quot;&gt;&lt;/a&gt;开题报告&lt;/h1&gt;&lt;h2 id=&quot;项目介绍&quot;&gt;&lt;a href=&quot;#项目介绍&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="uncategorized" scheme="http://myblog.cuimouren.cn/categories/uncategorized/"/>
-    
-    
-    <category term="nonetag" scheme="http://myblog.cuimouren.cn/tags/nonetag/"/>
     
   </entry>
   
