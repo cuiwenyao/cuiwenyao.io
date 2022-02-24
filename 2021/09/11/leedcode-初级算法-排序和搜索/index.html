@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="../../../../images/logo.svg" color="#222">
+  <link rel="manifest" href="../../../../images/manifest.json">
+  <meta name="msapplication-config" content="../../../../images/browserconfig.xml">
+
+<link rel="stylesheet" href="../../../../css/main.css">
+
+
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"myblog.cuimouren.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="leedcode  排序和搜索链接 合并两个有序数组题目说明给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。 请你 合并 nums2 到 nums1 中，使合并后的数组同样按 非递减顺序 排列。 注意：最终，合并后数组不应由函数返回，而是存储在数组 nums1 中。为了应对这种情况，nums1 的初">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leedcode  排序和搜索">
+<meta property="og:url" content="http://myblog.cuimouren.cn/2021/09/11/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2/index.html">
+<meta property="og:site_name" content="这里是文耀的space">
+<meta property="og:description" content="leedcode  排序和搜索链接 合并两个有序数组题目说明给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。 请你 合并 nums2 到 nums1 中，使合并后的数组同样按 非递减顺序 排列。 注意：最终，合并后数组不应由函数返回，而是存储在数组 nums1 中。为了应对这种情况，nums1 的初">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-11T11:30:06.000Z">
+<meta property="article:modified_time" content="2022-02-24T01:13:04.534Z">
+<meta property="article:author" content="崔文耀">
+<meta property="article:tag" content="leedcode">
+<meta property="article:tag" content="排序和搜索">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://myblog.cuimouren.cn/2021/09/11/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>leedcode  排序和搜索 | 这里是文耀的space</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="atom.xml" title="这里是文耀的space" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">这里是文耀的space</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wenyao'space</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="../../../../index.html" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="../../../../about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="../../../../tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="../../../../categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="../../../../archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://myblog.cuimouren.cn/2021/09/11/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="../../../../images/avatar.gif">
+      <meta itemprop="name" content="崔文耀">
+      <meta itemprop="description" content="Hello, here is wenyao's space, how do you come in???">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这里是文耀的space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leedcode  排序和搜索
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-11 19:30:06" itemprop="dateCreated datePublished" datetime="2021-09-11T19:30:06+08:00">2021-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-24 09:13:04" itemprop="dateModified" datetime="2022-02-24T09:13:04+08:00">2022-02-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/%E7%AE%97%E6%B3%95/leedcode/" itemprop="url" rel="index"><span itemprop="name">leedcode</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="leedcode-排序和搜索"><a href="#leedcode-排序和搜索" class="headerlink" title="leedcode  排序和搜索"></a>leedcode  排序和搜索</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2322r/">链接</a></p>
+<h2 id="合并两个有序数组"><a href="#合并两个有序数组" class="headerlink" title="合并两个有序数组"></a>合并两个有序数组</h2><h3 id="题目说明"><a href="#题目说明" class="headerlink" title="题目说明"></a>题目说明</h3><p>给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。</p>
+<p>请你 合并 nums2 到 nums1 中，使合并后的数组同样按 非递减顺序 排列。</p>
+<p>注意：最终，合并后数组不应由函数返回，而是存储在数组 nums1 中。为了应对这种情况，nums1 的初始长度为 m + n，其中前 m 个元素表示应合并的元素，后 n 个元素为 0 ，应忽略。nums2 的长度为 n 。</p>
+<h3 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h3><p>没什么好说的。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//合并两个有序数组</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> *nums1, <span class="keyword">int</span> nums1Size, <span class="keyword">int</span> m, <span class="keyword">int</span> *nums2, <span class="keyword">int</span> nums2Size, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//将num1中的数据转移到temp中。</span></span><br><span class="line">    <span class="comment">//temp1指向num1等价数据区 temp2指向num2 res指向目标</span></span><br><span class="line">    <span class="keyword">int</span> * temp1=(<span class="keyword">int</span> *)<span class="built_in">malloc</span>(m*<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">int</span> *temp2 =nums2;</span><br><span class="line">    <span class="keyword">int</span> *res=nums1;</span><br><span class="line">    <span class="keyword">int</span> *end1=temp1+m;</span><br><span class="line">    <span class="keyword">int</span> *end2=temp2+n;</span><br><span class="line">    <span class="built_in">memcpy</span>(temp1,nums1,m*<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">while</span>(temp1!=end1&amp;&amp;temp2!=end2)</span><br><span class="line">    &#123;</span><br><span class="line">        *(res++)=*temp1&lt;=*temp2?(*temp1++):(*temp2++);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(temp1==end1)</span><br><span class="line">        <span class="built_in">memcpy</span>(res,temp2,(end2-temp2)*<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="built_in">memcpy</span>(res,temp1,(end1-temp1)*<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第一个错误的版本"><a href="#第一个错误的版本" class="headerlink" title="第一个错误的版本"></a>第一个错误的版本</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。</p>
+<p>假设你有 n 个版本 [1, 2, …, n]，你想找出导致之后所有版本出错的第一个错误的版本。</p>
+<p>你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数</p>
+<h3 id="题目解析-1"><a href="#题目解析-1" class="headerlink" title="题目解析"></a>题目解析</h3><p>二分查找即可，注意二分时超出int的范围。可以使用一下方法防止超出范围。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> mid=low+(high-low)/<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">firstBadVersion</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> begin=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> end=n;</span><br><span class="line">    <span class="keyword">while</span>(begin&lt;end)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mid=begin+(end-begin)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isBadVersion</span>(mid))</span><br><span class="line">            end=mid;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            begin=mid+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> begin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="../../../../tags/leedcode/" rel="tag"># leedcode</a>
+              <a href="../../../../tags/%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2/" rel="tag"># 排序和搜索</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="../../10/linux-%E7%AE%A1%E9%81%93-%E9%87%8D%E5%AE%9A%E5%90%91-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" rel="prev" title="linux 管道 重定向 环境变量">
+      <i class="fa fa-chevron-left"></i> linux 管道 重定向 环境变量
+    </a></div>
+      <div class="post-nav-item">
+    <a href="../leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next" title="leedcode  动态规划">
+      leedcode  动态规划 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#leedcode-%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">leedcode  排序和搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.</span> <span class="nav-text">合并两个有序数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.1.</span> <span class="nav-text">题目说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">题目解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">第一个错误的版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">题目解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔文耀</p>
+  <div class="site-description" itemprop="description">Hello, here is wenyao's space, how do you come in???</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="../../../../archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="../../../../categories/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="../../../../tags/">
+          
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="../../../../https:/github.com/cuiwenyao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuiwenyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="../../../../mailto:yao1970099540@gmail.com" title="E-Mail → mailto:yao1970099540@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">崔文耀</span>
+</div>
+  <div class="powered-by">由 <a href="../../../../https:/hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="../../../../https:/muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="../../../../lib/anime.min.js"></script>
+  <script src="../../../../lib/velocity/velocity.min.js"></script>
+  <script src="../../../../lib/velocity/velocity.ui.min.js"></script>
+
+<script src="../../../../js/utils.js"></script>
+
+<script src="../../../../js/motion.js"></script>
+
+
+<script src="../../../../js/schemes/muse.js"></script>
+
+
+<script src="../../../../js/next-boot.js"></script>
+
+<script src="../../../../js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

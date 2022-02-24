@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="../../../../images/logo.svg" color="#222">
+  <link rel="manifest" href="../../../../images/manifest.json">
+  <meta name="msapplication-config" content="../../../../images/browserconfig.xml">
+
+<link rel="stylesheet" href="../../../../css/main.css">
+
+
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"myblog.cuimouren.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="linux 用户身份和文件权限useradd1234567-d 指定家目录 useradd wen -d &#x2F;home&#x2F;wen-e 指定用户到期时间 useradd wen -e 2021-9-19-u 指定用户初始的UID-g 指定用户初始的用户组-G 指定一个或者多个扩展用户组-N 不创建与用户同名的基本用户组-s 指定用户默认的shell解释器  groupadd增加用户组 usermod12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux 用户身份和文件权限">
+<meta property="og:url" content="http://myblog.cuimouren.cn/2021/09/19/linux-%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E5%92%8C%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/index.html">
+<meta property="og:site_name" content="这里是文耀的space">
+<meta property="og:description" content="linux 用户身份和文件权限useradd1234567-d 指定家目录 useradd wen -d &#x2F;home&#x2F;wen-e 指定用户到期时间 useradd wen -e 2021-9-19-u 指定用户初始的UID-g 指定用户初始的用户组-G 指定一个或者多个扩展用户组-N 不创建与用户同名的基本用户组-s 指定用户默认的shell解释器  groupadd增加用户组 usermod12">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-19T08:53:44.000Z">
+<meta property="article:modified_time" content="2021-09-19T09:19:56.169Z">
+<meta property="article:author" content="崔文耀">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://myblog.cuimouren.cn/2021/09/19/linux-%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E5%92%8C%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>linux 用户身份和文件权限 | 这里是文耀的space</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="atom.xml" title="这里是文耀的space" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">这里是文耀的space</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wenyao'space</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="../../../../index.html" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="../../../../about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="../../../../tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="../../../../categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="../../../../archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://myblog.cuimouren.cn/2021/09/19/linux-%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E5%92%8C%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="../../../../images/avatar.gif">
+      <meta itemprop="name" content="崔文耀">
+      <meta itemprop="description" content="Hello, here is wenyao's space, how do you come in???">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这里是文耀的space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux 用户身份和文件权限
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-19 16:53:44 / 修改时间：17:19:56" itemprop="dateCreated datePublished" datetime="2021-09-19T16:53:44+08:00">2021-09-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/linux/%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E5%92%8C%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/" itemprop="url" rel="index"><span itemprop="name">用户身份和文件权限</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="linux-用户身份和文件权限"><a href="#linux-用户身份和文件权限" class="headerlink" title="linux 用户身份和文件权限"></a>linux 用户身份和文件权限</h1><h2 id="useradd"><a href="#useradd" class="headerlink" title="useradd"></a>useradd</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-d 指定家目录 useradd wen -d /home/wen</span><br><span class="line">-e 指定用户到期时间 useradd wen -e 2021-9-19</span><br><span class="line">-u 指定用户初始的UID</span><br><span class="line">-g 指定用户初始的用户组</span><br><span class="line">-G 指定一个或者多个扩展用户组</span><br><span class="line">-N 不创建与用户同名的基本用户组</span><br><span class="line">-s 指定用户默认的shell解释器</span><br></pre></td></tr></table></figure>
+
+<h2 id="groupadd"><a href="#groupadd" class="headerlink" title="groupadd"></a>groupadd</h2><p>增加用户组</p>
+<h2 id="usermod"><a href="#usermod" class="headerlink" title="usermod"></a>usermod</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-c 填写用户账户的备注信息</span><br><span class="line">-d -m 参数-m 与参数-d 连用，可重新指定用户的家目录并自动把旧的数据转移过去 </span><br><span class="line">-e 账户的到期时间，格式为 YYYY-MM-DD</span><br><span class="line">-g 变更所属用户组</span><br><span class="line">-G 变更扩展用户组</span><br><span class="line">-L 锁定用户禁止其登录系统</span><br><span class="line">-U 解锁用户，允许其登录系统</span><br><span class="line">-s 变更默认终端</span><br><span class="line">-u 修改用户的 UID</span><br></pre></td></tr></table></figure>
+
+<h2 id="passwd"><a href="#passwd" class="headerlink" title="passwd"></a>passwd</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-l 锁定用户，禁止其登录</span><br><span class="line">-u 解除锁定，允许用户登录</span><br><span class="line">--stdin 允许通过标准输入修改用户密码，如 echo &quot;NewPassWord&quot; | passwd --stdin </span><br><span class="line">-d 使该用户可用空密码登录系统</span><br><span class="line">-e 强制用户在下次登录时修改密码</span><br><span class="line">-S 显示用户的密码是否被锁定，以及密码所采用的加密算法名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="userdel"><a href="#userdel" class="headerlink" title="userdel"></a>userdel</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-f 强制删除用户</span><br><span class="line">-r 同时删除用户及用户家目录</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="../../../../tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="../../16/leedcode-%E4%B8%AD%E7%BA%A7%E7%AE%97%E6%B3%95/" rel="prev" title="leedcode">
+      <i class="fa fa-chevron-left"></i> leedcode
+    </a></div>
+      <div class="post-nav-item">
+    <a href="../../26/c++-%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="c++那些事儿学习笔记">
+      c++那些事儿学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux-%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E5%92%8C%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">linux 用户身份和文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#useradd"><span class="nav-number">1.1.</span> <span class="nav-text">useradd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#groupadd"><span class="nav-number">1.2.</span> <span class="nav-text">groupadd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usermod"><span class="nav-number">1.3.</span> <span class="nav-text">usermod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#passwd"><span class="nav-number">1.4.</span> <span class="nav-text">passwd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#userdel"><span class="nav-number">1.5.</span> <span class="nav-text">userdel</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔文耀</p>
+  <div class="site-description" itemprop="description">Hello, here is wenyao's space, how do you come in???</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="../../../../archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="../../../../categories/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="../../../../tags/">
+          
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="../../../../https:/github.com/cuiwenyao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuiwenyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="../../../../mailto:yao1970099540@gmail.com" title="E-Mail → mailto:yao1970099540@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">崔文耀</span>
+</div>
+  <div class="powered-by">由 <a href="../../../../https:/hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="../../../../https:/muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="../../../../lib/anime.min.js"></script>
+  <script src="../../../../lib/velocity/velocity.min.js"></script>
+  <script src="../../../../lib/velocity/velocity.ui.min.js"></script>
+
+<script src="../../../../js/utils.js"></script>
+
+<script src="../../../../js/motion.js"></script>
+
+
+<script src="../../../../js/schemes/muse.js"></script>
+
+
+<script src="../../../../js/next-boot.js"></script>
+
+<script src="../../../../js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

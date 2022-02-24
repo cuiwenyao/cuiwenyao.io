@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="../../../../images/logo.svg" color="#222">
+  <link rel="manifest" href="../../../../images/manifest.json">
+  <meta name="msapplication-config" content="../../../../images/browserconfig.xml">
+
+<link rel="stylesheet" href="../../../../css/main.css">
+
+
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"myblog.cuimouren.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="leedcode  动态规划链接 动态规划即将问题降阶为小问题并且利用当前规模问题的信息和比之更小的问题的解进行求解当前规模问题。 爬楼梯题目描述假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：给定 n 是一个正整数。 题目解析设c[n]为n节楼梯的可能总数。则 c[n]&#x3D;c[n-1]+c[m-2]; 即从上一节上一节，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leedcode  动态规划">
+<meta property="og:url" content="http://myblog.cuimouren.cn/2021/09/11/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.html">
+<meta property="og:site_name" content="这里是文耀的space">
+<meta property="og:description" content="leedcode  动态规划链接 动态规划即将问题降阶为小问题并且利用当前规模问题的信息和比之更小的问题的解进行求解当前规模问题。 爬楼梯题目描述假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：给定 n 是一个正整数。 题目解析设c[n]为n节楼梯的可能总数。则 c[n]&#x3D;c[n-1]+c[m-2]; 即从上一节上一节，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-11T12:02:01.000Z">
+<meta property="article:modified_time" content="2022-02-24T01:12:41.526Z">
+<meta property="article:author" content="崔文耀">
+<meta property="article:tag" content="leedcode">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://myblog.cuimouren.cn/2021/09/11/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>leedcode  动态规划 | 这里是文耀的space</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="atom.xml" title="这里是文耀的space" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">这里是文耀的space</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wenyao'space</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="../../../../index.html" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="../../../../about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="../../../../tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="../../../../categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="../../../../archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://myblog.cuimouren.cn/2021/09/11/leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="../../../../images/avatar.gif">
+      <meta itemprop="name" content="崔文耀">
+      <meta itemprop="description" content="Hello, here is wenyao's space, how do you come in???">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这里是文耀的space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leedcode  动态规划
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-11 20:02:01" itemprop="dateCreated datePublished" datetime="2021-09-11T20:02:01+08:00">2021-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-24 09:12:41" itemprop="dateModified" datetime="2022-02-24T09:12:41+08:00">2022-02-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/%E7%AE%97%E6%B3%95/leedcode/" itemprop="url" rel="index"><span itemprop="name">leedcode</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="leedcode-动态规划"><a href="#leedcode-动态规划" class="headerlink" title="leedcode  动态规划"></a>leedcode  动态规划</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2qpms/">链接</a></p>
+<p>动态规划即将问题降阶为小问题并且利用当前规模问题的信息和比之更小的问题的解进行求解当前规模问题。</p>
+<h2 id="爬楼梯"><a href="#爬楼梯" class="headerlink" title="爬楼梯"></a>爬楼梯</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+<p>注意：给定 n 是一个正整数。</p>
+<h3 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h3><p>设c[n]为n节楼梯的可能总数。则 c[n]=c[n-1]+c[m-2]; 即从上一节上一节，从上两节上两节。但是不可以从上两节上两次一节，因为这样的话就与 c[n-1] 重复了。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// c[n]=c[n-1]+c[n-2]*2;</span></span><br><span class="line">    <span class="comment">//int *c=(int *)malloc(n*sizeof(int));</span></span><br><span class="line">    <span class="keyword">int</span> c[<span class="number">100</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    c[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    c[<span class="number">2</span>]=<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=n;i++)</span><br><span class="line">        c[i]=c[i<span class="number">-1</span>]+c[i<span class="number">-2</span>];</span><br><span class="line">    <span class="keyword">return</span> c[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="买卖股票的最佳时机"><a href="#买卖股票的最佳时机" class="headerlink" title="买卖股票的最佳时机"></a>买卖股票的最佳时机</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给你一个序列代表股票，每天的价钱，选择一天进行购买并在之后的某一天卖出。求你可以挣得最大值。</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>这个问题当然可以使用暴力进行求解。遍历每一天进行买入并遍历之后的每一天进行卖出。从而得到最大值。</p>
+<p>但是暴力求解显然太low了。问题的关键在于如何找到两天 i j  使得 j-i 最大。如果每一天都知道其前面的那些天中股票的最小值的话不就可以知道在这一天买入可以赚的钱了吗。所以维护维护一个数组dp[n],代表截至到今天股票的最低价格。显然 dp[n]=min(dp[n-1],price[n]) 然后就可以算出今天卖出的最大收益。便利数组即可得到最大收益。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>* prices, <span class="keyword">int</span> pricesSize)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n=pricesSize;</span><br><span class="line">    <span class="keyword">int</span> *dp=(<span class="keyword">int</span> *)<span class="built_in">malloc</span>(n*<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    *(dp)=*(prices);</span><br><span class="line">    <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        *(dp+i)=*(dp+i<span class="number">-1</span>)&lt;*(prices+i)?*(dp+i<span class="number">-1</span>):*(prices+i);</span><br><span class="line">        <span class="keyword">if</span>(*(prices+i)-*(dp+i)&gt;max)</span><br><span class="line">            max=*(prices+i)-*(dp+i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>观察代码可知需要保存的数据其实只有dp[i-1]而已，所以可以进行简化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> *prices, <span class="keyword">int</span> pricesSize)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> dp = *prices;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (++i &lt;= pricesSize - <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        dp = dp &lt; *(prices + i) ? dp : *(prices + i);</span><br><span class="line">        max = *(prices + i) - dp &gt; max ? *(prices + i) - dp : max;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a>最大子序和</h2><h3 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p>输入：nums = [-2,1,-3,4,-1,2,1,-5,4]<br>输出：6<br>解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</p>
+<h3 id="题目解析-方法一"><a href="#题目解析-方法一" class="headerlink" title="题目解析 方法一"></a>题目解析 方法一</h3><p>和上面那一道买卖股票一样的思想。遍历得到每一个从0开始到当前前一个数的和。然后 s[n]-min+nums[n]即为以当前元素为末尾的最大元素和。不过这种思想的代码要考虑的情况比较多。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span> *nums, <span class="keyword">int</span> numsSize)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(numsSize==<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> *nums;</span><br><span class="line">    <span class="comment">// dp[n]</span></span><br><span class="line">    <span class="comment">//便利一次得到 s[i] 为前 i-1个元素之和 </span></span><br><span class="line">    <span class="comment">//然后像买股票一样 得到最大的 s[m]-s[n]+nums[m] 即为最大的子序列和</span></span><br><span class="line">    <span class="keyword">int</span> *s = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>((numsSize+<span class="number">1</span>) * <span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">int</span> *num=(<span class="keyword">int</span> *)<span class="built_in">realloc</span>(nums,(numsSize+<span class="number">1</span>) * <span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    *(num+numsSize)=(*(num+numsSize<span class="number">-1</span>)&lt;<span class="number">0</span>)?*(num+numsSize<span class="number">-1</span>):<span class="number">0</span>;</span><br><span class="line">    *s=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> max=*num;</span><br><span class="line">    <span class="keyword">int</span> min=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=numsSize;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        *(s+i)=*(s+i<span class="number">-1</span>)+*(num+i<span class="number">-1</span>); <span class="comment">//s[n] = sum of first i-1 ele</span></span><br><span class="line">        min=*(s+i)&lt;min?*(s+i):min;</span><br><span class="line">        <span class="keyword">int</span> a=*(s+i)+*(num+i)-min;</span><br><span class="line">        max=a&gt;max?a:max;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="题目解析-方法二"><a href="#题目解析-方法二" class="headerlink" title="题目解析 方法二"></a>题目解析 方法二</h3><p>设当前虽大和为 s[i] 则 s[i]=max{s[i-1]+nums[i],nums[i]} 也就是说 s[i]=s[i-1]&gt;0?s[i-1]+nums[i]:nums[i]; max=max{max,s[i]};</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span> *nums, <span class="keyword">int</span> numsSize)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s=*nums;</span><br><span class="line">    <span class="keyword">int</span> max=s;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=numsSize<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        s=s&lt;<span class="number">0</span>?*(nums+i):s+*(nums+i);</span><br><span class="line">        max=s&gt;max?s:max;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="打家劫舍"><a href="#打家劫舍" class="headerlink" title="打家劫舍"></a>打家劫舍</h2><h3 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h3><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p>
+<h3 id="题目解析-1"><a href="#题目解析-1" class="headerlink" title="题目解析"></a>题目解析</h3><p>动态规划首先要明确大规模问题如何转化为小规模的问题。由此进行从小到大的递推。</p>
+<p>设 dp[n] 代表偷前n家可以达到的最大钱数。 则分为两种情况：</p>
+<ol>
+<li>偷 n 则不能偷 n-1 所以 dp[n]=dp[n-2]+nums[n];</li>
+<li>不偷 n 则可以偷 n-1 dp[n]=dp[n-1];</li>
+</ol>
+<p>这里有一个疑问，就是如果不偷n时，如果恰好在判断是否偷 n-1 时也得出不偷 n-1 的话，岂不是dp[n]不是最大值（少了一个nums[n])，我们再来演示一下：</p>
+<ol>
+<li>若 n-1 没有偷，则 dp[n-1]=dp[n-2]</li>
+<li>此时 对于 n 来讲 dp[n]=max{nums[n]+dp[n-2],dp[n-1]} 由于dp[n-2]==dp[n-1] 则一定 nums[n]+dp[n-2]&gt;dp[n-1] 即一定偷n。</li>
+</ol>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span> *nums, <span class="keyword">int</span> numsSize)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(numsSize==<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> *nums;</span><br><span class="line">    <span class="keyword">if</span>(numsSize==<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> *(nums)&gt;*(nums+<span class="number">1</span>)?*(nums):*(nums+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> *dp=(<span class="keyword">int</span> *)<span class="built_in">malloc</span>(numsSize*<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    *dp=*nums;</span><br><span class="line">    *(dp+<span class="number">1</span>)=*(nums)&gt;*(nums+<span class="number">1</span>)?*(nums):*(nums+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=numsSize<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        *(dp+i)=*(dp+i<span class="number">-2</span>)+*(nums+i)&gt;*(dp+i<span class="number">-1</span>)?*(dp+i<span class="number">-2</span>)+*(nums+i):*(dp+i<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *(dp+numsSize<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="../../../../tags/leedcode/" rel="tag"># leedcode</a>
+              <a href="../../../../tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="../leedcode-%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2/" rel="prev" title="leedcode  排序和搜索">
+      <i class="fa fa-chevron-left"></i> leedcode  排序和搜索
+    </a></div>
+      <div class="post-nav-item">
+    <a href="../../14/leedcode-%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8/" rel="next" title="leedcode">
+      leedcode <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#leedcode-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">leedcode  动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-number">1.1.</span> <span class="nav-text">爬楼梯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">题目解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA"><span class="nav-number">1.2.</span> <span class="nav-text">买卖股票的最佳时机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C"><span class="nav-number">1.3.</span> <span class="nav-text">最大子序和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">1.3.2.</span> <span class="nav-text">题目解析 方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">1.3.3.</span> <span class="nav-text">题目解析 方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D"><span class="nav-number">1.4.</span> <span class="nav-text">打家劫舍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">题目解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="nav-number">1.4.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔文耀</p>
+  <div class="site-description" itemprop="description">Hello, here is wenyao's space, how do you come in???</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="../../../../archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="../../../../categories/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="../../../../tags/">
+          
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="../../../../https:/github.com/cuiwenyao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuiwenyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="../../../../mailto:yao1970099540@gmail.com" title="E-Mail → mailto:yao1970099540@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">崔文耀</span>
+</div>
+  <div class="powered-by">由 <a href="../../../../https:/hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="../../../../https:/muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="../../../../lib/anime.min.js"></script>
+  <script src="../../../../lib/velocity/velocity.min.js"></script>
+  <script src="../../../../lib/velocity/velocity.ui.min.js"></script>
+
+<script src="../../../../js/utils.js"></script>
+
+<script src="../../../../js/motion.js"></script>
+
+
+<script src="../../../../js/schemes/muse.js"></script>
+
+
+<script src="../../../../js/next-boot.js"></script>
+
+<script src="../../../../js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
